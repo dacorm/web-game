@@ -1,18 +1,19 @@
-import { useEffect } from 'react'
-import './App.css'
+import './globalStyles/reset.css'
+
+import Input from './shared/ui/Input'
+import { InputFeature, InputMode } from './shared/ui/Input/Input.types'
 
 function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
-
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return (
+    <div className="App" style={{ width: '300px' }}>
+      <Input
+        mode={InputMode.TEXT}
+        feature={InputFeature.DINAMIC_PLACEHOLDER}
+        placeholder="Введите имя"
+      />
+      <Input mode={InputMode.TEXT} placeholder="Введите имя" />
+    </div>
+  )
 }
 
 export default App

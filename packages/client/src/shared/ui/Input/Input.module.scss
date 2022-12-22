@@ -1,0 +1,62 @@
+@import '../../../globalStyles/constats.scss';
+
+.input {
+  box-sizing: border-box;
+  font-size: 18px;
+  &:focus {
+    outline: none;
+  }
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+.text {
+  border-radius: 10px;
+  max-height: 40px;
+  border: 1px solid $color-black;
+  padding: 7px 15px;
+  width: 100%;
+  transition: border 0.2s;
+  &:focus {
+    border: 1px solid $color-grey;
+  }
+}
+
+.dinamic_wrapper {
+  position: relative;
+}
+.dinamic_placeholder-up {
+  position: absolute;
+  animation: toUp 0.2s ease-in-out forwards;
+}
+.dinamic_placeholder-down {
+  position: absolute;
+  animation: toDown 0.2s ease-in-out forwards;
+}
+
+@keyframes toUp {
+  from {
+    top: 0px;
+    left: 13px;
+    font-size: 19px;
+  }
+  to {
+    top: -15px;
+    left: 5px;
+    font-size: 13px;
+  }
+}
+@keyframes toDown {
+  from {
+    top: -15px;
+    left: 5px;
+    font-size: 13px;
+  }
+  to {
+    top: 6px;
+    left: 16px;
+    color: transparent;
+    visibility: hidden;
+    font-size: 19px;
+  }
+}
