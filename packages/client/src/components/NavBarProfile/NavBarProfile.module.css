@@ -1,0 +1,16 @@
+.userlogo {
+    height: 20px;
+    width:20px;
+    border-radius: 15px;
+    border: solid 1px;
+}
+
+.NavBarUser{
+    align-content: center;
+    margin-left: auto;
+}
+
+.NavBarUser a {
+    text-decoration: none;
+    color: black;
+}
