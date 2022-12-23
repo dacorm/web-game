@@ -7,7 +7,7 @@ import LeaderBoard from './pages/LeaderBoard/LeaderBoard'
 import { NavBar } from './components/NavBar'
 import userLogo from './assets/img/userLogo.png'
 import { Profile } from './pages/Profile/Profile'
-import {ROUTES} from './constants/RouterConst'
+import {ROUTES} from './constants'
 
 
 function App() {

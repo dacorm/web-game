@@ -5,7 +5,7 @@ import { NavBarProfile } from '../NavBarProfile'
 import { NavBarLogo } from '../NavBarLogo'
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
 import { NavBarProps } from './NavBar.types'
-import {ROUTES} from '../../constants/RouterConst'
+import {ROUTES} from '../../constants'
 
 
 const menuItems: NavbarItemProps[] = [

@@ -1,7 +1,7 @@
 import styles from './NavBarProfileDropMenu.module.css'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ROUTES } from '../../constants/RouterConst'
+import { ROUTES } from '../../constants'
 
 interface NavBarProfileDropMenuProps {
   drop: boolean
