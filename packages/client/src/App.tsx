@@ -1,3 +1,5 @@
+
+import './globalStyles/reset.css'
 import { useEffect } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
@@ -8,6 +10,7 @@ import { NavBar } from './components/NavBar'
 import userLogo from './assets/img/userLogo.png'
 import { Profile } from './pages/Profile/Profile'
 import {ROUTES} from './constants'
+
 
 
 function App() {
@@ -34,4 +37,7 @@ function App() {
   )
 }
 
+
 export default App
+
+
