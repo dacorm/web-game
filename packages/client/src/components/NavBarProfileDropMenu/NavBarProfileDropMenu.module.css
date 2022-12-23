@@ -1,0 +1,23 @@
+.dropdown{
+    background: #F5F5F5;
+    position: absolute;
+    right: 0;
+    margin-right: 7px;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dropdownActive  {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.dropdownItem {
+    text-decoration: none;
+    margin-bottom: 5px;
+}
