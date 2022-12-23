@@ -1,12 +1,9 @@
-
-
 .menu {
     margin: 0;
     list-style: none;
     display: flex;
     align-items: center;
 }
-
 
 .navbar{
     padding: 10px;
@@ -16,6 +13,3 @@
     align-items: center;
     background: #F5F5F5;
 }
-
-
-

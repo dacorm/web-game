@@ -6,8 +6,6 @@ import { NavBarLogo } from '../NavBarLogo'
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
 import { NavBarProps } from './NavBar.types'
 
-
-
 const menuItems:NavbarItemProps[]=[
   {path:"/", title:"Поиск игры"},
   {path:"/forum", title:"Форум"},
