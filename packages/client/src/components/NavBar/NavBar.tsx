@@ -7,9 +7,9 @@ import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
 import { NavBarProps } from './NavBar.types'
 
 const menuItems: NavbarItemProps[] = [
-  { path: '/', title: 'Поиск игры' },
-  { path: '/forum', title: 'Форум' },
-  { path: '/leaderboard', title: 'Лидерборд' }
+  { id:1, path: '/', title: 'Поиск игры' },
+  { id:2, path: '/forum', title: 'Форум' },
+  { id:3, path: '/leaderboard', title: 'Лидерборд' }
 ]
 
 export function NavBar({ userLogo, userName }: NavBarProps) {
@@ -18,7 +18,7 @@ export function NavBar({ userLogo, userName }: NavBarProps) {
     <nav className={styles.navbar}>
       <NavBarLogo />
       <ul className={styles.menu}>
-        {menuItems.map((item) => <NavBarItem path={item.path} title={item.title} />)}
+        {menuItems.map((item) => <NavBarItem path={item.path} title={item.title} id={item.id} key={item.id}/>)}
       </ul>
       <NavBarProfile userLogo={userLogo} userName={userName} />
     </nav>

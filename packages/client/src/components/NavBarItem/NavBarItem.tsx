@@ -8,7 +8,7 @@ const isActive=({ isActive }:{isActive:boolean}) => isActive ? active : inactive
 
 export function NavBarItem({ path, title }: NavbarItemProps) {
   return (
-    <li>
+    <li >
       <NavLink to={path} className={isActive}>
         {title}
       </NavLink>
