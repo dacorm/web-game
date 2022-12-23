@@ -22,14 +22,14 @@
   }
 }
 
-.dinamic_wrapper {
+.dynamic_wrapper {
   position: relative;
 }
-.dinamic_placeholder-up {
+.dynamic_placeholder-up {
   position: absolute;
   animation: toUp 0.2s ease-in-out forwards;
 }
-.dinamic_placeholder-down {
+.dynamic_placeholder-down {
   position: absolute;
   animation: toDown 0.2s ease-in-out forwards;
 }
