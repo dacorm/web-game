@@ -1,4 +1,4 @@
 declare module '*.scss' {
-  const value: any
+  const value: Record<string, string>
   export default value
 }
