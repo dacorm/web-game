@@ -7,6 +7,8 @@ import LeaderBoard from './pages/LeaderBoard/LeaderBoard'
 import { NavBar } from './components/NavBar'
 import userLogo from './assets/img/userLogo.png'
 import { Profile } from './pages/Profile/Profile'
+import {ROUTES} from './constants/RouterConst'
+
 
 function App() {
   useEffect(() => {
@@ -23,10 +25,10 @@ function App() {
     <>
       <NavBar userLogo={userLogo} userName='SomeUser' />
       <Routes>
-        <Route path='/' element={<GameSearch />} />
-        <Route path='/forum' element={<Forum />} />
-        <Route path='/leaderboard' element={<LeaderBoard />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path={ROUTES.MAIN} element={<GameSearch />} />
+        <Route path={ROUTES.FORUM} element={<Forum />} />
+        <Route path={ROUTES.LEADER} element={<LeaderBoard />} />
+        <Route path={ROUTES.PROFILE} element={<Profile />} />
       </Routes>
     </>
   )

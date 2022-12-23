@@ -5,11 +5,13 @@ import { NavBarProfile } from '../NavBarProfile'
 import { NavBarLogo } from '../NavBarLogo'
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
 import { NavBarProps } from './NavBar.types'
+import {ROUTES} from '../../constants/RouterConst'
+
 
 const menuItems: NavbarItemProps[] = [
-  { id: 1, path: '/', title: 'Поиск игры' },
-  { id: 2, path: '/forum', title: 'Форум' },
-  { id: 3, path: '/leaderboard', title: 'Лидерборд' }
+  { id: 1, path: ROUTES.MAIN, title: 'Поиск игры' },
+  { id: 2, path: ROUTES.FORUM, title: 'Форум' },
+  { id: 3, path: ROUTES.LEADER, title: 'Лидерборд' }
 ]
 
 export function NavBar({ userLogo, userName }: NavBarProps) {
