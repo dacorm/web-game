@@ -2,7 +2,9 @@ import { NavLink } from 'react-router-dom'
 import styles from './NavBarItem.module.css'
 import { NavbarItemProps } from './NavBarItem.types'
 
-const isActive=({ isActive }:{isActive:boolean}) => isActive ? `${styles.menuItem} ${styles.menuItemActive}` : `${styles.menuItem}`
+const active=`${styles.menuItem} ${styles.menuItemActive}`
+const inactive= `${styles.menuItem}`
+const isActive=({ isActive }:{isActive:boolean}) => isActive ? active : inactive
 
 export function NavBarItem({ path, title }: NavbarItemProps) {
   return (
