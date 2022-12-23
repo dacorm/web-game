@@ -3,13 +3,16 @@
     list-style: none;
     display: flex;
     align-items: center;
+
 }
 
-.navbar{
+.navbar {
     padding: 10px;
     margin: 0;
     list-style: none;
     display: flex;
     align-items: center;
     background: #F5F5F5;
+    height: 60px;
+
 }
