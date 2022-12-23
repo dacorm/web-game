@@ -6,21 +6,21 @@ import { NavBarLogo } from '../NavBarLogo'
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
 import { NavBarProps } from './NavBar.types'
 
-const menuItems:NavbarItemProps[]=[
-  {path:"/", title:"Поиск игры"},
-  {path:"/forum", title:"Форум"},
-  {path:"/leaderboard", title:"Лидерборд"}
+const menuItems: NavbarItemProps[] = [
+  { path: '/', title: 'Поиск игры' },
+  { path: '/forum', title: 'Форум' },
+  { path: '/leaderboard', title: 'Лидерборд' }
 ]
 
-export function NavBar({userLogo, userName}:NavBarProps) {
+export function NavBar({ userLogo, userName }: NavBarProps) {
 
   return (
     <nav className={styles.navbar}>
-      <NavBarLogo/>
+      <NavBarLogo />
       <ul className={styles.menu}>
-        {menuItems.map((item)=><NavBarItem path={item.path} title={item.title}/>)}
+        {menuItems.map((item) => <NavBarItem path={item.path} title={item.title} />)}
       </ul>
-      <NavBarProfile  userLogo={userLogo} userName={userName}/>
+      <NavBarProfile userLogo={userLogo} userName={userName} />
     </nav>
 
   )
