@@ -12,29 +12,26 @@ const Input: FC<InputProps> = ({
   ...props
 }) => {
   const [isFocus, setIsFocus] = useState(false)
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleFocus = useCallback(() => {
     setIsFocus(true)
   }, [])
   const handleBlur = useCallback(() => {
-    inputRef.current &&
-      !(inputRef.current as HTMLInputElement).value.length &&
-      setIsFocus(false)
+    inputRef.current && !inputRef.current.value.length && setIsFocus(false)
   }, [])
 
   switch (feature) {
-    case InputFeature.DINAMIC_PLACEHOLDER: {
+    case InputFeature.DYNAMIC_PLACEHOLDER: {
       return (
-        <div className={styles['dinamic_wrapper']}>
+        <div className={styles['dynamic_wrapper']}>
           <span
             className={
               isFocus
-                ? styles['dinamic_placeholder-up']
-                : styles['dinamic_placeholder-down']
+                ? styles['dynamic_placeholder-up']
+                : styles['dynamic_placeholder-down']
             }>
-            {inputRef.current &&
-              (inputRef.current as HTMLInputElement).placeholder}
+            {inputRef.current && inputRef.current.placeholder}
           </span>
 
           <input
