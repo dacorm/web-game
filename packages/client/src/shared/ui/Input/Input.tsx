@@ -17,6 +17,7 @@ const Input: FC<InputProps> = ({
   const handleFocus = useCallback(() => {
     setIsFocus(true)
   }, [])
+
   const handleBlur = useCallback(() => {
     inputRef.current && !inputRef.current.value.length && setIsFocus(false)
   }, [])
