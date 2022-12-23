@@ -1,18 +1,17 @@
-import { Link } from 'react-router-dom'
-import styles from "./NavBarItem.module.css"
-
-interface INavbarItemProps{
-  path:string,
-  title:string,
-  activePath:string,
-  onClick:(e:React.MouseEvent)=>void
-}
+import { NavLink } from 'react-router-dom'
+import styles from './NavBarItem.module.css'
+import { NavbarItemProps } from './NavBarItem.types'
 
 
-export function NavBarItem({path, title, activePath, onClick}:INavbarItemProps) {
-  const style=activePath===path?`${styles.menuItem} ${styles.menuItemActive}`:`${styles.menuItem}`
+export function NavBarItem({ path, title }: NavbarItemProps) {
 
   return (
-        <li className={`${style}`}><Link to={path} onClick={onClick}>{title}</Link></li>
+    <li>
+      <NavLink
+        to={path}
+        className={({ isActive }) => isActive ? `${styles.menuItem} ${styles.menuItemActive}` : `${styles.menuItem}`}>
+        {title}
+      </NavLink>
+    </li>
   )
 }

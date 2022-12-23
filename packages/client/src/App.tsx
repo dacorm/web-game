@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import GameSearch from './pages/GameSearch/GameSearch'
 import Forum from './pages/Forum/Forum'
 import LeaderBoard from './pages/LeaderBoard/LeaderBoard'
-import { NavBar } from './components/NavBar/NavBar'
+import { NavBar } from './components/NavBar'
 import userLogo from './assets/img/userLogo.png'
 import { Profile } from './pages/Profile/Profile'
 

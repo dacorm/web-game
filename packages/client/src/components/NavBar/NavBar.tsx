@@ -1,37 +1,28 @@
 import styles from './NavBar.module.css'
-import { NavBarItem } from '../NavBarItem/NavBarItem'
-import React, { useState } from 'react'
-import { NavBarProfile } from '../NavBarProfile/NavBarProfile'
-import { NavBarLogo } from '../NavBarLogo/NavBarLogo'
-
-interface INavBar{
-  userLogo:string,
-  userName:string
-}
+import { NavBarItem } from '../NavBarItem'
+import React from 'react'
+import { NavBarProfile } from '../NavBarProfile'
+import { NavBarLogo } from '../NavBarLogo'
+import { NavbarItemProps } from '../NavBarItem/NavBarItem.types'
+import { NavBarProps } from './NavBar.types'
 
 
-export function NavBar({userLogo, userName}:INavBar) {
-  const url = window.location.pathname
-  const [activePath, SetActivePath] = useState(url)
 
-  const ClickHandler = (e: React.MouseEvent) => {
-    const target = e.target as HTMLLinkElement
-    const nextPath = target.getAttribute('href')
-    if (nextPath) {
-      SetActivePath(nextPath)
-    }
+const menuItems:NavbarItemProps[]=[
+  {path:"/", title:"Поиск игры"},
+  {path:"/forum", title:"Форум"},
+  {path:"/leaderboard", title:"Лидерборд"}
+]
 
-  }
+export function NavBar({userLogo, userName}:NavBarProps) {
 
   return (
-    <nav className={styles.NavBar}>
+    <nav className={styles.navbar}>
       <NavBarLogo/>
       <ul className={styles.menu}>
-        <NavBarItem path='/' title='Search game' activePath={activePath} onClick={ClickHandler} />
-        <NavBarItem path='/forum' title='Forum' activePath={activePath} onClick={ClickHandler} />
-        <NavBarItem path='/leaderboard' title='LeaderBoard' activePath={activePath} onClick={ClickHandler} />
+        {menuItems.map((item)=><NavBarItem path={item.path} title={item.title}/>)}
       </ul>
-      <NavBarProfile onClick={ClickHandler} userLogo={userLogo} userName={userName}/>
+      <NavBarProfile  userLogo={userLogo} userName={userName}/>
     </nav>
 
   )

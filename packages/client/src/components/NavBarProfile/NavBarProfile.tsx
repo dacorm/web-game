@@ -1,25 +1,15 @@
 import styles from './NavBarProfile.module.css'
 import { Link } from 'react-router-dom'
 import React from 'react'
+import { NavBarProfileProps } from './NavBarProfile.types'
 
+export function NavBarProfile({ userLogo, userName }: NavBarProfileProps) {
 
-interface INavBarProfile{
-  onClick:(e:React.MouseEvent)=>void
-  userLogo:string,
-  userName: string
-}
-
-export function NavBarProfile({onClick, userLogo, userName}:INavBarProfile){
-
-  return(
-    <div className={styles.NavBarUser}>
-      <Link to={'/profile'} onClick={onClick}>
-        <img src={userLogo} className={styles.userlogo} alt={userName}/> {userName}
+  return (
+    <div className={styles.navbarUser}>
+      <Link to={'/profile'}>
+        <img src={userLogo} className={styles.userLogo} alt={userName} /> {userName}
       </Link>
     </div>
-
-
   )
-
-
 }

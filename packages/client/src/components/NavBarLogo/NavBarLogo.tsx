@@ -5,8 +5,8 @@ import styles from './NavBarLogo.module.css'
 export function NavBarLogo() {
 
   return (
-    <div><img className={styles.mainLogo} src={logo} alt="Monopoly"/> Monopoly Game</div>
+    <div>
+      <img className={styles.mainLogo} src={logo} alt='Monopoly' />
+      Monopoly Game</div>
   )
-
-
 }
