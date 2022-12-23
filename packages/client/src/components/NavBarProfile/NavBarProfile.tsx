@@ -8,7 +8,6 @@ export const  NavBarProfile=memo(({ userLogo, userName }: NavBarProfileProps)=> 
  const [drop, Setdrop]=useState(false)
 
   const clickHandler=()=>{
-   console.log("drop", drop)
     Setdrop(!drop)
   }
 
