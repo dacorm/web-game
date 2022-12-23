@@ -8,7 +8,7 @@ function App() {
     <div className="App" style={{ width: '300px' }}>
       <Input
         mode={InputMode.TEXT}
-        feature={InputFeature.DINAMIC_PLACEHOLDER}
+        feature={InputFeature.DYNAMIC_PLACEHOLDER}
         placeholder="Введите имя"
       />
       <Input mode={InputMode.TEXT} placeholder="Введите имя" />

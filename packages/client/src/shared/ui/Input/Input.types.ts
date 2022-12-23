@@ -4,7 +4,7 @@ export enum InputMode {
   TEXT = 'text',
 }
 export enum InputFeature {
-  DINAMIC_PLACEHOLDER = 'dinamic_placeholder',
+  DYNAMIC_PLACEHOLDER = 'dynamic_placeholder',
 }
 
 export interface InputProps
