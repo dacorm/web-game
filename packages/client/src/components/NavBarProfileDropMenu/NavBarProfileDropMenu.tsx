@@ -1,6 +1,7 @@
 import styles from './NavBarProfileDropMenu.module.css'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../../constants/RouterConst'
 
 interface NavBarProfileDropMenuProps {
   drop: boolean
@@ -15,7 +16,7 @@ export function NavBarProfileDropMenu({ drop, onClick }: NavBarProfileDropMenuPr
   return (
     <ul className={style} onClick={onClick}>
       <li className={styles.dropdownItem}>
-        <Link to={'/profile'} >
+        <Link to={ROUTES.PROFILE} >
           Профиль
         </Link>
       </li>
