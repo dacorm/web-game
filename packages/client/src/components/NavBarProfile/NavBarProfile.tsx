@@ -11,6 +11,11 @@ export const  NavBarProfile=memo(({ userLogo, userName }: NavBarProfileProps)=> 
     Setdrop(!drop)
   }
 
+ /* document.addEventListener("click", (e)=>{
+    Setdrop(false)
+    console.log("fghj")
+  })*/
+
   return (
     <div className={styles.navbarUser}>
      <div onClick={clickHandler}>

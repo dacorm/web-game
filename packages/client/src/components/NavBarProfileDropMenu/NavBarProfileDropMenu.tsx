@@ -10,7 +10,7 @@ interface NavBarProfileDropMenuProps {
 
 export function NavBarProfileDropMenu({ drop, onClick }: NavBarProfileDropMenuProps) {
 
-  const style = drop ? `${styles.dropdown}` : `${styles.dropdown} ${styles.dropdownActive}`
+  const style = drop ? `${styles.dropdown} ${styles.dropdownActive}` : `${styles.dropdown}`
 
   return (
     <ul className={style} onClick={onClick}>
