@@ -1,5 +1,7 @@
-export default function  GameSearch(){
+export default function GameSearch(){
   return (
-    <div>GameSearch</div>
+    <>
+      <div>GameSearch</div>
+    </>
   )
 }
