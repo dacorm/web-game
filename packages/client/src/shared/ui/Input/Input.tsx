@@ -2,7 +2,7 @@ import { InputFeature, InputProps } from './Input.types'
 import { FC, useCallback, useRef, useState } from 'react'
 import cn from 'classnames'
 
-import styles from './Input.module.scss'
+import styles from './Input.module.css'
 
 /**
  * Компонент Input
@@ -65,12 +65,7 @@ const Input: FC<InputProps> = ({
       return (
         <label className={styles.label}>
           {label}
-          <input
-            className={cn(
-              styles.inputWithLabel,
-              className
-            )}
-            {...props}>
+          <input className={cn(styles.inputWithLabel, className)} {...props}>
             {children}
           </input>
         </label>

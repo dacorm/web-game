@@ -1,15 +1,12 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import MenuStub from '../../components/MenuStub'
 import { NavBar } from '../../components/NavBar'
-import { OnlyChildren } from '../../types/global.types'
 
-import style from './MenuLayout.module.scss'
+import style from './MenuLayout.module.css'
 import userLogo from '../../assets/img/userLogo.png'
 import { Outlet } from 'react-router'
 
-
-
-const MenuLayout: FC<OnlyChildren> = ({ children }) => {
+const MenuLayout: FC = () => {
   return (
     <>
       <NavBar userLogo={userLogo} userName="SomeUser" />

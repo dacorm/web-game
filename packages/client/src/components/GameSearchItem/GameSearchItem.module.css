@@ -1,0 +1,12 @@
+.games-item {
+    display: flex;
+    background-color: var(--color-white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    flex: 1 1 46%;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+
+}
