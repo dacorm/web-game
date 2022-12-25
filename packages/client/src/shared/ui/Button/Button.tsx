@@ -2,7 +2,7 @@ import { ButtonProps, ButtonTheme } from './Button.types'
 import { FC } from 'react'
 import cn from 'classnames'
 
-import styles from './Button.module.scss'
+import styles from './Button.module.css'
 
 const Button: FC<ButtonProps> = ({
   children,

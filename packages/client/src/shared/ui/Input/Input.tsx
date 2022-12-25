@@ -2,7 +2,7 @@ import { InputFeature, InputProps } from './Input.types'
 import { FC, useCallback, useRef, useState } from 'react'
 import cn from 'classnames'
 
-import styles from './Input.module.scss'
+import styles from './Input.module.css'
 
 /**
  * Компонент Input
