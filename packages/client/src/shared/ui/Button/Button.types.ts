@@ -24,5 +24,5 @@ export interface ButtonProps
   theme?: ButtonTheme
   mode?: ButtonMode
   size?: ButtonSize
-  children: ReactNode
+  children?: ReactNode
 }

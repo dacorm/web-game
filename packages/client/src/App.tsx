@@ -1,7 +1,7 @@
 import './globalStyles/reset.css'
 
 import { Route, Routes } from 'react-router-dom'
-import GameSearch from './pages/GameSearch/GameSearch'
+import GameSearch from './pages/GameSearch/'
 import Forum from './pages/Forum/Forum'
 import LeaderBoard from './pages/LeaderBoard/LeaderBoard'
 
