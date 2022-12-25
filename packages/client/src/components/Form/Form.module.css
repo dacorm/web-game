@@ -1,0 +1,31 @@
+.container {
+    width: 400px;
+    min-height: 600px;
+    background: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+    margin: auto;
+    padding: 10px;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    color: #000000;
+    margin: 50px 0 0 0;
+}
+
+.button {
+    height: 40px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+
+}

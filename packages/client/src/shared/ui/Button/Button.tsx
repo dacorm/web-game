@@ -11,7 +11,7 @@ const Button: FC<ButtonProps> = ({
   size,
   className,
   ...props
-}) => {
+}: ButtonProps) => {
   return (
     <button
       className={cn(

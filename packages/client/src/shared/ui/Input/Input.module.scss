@@ -60,3 +60,23 @@
     font-size: 19px;
   }
 }
+
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  color: #8C8C8C;
+}
+
+.inputWithLabel {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  height: 40px;
+  margin-top: 20px;
+  padding-left: 5px;
+}
