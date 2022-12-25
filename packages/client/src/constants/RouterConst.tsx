@@ -1,7 +1,6 @@
-export const ROUTES={
-  MAIN: "/",
-  FORUM: "/forum",
-  LEADER: "/leaderboard",
-  PROFILE:"/profile"
-
+export const ROUTES = {
+  MAIN: '/',
+  FORUM: '/forum',
+  LEADER: '/leaderboard',
+  PROFILE: '/profile',
 }
