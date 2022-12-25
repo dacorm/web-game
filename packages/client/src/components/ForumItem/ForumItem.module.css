@@ -1,0 +1,51 @@
+.item {
+    margin-bottom: 20px;
+    padding: 0px 15px;
+}
+
+.item-info {
+    display: flex;
+    margin-left: 20px;
+    color: var(--color-sub-text);
+    font-size: 12px;
+}
+
+.item-author {
+    font-size: 13px;
+}
+
+.item-date {
+    margin-left: 10px;
+}
+
+.item-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-menu-background);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.item-inner:hover {
+    opacity: 0.8;
+}
+
+.item-name,
+.item-count-msg {
+    padding: 20px 10px;
+    color: var(--color-black);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 20px;
+}
+
+.item-name {
+    flex: 0 1 70%;
+}
+
+.item-count-msg {
+    margin-left: 50px;
+}
