@@ -1,4 +1,6 @@
 import './globalStyles/reset.css'
+import './globalStyles/constats.css'
+import './globalStyles/global-styles.css'
 
 import { Route, Routes } from 'react-router-dom'
 import GameSearch from './pages/GameSearch/'
