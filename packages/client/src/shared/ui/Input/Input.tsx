@@ -4,10 +4,20 @@ import cn from 'classnames'
 
 import styles from './Input.module.scss'
 
+/**
+ * Компонент Input
+ * @component
+ * @example
+ * return (
+ *   <Input feature={InputFeature.WITH_LABEL} type={'email'} label='Электронная почта' />
+ * )
+ */
+
 const Input: FC<InputProps> = ({
   children,
   mode,
   feature,
+  label,
   className,
   ...props
 }) => {
@@ -36,7 +46,6 @@ const Input: FC<InputProps> = ({
           </span>
 
           <input
-            type="text"
             ref={inputRef}
             onFocus={handleFocus}
             onBlur={handleBlur}
@@ -52,10 +61,25 @@ const Input: FC<InputProps> = ({
       )
     }
 
+    case InputFeature.WITH_LABEL: {
+      return (
+        <label className={styles.label}>
+          {label}
+          <input
+            className={cn(
+              styles.inputWithLabel,
+              className
+            )}
+            {...props}>
+            {children}
+          </input>
+        </label>
+      )
+    }
+
     default: {
       return (
         <input
-          type="text"
           className={cn(
             styles.input,
             mode && styles[mode],
