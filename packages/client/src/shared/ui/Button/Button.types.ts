@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 
 export enum ButtonTheme {
   GREEN = 'green',
@@ -18,11 +18,11 @@ export enum ButtonSize {
 
 export interface ButtonProps
   extends DetailedHTMLProps<
-    HTMLAttributes<HTMLButtonElement>,
+    ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   theme?: ButtonTheme
   mode?: ButtonMode
   size?: ButtonSize
-  children?: ReactNode
+  children: ReactNode
 }

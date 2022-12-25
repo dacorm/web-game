@@ -1,55 +1,62 @@
-@import '../../../globalStyles/constats.scss';
-
 .button {
   box-sizing: border-box;
 
   min-height: 25px;
   font-size: 14px;
   border: none;
-  border-radius: $border-radius-btn;
+  border-radius: var(--border-radius-btn);
   letter-spacing: px;
   cursor: pointer;
   transition: opacity 0.2s;
-  &:hover {
-    opacity: 0.9;
-  }
+
 }
 
-// -------theme------
+.button:hover {
+  opacity: 0.9;
+}
+
+/* -------theme------ */
 .green {
-  background-color: $color-green;
-  color: $color-white;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
+
 .grey {
-  background-color: $color-grey;
-  color: $color-white;
+  background-color: var(--color-grey);
+  color: var(--color-white);
 }
+
 .transparent {
   background-color: transparent;
-  color: $color-black;
+  color: var(--color-black);
 }
-// -------theme end------
 
-// -------size------
+/* -------theme end------ */
+
+/* -------size------ */
 .s {
   padding: 5px 8px;
   font-size: 18px;
 }
+
 .m {
   min-width: 150px;
-  padding: 13px;
+  padding: 7px 11px;
   min-height: 38px;
   font-size: 20px;
 }
+
 .x {
   min-width: 240px;
   padding: 13px;
   font-size: 20px;
 }
-// -------size end------
 
-// -------mode------
+/* -------size end------ */
+
+/* -------mode------ */
 .full-size {
   width: 100%;
 }
-// -------mode end------
+
+/* -------mode end------ */

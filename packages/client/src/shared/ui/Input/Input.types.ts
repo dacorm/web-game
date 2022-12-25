@@ -1,18 +1,20 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
 
 export enum InputMode {
   TEXT = 'text',
 }
 export enum InputFeature {
   DYNAMIC_PLACEHOLDER = 'dynamic_placeholder',
+  WITH_LABEL = 'with_label',
 }
 
 export interface InputProps
   extends DetailedHTMLProps<
-    HTMLAttributes<HTMLInputElement>,
+    InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
   mode?: InputMode
+  label?: string
   feature?: InputFeature
   children?: ReactNode
 }
