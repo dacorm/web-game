@@ -4,6 +4,17 @@ import cn from 'classnames'
 
 import styles from './Button.module.css'
 
+/**
+ * Компонент Button
+ * @component
+ * @example
+ * return (
+ *   <Button size={ButtonSize.M} theme={ButtonTheme.GREEN}>
+            Я кнопка
+          </Button>
+ * )
+ */
+
 const Button: FC<ButtonProps> = ({
   children,
   theme = ButtonTheme.GREEN,

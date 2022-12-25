@@ -10,6 +10,12 @@ import styles from './Input.module.css'
  * @example
  * return (
  *   <Input feature={InputFeature.WITH_LABEL} type={'email'} label='Электронная почта' />
+ *   <Input
+        type="text"
+        mode={InputMode.TEXT}
+        feature={InputFeature.DYNAMIC_PLACEHOLDER}
+        customPlaceholder="Введите почту">
+      </Input>
  * )
  */
 
@@ -18,6 +24,7 @@ const Input: FC<InputProps> = ({
   mode,
   feature,
   label,
+  customPlaceholder,
   className,
   ...props
 }) => {
@@ -42,7 +49,7 @@ const Input: FC<InputProps> = ({
                 ? styles['dynamic_placeholder-up']
                 : styles['dynamic_placeholder-down']
             }>
-            {inputRef.current && inputRef.current.placeholder}
+            {customPlaceholder}
           </span>
 
           <input

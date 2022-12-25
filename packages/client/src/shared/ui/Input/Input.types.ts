@@ -16,5 +16,6 @@ export interface InputProps
   mode?: InputMode
   label?: string
   feature?: InputFeature
+  customPlaceholder?: string
   children?: ReactNode
 }

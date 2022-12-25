@@ -42,29 +42,27 @@
 @keyframes toUp {
   from {
     top: 0px;
-    left: 13px;
+    left: 14px;
     font-size: 19px;
   }
 
   to {
     top: -15px;
-    left: 5px;
-    font-size: 13px;
+    left: 7px;
+    font-size: 14px;
   }
 }
 
 @keyframes toDown {
   from {
     top: -15px;
-    left: 5px;
-    font-size: 13px;
+    left: 7px;
+    font-size: 14px;
   }
 
   to {
     top: 6px;
     left: 16px;
-    color: transparent;
-    visibility: hidden;
     font-size: 19px;
   }
 }
