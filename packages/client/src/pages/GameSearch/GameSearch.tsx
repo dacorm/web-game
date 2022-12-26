@@ -1,9 +1,17 @@
-import { BoardStage } from '../../core/BoardStage/BoardStage'
+import { FC } from 'react'
+import GameSearchBlock from '../../components/GameSearchBlock'
+import GameSearchHeader from '../../components/GameSearchHeader'
+import Input from '../../shared/ui/Input'
+import './GameSearch.css'
 
-export default function GameSearch() {
+const GameSearch: FC = () => {
   return (
-    <>
-      <BoardStage />
-    </>
+    <div className="search-game">
+      <GameSearchHeader />
+      <Input type="text" />
+      <GameSearchBlock />
+    </div>
   )
 }
+
+export default GameSearch
