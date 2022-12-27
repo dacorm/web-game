@@ -1,9 +1,9 @@
 .games-block {
-    padding: 20px 0px;
+  padding: 20px 0;
 }
 
 .games-block-inner {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
