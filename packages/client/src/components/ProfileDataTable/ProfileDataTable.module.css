@@ -1,0 +1,12 @@
+.DataTable {
+    font-family: var(--font);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 40px;
+    border: none;
+}
+
+.dataTd {
+    padding-left: 20px;
+}

@@ -1,0 +1,15 @@
+.profileForm{
+   margin-left: 20px;
+}
+
+.button {
+   height: 40px;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 20px;
+   line-height: 20px;
+   text-align: center;
+   color: #FFFFFF;
+   margin-top: 10px;
+    padding: 10px;
+}

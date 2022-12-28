@@ -77,6 +77,7 @@
   font-size: 20px;
   line-height: 20px;
   color: #8c8c8c;
+  margin-top: 15px;
 }
 
 .inputWithLabel {
@@ -84,6 +85,6 @@
   border: 1px solid #000000;
   border-radius: 10px;
   height: 40px;
-  margin-top: 20px;
+  margin-top: 6px;
   padding-left: 5px;
 }
