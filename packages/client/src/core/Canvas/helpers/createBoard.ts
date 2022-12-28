@@ -2,7 +2,7 @@ import { Rect } from '../../Shapes/Rect'
 import { Canvas } from './Canvas'
 import { boardSize, Util } from '../../Util'
 
-const colors = new Array(100).fill(0).map(() => Util.randomColor())
+const colors = new Array(100).fill(0).map(Util.randomColor)
 
 export function createBoard(canvas: Canvas) {
   const context = canvas.getContext()
