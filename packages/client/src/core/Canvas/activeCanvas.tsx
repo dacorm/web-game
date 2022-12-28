@@ -13,12 +13,12 @@ export const activeCanvas = ({ width, height, squares }: Props) => {
 
   const context = ref.current.getContext()
 
+  const stop = () => cancelAnimationFrame(frame.current)
   const animate = () => {
     frame.current = requestAnimationFrame(animate)
     context.clearRect(0, 0, ref.current.width, ref.current.height)
-    player.current.move(squares || 0)
+    const playerCoords = player.current.move()
   }
-  const stop = () => cancelAnimationFrame(frame.current)
 
   useEffect(() => {
     ref.current.setSize(width, height)

@@ -10,6 +10,7 @@ const LeaderBoardPage = routerSuspense(
 )
 const ForumPage = routerSuspense(lazy(() => import('../../pages/Forum')))
 const ProfilePage = routerSuspense(lazy(() => import('../../pages/Profile')))
+const GamePage = routerSuspense(lazy(() => import('../../pages/Game/Game')))
 
 const RouterLayout = () => {
   return (
@@ -19,6 +20,7 @@ const RouterLayout = () => {
         <Route path={ROUTES.FORUM} element={ForumPage} />
         <Route path={ROUTES.LEADER} element={LeaderBoardPage} />
         <Route path={ROUTES.PROFILE} element={ProfilePage} />
+        <Route path={ROUTES.GAME} element={GamePage} />
       </Route>
     </Routes>
   )
