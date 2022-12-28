@@ -1,7 +1,7 @@
 .menuItem{
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 15px;
-    padding: 10px 23px;
+    padding: 10px 10px;
     text-decoration: none;
     font-style: normal;
     font-weight: 400;
@@ -13,4 +13,20 @@
 .menuItemActive{
     background: #6EAC96;
     color: white!important;
+}
+
+
+
+@media screen and (max-width: 750px) {
+    .menuItem{
+        margin-right: 10px;
+        border-radius: 15px;
+        padding: 10px 10px;
+        text-decoration: none;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        color: black;
+        font-family: "Inter", serif;
+    }
 }

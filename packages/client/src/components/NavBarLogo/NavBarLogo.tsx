@@ -6,9 +6,11 @@ import { memo } from 'react'
 export const NavBarLogo = memo(() => {
 
   return (
-    <div>
+    <div className={styles.navLogoBlock}>
       <img className={styles.mainLogo} src={logo} alt='Monopoly' />
-      Monopoly Game
+     <div className={styles.textLogo}>
+       Monopoly Game
+     </div>
     </div>
   )
 })

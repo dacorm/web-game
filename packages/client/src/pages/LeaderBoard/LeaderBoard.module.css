@@ -1,0 +1,54 @@
+.leaderTable {
+    width: 100%;
+}
+
+
+ table, tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+     text-align: center;
+}
+
+ td{
+     padding: 10px;
+ }
+
+.leader {
+    padding: 20px;
+}
+
+.place{
+    color: red;
+
+}
+
+.leaderLogo {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px solid var(--color-grey);
+    margin-right: 50px;
+}
+
+
+.leaderName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leaderData {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.tableHeader {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
