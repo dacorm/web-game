@@ -1,15 +1,16 @@
 .leaderTable {
     width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 
- table, tr, td {
-    border: 1px solid black;
-    border-collapse: collapse;
+ .leader td{
+     border: 1px solid black;
      text-align: center;
 }
 
- td{
+.leader td{
      padding: 10px;
  }
 
