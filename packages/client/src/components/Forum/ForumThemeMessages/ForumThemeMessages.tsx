@@ -12,7 +12,7 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
       () =>
         wrapperRef.current &&
         (wrapperRef.current.scrollTop = wrapperRef.current.scrollHeight),
-      0
+      10
     )
   }, [])
 

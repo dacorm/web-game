@@ -1,4 +1,3 @@
-import LeaderBoard from './LeaderBoard';
+import LeaderBoard from './LeaderBoard'
 
-export default LeaderBoard;
-
+export default LeaderBoard

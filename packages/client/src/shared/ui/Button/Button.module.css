@@ -5,10 +5,8 @@
   font-size: 14px;
   border: none;
   border-radius: var(--border-radius-btn);
-  letter-spacing: px;
   cursor: pointer;
   transition: opacity 0.2s;
-
 }
 
 .button:hover {

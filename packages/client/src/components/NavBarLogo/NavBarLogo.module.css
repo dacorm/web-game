@@ -1,6 +1,18 @@
 .mainLogo {
-    height: 30px;
-    width:30px;
-    border-radius: 15px;
+    height: 45px;
+    width: 45px;
+    border-radius: 5px;
     border: solid 1px;
+    margin-right: 3px;
+}
+
+.textLogo {
+    color: black;
+    text-align: center;
+}
+
+.navLogoBlock {
+    margin-right: 15px;
+    display: flex;
+    align-items: center
 }

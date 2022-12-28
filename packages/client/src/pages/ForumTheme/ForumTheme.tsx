@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ForumThemeHeader from '../../components/Forum/ForumThemeHeader'
 import ForumThemeMessages from '../../components/Forum/ForumThemeMessages'
@@ -7,7 +7,7 @@ import ForumThemeTextArea from '../../components/Forum/ForumThemeTextArea'
 import style from './ForumTheme.module.css'
 import { TTheme } from './ForumTheme.types'
 
-const ForumTheme: FC = () => {
+const ForumTheme = () => {
   const { id_theme } = useParams()
   const [theme, setTheme] = useState<TTheme>(null)
 

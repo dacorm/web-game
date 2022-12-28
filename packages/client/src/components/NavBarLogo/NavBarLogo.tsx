@@ -4,11 +4,10 @@ import styles from './NavBarLogo.module.css'
 import { memo } from 'react'
 
 export const NavBarLogo = memo(() => {
-
   return (
-    <div>
-      <img className={styles.mainLogo} src={logo} alt='Monopoly' />
-      Monopoly Game
+    <div className={styles.navLogoBlock}>
+      <img className={styles.mainLogo} src={logo} alt="Monopoly" />
+      <div className={styles.textLogo}>Monopoly Game</div>
     </div>
   )
 })

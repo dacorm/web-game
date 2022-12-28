@@ -3,4 +3,9 @@ node_modules/
 .idea
 .vscode
 dist
+<<<<<<< HEAD
 tmp
+=======
+tmp
+/yarn-error.log
+>>>>>>> main
