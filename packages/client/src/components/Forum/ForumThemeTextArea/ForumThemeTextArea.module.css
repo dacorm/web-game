@@ -1,0 +1,22 @@
+.form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px 20px 0px;
+    background-color: var(--color-menu-background);
+    align-items: center;
+}
+
+.textarea {
+    flex: 0 1 85%;
+    background-color: var(--color-white);
+    border-radius: 20px;
+    min-height: 100px;
+    padding: 20px;
+}
+
+.button {
+    height: 50%;
+    margin-left: 20px;
+
+}

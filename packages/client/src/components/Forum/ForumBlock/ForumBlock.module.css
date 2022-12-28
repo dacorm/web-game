@@ -1,0 +1,12 @@
+.forum-block {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    flex: 1 1 90%;
+}
+
+.pagination-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}

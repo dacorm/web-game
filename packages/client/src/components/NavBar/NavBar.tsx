@@ -31,4 +31,3 @@ export function NavBar({ userLogo, userName }: NavBarProps) {
     </nav>
   )
 }
-

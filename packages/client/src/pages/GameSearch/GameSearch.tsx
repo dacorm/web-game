@@ -1,14 +1,12 @@
 import { FC } from 'react'
-import GameSearchBlock from '../../components/GameSearchBlock'
-import GameSearchHeader from '../../components/GameSearchHeader'
-import Input from '../../shared/ui/Input'
+import GameSearchBlock from '../../components/GameSearch/GameSearchBlock'
+import MenuHeader from '../../components/MenuHeader'
 import './GameSearch.css'
 
 const GameSearch: FC = () => {
   return (
     <div className="search-game">
-      <GameSearchHeader />
-      <Input type="text" />
+      <MenuHeader text="Ожидают игры" buttonText="Создать игру" />
       <GameSearchBlock />
     </div>
   )

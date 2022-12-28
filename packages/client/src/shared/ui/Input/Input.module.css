@@ -40,30 +40,28 @@
 
 @keyframes toUp {
   from {
-    top: 0;
-    left: 13px;
+    top: 0px;
+    left: 14px;
     font-size: 19px;
   }
 
   to {
     top: -15px;
-    left: 5px;
-    font-size: 13px;
+    left: 7px;
+    font-size: 14px;
   }
 }
 
 @keyframes toDown {
   from {
     top: -15px;
-    left: 5px;
-    font-size: 13px;
+    left: 7px;
+    font-size: 14px;
   }
 
   to {
     top: 6px;
     left: 16px;
-    color: transparent;
-    visibility: hidden;
     font-size: 19px;
   }
 }
@@ -76,11 +74,11 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 20px;
-  color: #8c8c8c;
+  color: #8C8C8C;
 }
 
 .inputWithLabel {
-  background: #ffffff;
+  background: #FFFFFF;
   border: 1px solid #000000;
   border-radius: 10px;
   height: 40px;

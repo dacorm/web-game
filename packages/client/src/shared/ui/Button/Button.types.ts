@@ -15,6 +15,10 @@ export enum ButtonSize {
   M = 'm',
   X = 'x',
 }
+export enum ButtonColorText {
+  BLUE = 'color-blue',
+  GREY = 'color-grey',
+}
 
 export interface ButtonProps
   extends DetailedHTMLProps<
@@ -24,5 +28,6 @@ export interface ButtonProps
   theme?: ButtonTheme
   mode?: ButtonMode
   size?: ButtonSize
+  colorText?: ButtonColorText
   children: ReactNode
 }
