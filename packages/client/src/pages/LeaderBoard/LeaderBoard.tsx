@@ -20,7 +20,7 @@ export default function LeaderBoard() {
       <PageHeader pageName='ЛидерБорд' />
       <div className={styles.leader}>
         <table className={styles.leaderTable}>
-          <tr className={styles.shapka}>
+          <tr className={styles.tableHeader}>
             <td>Место</td>
             <td>Пользователь</td>
             <td>Количество баллов</td>
