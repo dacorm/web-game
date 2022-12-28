@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.1.1",
+    "@nrwl/nx-cloud": "^15.0.2",
     "classnames": "^2.3.2",
     "lerna": "^5.4.3",
     "sass": "^1.57.1"
