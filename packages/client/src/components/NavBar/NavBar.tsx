@@ -27,6 +27,6 @@ export function NavBar({ userLogo, userName }: NavBarProps) {
       </ul>
       <NavBarProfile userLogo={userLogo} userName={userName} />
     </nav>
-
   )
 }
+
