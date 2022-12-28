@@ -8,6 +8,8 @@ export interface Player {
   radius: number
   fill: string
   canvas: Canvas
+  trails: { x: number; y: number }[]
+  trailCount: number
   init(): void
   draw(): void
   move(squares: number): void
@@ -21,10 +23,12 @@ export class Player {
 
   init() {
     const { width, height } = Util.getCornerItemSize(this.canvas)
-    this.x = width / 2
-    this.y = height / 2
+    this.x = Number((width / 2).toFixed())
+    this.y = Number((height / 2).toFixed())
     this.radius = 50
     this.fill = Util.randomColor()
+    this.trails = []
+    this.trailCount = 10
 
     this.draw()
   }
@@ -42,15 +46,64 @@ export class Player {
     circle.drawShape(this.canvas.getContext())
   }
 
-  move(squares: number) {
-    let velocity = { x: 10, y: 0 }
+  move() {
+    this.trails.push({ x: this.x, y: this.y })
+    if (this.trails.length > this.trailCount) {
+      this.trails.shift()
+    }
+
+    const velocity = { x: 0, y: 0 }
     // параметры элемента который располагается по углам доски
     const cornerItem = Util.getCornerItemSize(this.canvas)
+    const width = this.canvas.getWidth()
+    const height = this.canvas.getHeight()
 
-    if (this.x >= this.canvas.width - cornerItem.width / 2) {
-      velocity = { x: 0, y: 10 }
+    // todo: условие жуткое, переписать!
+    if (
+      this.y <= cornerItem.height / 2 &&
+      this.y >= 0 &&
+      this.x <= width - cornerItem.width / 2
+    ) {
+      velocity.x = 10
+    } else if (
+      this.x >= width - cornerItem.width &&
+      this.x <= width &&
+      this.y <= height - cornerItem.height / 2
+    ) {
+      velocity.y = 10
+    } else if (
+      this.y >= height - cornerItem.height &&
+      this.y <= height &&
+      this.x >= cornerItem.width / 2
+    ) {
+      velocity.x = -10
+    } else if (
+      this.x <= cornerItem.width &&
+      this.x >= 0 &&
+      this.y >= cornerItem.height / 2
+    ) {
+      velocity.y = -10
     }
 
     this.draw(velocity)
+    this.drawTrails()
+
+    return { x: this.x, y: this.y }
+  }
+
+  drawTrails() {
+    const context = this.canvas.getContext()
+    this.trails.push({ x: this.x, y: this.y })
+    if (this.trails.length > this.trailCount) {
+      this.trails.shift()
+    }
+    this.trails.forEach((position, i) => {
+      const ratio = (i + 1) / this.trails.length
+      context.fillStyle = Util.hexToRGB(this.fill, ratio / 2)
+      context.moveTo(position.x, position.y)
+      context.beginPath()
+      context.arc(position.x, position.y, this.radius, 0, 2 * Math.PI)
+      context.fill()
+    })
   }
 }
