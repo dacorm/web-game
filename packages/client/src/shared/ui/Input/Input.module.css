@@ -1,7 +1,6 @@
 .input {
   box-sizing: border-box;
   font-size: 18px;
-
 }
 
 .input:focus {
@@ -41,7 +40,7 @@
 
 @keyframes toUp {
   from {
-    top: 0px;
+    top: 0;
     left: 13px;
     font-size: 19px;
   }
@@ -77,11 +76,11 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 20px;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .inputWithLabel {
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #000000;
   border-radius: 10px;
   height: 40px;
