@@ -2,6 +2,8 @@ import { Rect } from '../../Shapes/Rect'
 import { Canvas } from './Canvas'
 import { boardSize, Util } from '../../Util'
 
+const colors = new Array(100).fill(0).map(() => Util.randomColor())
+
 export function createBoard(canvas: Canvas) {
   const context = canvas.getContext()
   const size = Util.getCornerItemSize(canvas)
@@ -20,7 +22,7 @@ export function createBoard(canvas: Canvas) {
         ...Util.getHorizontalItemSize(canvas),
         x: size.width + ((canvas.width - size.width * 2) / boardSize) * j,
         y: top ? 0 : canvas.height - size.height,
-        fill: Util.randomColor(),
+        fill: colors[j],
       }).drawShape(context)
     }
   }
@@ -32,7 +34,7 @@ export function createBoard(canvas: Canvas) {
         ...Util.getVerticalItemSize(canvas),
         x: left ? 0 : canvas.width - size.width,
         y: size.height + ((canvas.height - size.height * 2) / boardSize) * j,
-        fill: Util.randomColor(),
+        fill: colors[j],
       }).drawShape(context)
     }
   }
