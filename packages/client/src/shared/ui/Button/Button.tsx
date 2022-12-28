@@ -20,6 +20,7 @@ const Button: FC<ButtonProps> = ({
   theme = ButtonTheme.GREEN,
   mode,
   size,
+  colorText,
   className,
   ...props
 }: ButtonProps) => {
@@ -29,6 +30,7 @@ const Button: FC<ButtonProps> = ({
         styles.button,
         styles[theme],
         mode && styles[mode],
+        colorText && styles[colorText],
         size && styles[size],
         className && [className]
       )}

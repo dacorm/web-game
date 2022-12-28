@@ -3,7 +3,7 @@ import GameSearchProfile from '../GameSearchProfile'
 import { GameSearchItemProps } from './GameSearchItem.types'
 
 import style from './GameSearchItem.module.css'
-import connectInGameImg from '../../assets/img/connectInGame.svg'
+import connectInGameImg from '../../../assets/img/connectInGame.svg'
 
 const GameSearchItem: FC<GameSearchItemProps> = ({ players }) => {
   const playersAndFreePlaces = useRef(players)

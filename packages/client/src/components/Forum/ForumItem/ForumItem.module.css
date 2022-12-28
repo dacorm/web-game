@@ -26,6 +26,7 @@
     border-radius: 10px;
     cursor: pointer;
     transition: opacity 0.2s;
+
 }
 
 .item-inner:hover {
@@ -40,12 +41,18 @@
     font-weight: 700;
     font-size: 21px;
     line-height: 20px;
+
 }
 
 .item-name {
-    flex: 0 1 70%;
+    flex: 0 1 80%;
 }
 
 .item-count-msg {
-    margin-left: 50px;
+    margin-left: 10px;
+    position: relative;
+    top: 14px;
+    font-size: 16px;
+    color: rgb(153, 85, 85);
+
 }

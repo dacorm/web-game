@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import GameSearchBlock from '../../components/GameSearchBlock'
+import GameSearchBlock from '../../components/GameSearch/GameSearchBlock'
 import MenuHeader from '../../components/MenuHeader'
 import Input from '../../shared/ui/Input'
 import './GameSearch.css'

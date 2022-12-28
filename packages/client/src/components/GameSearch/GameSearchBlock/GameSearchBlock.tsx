@@ -5,7 +5,7 @@ import {
   TExampleGameUsers,
 } from './GameSearchBlock.types'
 
-import defaultAvatar from '../../assets/img/defaultUserAvatar.png'
+import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
 import style from './GameSearchBlock.module.css'
 
 const GameSearchBlock: FC = () => {

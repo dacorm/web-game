@@ -1,4 +1,3 @@
-import './globalStyles/reset.css'
 import { Route, Routes } from 'react-router-dom'
 import GameSearch from './pages/GameSearch/GameSearch'
 import { ROUTES } from './constants'
@@ -7,9 +6,12 @@ import { lazy, Suspense } from 'react'
 import { Loading } from './components/Loading'
 
 import './globalStyles/constats.css'
+import './globalStyles/reset.css'
+import './globalStyles/global-styles.css'
 
 const LeaderBoardPage = lazy(() => import('./pages/LeaderBoard'))
 const ForumPage = lazy(() => import('./pages/Forum'))
+const ForumThemePage = lazy(() => import('./pages/ForumTheme'))
 const ProfilePage = lazy(() => import('./pages/Profile'))
 
 function App() {
@@ -23,6 +25,14 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <ForumPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={ROUTES.FORUM_THEME}
+            element={
+              <Suspense fallback={<Loading />}>
+                <ForumThemePage />
               </Suspense>
             }
           />
