@@ -4,7 +4,6 @@
     border-collapse: collapse;
 }
 
-
  .leader td{
      border: 1px solid black;
      text-align: center;
@@ -30,7 +29,6 @@
     border: 1px solid var(--color-grey);
     margin-right: 50px;
 }
-
 
 .leaderName {
     display: flex;
