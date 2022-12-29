@@ -1,4 +1,4 @@
-.menuItem{
+.menuItem {
     margin-right: 10px;
     border-radius: 15px;
     padding: 10px 10px;
@@ -10,15 +10,15 @@
     font-family: "Inter", serif;
 }
 
-.menuItemActive{
+.menuItemActive {
     background: #6EAC96;
-    color: white!important;
+    color: white !important;
 }
 
 
 
 @media screen and (max-width: 750px) {
-    .menuItem{
+    .menuItem {
         margin-right: 10px;
         border-radius: 15px;
         padding: 10px 10px;

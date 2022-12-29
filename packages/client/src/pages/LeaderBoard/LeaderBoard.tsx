@@ -10,14 +10,13 @@ const leaders = [
   { place: 5, name: 'User1', points: 995, games: 10 },
   { place: 6, name: 'User2', points: 994, games: 10 },
   { place: 7, name: 'User3', points: 993, games: 10 },
-  { place: 8, name: 'User4', points: 992, games: 10 }
+  { place: 8, name: 'User4', points: 992, games: 10 },
 ]
-
 
 export default function LeaderBoard() {
   return (
     <>
-      <PageHeader pageName='ЛидерБорд' />
+      <PageHeader pageName="ЛидерБорд" />
       <div className={styles.leader}>
         <table className={styles.leaderTable}>
           <tr className={styles.tableHeader}>
@@ -26,13 +25,17 @@ export default function LeaderBoard() {
             <td>Количество баллов</td>
             <td>Количество игр</td>
           </tr>
-          {leaders.map((leader) => {
+          {leaders.map(leader => {
             return (
               <tr className={styles.leaderData}>
                 <td className={styles.place}>{leader.place}</td>
                 <td>
                   <div className={styles.leaderName}>
-                    <img className={styles.leaderLogo} src={userLogo} alt={leader.name} />
+                    <img
+                      className={styles.leaderLogo}
+                      src={userLogo}
+                      alt={leader.name}
+                    />
                     <div>{leader.name}</div>
                   </div>
                 </td>
@@ -44,6 +47,5 @@ export default function LeaderBoard() {
         </table>
       </div>
     </>
-
   )
 }

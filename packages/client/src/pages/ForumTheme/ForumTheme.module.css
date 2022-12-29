@@ -1,0 +1,10 @@
+.forum_theme {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper {
+    width: 100%;
+
+}

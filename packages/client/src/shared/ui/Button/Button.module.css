@@ -30,6 +30,16 @@
 }
 
 /* -------theme end------ */
+/* -------color-text------ */
+.color-grey {
+  color: var(--color-grey);
+}
+
+.color-blue {
+  color: var(--color-blue);
+}
+
+/* -------color-text------ */
 
 /* -------size------ */
 .s {
