@@ -29,6 +29,7 @@ export default function Profile() {
     SeteditPas(true)
     onOpen()
   }
+
   const editLogoHandler = () => {
     SeteditLogo(true)
     onOpen()
