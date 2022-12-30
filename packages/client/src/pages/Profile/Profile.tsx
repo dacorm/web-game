@@ -1,83 +1,93 @@
-import styles from './Profile.module.css'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Modal from '../../shared/ui/Modal'
 import { ProfileFormPass } from '../../components/ProfileFormPass/ProfileFormPass'
-import PageHeader from '../../shared/ui/PageHeader'
 import ProfileFormAvatar from '../../components/ProfileFormAvatar'
 import ProfileBlockAvatar from '../../components/ProfileBlockAvatar'
 import ProfileBlockData from '../../components/ProfileBlockData'
 import Button from '../../shared/ui/Button'
-import { ButtonTheme } from '../../shared/ui/Button/Button.types'
-import userLogo from '../../assets/img/SomeUser.jpg'
+import {
+  ButtonColorText,
+  ButtonSize,
+  ButtonTheme,
+} from '../../shared/ui/Button/Button.types'
 
+import styles from './Profile.module.css'
+import defaultAvatar from '../../assets/img/defaultUserAvatar.png'
+import { TProfileModals } from './Profile.types'
 
-const userData={
-  points:10,
+const userData = {
+  points: 10,
   games: 10,
   rating: 5,
-  userName: "Super 2022",
-  userLogo: userLogo
+  userName: 'Super 2022',
+  userLogo: defaultAvatar,
 }
 
-
-
-
-
 export default function Profile() {
-  const [modal, Setmodal] = useState(false)
-  const [editLogo, SeteditLogo] = useState(false)
-  const [editPas, SeteditPas] = useState(false)
+  const [modals, setModals] = useState<TProfileModals>({
+    showPasswordModal: false,
+    showAvatarModal: false,
+  })
 
+  const openPasswordModal = useCallback(() => {
+    setModals(prev => ({ ...prev, showPasswordModal: true }))
+  }, [])
+  const closePasswordModal = useCallback(() => {
+    setModals(prev => ({ ...prev, showPasswordModal: false }))
+  }, [])
 
-  const onOpen = () => Setmodal(true)
-
-  const onClose = () => {
-    Setmodal(false)
-    SeteditPas(false)
-    SeteditLogo(false)
-  }
-
-  const editPasHandler = () => {
-    SeteditPas(true)
-    onOpen()
-  }
-
-  const editLogoHandler = () => {
-    SeteditLogo(true)
-    onOpen()
-  }
-
+  const openAvatardModal = useCallback(() => {
+    setModals(prev => ({ ...prev, showAvatarModal: true }))
+  }, [])
+  const closeAvatardModal = useCallback(() => {
+    setModals(prev => ({ ...prev, showAvatarModal: false }))
+  }, [])
 
   return (
     <>
-      <PageHeader pageName='Профиль' />
       <div className={styles.block}>
-        <ProfileBlockAvatar avatar={userData.userLogo} onClick={editLogoHandler}/>
+        <ProfileBlockAvatar
+          avatar={userData.userLogo}
+          onClick={openAvatardModal}
+        />
         <ProfileBlockData
           points={userData.points}
           rating={userData.rating}
           games={userData.games}
-          userName={userData.userName}/>
+          userName={userData.userName}
+        />
       </div>
-      <Button
-        theme={ButtonTheme.GREEN}
-        type='submit'
-        className={styles.button}
-        onClick={editPasHandler}>
-        Изменить пароль
-      </Button>
+      <div className={styles.buttonsWrapper}>
+        <Button
+          theme={ButtonTheme.GREEN}
+          size={ButtonSize.M}
+          className={styles.button}
+          onClick={openPasswordModal}>
+          Изменить пароль
+        </Button>
+        <Button
+          theme={ButtonTheme.TRANSPARENT}
+          type="submit"
+          size={ButtonSize.M}
+          colorText={ButtonColorText.RED}
+          className={styles.button}>
+          Выход
+        </Button>
+      </div>
 
-
-      {modal && editPas && <Modal title='Изменение пароля' onClose={onClose}>
+      <Modal
+        title="Изменение пароля"
+        isShow={modals.showPasswordModal}
+        onClose={closePasswordModal}>
         <ProfileFormPass />
       </Modal>
-      }
-      {modal && editLogo && <Modal title='Изменение аватара' onClose={onClose}>
+
+      <Modal
+        title="Изменение аватара"
+        isShow={modals.showAvatarModal}
+        onClose={closeAvatardModal}>
         <ProfileFormAvatar />
       </Modal>
-      }
-
     </>
-
   )
-};
+}
