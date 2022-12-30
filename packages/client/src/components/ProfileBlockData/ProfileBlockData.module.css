@@ -1,0 +1,46 @@
+.blocksData{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+}
+
+.blockData {
+    background: #6EAC96;
+    border-radius: 40px;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    font-weight: 900;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 15px;
+
+}
+.number{
+     font-family: "Liberation Serif", sans-serif;
+     font-size: 55pt;
+     font-style:normal!important;
+ }
+.points{
+    background: #f1c50e;
+    color: #d3dfed;
+}
+.games {
+    background: black;
+    color: #d3dfed;
+}
+
+.ratings{
+    background: gray;
+    color: black;
+}
+
+.userName {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30pt;
+    line-height: 60px;
+    margin-bottom: 20px;
+}

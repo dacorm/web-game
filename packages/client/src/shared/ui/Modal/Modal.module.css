@@ -21,6 +21,9 @@
 .modalTitle {
     text-align: center;
     font-size: x-large;
-    font-family: var(--font);
+    font-style: normal;
+    font-weight: 400;
+    color: black;
+    font-family: "Inter", serif;
     padding: 15px;
 }

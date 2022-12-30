@@ -1,15 +1,52 @@
 .profileForm{
-   margin-left: 20px;
+    margin-left: 20px;
 }
 
 .button {
-   height: 40px;
-   font-style: normal;
-   font-weight: 400;
-   font-size: 20px;
-   line-height: 20px;
-   text-align: center;
-   color: #FFFFFF;
-   margin-top: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    font-family: 'Inter', serif;
+    font-size: 14pt;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 15px;
     padding: 10px;
+    border-radius: 4px;
+    float: right;
+}
+
+.label {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 180px;
+    height: 50px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    background: #f1c50e;
+    transition: all 0.18s ease-in-out;
+    color: black;
+    font: 14px/50px Tahoma;
+    font-weight: 600;
+}
+
+.label:hover {
+    color: white;
+    background: #333;
+}
+
+.fileInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }

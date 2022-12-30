@@ -1,32 +1,8 @@
-.profile {
-    display: flex;
-
+.block {
+    text-align: center;
+    padding: 10px;
 }
 
-.avatarBlock {
-    margin: 10px;
-    position: relative
-}
-
-.avatar {
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
-    box-shadow: 10px 8px 8px #807d7d;
-}
-
-.userName {
-    font-family: 'Inter', serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 60px;
-    line-height: 60px;
-    margin-bottom: 20px;
-}
-
-.userDataBlock {
-    margin-left: 15px
-}
 
 .pencil {
     background: rgba(179, 181, 182, 0.2);
@@ -54,6 +30,18 @@
 
 .actionBlock a{
     color: black;
+}
+
+.button {
+    padding: 15px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float:right;
+    position:absolute;
+    bottom:0;
+    right: 0;
+    font-family: 'Inter', serif;
+    font-size: 14pt;
 }
 
 

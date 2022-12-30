@@ -1,22 +1,34 @@
 import styles from './Profile.module.css'
-import userLogo from '../../assets/img/SomeUser.jpg'
-import { BiPencil, BiLogOut } from 'react-icons/all'
-import { useState } from 'react'
-import { ProfileEdit } from '../../components/ProfileEdit/ProfileEdit'
+import React, { useState } from 'react'
 import Modal from '../../shared/ui/Modal'
-import ProfileDataTable from '../../components/ProfileDataTable'
 import { ProfileFormPass } from '../../components/ProfileFormPass/ProfileFormPass'
 import PageHeader from '../../shared/ui/PageHeader'
 import ProfileFormAvatar from '../../components/ProfileFormAvatar'
-import { Link } from 'react-router-dom'
+import ProfileBlockAvatar from '../../components/ProfileBlockAvatar'
+import ProfileBlockData from '../../components/ProfileBlockData'
+import Button from '../../shared/ui/Button'
+import { ButtonTheme } from '../../shared/ui/Button/Button.types'
+import userLogo from '../../assets/img/SomeUser.jpg'
+
+
+const userData={
+  points:10,
+  games: 10,
+  rating: 5,
+  userName: "Super 2022",
+  userLogo: userLogo
+}
+
+
+
+
 
 export default function Profile() {
   const [modal, Setmodal] = useState(false)
   const [editLogo, SeteditLogo] = useState(false)
   const [editPas, SeteditPas] = useState(false)
 
-  const mouseOverHandler = () => SeteditLogo(true)
-  const mouseOutHandler = () => SeteditLogo(false)
+
   const onOpen = () => Setmodal(true)
 
   const onClose = () => {
@@ -39,39 +51,29 @@ export default function Profile() {
   return (
     <>
       <PageHeader pageName='Профиль' />
-      <div className={styles.profile}>
-        <div className={styles.avatarBlock}>
-          <img className={styles.avatar}
-               alt="userLogo"
-               src={userLogo} onMouseOver={mouseOverHandler}
-               onMouseOut={mouseOutHandler} />
-          {editLogo && <ProfileEdit />}
-        </div>
-        <div className={styles.userDataBlock}>
-          <div className={styles.userName}>UserName</div>
-          <ProfileDataTable points={999} games={10} rating={4}/>
-          <div className={styles.actionBlock}>
-            <p>
-              <Link onClick={editPasHandler} to={"#"}>
-                <BiPencil /> Изменить пароль
-              </Link>
-            </p>
-            <p>
-              <Link onClick={editLogoHandler} to={"#"}>
-                <BiPencil /> Изменить аватар
-              </Link>
-            </p>
-            <p><Link to={"#"}><BiLogOut /> Выйти </Link></p>
-          </div>
-        </div>
+      <div className={styles.block}>
+        <ProfileBlockAvatar avatar={userData.userLogo} onClick={editLogoHandler}/>
+        <ProfileBlockData
+          points={userData.points}
+          rating={userData.rating}
+          games={userData.games}
+          userName={userData.userName}/>
       </div>
+      <Button
+        theme={ButtonTheme.GREEN}
+        type='submit'
+        className={styles.button}
+        onClick={editPasHandler}>
+        Изменить пароль
+      </Button>
+
 
       {modal && editPas && <Modal title='Изменение пароля' onClose={onClose}>
-        <ProfileFormPass/>
+        <ProfileFormPass />
       </Modal>
       }
       {modal && editLogo && <Modal title='Изменение аватара' onClose={onClose}>
-        <ProfileFormAvatar/>
+        <ProfileFormAvatar />
       </Modal>
       }
 
