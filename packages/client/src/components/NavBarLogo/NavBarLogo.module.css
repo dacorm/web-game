@@ -1,3 +1,5 @@
+@import "../../assets/css/constants.css";
+
 .mainLogo {
     height: 45px;
     width: 45px;
@@ -9,6 +11,7 @@
 .textLogo {
     color: black;
     text-align: center;
+    font-family: var(--mainfont)!important;
 }
 
 .navLogoBlock {

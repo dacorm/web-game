@@ -1,3 +1,5 @@
+@import "../../assets/css/constants.css";
+
 .userLogo {
     height: 20px;
     width:20px;
@@ -8,6 +10,7 @@
 .navbarUser{
     align-content: center;
     margin-left: auto;
+    font-family: var(--mainfont);
 }
 
 .navbarUser a {

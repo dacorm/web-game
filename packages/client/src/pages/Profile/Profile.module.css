@@ -1,0 +1,47 @@
+.block {
+    text-align: center;
+    padding: 10px;
+}
+
+
+.pencil {
+    background: rgba(179, 181, 182, 0.2);
+    position: absolute;
+    top: 265px;
+    left: 0;
+    right: 0;
+    font-size: 30px;
+    color: #8C8C8C;
+    width: auto;
+    height: 35px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.actionBlock {
+    margin-top: 25px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16pt;
+    font-family: 'Inter', serif;
+    text-decoration: none;
+
+}
+
+.actionBlock a{
+    color: black;
+}
+
+.button {
+    padding: 15px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float:right;
+    position:absolute;
+    bottom:0;
+    right: 0;
+    font-family: 'Inter', serif;
+    font-size: 14pt;
+}
+
+
