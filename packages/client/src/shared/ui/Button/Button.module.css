@@ -38,6 +38,10 @@
   color: var(--color-blue);
 }
 
+.color-red {
+  color: var(--color-red);
+}
+
 /* -------color-text------ */
 
 /* -------size------ */

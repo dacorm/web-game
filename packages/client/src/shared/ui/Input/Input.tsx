@@ -1,4 +1,4 @@
-import { InputFeature, InputProps } from './Input.types'
+import { InputFeature, InputMode, InputProps } from './Input.types'
 import { FC, useCallback, useRef, useState } from 'react'
 import cn from 'classnames'
 
@@ -21,7 +21,7 @@ import styles from './Input.module.css'
 
 const Input: FC<InputProps> = ({
   children,
-  mode,
+  mode = InputMode.TEXT,
   feature,
   label,
   customPlaceholder,
@@ -29,9 +29,11 @@ const Input: FC<InputProps> = ({
   ...props
 }) => {
   const [isFocus, setIsFocus] = useState(false)
+  const [isFirstInit, setIstFirstInit] = useState(true) //если инпут только зарендерился с динам. плэйсхолд, то не вызывать анимацию
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleFocus = useCallback(() => {
+    isFirstInit && customPlaceholder && setIstFirstInit(false)
     setIsFocus(true)
   }, [])
 
@@ -44,11 +46,11 @@ const Input: FC<InputProps> = ({
       return (
         <div className={styles['dynamic_wrapper']}>
           <span
-            className={
-              isFocus
-                ? styles['dynamic_placeholder-up']
-                : styles['dynamic_placeholder-down']
-            }>
+            className={cn(styles['dynamic_placeholder'], {
+              [styles['dynamic_placeholder-up']]: isFocus,
+              [styles['dynamic_placeholder-down']]: !isFocus && !isFirstInit,
+            })}
+            onClick={() => inputRef.current?.focus()}>
             {customPlaceholder}
           </span>
 
