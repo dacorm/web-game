@@ -11,7 +11,7 @@ export const ValidateFields = (
         // без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)
         error = 'Некорректный логин';
       }
-      
+
       break;
     case 'oldPassword':
     case 'newPassword':
