@@ -1,20 +1,33 @@
+import React, { useCallback, FC } from 'react'
+import cn from 'classnames'
 import styles from './Modal.module.css'
+import { ModalProps } from './Modal.types'
 
+export const Modal: FC<ModalProps> = ({
+  children,
+  title,
+  onClose,
+  isShow = false,
+}) => {
+  const stopPropagation = useCallback((e: React.MouseEvent): void => {
+    e.stopPropagation()
+  }, [])
 
-interface ModalProps{
-  children:React.ReactNode,
-  title: string,
-  onClose:()=>void
-}
-
-
-
-export function Modal({children, title, onClose}:ModalProps){
-  return(
-    <div className={styles.modal}>
-    <div className={styles.modalClose} onClick={onClose}>&#10006;</div>
-  <h1 className={styles.modalTitle}>{title} </h1>
-      {children}
-</div>
+  return (
+    <div
+      className={cn(styles.modal, {
+        [styles.modalShow]: isShow,
+      })}
+      onClick={onClose}>
+      <div className={styles.modalContent} onClick={stopPropagation}>
+        <div className={styles.title}>
+          <h3 className={styles.titleText}> {title} </h3>
+          <div className={styles.titleClose} onClick={onClose}>
+            &#10006;
+          </div>
+        </div>
+        <div className={styles.formWrapper}>{children}</div>
+      </div>
+    </div>
   )
 }
