@@ -9,7 +9,7 @@ import {
 } from '../../../shared/ui/Button/Button.types'
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
-import style from './ForumThemeMessageItem.module.css'
+import styles from './ForumThemeMessageItem.module.css'
 
 const ForumThemeMessageItem: FC<TThemeMessage> = ({
   //   id_msg,
@@ -29,19 +29,21 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
   }, [])
 
   return (
-    <li className={style['message-item']}>
-      <div className={style.author}>
+    <li className={styles['message-item']}>
+      <div className={styles.author}>
         <img
           src={author?.avatar || defaultAvatar}
           alt="avatar"
-          className={style.avatar}
+          className={styles.avatar}
         />
-        <div className={style.name}>{author?.name}</div>
-        <time className={style.date}>{date.toLocaleString().slice(0, 17)}</time>
+        <div className={styles.name}>{author?.name}</div>
+        <time className={styles.date}>
+          {date.toLocaleString().slice(0, 17)}
+        </time>
       </div>
-      <div className={style.message}>
-        <div className={style.text}>{text}</div>
-        <div className={style.button}>
+      <div className={styles.message}>
+        <div className={styles.text}>{text}</div>
+        <div className={styles.button}>
           <Button
             theme={ButtonTheme.TRANSPARENT}
             colorText={ButtonColorText.BLUE}

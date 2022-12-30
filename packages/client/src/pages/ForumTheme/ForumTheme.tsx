@@ -4,7 +4,7 @@ import ForumThemeHeader from '../../components/Forum/ForumThemeHeader'
 import ForumThemeMessages from '../../components/Forum/ForumThemeMessages'
 import ForumThemeTextArea from '../../components/Forum/ForumThemeTextArea'
 
-import style from './ForumTheme.module.css'
+import styles from './ForumTheme.module.css'
 import { TTheme } from './ForumTheme.types'
 
 const ForumTheme = () => {
@@ -73,7 +73,7 @@ const ForumTheme = () => {
   }, [])
 
   return (
-    <div className={style['forum_theme']}>
+    <div className={styles['forum_theme']}>
       {theme && (
         <ForumThemeHeader
           theme_name={theme.theme_name}
@@ -81,7 +81,7 @@ const ForumTheme = () => {
         />
       )}
       {theme && <ForumThemeMessages messages={theme.messages} />}
-      <div className={style['form-wrapper']}>
+      <div className={styles['form-wrapper']}>
         <ForumThemeTextArea />
       </div>
     </div>

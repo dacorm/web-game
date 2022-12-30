@@ -3,7 +3,7 @@ import { useResizeObserver } from '../../hooks/useResizeObserver'
 import { staticCanvas } from '../Canvas/staticCanvas'
 import { activeCanvas } from '../Canvas/activeCanvas'
 import Cube from '../../components/Cube'
-import css from './BoardStage.module.scss'
+import styles from './BoardStage.module.scss'
 import { useBoard } from './BoardProvider'
 
 export const BoardStage: FC = () => {
@@ -26,8 +26,8 @@ export const BoardStage: FC = () => {
   }, [])
 
   return (
-    <div className={css.wrapper} ref={ref}>
-      <div className={css.wrapper}>
+    <div className={styles.wrapper} ref={ref}>
+      <div className={styles.wrapper}>
         <Cube />
       </div>
     </div>

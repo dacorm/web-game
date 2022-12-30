@@ -6,7 +6,7 @@ import {
 } from './GameSearchBlock.types'
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
-import style from './GameSearchBlock.module.css'
+import styles from './GameSearchBlock.module.css'
 
 const GameSearchBlock: FC = () => {
   const [gameItems, setGameItems] = useState<TExampGameItemsState[]>([])
@@ -28,8 +28,8 @@ const GameSearchBlock: FC = () => {
   }, [])
 
   return (
-    <div className={style['games-block']}>
-      <div className={style['games-block-inner']}>
+    <div className={styles['games-block']}>
+      <div className={styles['games-block-inner']}>
         {gameItems.map(game => (
           <GameSearchItem key={game.id_game} players={game.players} />
         ))}

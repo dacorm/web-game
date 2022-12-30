@@ -1,8 +1,15 @@
-.blocksData{
+.blocksWrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
 
+    width: 100%;
+}
+
+.blocksData {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 30px;
 }
 
 .blockData {
@@ -10,37 +17,40 @@
     border-radius: 40px;
     width: 150px;
     height: 150px;
-    margin: 10px;
     font-weight: 900;
     text-align: left;
     padding-top: 10px;
     padding-left: 15px;
-
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
 }
-.number{
-     font-family: "Liberation Serif", sans-serif;
-     font-size: 55pt;
-     font-style:normal!important;
- }
-.points{
+
+.number {
+    font-family: "Liberation Serif", sans-serif;
+    font-size: 55pt;
+    width: 100%;
+}
+
+.points {
     background: #f1c50e;
     color: black;
 }
+
 .games {
     background: black;
     color: #d3dfed;
 }
 
-.ratings{
+.ratings {
     background: gray;
     color: black;
 }
 
 .userName {
-    font-family: 'Inter', serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 30pt;
+
+    font-size: 28px;
+    font-weight: 600;
     line-height: 60px;
     margin-bottom: 20px;
 }
