@@ -50,3 +50,11 @@
     position: absolute;
     z-index: -1;
 }
+
+.choosedFiles {
+    margin: 10px;
+    font-family: 'Inter', serif;
+    font-size: 14pt;
+    font-style: normal;
+    font-weight: 400;
+}
