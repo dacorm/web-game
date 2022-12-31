@@ -1,0 +1,33 @@
+.form {
+    width: 600px;
+    height: auto;
+    margin-top: 60px;
+}
+
+.formInner {
+    padding: 0px 40px;
+
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.item:not(:first-child) {
+    margin-top: 25px;
+}
+
+.itemName {
+    font-weight: 600;
+}
+
+.buttonWrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}

@@ -1,0 +1,30 @@
+.countPlayerItem {
+    min-width: 45px;
+    min-height: 46px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 7px 15px;
+    background-color: var(--color-white);
+    cursor: pointer;
+    color: var(--color-black);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.countPlayerItem.active {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.countPlayerItem.active:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.countPlayerItem:hover {
+    background-color: var(--color-sub-text);
+    color: var(--color-white);
+}
+
+.countPlayerItem:not(:first-child) {
+    margin-left: 10px;
+}
