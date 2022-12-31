@@ -1,20 +1,33 @@
-@import "../../assets/css/constants.css";
-
 .userLogo {
-    height: 20px;
-    width:20px;
-    border-radius: 15px;
-    border: solid 1px;
+    height: 100%;
+    width: 100%;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 100%;
+    border: 1px solid var(--color-sub-text);
+    background-color: var(--color-menu-background);
+    margin-right: 10px;
 }
 
-.navbarUser{
+.navbarUser {
     align-content: center;
-    margin-left: auto;
     font-family: var(--mainfont);
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.name {
+    font-size: 20px;
 }
 
 .navbarUser a {
     text-decoration: none;
     color: black;
 }
-

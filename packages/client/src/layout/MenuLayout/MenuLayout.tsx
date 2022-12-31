@@ -3,13 +3,13 @@ import MenuStub from '../../components/MenuStub'
 import { NavBar } from '../../components/NavBar'
 
 import styles from './MenuLayout.module.css'
-import userLogo from '../../assets/img/userLogo.png'
+import defaultAvatar from '../../assets/img/defaultUserAvatar.png'
 import { Outlet } from 'react-router'
 
 const MenuLayout: FC = () => {
   return (
     <>
-      <NavBar userLogo={userLogo} userName="SomeUser" />
+      <NavBar userLogo={defaultAvatar} userName="SomeUser" />
       <main className={styles.main}>
         <MenuStub>
           <Outlet />

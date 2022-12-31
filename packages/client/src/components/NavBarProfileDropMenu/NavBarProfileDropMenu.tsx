@@ -21,7 +21,7 @@ export function NavBarProfileDropMenu({
       <li className={styles.dropdownItem}>
         <Link to={ROUTES.PROFILE}>Профиль</Link>
       </li>
-      <li>Выйти</li>
+      <li className={styles.dropdownItem}>Выйти</li>
     </ul>
   )
 }
