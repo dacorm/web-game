@@ -1,3 +1,3 @@
-import MenuStub from './MenuStub'
+import MenuStub from './MenuStub';
 
-export default MenuStub
+export default MenuStub;

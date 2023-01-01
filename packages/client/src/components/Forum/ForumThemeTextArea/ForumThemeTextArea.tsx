@@ -1,24 +1,23 @@
-import { FC } from 'react'
-import Button from '../../../shared/ui/Button'
-import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types'
+import { FC } from 'react';
+import Button from '../../../shared/ui/Button';
+import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 
-import style from './ForumThemeTextArea.module.css'
+import style from './ForumThemeTextArea.module.css';
 
-const ForumThemeTextArea: FC = () => {
-  return (
+const ForumThemeTextArea: FC = () => (
     <form action="#" className={style.form}>
-      <textarea
-        name="forum-msg"
-        id="forum-msg"
-        placeholder="Введите сообщение"
-        className={style.textarea}></textarea>
-      <div className={style.button}>
-        <Button theme={ButtonTheme.GREEN} size={ButtonSize.X}>
-          Отправить
-        </Button>
-      </div>
+        <textarea
+            name="forum-msg"
+            id="forum-msg"
+            placeholder="Введите сообщение"
+            className={style.textarea}
+        />
+        <div className={style.button}>
+            <Button theme={ButtonTheme.GREEN} size={ButtonSize.X}>
+                Отправить
+            </Button>
+        </div>
     </form>
-  )
-}
+);
 
-export default ForumThemeTextArea
+export default ForumThemeTextArea;

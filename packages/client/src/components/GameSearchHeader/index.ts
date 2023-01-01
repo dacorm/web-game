@@ -1,3 +1,3 @@
-import GameSearchHeader from './GameSearchHeader'
+import GameSearchHeader from './GameSearchHeader';
 
-export default GameSearchHeader
+export default GameSearchHeader;

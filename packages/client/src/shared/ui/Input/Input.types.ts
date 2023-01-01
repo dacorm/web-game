@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react';
 
 export enum InputMode {
   TEXT = 'text',

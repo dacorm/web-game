@@ -1,3 +1,3 @@
-import ForumThemeMessageItem from './ForumThemeMessageItem'
+import ForumThemeMessageItem from './ForumThemeMessageItem';
 
-export default ForumThemeMessageItem
+export default ForumThemeMessageItem;

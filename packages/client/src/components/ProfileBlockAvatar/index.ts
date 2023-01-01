@@ -1,2 +1,3 @@
-import {ProfileBlockAvatar} from './ProfileBlockAvatar'
-export default ProfileBlockAvatar
+import { ProfileBlockAvatar } from './ProfileBlockAvatar';
+
+export default ProfileBlockAvatar;

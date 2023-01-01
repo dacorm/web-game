@@ -1,3 +1,3 @@
-import GameSearchProfile from './GameSearchProfile'
+import GameSearchProfile from './GameSearchProfile';
 
-export default GameSearchProfile
+export default GameSearchProfile;

@@ -1,3 +1,3 @@
-import ForumBlock from './ForumBlock'
+import ForumBlock from './ForumBlock';
 
-export default ForumBlock
+export default ForumBlock;
