@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styles from './NavBar.module.css';
 import { NavBarItem } from '../NavBarItem';
 import { NavBarProfile } from '../NavBarProfile';
@@ -6,6 +7,7 @@ import { NavBarLogo } from '../NavBarLogo';
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types';
 import { NavBarProps } from './NavBar.types';
 import { ROUTES } from '../../layout/RouterLayout/RouterConst';
+import { getUserName } from '../../redux/userReducer/userSelectors';
 
 const menuItems: NavbarItemProps[] = [
     { id: 1, path: ROUTES.MAIN, title: 'Поиск игры' },
@@ -13,7 +15,9 @@ const menuItems: NavbarItemProps[] = [
     { id: 3, path: ROUTES.LEADER, title: 'Лидерборд' },
 ];
 
-export function NavBar({ userLogo, userName }: NavBarProps) {
+export function NavBar({ userLogo }: NavBarProps) {
+    const userName = useSelector(getUserName);
+
     return (
         <nav className={styles.navbar}>
             <NavBarLogo />

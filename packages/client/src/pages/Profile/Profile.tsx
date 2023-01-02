@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './Profile.module.css';
 import Modal from '../../shared/ui/Modal';
 import { ProfileFormPass } from '../../components/ProfileFormPass/ProfileFormPass';
@@ -9,6 +10,7 @@ import ProfileBlockData from '../../components/ProfileBlockData';
 import Button from '../../shared/ui/Button';
 import { ButtonTheme } from '../../shared/ui/Button/Button.types';
 import userLogo from '../../assets/img/SomeUser.jpg';
+import { getUserName } from '../../redux/userReducer/userSelectors';
 
 const userData = {
     points: 10,
@@ -22,6 +24,7 @@ export default function Profile() {
     const [modal, Setmodal] = useState(false);
     const [editLogo, SeteditLogo] = useState(false);
     const [editPas, SeteditPas] = useState(false);
+    const userName = useSelector(getUserName);
 
     const onOpen = () => Setmodal(true);
 
@@ -50,7 +53,7 @@ export default function Profile() {
                     points={userData.points}
                     rating={userData.rating}
                     games={userData.games}
-                    userName={userData.userName}
+                    userName={userName}
                 />
             </div>
             <Button
