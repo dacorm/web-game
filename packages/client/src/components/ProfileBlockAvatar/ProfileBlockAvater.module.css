@@ -1,40 +1,41 @@
-.blockImage {
-    margin-top: 15px;
+.blockAvatar {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.divAvatar {
+    width: 200px;
+    height: 100%;
     position: relative;
 }
 
-.avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 10px 8px 8px #807d7d;
-}
-
 .divAvatar:hover:after {
+    transition: all 1s;
+    cursor: pointer;
     position: absolute;
     top: 0;
     left: 0;
     content: 'Нажмите, чтобы изменить аватар';
-    color: #d3dfed;
+    color: var(--color-white);
     font-size: 14pt;
     font-weight: 900;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    opacity: 0.4;
+    background-color: var(--color-black-opacity);
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
     text-align: center;
     padding: 20px;
 }
 
-.sizes {
 
-}
-
-
-.divAvatar {
-    display: inline-block;
-    position: relative;
-    width: 300px;
-    height: 300px;
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background-color: var(--color-menu-background);
 }

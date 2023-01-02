@@ -1,4 +1,4 @@
-import style from './ForumThemeMessages.module.css'
+import styles from './ForumThemeMessages.module.css'
 import { FC, useEffect, useRef } from 'react'
 import { ForumThemeMessagesProps } from './ForumThemeMessages.types'
 import ForumThemeMessageItem from '../ForumThemeMessageItem'
@@ -17,10 +17,16 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
   }, [])
 
   return (
-    <div ref={wrapperRef} className={style['messages-wrapper']}>
+    <div ref={wrapperRef} className={styles['messagesWrapper']}>
       <ul className="messages">
-        {messages.map((message, index) => (
-          <ForumThemeMessageItem key={index} {...message} />
+        {messages.map(({ id_msg, text, author_id, date }) => (
+          <ForumThemeMessageItem
+            key={id_msg}
+            id_msg={id_msg}
+            text={text}
+            author_id={author_id}
+            date={date}
+          />
         ))}
       </ul>
     </div>

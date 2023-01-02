@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { PaginationProps } from './Pagination.types'
 import { usePagination, DOTS } from '../../hooks/usePagination'
 
-import style from './Pagination.module.css'
+import styles from './Pagination.module.css'
 
 const Pagination: FC<PaginationProps> = ({
   onPageChange,
@@ -35,18 +35,18 @@ const Pagination: FC<PaginationProps> = ({
 
   const lastPage = paginationRange[paginationRange.length - 1]
   return (
-    <ul className={classnames(style['pagination-container'], {})}>
+    <ul className={classnames(styles['paginationContainer'], {})}>
       <li
-        className={classnames(style['pagination-item'], {
+        className={classnames(styles['paginationItem'], {
           disabled: currentPage === 1,
         })}
         onClick={onPrevious}>
-        <div className={classnames(style['arrow'], style['left'])} />
+        <div className={classnames(styles['arrow'], styles['left'])} />
       </li>
       {paginationRange.map((pageNumber: number, index: number) => {
         if (pageNumber === DOTS) {
           return (
-            <li className={style['pagination-item dots']} key={index}>
+            <li className={styles['paginationItem dots']} key={index}>
               &#8230;
             </li>
           )
@@ -54,8 +54,8 @@ const Pagination: FC<PaginationProps> = ({
 
         return (
           <li
-            className={classnames(style['pagination-item'], {
-              [style['selected']]: pageNumber === currentPage,
+            className={classnames(styles['paginationItem'], {
+              [styles['selected']]: pageNumber === currentPage,
             })}
             onClick={() => onPageChange(pageNumber)}
             key={index}>
@@ -65,11 +65,11 @@ const Pagination: FC<PaginationProps> = ({
       })}
 
       <li
-        className={classnames(style['pagination-item'], {
-          [style['disabled']]: currentPage === lastPage,
+        className={classnames(styles['paginationItem'], {
+          [styles['disabled']]: currentPage === lastPage,
         })}
         onClick={onNext}>
-        <div className={classnames(style['arrow'], style['right'])} />
+        <div className={classnames(styles['arrow'], styles['right'])} />
       </li>
     </ul>
   )

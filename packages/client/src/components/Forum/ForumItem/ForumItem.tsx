@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '../../../constants'
 import { TForumTheme } from '../ForumBlock/ForumBlock.types'
 
-import style from './ForumItem.module.css'
+import styles from './ForumItem.module.css'
 
 const ForumItem: FC<TForumTheme> = ({
   id_theme,
@@ -14,17 +14,15 @@ const ForumItem: FC<TForumTheme> = ({
 }) => {
   return (
     <>
-      <li className={style['item']} data-id-theme={id_theme}>
+      <li className={styles['item']} data-id-theme={id_theme}>
         <Link to={`${ROUTES.FORUM}/${id_theme}`}>
-          <div className={style['item-info']}>
-            <div className={style['item-author']}>{created_by_id}, </div>
-            <div className={style['item-date']}>{date.toLocaleString()}</div>
+          <div className={styles['itemInfo']}>
+            <div className={styles['itemAuthor']}>{created_by_id}, </div>
+            <div className={styles['itemDate']}>{date.toLocaleString()}</div>
           </div>
-          <div className={style['item-inner']}>
-            <div className={style['item-name']}>{name_theme}</div>
-            <div className={style['item-count-msg']}>
-              сообщений: {count_msg}
-            </div>
+          <div className={styles['itemInner']}>
+            <div className={styles['itemName']}>{name_theme}</div>
+            <div className={styles['itemCountMsg']}>сообщений: {count_msg}</div>
           </div>
         </Link>
       </li>

@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { TForumTheme } from './ForumBlock.types'
 
-import style from './ForumBlock.module.css'
+import styles from './ForumBlock.module.css'
 import ForumItem from '../ForumItem'
 import Pagination from '../../Pagination'
 import { usePaginationItems } from '../../../hooks/usePaginationItems'
@@ -83,7 +83,7 @@ const ForumBlock: FC = () => {
 
   return (
     <>
-      <ul className={style['forum-block']}>
+      <ul className={styles['forumBlock']}>
         {forumThemes.map(theme => {
           if (theme === null) {
             return
@@ -102,7 +102,7 @@ const ForumBlock: FC = () => {
           )
         })}
       </ul>
-      <nav className={style['pagination-nav']}>
+      <nav className={styles['paginationNav']}>
         <Pagination
           currentPage={currentPage}
           totalCount={EXAMPLE_FORUM_THEMES.current.length}

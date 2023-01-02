@@ -1,6 +1,7 @@
 .input {
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 17px;
+  background-color: var(--color-white);
 }
 
 .input:focus {
@@ -26,7 +27,21 @@
 
 .dynamic_wrapper {
   position: relative;
+
 }
+
+.dynamic_wrapper:not(:first-child) {
+  margin-top: 20px;
+}
+
+.dynamic_placeholder {
+  top: 50%;
+  left: 13px;
+  transform: translate(0, -50%);
+  font-size: 17px;
+  position: absolute;
+}
+
 
 .dynamic_placeholder-up {
   position: absolute;
@@ -40,13 +55,14 @@
 
 @keyframes toUp {
   from {
-    top: 0;
+    top: 50%;
     left: 13px;
-    font-size: 19px;
+    transform: translate(0, -50%);
+    font-size: 17px;
   }
 
   to {
-    top: -15px;
+    top: -7px;
     left: 5px;
     font-size: 13px;
   }
@@ -54,17 +70,16 @@
 
 @keyframes toDown {
   from {
-    top: -15px;
+    top: -7px;
     left: 5px;
     font-size: 13px;
   }
 
   to {
-    top: 6px;
-    left: 16px;
-    color: transparent;
-    visibility: hidden;
-    font-size: 19px;
+    top: 50%;
+    left: 13px;
+    transform: translate(0, -50%);
+    font-size: 17px;
   }
 }
 

@@ -7,11 +7,15 @@
 }
 
 .navbar {
-    padding: 10px;
+    padding: 10px 30px;
     margin: 0;
     list-style: none;
     display: flex;
     align-items: center;
     background: #F5F5F5;
     height: 60px;
+    width: 100%;
+    position: relative;
+
+
 }

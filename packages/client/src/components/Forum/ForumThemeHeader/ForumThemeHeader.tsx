@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
-import style from './ForumThemeHeader.module.css'
+import styles from './ForumThemeHeader.module.css'
 import { ForumThemeHeaderProps } from './ForumThemeHeader.types'
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
@@ -10,7 +10,7 @@ const ForumThemeHeader: FC<ForumThemeHeaderProps> = ({
   // id_user,
   theme_name,
 }) => {
-  const [authorTheme, setAuthorTheme] = useState<TUser>(null)
+  const [authorTheme, setAuthorTheme] = useState<TUser | null>(null)
 
   const EXAMPLE_USER = useRef<TUser>({
     id_user: 1,
@@ -23,16 +23,16 @@ const ForumThemeHeader: FC<ForumThemeHeaderProps> = ({
   }, [])
 
   return (
-    <div className={style.header}>
-      <div className={style['header-title']}>
+    <div className={styles.header}>
+      <div className={styles['headerTitle']}>
         <img
           src={authorTheme?.avatar || defaultAvatar}
           alt="avatar"
-          className={style['avatar']}
+          className={styles['avatar']}
         />
-        {<div className={style['name']}>{authorTheme?.name}</div>}
+        {<div className={styles['name']}>{authorTheme?.name || ''}</div>}
       </div>
-      <div className={style['theme']}>{theme_name}</div>
+      <div className={styles['theme']}>{theme_name}</div>
     </div>
   )
 }

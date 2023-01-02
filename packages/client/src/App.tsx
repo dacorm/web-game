@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import RouterLayout from './layout/RouterLayout/RouterLayout'
 
 import './globalStyles/reset.css'
-import './globalStyles/constats.css'
+import './globalStyles/constants.css'
 import './globalStyles/global-styles.css'
 
 function App() {

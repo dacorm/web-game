@@ -28,20 +28,22 @@
 
 }
 
-.actionBlock a{
+.actionBlock a {
     color: black;
 }
 
-.button {
-    padding: 15px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    float:right;
-    position:absolute;
-    bottom:0;
-    right: 0;
-    font-family: 'Inter', serif;
-    font-size: 14pt;
+.buttonsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 180px;
 }
 
+.button {
+    width: 200px;
+}
 
+.button:not(:first-child) {
+    margin-top: 15px;
+}

@@ -2,7 +2,7 @@ import { FC, useRef } from 'react'
 import GameSearchProfile from '../GameSearchProfile'
 import { GameSearchItemProps } from './GameSearchItem.types'
 
-import style from './GameSearchItem.module.css'
+import styles from './GameSearchItem.module.css'
 import connectInGameImg from '../../../assets/img/connectInGame.svg'
 
 const GameSearchItem: FC<GameSearchItemProps> = ({ players }) => {
@@ -16,7 +16,7 @@ const GameSearchItem: FC<GameSearchItemProps> = ({ players }) => {
   }
 
   return (
-    <div className={style['games-item']}>
+    <div className={styles['games-item']}>
       {playersAndFreePlaces.current.map(
         ({ id_player, name, avatar }, index) => (
           <GameSearchProfile

@@ -3,22 +3,22 @@
     padding: 0px 15px;
 }
 
-.item-info {
+.itemInfo {
     display: flex;
     margin-left: 20px;
     color: var(--color-sub-text);
     font-size: 12px;
 }
 
-.item-author {
+.itemAuthor {
     font-size: 13px;
 }
 
-.item-date {
+.itemDate {
     margin-left: 10px;
 }
 
-.item-inner {
+.itemInner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,12 +29,12 @@
 
 }
 
-.item-inner:hover {
+.itemInner:hover {
     opacity: 0.8;
 }
 
-.item-name,
-.item-count-msg {
+.itemName,
+.itemCountMsg {
     padding: 20px 10px;
     color: var(--color-black);
     font-style: normal;
@@ -44,11 +44,11 @@
 
 }
 
-.item-name {
+.itemName {
     flex: 0 1 80%;
 }
 
-.item-count-msg {
+.itemCountMsg {
     margin-left: 10px;
     position: relative;
     top: 14px;

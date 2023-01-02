@@ -9,15 +9,15 @@ import {
 } from '../../../shared/ui/Button/Button.types'
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
-import style from './ForumThemeMessageItem.module.css'
+import styles from './ForumThemeMessageItem.module.css'
 
 const ForumThemeMessageItem: FC<TThemeMessage> = ({
-  //   id_msg,
+  id_msg,
   text,
-  //   author_id,
+  author_id,
   date,
 }) => {
-  const [author, setAuthor] = useState<TUser>(null)
+  const [author, setAuthor] = useState<TUser | null>(null)
   const EXAMPLE_USER = useRef<TUser>({
     id_user: 1,
     name: 'userName1',
@@ -29,19 +29,24 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
   }, [])
 
   return (
-    <li className={style['message-item']}>
-      <div className={style.author}>
+    <li
+      className={styles['messageItem']}
+      data-id-msg={id_msg}
+      data-id-author={author_id}>
+      <div className={styles.author}>
         <img
           src={author?.avatar || defaultAvatar}
           alt="avatar"
-          className={style.avatar}
+          className={styles.avatar}
         />
-        <div className={style.name}>{author?.name}</div>
-        <time className={style.date}>{date.toLocaleString().slice(0, 17)}</time>
+        <div className={styles.name}>{author?.name}</div>
+        <time className={styles.date}>
+          {date.toLocaleString().slice(0, 17)}
+        </time>
       </div>
-      <div className={style.message}>
-        <div className={style.text}>{text}</div>
-        <div className={style.button}>
+      <div className={styles.message}>
+        <div className={styles.text}>{text}</div>
+        <div className={styles.button}>
           <Button
             theme={ButtonTheme.TRANSPARENT}
             colorText={ButtonColorText.BLUE}
