@@ -12,12 +12,12 @@ import defaultAvatar from '../../../assets/img/defaultUserAvatar.png'
 import styles from './ForumThemeMessageItem.module.css'
 
 const ForumThemeMessageItem: FC<TThemeMessage> = ({
-  //   id_msg,
+  id_msg,
   text,
-  //   author_id,
+  author_id,
   date,
 }) => {
-  const [author, setAuthor] = useState<TUser>(null)
+  const [author, setAuthor] = useState<TUser | null>(null)
   const EXAMPLE_USER = useRef<TUser>({
     id_user: 1,
     name: 'userName1',
@@ -29,7 +29,10 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
   }, [])
 
   return (
-    <li className={styles['message-item']}>
+    <li
+      className={styles['messageItem']}
+      data-id-msg={id_msg}
+      data-id-author={author_id}>
       <div className={styles.author}>
         <img
           src={author?.avatar || defaultAvatar}

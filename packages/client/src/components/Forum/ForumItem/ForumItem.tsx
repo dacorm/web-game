@@ -16,15 +16,13 @@ const ForumItem: FC<TForumTheme> = ({
     <>
       <li className={styles['item']} data-id-theme={id_theme}>
         <Link to={`${ROUTES.FORUM}/${id_theme}`}>
-          <div className={styles['item-info']}>
-            <div className={styles['item-author']}>{created_by_id}, </div>
-            <div className={styles['item-date']}>{date.toLocaleString()}</div>
+          <div className={styles['itemInfo']}>
+            <div className={styles['itemAuthor']}>{created_by_id}, </div>
+            <div className={styles['itemDate']}>{date.toLocaleString()}</div>
           </div>
-          <div className={styles['item-inner']}>
-            <div className={styles['item-name']}>{name_theme}</div>
-            <div className={styles['item-count-msg']}>
-              сообщений: {count_msg}
-            </div>
+          <div className={styles['itemInner']}>
+            <div className={styles['itemName']}>{name_theme}</div>
+            <div className={styles['itemCountMsg']}>сообщений: {count_msg}</div>
           </div>
         </Link>
       </li>

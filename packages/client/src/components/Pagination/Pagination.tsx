@@ -35,9 +35,9 @@ const Pagination: FC<PaginationProps> = ({
 
   const lastPage = paginationRange[paginationRange.length - 1]
   return (
-    <ul className={classnames(styles['pagination-container'], {})}>
+    <ul className={classnames(styles['paginationContainer'], {})}>
       <li
-        className={classnames(styles['pagination-item'], {
+        className={classnames(styles['paginationItem'], {
           disabled: currentPage === 1,
         })}
         onClick={onPrevious}>
@@ -46,7 +46,7 @@ const Pagination: FC<PaginationProps> = ({
       {paginationRange.map((pageNumber: number, index: number) => {
         if (pageNumber === DOTS) {
           return (
-            <li className={styles['pagination-item dots']} key={index}>
+            <li className={styles['paginationItem dots']} key={index}>
               &#8230;
             </li>
           )
@@ -54,7 +54,7 @@ const Pagination: FC<PaginationProps> = ({
 
         return (
           <li
-            className={classnames(styles['pagination-item'], {
+            className={classnames(styles['paginationItem'], {
               [styles['selected']]: pageNumber === currentPage,
             })}
             onClick={() => onPageChange(pageNumber)}
@@ -65,7 +65,7 @@ const Pagination: FC<PaginationProps> = ({
       })}
 
       <li
-        className={classnames(styles['pagination-item'], {
+        className={classnames(styles['paginationItem'], {
           [styles['disabled']]: currentPage === lastPage,
         })}
         onClick={onNext}>

@@ -30,37 +30,37 @@ const ForumTheme = () => {
         date: new Date(),
       },
       {
-        id_msg: 1,
+        id_msg: 3,
         text: 'Check checkkkkkffffffffffffdddddddd Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam quasi voluptas explicabo aliquam pariatur libero earum cum sequi voluptate quo, et ducimus, deserunt eligendi rerum laborum ratione velit officia vero? ffffffffffk check!',
         author_id: 1,
         date: new Date(),
       },
       {
-        id_msg: 2,
+        id_msg: 4,
         text: '22222 checkkkkkk check!',
         author_id: 2,
         date: new Date(),
       },
       {
-        id_msg: 1,
+        id_msg: 5,
         text: 'Check checkkkkkffffffffffffdddddddd Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam quasi voluptas explicabo aliquam pariatur libero earum cum sequi voluptate quo, et ducimus, deserunt eligendi rerum laborum ratione velit officia vero? ffffffffffk check!',
         author_id: 1,
         date: new Date(),
       },
       {
-        id_msg: 2,
+        id_msg: 6,
         text: '22222 checkkkkkk check!',
         author_id: 2,
         date: new Date(),
       },
       {
-        id_msg: 1,
+        id_msg: 7,
         text: 'Check checkkkkkffffffffffffdddddddd Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam quasi voluptas explicabo aliquam pariatur libero earum cum sequi voluptate quo, et ducimus, deserunt eligendi rerum laborum ratione velit officia vero? ffffffffffk check!',
         author_id: 1,
         date: new Date(),
       },
       {
-        id_msg: 2,
+        id_msg: 8,
         text: '22222 checkkkkkk check!',
         author_id: 2,
         date: new Date(),
@@ -73,15 +73,15 @@ const ForumTheme = () => {
   }, [])
 
   return (
-    <div className={styles['forum_theme']}>
-      {theme && (
+    <div className={styles['forumTheme']}>
+      {!!theme && (
         <ForumThemeHeader
           theme_name={theme.theme_name}
           id_user={theme.id_user}
         />
       )}
-      {theme && <ForumThemeMessages messages={theme.messages} />}
-      <div className={styles['form-wrapper']}>
+      {!!theme && <ForumThemeMessages messages={theme.messages} />}
+      <div className={styles['formWrapper']}>
         <ForumThemeTextArea />
       </div>
     </div>

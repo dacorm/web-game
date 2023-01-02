@@ -12,9 +12,9 @@ const MenuHeader: FC<MenuHeaderProps> = ({
 }) => {
   return (
     <div className={styles.header}>
-      <div className={styles['header-title']}>{text}</div>
+      <div className={styles['headerTitle']}>{text}</div>
       {buttonText && (
-        <div className={styles['header-btn']}>
+        <div className={styles['headerBtn']}>
           <Button
             size={ButtonSize.M}
             theme={ButtonTheme.GREEN}

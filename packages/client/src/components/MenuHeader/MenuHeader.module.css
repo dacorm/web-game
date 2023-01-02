@@ -7,7 +7,7 @@
     border-bottom: 1px solid var(--color-black);
 }
 
-.header-title {
+.headerTitle {
     font-style: normal;
     font-weight: 700;
     font-size: 22px;
@@ -16,6 +16,6 @@
     margin-left: 25px;
 }
 
-.header-btn {
+.headerBtn {
     margin-right: 25px;
 }
