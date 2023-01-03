@@ -1,13 +1,10 @@
-import React from 'react'
-import logo from '../../assets/img/MainLoGo.png'
-import styles from './NavBarLogo.module.css'
-import { memo } from 'react'
+import React, { memo } from 'react';
+import logo from '../../assets/img/MainLoGo.png';
+import styles from './NavBarLogo.module.css';
 
-export const NavBarLogo = memo(() => {
-  return (
+export const NavBarLogo = memo(() => (
     <div className={styles.navLogoBlock}>
-      <img className={styles.mainLogo} src={logo} alt="Monopoly" />
-      <div className={styles.textLogo}>Monopoly Game</div>
+        <img className={styles.mainLogo} src={logo} alt="Monopoly" />
+        <div className={styles.textLogo}>Monopoly Game</div>
     </div>
-  )
-})
+));

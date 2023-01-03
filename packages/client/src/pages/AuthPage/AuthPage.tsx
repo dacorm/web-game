@@ -1,11 +1,9 @@
 import React from 'react';
 import styles from './AuthPage.module.css';
-import Form from '../../components/Form'
+import Form from '../../components/Form';
 
-export const AuthPage = () => {
-  return (
+export const AuthPage = () => (
     <div className={styles.container}>
-      <Form isAuth={true} />
+        <Form isAuth />
     </div>
-  )
-}
+);

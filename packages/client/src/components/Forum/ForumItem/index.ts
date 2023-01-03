@@ -1,3 +1,3 @@
-import ForumItem from './ForumItem'
+import ForumItem from './ForumItem';
 
-export default ForumItem
+export default ForumItem;

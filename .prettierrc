@@ -3,5 +3,6 @@
   "semi": false,
   "arrowParens": "avoid",
   "bracketSameLine": true,
-  "width": 50
+  "width": 50,
+  "import/no-unresolved": "off"
 }

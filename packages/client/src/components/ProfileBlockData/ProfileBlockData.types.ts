@@ -1,4 +1,3 @@
-
 export interface ProfileBlockDataProps {
   points:number
   games:number

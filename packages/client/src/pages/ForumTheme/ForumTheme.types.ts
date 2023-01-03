@@ -1,13 +1,13 @@
-export type TTheme = {
-  id_theme: number
-  id_user: number
-  theme_name: string
-  messages: TThemeMessage[]
-} | null
-
 export type TThemeMessage = {
-  id_msg: number
+  msgId: number
   text: string
-  author_id: number
+  authorId: number
   date: Date
 }
+
+export type TTheme = {
+  themeId: number
+  userId: number
+  themeName: string
+  messages: TThemeMessage[]
+} | null

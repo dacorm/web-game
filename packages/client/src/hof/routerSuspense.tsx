@@ -1,12 +1,10 @@
-import React, { LazyExoticComponent, Suspense } from 'react'
-import { Loading } from '../components/Loading'
+import React, { LazyExoticComponent, Suspense } from 'react';
+import { Loading } from '../components/Loading';
 
 export const routerSuspense = (
-  Element: LazyExoticComponent<() => JSX.Element>
-) => {
-  return (
+    Element: LazyExoticComponent<() => JSX.Element>,
+) => (
     <Suspense fallback={<Loading />}>
-      <Element />
+        <Element />
     </Suspense>
-  )
-}
+);

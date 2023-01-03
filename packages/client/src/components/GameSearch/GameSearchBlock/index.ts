@@ -1,3 +1,3 @@
-import GameSearchBlock from './GameSearchBlock'
+import GameSearchBlock from './GameSearchBlock';
 
-export default GameSearchBlock
+export default GameSearchBlock;

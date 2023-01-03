@@ -16,31 +16,32 @@ export interface Shape {
   setAttr(attr: string, val: string | number): void
 }
 
+/* eslint-disable-next-line */
 export class Shape {
-  constructor(props: ShapeProps) {
-    this.fill = props.fill || 'transparent'
-    this.stroke = props.stroke || '#333'
-    this.strokeWidth = props.strokeWidth || 2
-  }
+    constructor(props: ShapeProps) {
+        this.fill = props.fill || 'transparent';
+        this.stroke = props.stroke || '#333';
+        this.strokeWidth = props.strokeWidth || 2;
+    }
 
-  fillStrokeShape() {
-    this.fillShape()
-    this.strokeShape()
+    fillStrokeShape() {
+        this.fillShape();
+        this.strokeShape();
 
-    this.context.fill()
-    this.context.stroke()
-  }
+        this.context.fill();
+        this.context.stroke();
+    }
 
-  fillShape() {
-    this.setAttr('fillStyle', this.fill)
-  }
+    fillShape() {
+        this.setAttr('fillStyle', this.fill);
+    }
 
-  strokeShape() {
-    this.setAttr('lineWidth', this.strokeWidth)
-    this.setAttr('strokeStyle', this.stroke)
-  }
+    strokeShape() {
+        this.setAttr('lineWidth', this.strokeWidth);
+        this.setAttr('strokeStyle', this.stroke);
+    }
 
-  setAttr(attr: keyof CanvasRenderingContext2D, val: string | number) {
-    ;(this.context[attr] as string | number) = val
-  }
+    setAttr(attr: keyof CanvasRenderingContext2D, val: string | number) {
+        (this.context[attr] as string | number) = val;
+    }
 }

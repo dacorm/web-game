@@ -72,7 +72,7 @@ export const logoutThunk = () => async (dispatch: appDispatch) => {
         const data = await fetch('https://ya-praktikum.tech/api/v2/auth/logout', {
             credentials: 'include',
         });
-        const res = await data.json();
+        await data.json();
         dispatch(logout());
     } catch (e) {
         console.warn(e);
@@ -93,7 +93,7 @@ export const getUserInfo = () => async (dispatch: appDispatch) => {
 
 export const loginThunk = (userName: string, password: string) => async (dispatch: appDispatch) => {
     try {
-        const data = await fetch('https://ya-praktikum.tech/api/v2/auth/signin', {
+        await fetch('https://ya-praktikum.tech/api/v2/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

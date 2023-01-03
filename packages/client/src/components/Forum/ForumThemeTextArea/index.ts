@@ -1,3 +1,3 @@
-import ForumThemeTextArea from './ForumThemeTextArea'
+import ForumThemeTextArea from './ForumThemeTextArea';
 
-export default ForumThemeTextArea
+export default ForumThemeTextArea;

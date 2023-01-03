@@ -1,2 +1,3 @@
-import ForumTheme from './ForumTheme'
-export default ForumTheme
+import ForumTheme from './ForumTheme';
+
+export default ForumTheme;
