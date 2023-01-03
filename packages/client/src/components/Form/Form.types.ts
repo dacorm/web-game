@@ -1,3 +1,3 @@
 export interface FormProps {
-  isAuth: boolean;
+  isAuth: boolean
 }

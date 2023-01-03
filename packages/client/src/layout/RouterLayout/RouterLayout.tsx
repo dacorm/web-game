@@ -14,6 +14,10 @@ const ForumThemePage = routerSuspense(
 )
 const ProfilePage = routerSuspense(lazy(() => import('../../pages/Profile')))
 const GamePage = routerSuspense(lazy(() => import('../../pages/Game/Game')))
+const RegisterPage = routerSuspense(
+  lazy(() => import('../../pages/RegisterPage'))
+)
+const LoginPage = routerSuspense(lazy(() => import('../../pages/AuthPage')))
 
 const RouterLayout = () => {
   return (
@@ -26,6 +30,8 @@ const RouterLayout = () => {
         <Route path={ROUTES.PROFILE} element={ProfilePage} />
         <Route path={ROUTES.GAME} element={GamePage} />
       </Route>
+      <Route path={ROUTES.REGISTER} element={RegisterPage} />
+      <Route path={ROUTES.AUTH} element={LoginPage} />
     </Routes>
   )
 }

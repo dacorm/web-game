@@ -20,12 +20,6 @@
 }
 
 .button {
-    height: 40px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 20px;
-    text-align: center;
-    color: #FFFFFF;
+   margin-bottom: 10px;
 
 }
