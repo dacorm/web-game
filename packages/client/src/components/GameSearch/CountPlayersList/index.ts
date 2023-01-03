@@ -1,3 +1,3 @@
-import CountPlayersList from './CountPlayersList'
+import CountPlayersList from './CountPlayersList';
 
-export default CountPlayersList
+export default CountPlayersList;

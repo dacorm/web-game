@@ -1,2 +1,3 @@
-import {ProfileFormPass} from './ProfileFormPass'
-export default ProfileFormPass
+import { ProfileFormPass } from './ProfileFormPass';
+
+export default ProfileFormPass;

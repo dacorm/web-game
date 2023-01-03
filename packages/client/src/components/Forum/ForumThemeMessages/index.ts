@@ -1,3 +1,3 @@
-import ForumThemeMessages from './ForumThemeMessages'
+import ForumThemeMessages from './ForumThemeMessages';
 
-export default ForumThemeMessages
+export default ForumThemeMessages;

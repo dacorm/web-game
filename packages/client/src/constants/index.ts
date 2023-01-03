@@ -1,1 +1,1 @@
-export { ROUTES } from "./RouterConst"
+export { ROUTES } from './RouterConst';

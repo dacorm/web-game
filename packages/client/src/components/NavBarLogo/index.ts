@@ -1,1 +1,1 @@
-export {NavBarLogo} from "./NavBarLogo"
+export { NavBarLogo } from './NavBarLogo';

@@ -1,1 +1,1 @@
-export {NavBarItem} from "./NavBarItem"
+export { NavBarItem } from './NavBarItem';

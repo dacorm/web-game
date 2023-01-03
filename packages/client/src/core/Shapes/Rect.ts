@@ -1,4 +1,4 @@
-import { Shape, ShapeProps } from './Shape'
+import { Shape, ShapeProps } from './Shape';
 
 type Props = {
   x: number
@@ -13,24 +13,24 @@ export interface Rect {
   width: number
   height: number
 }
-
+/* eslint-disable-next-line */
 export class Rect extends Shape {
-  constructor(props: Props) {
-    super(props)
+    constructor(props: Props) {
+        super(props);
 
-    this.x = props.x
-    this.y = props.y
-    this.width = props.width
-    this.height = props.height
-  }
+        this.x = props.x;
+        this.y = props.y;
+        this.width = props.width;
+        this.height = props.height;
+    }
 
-  drawShape(context: CanvasRenderingContext2D) {
-    this.context = context
+    drawShape(context: CanvasRenderingContext2D) {
+        this.context = context;
 
-    context.beginPath()
-    context.rect(this.x, this.y, this.width, this.height)
-    this.fillStrokeShape()
+        context.beginPath();
+        context.rect(this.x, this.y, this.width, this.height);
+        this.fillStrokeShape();
 
-    context.closePath()
-  }
+        context.closePath();
+    }
 }

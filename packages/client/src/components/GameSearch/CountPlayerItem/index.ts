@@ -1,3 +1,3 @@
-import CountPlayerItem from './CountPlayerItem'
+import CountPlayerItem from './CountPlayerItem';
 
-export default CountPlayerItem
+export default CountPlayerItem;

@@ -1,2 +1,3 @@
-import {ProfileBlockData} from './ProfileBlockData'
-export default ProfileBlockData
+import { ProfileBlockData } from './ProfileBlockData';
+
+export default ProfileBlockData;

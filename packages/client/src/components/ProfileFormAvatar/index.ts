@@ -1,2 +1,3 @@
-import {ProfileFormAvatar} from './ProfileFormAvatar'
-export default ProfileFormAvatar
+import { ProfileFormAvatar } from './ProfileFormAvatar';
+
+export default ProfileFormAvatar;

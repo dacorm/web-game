@@ -1,3 +1,3 @@
-import CreateGameForm from './CreateGameForm'
+import CreateGameForm from './CreateGameForm';
 
-export default CreateGameForm
+export default CreateGameForm;

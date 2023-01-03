@@ -1,1 +1,1 @@
-export {NavBarProfile} from "./NavBarProfile"
+export { NavBarProfile } from './NavBarProfile';

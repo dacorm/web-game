@@ -1,8 +1,10 @@
-import { InputFeature, InputMode, InputProps } from './Input.types'
-import { FC, useCallback, useRef, useState } from 'react'
-import cn from 'classnames'
+import {
+    FC, useCallback, useRef, useState,
+} from 'react';
+import cn from 'classnames';
+import { InputFeature, InputMode, InputProps } from './Input.types';
 
-import styles from './Input.module.css'
+import styles from './Input.module.css';
 
 /**
  * Компонент Input
@@ -20,81 +22,91 @@ import styles from './Input.module.css'
  */
 
 const Input: FC<InputProps> = ({
-  children,
-  mode = InputMode.TEXT,
-  feature,
-  label,
-  customPlaceholder,
-  className,
-  ...props
+    mode = InputMode.TEXT,
+    feature,
+    label,
+    customPlaceholder,
+    className,
+    ...props
 }) => {
-  const [isFocus, setIsFocus] = useState(false)
-  const [isFirstInit, setIstFirstInit] = useState(true) //если инпут только зарендерился с динам. плэйсхолд, то не вызывать анимацию
-  const inputRef = useRef<HTMLInputElement>(null)
+    const [isFocus, setIsFocus] = useState(false);
+    const [isFirstInit, setIstFirstInit] = useState(true); // если инпут только зарендерился с динам. плэйсхолд, то не вызывать анимацию
+    const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFocus = useCallback(() => {
-    isFirstInit && customPlaceholder && setIstFirstInit(false)
-    setIsFocus(true)
-  }, [])
+    const handleFocus = useCallback(() => {
+        if (isFirstInit && customPlaceholder) {
+            setIstFirstInit(false);
+        }
+        setIsFocus(true);
+    }, []);
 
-  const handleBlur = useCallback(() => {
-    inputRef.current && !inputRef.current.value.length && setIsFocus(false)
-  }, [])
+    const handleBlur = useCallback(() => {
+        if (inputRef.current && !inputRef.current.value.length) {
+            setIsFocus(false);
+        }
+    }, []);
 
-  switch (feature) {
+    switch (feature) {
     case InputFeature.DYNAMIC_PLACEHOLDER: {
-      return (
-        <div className={styles['dynamic_wrapper']}>
-          <span
-            className={cn(styles['dynamic_placeholder'], {
-              [styles['dynamic_placeholder-up']]: isFocus,
-              [styles['dynamic_placeholder-down']]: !isFocus && !isFirstInit,
-            })}
-            onClick={() => inputRef.current?.focus()}>
-            {customPlaceholder}
-          </span>
+        return (
+            <div className={styles.dynamic_wrapper}>
+                <span
+                    className={cn(styles.dynamic_placeholder, {
+                        [styles['dynamic_placeholder-up']]: isFocus,
+                        [styles['dynamic_placeholder-down']]: !isFocus && !isFirstInit,
+                    })}
+                    onClick={() => inputRef.current?.focus()}
+                >
+                    {customPlaceholder}
+                </span>
 
-          <input
-            ref={inputRef}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            className={cn(
-              styles.input,
-              mode && styles[mode],
-              className && [className]
-            )}
-            {...props}>
-            {children}
-          </input>
-        </div>
-      )
+                <input
+                    ref={inputRef}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    className={cn(
+                        styles.input,
+                        mode && styles[mode],
+                        className && [className],
+                    )}
+                    /* eslint-disable-next-line */
+                    {...props}
+                />
+
+            </div>
+        );
     }
 
     case InputFeature.WITH_LABEL: {
-      return (
-        <label className={styles.label}>
-          {label}
-          <input className={cn(styles.inputWithLabel, className)} {...props}>
-            {children}
-          </input>
-        </label>
-      )
+        return (
+        /* eslint-disable-next-line */
+            <label className={styles.label}>
+                {label}
+                <input
+                    className={cn(styles.inputWithLabel, className)}
+                    /* eslint-disable-next-line */
+                    {...props}
+                />
+
+            </label>
+        );
     }
 
     default: {
-      return (
-        <input
-          className={cn(
-            styles.input,
-            mode && styles[mode],
-            className && [className]
-          )}
-          {...props}>
-          {children}
-        </input>
-      )
-    }
-  }
-}
+        return (
+            <input
+                className={cn(
+                    styles.input,
+                    mode && styles[mode],
+                    className && [className],
+                )}
+                /* eslint-disable-next-line */
+                {...props}
+            />
 
-export default Input
+        );
+    }
+    }
+};
+
+export default Input;
