@@ -124,7 +124,7 @@ export class Player {
         this.currentPos += value;
 
         if (this.currentPos > 36) {
-            this.currentPos -= 37;
+            this.currentPos -= 36;
             this.currentPos = this.currentPos || this.currentPos + 1;
         }
 
