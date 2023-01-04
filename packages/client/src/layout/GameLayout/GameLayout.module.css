@@ -1,0 +1,6 @@
+.main {
+  background-color: var(--color-menu-background);
+  height: calc(100vh);
+padding: 50px;
+  display: flex;
+}

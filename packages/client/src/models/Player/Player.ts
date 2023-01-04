@@ -1,15 +1,19 @@
-import { Canvas } from '../Canvas/helpers/Canvas';
-import { Circle } from '../Shapes/Circle';
-import { Util } from '../Util';
+import { Canvas } from '../../core/Canvas/helpers/Canvas';
+import { Circle } from '../../core/Shapes/Circle';
+import { Util } from '../../core/Util';
+import board from '../../models/Board/Board';
+import { PlayerProps } from './Player.types';
 
 export interface Player {
   x: number
   y: number
+  currentPos: number
   radius: number
   fill: string
   canvas: Canvas
   trails: { x: number; y: number }[]
   trailCount: number
+  userId: number
   init(): void
   draw(): void
   move(squares: number): void
@@ -17,8 +21,10 @@ export interface Player {
 /* eslint-disable-next-line */
 export class Player {
     // todo: канвас везде надо забирать из стора
-    constructor(canvas: Canvas) {
+    constructor({ canvas, userId }: PlayerProps) {
         this.canvas = canvas;
+        this.userId = userId;
+        this.currentPos = 0; // текущая позиция фишки относительно id карточки
     }
 
     init() {
@@ -29,6 +35,10 @@ export class Player {
         this.fill = Util.randomColor();
         this.trails = [];
         this.trailCount = 10;
+
+        if (!board.players.includes(this)) {
+            board.players.push(this);
+        }
 
         this.draw();
     }
@@ -86,11 +96,12 @@ export class Player {
         }
 
         this.draw(velocity);
-        this.drawTrails();
+        // this.drawTrails();
 
         return { x: this.x, y: this.y };
     }
 
+    // анимация тени пройденного пути
     drawTrails() {
         const context = this.canvas.getContext();
         this.trails.push({ x: this.x, y: this.y });
@@ -105,5 +116,18 @@ export class Player {
             context.arc(position.x, position.y, this.radius, 0, 2 * Math.PI);
             context.fill();
         });
+    }
+
+    // прибавляем к текущей позиции число кубиков
+    // если результат > 37, то обнуляем
+    updateCurrentPos(value: number) {
+        this.currentPos += value;
+
+        if (this.currentPos > 36) {
+            this.currentPos -= 37;
+            this.currentPos = this.currentPos || this.currentPos + 1;
+        }
+
+        return this.currentPos;
     }
 }
