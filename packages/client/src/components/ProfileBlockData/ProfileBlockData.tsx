@@ -7,9 +7,11 @@ export const ProfileBlockData: React.FC<ProfileBlockDataProps> = ({
     games,
     rating,
     userName,
-}) => (
+}) => {
+    const Name= userName || "SomeUser"
+   return  (
     <>
-        <div className={styles.userName}>{userName}</div>
+        <div className={styles.userName}>{Name}</div>
         <div className={styles.blocksWrapper}>
             <div className={styles.blocksData}>
                 <div className={`${styles.blockData} ${styles.points}`}>
@@ -27,4 +29,4 @@ export const ProfileBlockData: React.FC<ProfileBlockDataProps> = ({
             </div>
         </div>
     </>
-);
+)};

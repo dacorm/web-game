@@ -7,7 +7,7 @@ import './globalStyles/reset.css';
 import './globalStyles/constants.css';
 import './globalStyles/global-styles.css';
 import { Dispatcher } from './redux/store';
-import { getUserInfo } from './redux/userReducer/userReducer';
+import { getUserInfo } from './redux/actionCreators/user';
 import { getIsLoggedInFlag } from './redux/userReducer/userSelectors';
 
 function App() {

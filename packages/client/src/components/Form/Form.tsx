@@ -10,7 +10,7 @@ import { FormProps } from './Form.types';
 import {
     loginThunk,
     registerUserThunk,
-} from '../../redux/userReducer/userReducer';
+} from '../../redux/actionCreators/user';
 import { Dispatcher } from '../../redux/store';
 
 export const Form: React.FC<FormProps> = ({ isAuth }) => {
