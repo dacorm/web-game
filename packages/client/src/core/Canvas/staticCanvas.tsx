@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Canvas } from './helpers/Canvas';
 import { createBoard } from './helpers/createBoard';
+import { resetBoard } from './helpers/resetBoard';
 
 type Props = { width: number; height: number }
 
@@ -10,7 +11,7 @@ export const staticCanvas = ({ width, height }: Props) => {
 
     useEffect(() => {
         ref.current.setSize(width, height);
-
+        resetBoard();
         createBoard(ref.current);
     }, [width, height]);
 

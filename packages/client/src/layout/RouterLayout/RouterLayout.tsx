@@ -4,6 +4,7 @@ import { routerSuspense } from '../../hof/routerSuspense';
 import MenuLayout from '../MenuLayout';
 import GameSearch from '../../pages/GameSearch';
 import { ROUTES } from './RouterConst';
+import GameLayout from '../GameLayout';
 
 const LeaderBoardPage = routerSuspense(
     lazy(() => import('../../pages/LeaderBoard')),
@@ -27,6 +28,8 @@ const RouterLayout = () => (
             <Route path={ROUTES.FORUM_THEME} element={ForumThemePage} />
             <Route path={ROUTES.LEADER} element={LeaderBoardPage} />
             <Route path={ROUTES.PROFILE} element={ProfilePage} />
+        </Route>
+        <Route path={ROUTES.MAIN} element={<GameLayout />}>
             <Route path={ROUTES.GAME} element={GamePage} />
         </Route>
         <Route path={ROUTES.REGISTER} element={RegisterPage} />

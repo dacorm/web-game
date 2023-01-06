@@ -20,7 +20,7 @@ export const BoardStage: FC = () => {
     const staticLayer = staticCanvas(containerSizes);
     const activeLayer = activeCanvas({
         ...containerSizes,
-        squares: random.reduce((a, i) => a + i, 0),
+        squares: random,
     });
 
     useEffect(() => {
