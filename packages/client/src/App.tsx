@@ -15,9 +15,7 @@ function App() {
     const dispatch = useDispatch<Dispatcher>();
 
     useEffect(() => {
-        if (isLoggedIn) {
-            dispatch(getUserInfo());
-        }
+        dispatch(getUserInfo());
     }, [isLoggedIn]);
 
     return (

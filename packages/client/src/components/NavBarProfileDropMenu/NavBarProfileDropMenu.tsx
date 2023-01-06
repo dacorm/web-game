@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styles from './NavBarProfileDropMenu.module.css';
 import { ROUTES } from '../../layout/RouterLayout/RouterConst';
 import { Dispatcher } from '../../redux/store';
-import { logout, logoutThunk } from '../../redux/actionCreators/user';
+import { logoutThunk } from '../../redux/actionCreators/user';
 
 interface NavBarProfileDropMenuProps {
   drop: boolean
@@ -22,9 +22,8 @@ export function NavBarProfileDropMenu({
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        //dispatch(logout());
         dispatch(logoutThunk())
-        navigate('/login');
+       // navigate('/login');
     };
 
     return (

@@ -4,12 +4,14 @@ export interface userState {
   email: string | null;
   isLoggedIn: boolean;
   avatar: string | null
+  loginError: string|null
 }
 
 export enum UserActionTypes {
 SET_USER="SET_USER",
 LOGOUT="LOGOUT",
-SET_AVATAR="SET_AVATAR"
+SET_AVATAR="SET_AVATAR",
+LOGIN_ERROR="LOGIN_ERROR"
 }
 
 export enum UserURL {

@@ -1,3 +1,4 @@
+import { userApi } from "../../api/userApi";
 import { appDispatch } from "../store";
 import { UserActionTypes, UserURL } from "../types/userReducer.types";
 
@@ -8,16 +9,12 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
        email,
        id,
        avatar: UserURL.BASE_AVATAR_URL+avatar}
-   
-       localStorage.setItem('user', JSON.stringify(userData))
-       console.log("localStor set user", localStorage)
        return {
        type: UserActionTypes.SET_USER,
        payload: userData,
    }};
    
    export const logout = () => {
-       localStorage.removeItem('user')
       return {
        type: UserActionTypes.LOGOUT,
        payload: null,
@@ -29,18 +26,23 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
    payload:avatar
    })
    
+   export const setLoginError=(error:string)=>({
+    type: UserActionTypes.LOGIN_ERROR,
+    payload: error
+   })
    
    export const setUserAvatarThunk =(avatar:File) =>async (dispatch:appDispatch) => {
        const fd = new FormData()
        fd.append('avatar', avatar)
        try {
-           const data = await fetch(UserURL.AVATAR, {
-               method: 'PUT',
-               body: fd,
-               credentials: 'include',
-           });
-           const res = await data.json();
-           dispatch(setAvatar(UserURL.BASE_AVATAR_URL+res.avatar));
+           const res= await userApi.setAvatar(fd)
+           const data = await res.json();
+           if(res.status===200){
+             dispatch(setAvatar(UserURL.BASE_AVATAR_URL+data.avatar));
+           }else{
+            console.log("SET_AVATAR_EROR", data)
+           }
+          
        } catch (e) {
            console.warn(e);
        }
@@ -50,23 +52,15 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
    
    export const registerUserThunk = (userName: string, email: string, password: string) => async (dispatch: appDispatch) => {
        try {
-           const data = await fetch(UserURL.SIGNUP, {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({
-                   first_name: userName,
-                   second_name: 'unknown',
-                   login: userName,
-                   email,
-                   password,
-                   phone: '77777777777',
-               }),
-               credentials: 'include',
-           });
-           const res = await data.json();
-           dispatch(setUser(userName, email, res.id, res.avatar));
+           const res = await userApi.reg(userName, email, password)
+           const userData = await res.json();
+           if(res.status===200){
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+           }else{
+             console.log("regError",userData)
+             dispatch(setLoginError(userData.reason))
+           }
+
        } catch (e) {
            console.warn(e);
        }
@@ -74,30 +68,30 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
    
    export const logoutThunk = () => async (dispatch: appDispatch) => {
        try {
-           const data = await fetch(UserURL.LOGOUT, {
-            method: 'POST',  
-            credentials: 'include',
-               headers: {
-                'Accept': 'application/json',
-            },
-           });
-           await data.json();
-           console.log("logoutData",data)
+          const res= await userApi.logout()
+           console.log("logoutData",res)
+           if(res.status===200){
+            dispatch(logout());
+           }else{
+           const data = await res.json()
+           console.log("Error logout", data) 
            dispatch(logout());
+           }
            
        } catch (e) {
-           console.log(`eror ${e}`)
            console.warn(e);
        }
    };
    
    export const getUserInfo = () => async (dispatch: appDispatch) => {
        try {
-           const data = await fetch(UserURL.USERINFO, {
-               credentials: 'include',
-           });
-           const res = await data.json();
-           dispatch(setUser(res.login, res.email, res.id, res.avatar));
+           const res = await userApi.getUser()
+            let userData = await res.json();
+           if(res.status===200){
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+           }else{
+             console.log("getuserError",userData)
+           }
        } catch (e) {
            console.warn(e);
        }
@@ -105,25 +99,21 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
    
    export const loginThunk = (userName: string, password: string) => async (dispatch: appDispatch) => {
        try {
-           const login= await fetch(UserURL.LOGIN, {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({
-                   login: userName,
-                   password,
-               }),
-               credentials: 'include',
-           });
-           console.log("loginDATA", login)
-           const auth = await fetch(UserURL.USERINFO, {
-               credentials: 'include',
-           });
-           const userData = await auth.json();
-           console.log("serDATA", userData)
-           dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+           const loginRes=await userApi.login(userName, password)
+           console.log("loginDATA", loginRes)
+           if(loginRes.status===200){
+                const resUser=await userApi.getUser()
+                let userData = await resUser.json();
+                console.log("serDATA", userData)
+                dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+           }else{
+           let errorres= await loginRes.json()
+           console.log(" errorres",  errorres)
+           dispatch(setLoginError(errorres.reason))
+           }
+           
        } catch (e) {
+        console.log("loginError", e)
            console.warn(e);
        }
    };
