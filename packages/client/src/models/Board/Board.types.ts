@@ -1,9 +1,8 @@
-import { Cell } from '../Cell/Cell';
 import { Player } from '../Player/Player';
+import { boardStageData } from '../../core/BoardStage/helpers/boardStageData';
 
 export interface IBoard {
-    cells: Cell[];
+    stage: ReturnType<typeof boardStageData> | undefined;
     players: Player[];
-    getCellById(id: number): Cell | null
-    getPlayerById(id: number): Player | null
+    getPlayerById(id: number): Player | null;
 }

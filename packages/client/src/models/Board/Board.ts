@@ -1,19 +1,20 @@
 import { Player } from '../Player/Player';
-import { Cell } from '../Cell/Cell';
 import { IBoard } from './Board.types';
+import { boardStageData } from '../../core/BoardStage/helpers/boardStageData';
 
 class Board implements IBoard {
-    cells: Cell[] = [];
+    stage: ReturnType<typeof boardStageData> | undefined;
 
     players: Player[] = [];
 
-    getCellById(id: number) {
-        for (let i = 0; i < this.cells.length; i++) {
-            if (this.cells[i].id === id) {
-                return this.cells[i];
-            }
+    get cells() {
+        return this.stage?.cells;
+    }
+
+    getCell(index: number) {
+        if (this.stage) {
+            return this.cells?.find((_v, i) => i === index);
         }
-        return null;
     }
 
     getPlayerById(id: number) {
@@ -26,9 +27,4 @@ class Board implements IBoard {
     }
 }
 
-const board = new Board();
-
-// для дебага
-(window as any).board = board;
-
-export default board;
+export const board = new Board();

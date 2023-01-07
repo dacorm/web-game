@@ -2,7 +2,7 @@ import { Canvas } from './Canvas/helpers/Canvas';
 
 type BoardItemSize = { x: number; y: number; width: number; height: number }
 
-const myNum = 0.06 as const;
+const myNum = 0.05 as const;
 export const boardSize = 9 as const;
 
 // сюда засовываем различные помощники для работы с канвас
@@ -13,10 +13,10 @@ export const Util = {
 
     getCornerItemSize(canvas: Canvas): BoardItemSize {
         return {
-            x: canvas.width - canvas.width * Math.PI * myNum,
-            y: canvas.height - canvas.height * Math.PI * myNum,
-            width: canvas.width * Math.PI * myNum,
-            height: canvas.height * Math.PI * myNum,
+            x: Math.trunc(canvas.width - canvas.width * Math.PI * myNum),
+            y: Math.trunc(canvas.height - canvas.height * Math.PI * myNum),
+            width: Math.trunc(canvas.width * Math.PI * myNum),
+            height: Math.trunc(canvas.height * Math.PI * myNum),
         };
     },
 
@@ -26,8 +26,8 @@ export const Util = {
         const size = this.getCornerItemSize(canvas);
         const itemWidth = (canvas.width - size.width * 2) / boardSize;
         return {
-            width: itemWidth,
-            height: size.height,
+            width: Math.trunc(itemWidth),
+            height: Math.trunc(size.height),
         };
     },
 
@@ -35,8 +35,8 @@ export const Util = {
         const size = this.getCornerItemSize(canvas);
         const itemHeight = (canvas.height - size.height * 2) / boardSize;
         return {
-            width: size.width,
-            height: itemHeight,
+            width: Math.trunc(size.width),
+            height: Math.trunc(itemHeight),
         };
     },
 
