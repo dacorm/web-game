@@ -80,16 +80,32 @@ export class Player {
         circle.drawShape(this.canvas.getContext());
     }
 
-    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis }: CellType) {
+    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: CellType) {
         if (shape) {
             switch (axis) {
             case BoardCellAxis.top:
+                if (name === 'Старт') {
+                    return shape.y + shape.height / 2 >= this.y ? { x: 0, y: 0 } : velocity;
+                }
+
                 return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.right:
+                if (name === 'Тюрьма') {
+                    return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
+                }
+
                 return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.bottom:
+                if (name === 'Бесплатная стоянка') {
+                    return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
+                }
+
                 return shape.x + shape.width / 2 <= this.canvas.width - this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.left:
+                if (name === 'Тюрьма') {
+                    return shape.x + shape.width / 2 >= this.x ? { x: 0, y: 0 } : velocity;
+                }
+
                 return shape.y + shape.height / 2 <= this.canvas.height - this.y ? { x: 0, y: 0 } : velocity;
             default:
                 return velocity;
@@ -166,10 +182,10 @@ export class Player {
     updateCurrentPos(value: number) {
         this.currentPos += value;
 
-        if (this.currentPos > 36) {
-            this.currentPos -= 36;
-            this.currentPos = this.currentPos || this.currentPos + 1;
+        if (this.currentPos > 39) {
+            this.currentPos -= 40;
         }
+        console.log(`переход к ячейке с индексом ${this.currentPos}`);
 
         return this.currentPos;
     }

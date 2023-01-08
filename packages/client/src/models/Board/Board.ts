@@ -15,6 +15,7 @@ class Board implements IBoard {
         if (this.stage) {
             return this.cells?.find((_v, i) => i === index);
         }
+        return undefined;
     }
 
     getPlayerById(id: number) {
@@ -28,3 +29,5 @@ class Board implements IBoard {
 }
 
 export const board = new Board();
+
+(window as any).board = board;

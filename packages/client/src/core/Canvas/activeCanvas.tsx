@@ -14,14 +14,9 @@ export const activeCanvas = ({ width, height, squares }: activeCanvasProps) => {
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
 
-    const animate: TAnimateFunc = (cell) => {
-        frame.current = requestAnimationFrame(() => animate(cell));
+    const animate: TAnimateFunc = (cell, player) => {
+        frame.current = requestAnimationFrame(() => animate(cell, player));
         context.clearRect(0, 0, ref.current.width, ref.current.height);
-
-        const player = board.getPlayerById(1);
-        if (!player) {
-            return stop();
-        }
 
         // if (player.collisionDetection(cell)) {
         //     stop();
@@ -49,7 +44,8 @@ export const activeCanvas = ({ width, height, squares }: activeCanvasProps) => {
                 for (const cell of player.generateCells()) {
                 // todo: нужно дождаться завершения анимации и запустить следующую
                     if (cell) {
-                        animate(cell);
+                        console.log(cell);
+                        animate(cell, player);
                     }
                 }
             }
