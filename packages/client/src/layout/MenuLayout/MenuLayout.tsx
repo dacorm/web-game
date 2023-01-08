@@ -9,11 +9,12 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const MenuLayout: FC = () => {
     const userState = useTypedSelector((state) => state.user);
-    const userLogo = userState.avatar ? userState.avatar : defaultAvatar;
-    const userName = userState.userName ? userState.userName : 'SomeUser';
     return (
         <>
-            <NavBar userLogo={userLogo} userName={userName} />
+            <NavBar
+                userLogo={userState.avatar ? userState.avatar : defaultAvatar}
+                userName={userState.userName ? userState.userName : 'SomeUser'}
+            />
             <main className={styles.main}>
                 <MenuStub>
                     <Outlet />
