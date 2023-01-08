@@ -14,6 +14,7 @@ import {
 import styles from './Profile.module.css';
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
 import { TProfileModals } from './Profile.types';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const userData = {
     points: 10,
@@ -28,6 +29,9 @@ export default function Profile() {
         showPasswordModal: false,
         showAvatarModal: false,
     });
+
+    const userState = useTypedSelector((state) => state.user);
+    console.log('state!!!!!', userState);
 
     const openPasswordModal = useCallback(() => {
         setModals((prev) => ({ ...prev, showPasswordModal: true }));
@@ -47,14 +51,14 @@ export default function Profile() {
         <>
             <div className={styles.block}>
                 <ProfileBlockAvatar
-                    avatar={userData.userLogo}
+                    avatar={userState.avatar}
                     onClick={openAvatardModal}
                 />
                 <ProfileBlockData
                     points={userData.points}
                     rating={userData.rating}
                     games={userData.games}
-                    userName={userData.userName}
+                    userName={userState.userName}
                 />
             </div>
             <div className={styles.buttonsWrapper}>

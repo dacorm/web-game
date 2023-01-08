@@ -22,6 +22,7 @@ const Button: FC<ButtonProps> = ({
     size,
     colorText,
     className,
+    onClick,
     ...props
 }: ButtonProps) => (
     /* eslint-disable-next-line */
@@ -34,6 +35,7 @@ const Button: FC<ButtonProps> = ({
             size && styles[size],
             className && [className],
         )}
+        onClick={onClick}
         /* eslint-disable-next-line */
         {...props}
     >

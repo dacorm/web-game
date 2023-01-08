@@ -5,16 +5,23 @@ import { NavBar } from '../../components/NavBar';
 
 import styles from './MenuLayout.module.css';
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-const MenuLayout: FC = () => (
-    <>
-        <NavBar userLogo={defaultAvatar} userName="SomeUser" />
-        <main className={styles.main}>
-            <MenuStub>
-                <Outlet />
-            </MenuStub>
-        </main>
-    </>
-);
+const MenuLayout: FC = () => {
+    const userState = useTypedSelector((state) => state.user);
+    return (
+        <>
+            <NavBar
+                userLogo={userState.avatar ? userState.avatar : defaultAvatar}
+                userName={userState.userName ? userState.userName : 'SomeUser'}
+            />
+            <main className={styles.main}>
+                <MenuStub>
+                    <Outlet />
+                </MenuStub>
+            </main>
+        </>
+    );
+};
 
 export default MenuLayout;
