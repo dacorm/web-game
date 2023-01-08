@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 import styles from './Form.module.css';
 import Input from '../../shared/ui/Input';
 import { InputFeature } from '../../shared/ui/Input/Input.types';
@@ -19,8 +19,8 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [nickname, setNickname] = useState('');
-    const { loginError } = useTypedSelector((state) => state.user);
-    // const navigate = useNavigate();
+    const { loginError, isLoggedIn } = useTypedSelector((state) => state.user);
+    const navigate = useNavigate();
     const dispatch = useDispatch<Dispatcher>();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,7 +32,9 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             dispatch(loginThunk(nickname, password));
         }
     };
-
+    if (isLoggedIn) {
+        navigate('/');
+    }
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
             <h1 className={styles.title}>{isAuth ? 'Авторизация' : 'Регистрация'}</h1>
