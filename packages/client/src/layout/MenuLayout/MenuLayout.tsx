@@ -8,18 +8,19 @@ import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const MenuLayout: FC = () => {
-    const userState= useTypedSelector(state=>state.user)
-    const userLogo= userState.avatar? userState.avatar:defaultAvatar
-    const userName = userState.userName ? userState.userName:"SomeUser"
+    const userState = useTypedSelector((state) => state.user);
+    const userLogo = userState.avatar ? userState.avatar : defaultAvatar;
+    const userName = userState.userName ? userState.userName : 'SomeUser';
     return (
-    <>
-        <NavBar userLogo={userLogo} userName={userName} />
-        <main className={styles.main}>
-            <MenuStub>
-                <Outlet />
-            </MenuStub>
-        </main>
-    </>
-)};
+        <>
+            <NavBar userLogo={userLogo} userName={userName} />
+            <main className={styles.main}>
+                <MenuStub>
+                    <Outlet />
+                </MenuStub>
+            </main>
+        </>
+    );
+};
 
 export default MenuLayout;

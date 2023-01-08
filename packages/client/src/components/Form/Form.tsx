@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from 'react';
-import {Redirect} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import styles from './Form.module.css';
 import Input from '../../shared/ui/Input';
 import { InputFeature } from '../../shared/ui/Input/Input.types';
@@ -20,21 +19,19 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [nickname, setNickname] = useState('');
-    const {loginError, isLoggedIn}= useTypedSelector(state=>state.user)
-    const navigate = useNavigate();
+    const { loginError } = useTypedSelector((state) => state.user);
+    // const navigate = useNavigate();
     const dispatch = useDispatch<Dispatcher>();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isAuth) {
             dispatch(registerUserThunk(nickname, email, password));
-           // navigate('/');
+            // navigate('/');
         }
         if (isAuth) {
             dispatch(loginThunk(nickname, password));
         }
     };
-      console.log("isLoggedIn", isLoggedIn)
-    //if(isLoggedIn) navigate('/');
 
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
@@ -53,7 +50,7 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 label="Пароль"
             />
-           
+
             {!isAuth && (
                 <>
                     <Input
@@ -72,7 +69,7 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
                     />
                 </>
             )}
-              {loginError && <p style={{color:"red"}}>{loginError}</p>}
+            {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
             <Button
                 theme={ButtonTheme.GREEN}
                 type="submit"
