@@ -1,9 +1,9 @@
 import React, { FormEvent, useState } from 'react';
-import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
+import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import styles from './ProfileFormAvatar.module.css';
-import Button from '../../shared/ui/Button';
+import Button from '../../../shared/ui/Button';
 
-import { useActions } from '../../hooks/useActions';
+import { useActions } from '../../../hooks/useActions';
 
 export function ProfileFormAvatar() {
     const [file, setFile] = useState<File | null>(null);

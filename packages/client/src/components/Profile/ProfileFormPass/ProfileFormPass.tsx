@@ -1,9 +1,9 @@
 import React from 'react';
-import Input from '../../shared/ui/Input';
-import { InputFeature } from '../../shared/ui/Input/Input.types';
-import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
+import Input from '../../../shared/ui/Input';
+import { InputFeature } from '../../../shared/ui/Input/Input.types';
+import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import styles from './ProfileFormPass.module.css';
-import Button from '../../shared/ui/Button';
+import Button from '../../../shared/ui/Button';
 
 export function ProfileFormPass() {
     return (

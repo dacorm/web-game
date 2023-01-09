@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfileBlockAvater.module.css';
 import { ProfileBlockAvatarProps } from './ProfileBlockAvatar.types';
-import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
+import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
 
 export const ProfileBlockAvatar: React.FC<ProfileBlockAvatarProps> = ({
     avatar,
