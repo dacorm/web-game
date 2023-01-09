@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import logo from '../../assets/img/MainLoGo.png';
+import logo from '../../../assets/img/MainLoGo.png';
 import styles from './NavBarLogo.module.css';
 
 export const NavBarLogo = memo(() => (

@@ -5,8 +5,7 @@ import { NavBarProfile } from '../NavBarProfile';
 import { NavBarLogo } from '../NavBarLogo';
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types';
 import { NavBarProps } from './NavBar.types';
-import { ROUTES } from '../../layout/RouterLayout/RouterConst';
-
+import { ROUTES } from '../../../layout/RouterLayout/RouterConst';
 
 const menuItems: NavbarItemProps[] = [
     { id: 1, path: ROUTES.MAIN, title: 'Поиск игры' },
@@ -15,9 +14,6 @@ const menuItems: NavbarItemProps[] = [
 ];
 
 export function NavBar({ userLogo, userName }: NavBarProps) {
-
-   
-
     return (
         <nav className={styles.navbar}>
             <NavBarLogo />

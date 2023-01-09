@@ -3,7 +3,7 @@ import styles from './NavBarProfile.module.css';
 import { NavBarProfileProps } from './NavBarProfile.types';
 
 import { NavBarProfileDropMenu } from '../NavBarProfileDropMenu/NavBarProfileDropMenu';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 export const NavBarProfile = memo(
     ({ userLogo, userName }: NavBarProfileProps) => {
