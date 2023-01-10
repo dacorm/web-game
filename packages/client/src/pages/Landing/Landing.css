@@ -1,0 +1,142 @@
+.landingHeadBackground {
+    background-color: var(--color-white);
+    height: 100vh;
+    width: 100%;
+    padding: 0 0;
+    position: absolute;
+    z-index: 0;
+}
+
+.landingWrapper {
+    z-index: 1;
+    padding: 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.landingWrapper > * {
+    margin: 20px 0;
+}
+
+.landingMessageWrapper {
+    z-index: 2;
+    border: solid var(--color-red);
+    border-radius: 35px;
+    height: 320px;
+    min-width: 750px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /*align-content: center;*/
+    text-align: center;
+}
+
+.landingMessage {
+    font-size: 1.25em;
+}
+
+.landingMessage.highlighted {
+    font-weight: bold;
+}
+
+.landingMessage > .gameName {
+    font-style: italic;
+}
+
+.landingGameImageContainer {
+    z-index: 2;
+    width: 80vw;
+    height: 80vh;
+    display: flex;
+    background-color: var(--color-black);
+    border-radius: 10px;
+}
+
+.landingGameImage {
+    flex: 1;
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+.landingBottomTextWrapper {
+    background-color: var(--color-white);
+    width: 20vw;
+    height: 100px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingBottomText {
+    color: var(--color-red);
+    font-size: 2em;
+    font-style: italic;
+}
+
+.landingBottomText > .landingBottomTextGameName {
+    font-weight: bold;
+}
+
+.landingMiddleImagesWrapper, .landingBottomImagesWrapper {
+    z-index: 2;
+    height: 550px;
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.landingMiddleImagesWrapper .landingImageContainer, .landingBottomImagesWrapper .landingImageContainer {
+    background-color: var(--color-white);
+    height: 550px;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.landingImageContainerTextBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.landingImageContainerText {
+    font-size: 2em;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.landingImageOuterWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.landingImageWrapper {
+    height: 400px;
+    width: 400px;
+}
+
+.landingImage {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 25%;
+}

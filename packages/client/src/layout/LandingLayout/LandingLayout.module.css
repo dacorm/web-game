@@ -1,0 +1,5 @@
+.main {
+  background-color: var(--color-menu-background);
+  height: calc(2.7 * 100vh);
+  padding: 0 0;
+}
