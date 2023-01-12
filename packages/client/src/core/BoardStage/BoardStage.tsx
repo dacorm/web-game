@@ -11,7 +11,7 @@ import { useBoard } from './BoardProvider';
 import Modal from '../../shared/ui/Modal';
 import { ROUTES } from '../../constants';
 
-export const BoardStage: FC = () => {
+export const BoardStage: FC = React.memo(() => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
     const { random } = useBoard();
@@ -85,4 +85,4 @@ export const BoardStage: FC = () => {
             </Modal>
         </>
     );
-};
+});
