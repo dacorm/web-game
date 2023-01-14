@@ -1,15 +1,21 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas } from './helpers/Canvas';
 import { Player } from '../../models/Player/Player';
 import { board } from '../../models/Board/Board';
 import { activeCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
+import { PlayerProps } from '../../models/Player/Player.types';
 
 // Активный канвас. На нем будет рисоваться вся графика при взаимодействии с пользователем
 export const activeCanvas = ({ width, height, squares }: activeCanvasProps) => {
     // todo: добавить объект в стор
     const ref = useRef<Canvas>(new Canvas({ width, height }));
     const frame = useRef<number>(0);
-    const player = useRef<Player>(new Player({ canvas: ref.current, userId: 1 }));
+    const [players, setPlayers] = useState<Omit<PlayerProps, 'canvas'>[] | null>(null);
+
+    const playersFetch = useRef<Omit<PlayerProps, 'canvas'>[]>([
+        { displayName: 'Player_1', userId: 1 },
+        { displayName: 'Player_2', userId: 2 },
+    ]);
 
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
@@ -23,17 +29,38 @@ export const activeCanvas = ({ width, height, squares }: activeCanvasProps) => {
         // }
 
         player.move(cell);
+        board.reDrawAllPlayers();
     };
+    // инициализируем игроков
+    useEffect(() => {
+        setPlayers(playersFetch.current);
+    }, []);
 
+    // при изменении кол-ва игроков пересоздаем генератор ходов c исключением обанкротившихся игроков
+    useEffect(() => {
+        if (!board.players.length) {
+            players?.map(({ userId, displayName }) => (new Player({ canvas: ref.current, userId, displayName })));
+        }
+        if (board.players.length && players?.length !== board.players.length) {
+            board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
+        }
+
+        board.createGeneratorMoveSequnce();
+    }, [players]);
+
+    // при ресайзе доски переинициализируем фишки и саму доску
+    // TODO: при иниализации фишки она тпшится на старт, надо просто перерисовывать ее на том же месте с частично обновленными координатми
     useEffect(() => {
         ref.current.setSize(width, height);
-        player.current.init();
+        board.initAllPlayers();
     }, [width, height]);
 
     useEffect(() => {
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора
         if (squares?.some((v) => v)) {
-            const player = board.getPlayerById(1);
+            board.setNextTurn();
+            const player = board.getPlayerById(board.currentTurn);
+            console.log(`ходит игрок с id = ${player?.userId}, ${player?.displayName}`);
 
             if (player) {
                 const sumSquares = squares.reduce((a, b) => a + b);

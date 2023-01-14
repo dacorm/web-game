@@ -16,6 +16,7 @@ export interface Player {
   trails: { x: number; y: number }[]
   trailCount: number
   userId: number
+  displayName: string
   init(): void
   draw(velocity: { x: number; y: number }, cell?: CellType): void
   move(cell?: CellType): void
@@ -27,11 +28,13 @@ export interface Player {
 /* eslint-disable-next-line */
 export class Player {
     // todo: канвас везде надо забирать из стора
-    constructor({ canvas, userId }: PlayerProps) {
-        this.canvas = canvas;
+    constructor({ canvas, userId, displayName }: PlayerProps) {
+        this.canvas = canvas as Canvas;
         this.userId = userId;
+        this.displayName = displayName;
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
+        board.players.push(this);
     }
 
     init() {
@@ -42,10 +45,6 @@ export class Player {
         this.fill = Util.randomColor();
         this.trails = [];
         this.trailCount = 10;
-
-        if (!board.players.includes(this)) {
-            board.players.push(this);
-        }
 
         this.draw();
     }
@@ -71,6 +70,17 @@ export class Player {
         this.x += velocity.x;
         this.y += velocity.y;
 
+        const circle = new Circle({
+            x: this.x,
+            y: this.y,
+            radius: this.radius,
+            fill: this.fill,
+        });
+        circle.drawShape(this.canvas.getContext());
+    }
+
+    /** перерисовка компонента в той же позиции */
+    reDraw() {
         const circle = new Circle({
             x: this.x,
             y: this.y,
