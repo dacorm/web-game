@@ -3,13 +3,14 @@ import { Circle } from '../../core/Shapes/Circle';
 import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
-import { BoardCellAxis, CellType } from '../../core/BoardStage/helpers/boardStageData';
+import { Cell } from '../Cell/Cell';
+import { BoardCellAxis } from '../../core/types';
 
 export interface Player {
   x: number
   y: number
   currentPos: number
-  cells: CellType[]
+  cells: Cell[]
   radius: number
   fill: string
   canvas: Canvas
@@ -18,11 +19,11 @@ export interface Player {
   userId: number
   displayName: string
   init(): void
-  draw(velocity: { x: number; y: number }, cell?: CellType): void
-  move(cell?: CellType): void
+  draw(velocity: { x: number; y: number }, cell?: Cell): void
+  move(cell?: Cell): void
   stopVelocity(
     velocity: { x: number; y: number },
-    cell?: CellType,
+    cell?: Cell,
   ): { x: number; y: number }
 }
 /* eslint-disable-next-line */
@@ -49,7 +50,7 @@ export class Player {
         this.draw();
     }
 
-    addCell(cell?: CellType) {
+    addCell(cell?: Cell) {
         if (cell) {
             this.cells.push(cell);
         }
@@ -62,7 +63,7 @@ export class Player {
     }
 
     // eslint-disable-next-line default-param-last
-    draw(velocity = { x: 0, y: 0 }, cell?: CellType) {
+    draw(velocity = { x: 0, y: 0 }, cell?: Cell) {
         if (cell) {
             velocity = this.stopVelocity(velocity, cell);
         }
@@ -90,7 +91,7 @@ export class Player {
         circle.drawShape(this.canvas.getContext());
     }
 
-    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: CellType) {
+    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: Cell) {
         if (shape) {
             switch (axis) {
             case BoardCellAxis.top:
@@ -125,7 +126,7 @@ export class Player {
         return velocity;
     }
 
-    move(cell: CellType) {
+    move(cell: Cell) {
         this.trails.push({ x: this.x, y: this.y });
         if (this.trails.length > this.trailCount) {
             this.trails.shift();

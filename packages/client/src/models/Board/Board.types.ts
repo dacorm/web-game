@@ -1,10 +1,11 @@
 import { Player } from '../Player/Player';
-import { boardStageData, CellType } from '../../core/BoardStage/helpers/boardStageData';
+import { boardStageData } from '../../core/BoardStage/helpers/boardStageData';
+import { Cell } from '../Cell/Cell';
 
 export interface IBoard {
     stage: ReturnType<typeof boardStageData> | undefined;
     players: Player[];
     currentTurn: number|null;
     getPlayerById(id: number): Player | null;
-    getCell(id: number): CellType | undefined
+    getCell(id: number): Cell | undefined
 }

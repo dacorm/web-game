@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Canvas } from './helpers/Canvas';
 import { Player } from '../../models/Player/Player';
 import { board } from '../../models/Board/Board';
-import { activeCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
+import { ActiveCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
 import { PlayerProps } from '../../models/Player/Player.types';
 
 // Активный канвас. На нем будет рисоваться вся графика при взаимодействии с пользователем
-export const activeCanvas = ({ width, height, squares }: activeCanvasProps) => {
+export const activeCanvas = ({ width, height, squares }: ActiveCanvasProps) => {
     // todo: добавить объект в стор
     const ref = useRef<Canvas>(new Canvas({ width, height }));
     const frame = useRef<number>(0);
