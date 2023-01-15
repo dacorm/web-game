@@ -4,6 +4,7 @@ export enum ButtonTheme {
   GREEN = 'green',
   GREY = 'grey',
   TRANSPARENT = 'transparent',
+  RED = 'red'
 }
 
 export enum ButtonMode {

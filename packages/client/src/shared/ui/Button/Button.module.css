@@ -28,6 +28,11 @@
   color: var(--color-black);
 }
 
+.red {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
 /* -------theme end------ */
 /* -------color-text------ */
 .color-grey {

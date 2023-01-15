@@ -5,6 +5,7 @@ import {
 } from '../../core/types';
 import { FillRect } from '../../core/Shapes/FillRect';
 import { Text } from '../../core/Shapes/Text';
+import { TCard } from '../Cards/Card/Card.types';
 
 interface ICell {
   name: string
@@ -15,6 +16,7 @@ interface ICell {
   group?: BoardCellGroup
   shape?: Rect | ImageShape
   image?: string
+  card?: TCard;
   readonly x?: number
   readonly y?: number
   readonly width?: number
@@ -38,6 +40,8 @@ export class Cell implements ICell {
 
     image: string | undefined;
 
+    card: TCard;
+
     context: CanvasRenderingContext2D | undefined;
 
     constructor(props: Props) {
@@ -47,6 +51,7 @@ export class Cell implements ICell {
         this.group = props.group;
         this.axis = props.axis;
         this.image = props.image;
+        this.card = props.card as TCard;
     }
 
     get x(): number | undefined {

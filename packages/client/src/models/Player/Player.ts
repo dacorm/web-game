@@ -3,6 +3,8 @@ import { Circle } from '../../core/Shapes/Circle';
 import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
+import store from '../../redux/store';
+import { actionStart, stopCellMoving } from '../../redux/actionCreators/game';
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 
@@ -66,6 +68,14 @@ export class Player {
     draw(velocity = { x: 0, y: 0 }, cell?: Cell) {
         if (cell) {
             velocity = this.stopVelocity(velocity, cell);
+        }
+        // проверка закончила ли фишка передвижение
+        const xIsNull = velocity.x === 0;
+        const yIsNull = velocity.y === 0;
+        if (xIsNull && yIsNull && store.getState().game.cellIsMoving) {
+            console.log('cellIsMoving false');
+            store.dispatch(stopCellMoving());
+            store.dispatch(actionStart());
         }
 
         this.x += velocity.x;
@@ -189,7 +199,7 @@ export class Player {
     }
 
     // прибавляем к текущей позиции число кубиков
-    // если результат > 37, то обнуляем
+    // если результат > 39, то обнуляем
     updateCurrentPos(value: number) {
         this.currentPos += value;
 
