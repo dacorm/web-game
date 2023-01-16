@@ -7,6 +7,7 @@ import landingImage3 from '../../assets/img/landingImage3.jpg';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import styles from '../../components/Form/Form.module.css';
+import LandingImageSmallContainer from '../../components/Landing/LandingImageSmallContainer';
 
 const monopolyName = 'Monopoly';
 
@@ -58,46 +59,15 @@ export default function Landing() {
                     </span>
                 </div>
                 <div className="landingMiddleImagesWrapper">
-                    <div className="landingImageContainer">
-                        <div className="landingImageContainerTextBlock">
-                            <span className="landingImageContainerText">
-                                FREE to PLAY -
-                                <br />
-                                зарегистрировался и играй!
-                            </span>
-                        </div>
-                        <div className="landingImageOuterWrapper">
-                            <div className="landingImageWrapper">
-                                <img
-                                    className="landingImage"
-                                    src={landingImage1}
-                                    alt="FREE to PLAY - <br />зарегистрировался и играй!"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="landingImageContainer">
-                        <div className="landingImageContainerTextBlock">
-                            <span className="landingImageContainerText">Содружество игроков!</span>
-                        </div>
-                        <div className="landingImageOuterWrapper">
-                            <div className="landingImageWrapper">
-                                <img className="landingImage" src={landingImage2} alt="Содружество игроков!" />
-                            </div>
-                        </div>
-                    </div>
+                    <LandingImageSmallContainer
+                        key={1}
+                        text={`FREE to PLAY ${String.fromCharCode(0x2014)}\n зарегистрировался и играй!`}
+                        image={landingImage1}
+                    />
+                    <LandingImageSmallContainer key={2} text="Содружество игроков!" image={landingImage2} />
                 </div>
                 <div className="landingBottomImagesWrapper">
-                    <div className="landingImageContainer">
-                        <div className="landingImageContainerTextBlock">
-                            <span className="landingImageContainerText">Непринужденная атмосфера!</span>
-                        </div>
-                        <div className="landingImageOuterWrapper">
-                            <div className="landingImageWrapper">
-                                <img className="landingImage" src={landingImage3} alt="Непринужденная атмосфера!" />
-                            </div>
-                        </div>
-                    </div>
+                    <LandingImageSmallContainer key={3} text="Непринужденная атмосфера!" image={landingImage3} />
                 </div>
                 <Button size={ButtonSize.M} theme={ButtonTheme.GREEN} type="submit" className={styles.button}>Играть</Button>
                 {/* <NavBarItem */}
