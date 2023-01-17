@@ -17,11 +17,11 @@ async function cacheFirst(req) {
     const cache = await caches.open(staticCasheName);
     // console.log('Staticreq', req);
     const cached = await cache.match(req);
-    // if (!cached) {
-    //     console.log('Nocached', req);
-    // } else {
-    //     console.log('cached', cached);
-    // }
+    if (!cached) {
+        console.log('Nocached', req);
+    } else {
+        console.log('cached', cached);
+    }
 
     return cached ?? await fetch(req);
 }
