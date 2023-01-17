@@ -1,3 +1,3 @@
-import LandingLayout from './LandingLayout'
+import LandingLayout from './LandingLayout';
 
-export default LandingLayout
+export default LandingLayout;
