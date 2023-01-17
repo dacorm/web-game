@@ -1,15 +1,14 @@
 import { UserActionTypes, userState, UserURL } from '../types/userReducer.types';
 import { ActionType, appDispatch } from '../store';
 
-
 const initialState: userState = {
     userName: null,
     email: null,
     id: null,
     isLoggedIn: false,
     avatar: null,
-    loginError: null
-} ;
+    loginError: null,
+};
 
 const initialAction = { type: '__INIT__' };
 
@@ -20,7 +19,7 @@ export const userReducer = (state = initialState, action: ActionType = initialAc
             ...state,
             ...action.payload,
             isLoggedIn: true,
-            loginError:null
+            loginError: null,
         };
     case UserActionTypes.LOGOUT:
         return {
@@ -28,22 +27,20 @@ export const userReducer = (state = initialState, action: ActionType = initialAc
             userName: null,
             email: null,
             isLoggedIn: false,
-            avatar:null,
-            loginError:null
+            avatar: null,
+            loginError: null,
         };
     case UserActionTypes.SET_AVATAR:
         return {
             ...state,
-           avatar: action.payload
+            avatar: action.payload,
         };
     case UserActionTypes.LOGIN_ERROR:
         return {
             ...state,
-            loginError:action.payload
-        }
+            loginError: action.payload,
+        };
     default:
         return state;
     }
 };
-
-

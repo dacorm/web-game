@@ -18,6 +18,7 @@ type PropTypes = {
 };
 
 function getRowClassNames(props: Partial<PropTypes>) {
+    console.log('props', props);
     const modification = [props.className, getClass('row')];
 
     for (let i = 0; i < rowKeys.length; ++i) {
@@ -27,7 +28,7 @@ function getRowClassNames(props: Partial<PropTypes>) {
             modification.push(getClass(`${key}-${value}`));
         }
     }
-
+    console.log('modification', modification);
     return modification;
 }
 

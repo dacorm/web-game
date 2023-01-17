@@ -13,6 +13,7 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
     const verticalSize = Util.getVerticalItemSize(canvas);
 
     const shape: Rect[] = [];
+    console.log('stage!!!!', stage);
     stage.cells.forEach((cell, index) => {
         const isDepartment = !(index % lineItemCount);
         const horizontalX = size.width / 2 + ((canvas.width - size.width * 2) / boardSize) * (index % lineItemCount);

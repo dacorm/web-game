@@ -42,7 +42,7 @@ export default function LeaderBoard() {
                         <td>Количество игр</td>
                     </tr>
                     {leaders.map((leader) => (
-                        <tr className={styles.leaderData}>
+                        <tr className={styles.leaderData} key={leader.place}>
                             <td className={styles.place}>{leader.place}</td>
                             <td>
                                 <div className={styles.leaderName}>
