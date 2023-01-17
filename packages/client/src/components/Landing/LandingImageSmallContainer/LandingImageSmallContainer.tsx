@@ -1,5 +1,6 @@
 import React from 'react';
 import { LandingImageSmallContainerProps } from './LandingImageSmallContainer.types';
+import './LandingImageSmallContainer.css';
 
 const getFormattedText = (text:string) => {
     const regStr = /(\n)/;
