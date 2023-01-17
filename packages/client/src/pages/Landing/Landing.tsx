@@ -81,6 +81,7 @@ export default function Landing() {
                     theme={ButtonTheme.GREEN}
                     className={styles.button}
                 />
+                <div className="landingFooter" />
             </div>
         </>
     );
