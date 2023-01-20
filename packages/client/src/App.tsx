@@ -8,7 +8,7 @@ import './globalStyles/constants.css';
 import './globalStyles/global-styles.css';
 import { Dispatcher } from './redux/store';
 import { getUserInfo } from './redux/actionCreators/user';
-import { getIsLoggedInFlag } from './redux/userReducer/userSelectors';
+import { getIsLoggedInFlag } from './redux/reducers/userReducer/userSelectors';
 
 function App() {
     const isLoggedIn = useSelector(getIsLoggedInFlag);

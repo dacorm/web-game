@@ -1,6 +1,7 @@
 export enum ButtonTheme {
   GREEN = 'green',
   GREY = 'grey',
+  RED = 'red',
   TRANSPARENT = 'transparent',
 }
 
