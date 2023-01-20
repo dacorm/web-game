@@ -33,7 +33,6 @@ module.exports = {
     'react/function-component-definition': 'off',
     'jsx-a11y/control-has-associated-label': 'warn',
     'jsx-a11y/label-has-associated-control': 'warn',
-    "react/prop-types": "off",
     'no-shadow': 'off',
     'no-console': 'off',
     'import/extensions': 'off',

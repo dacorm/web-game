@@ -39,7 +39,13 @@ const Action = () => {
         setCell(getCellFromBoard());
     }, []);
 
-    if (!cell || !cell.card) return <Button onClick={temporaryFunc} size={ButtonSize.M} theme={ButtonTheme.GREEN}>todo: обработать данный тип карты</Button>;
+    if (!cell || !cell.card) {
+        return (
+            <Button onClick={temporaryFunc} size={ButtonSize.M} theme={ButtonTheme.GREEN}>
+                todo: обработать данный тип карты
+            </Button>
+        );
+    }
 
     switch (cell?.card.typeCard) {
     case 'property': {

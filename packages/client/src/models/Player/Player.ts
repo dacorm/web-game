@@ -199,7 +199,7 @@ export class Player {
     }
 
     // прибавляем к текущей позиции число кубиков
-    // если результат > 39, то обнуляем
+    // если результат > 39(число ячеек доски), то обнуляем
     updateCurrentPos(value: number) {
         this.currentPos += value;
 
