@@ -9,6 +9,7 @@ const urlsToCache = [
     '/forum',
     '/leaderboard',
     '/profile',
+    '/game',
     'index.html',
     'offline.html',
     'src/main.tsx',
@@ -70,6 +71,7 @@ self.addEventListener('install', async (event) => {
 self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
+    // eslint-disable-next-line no-restricted-globals
     if (url.origin === self.location.origin) {
         event.respondWith(cacheFirst(request));
     } else {
