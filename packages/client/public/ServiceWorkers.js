@@ -20,14 +20,16 @@ const urlsToCache = [
 
 async function cacheFirst(req) {
     const cache = await caches.open(staticCasheName);
-    const cached = await cache.match(req);
+    let cached = await cache.match(req);
     if (!cached) {
         console.log('Nocached', req);
+        const response = await fetch(req);
+        await cache.put(req, response.clone());
     } else {
         console.log('cached', cached);
     }
-
-    return cached ?? await fetch(req);
+    cached = await cache.match(req);
+    return cached;
 }
 
 async function networkFirst(req) {
