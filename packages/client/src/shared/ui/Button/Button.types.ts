@@ -1,32 +1,19 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import {
+    ButtonColorText, ButtonMode, ButtonSize, ButtonTheme,
+} from '../shared/shared.button.types';
 
-export enum ButtonTheme {
-  GREEN = 'green',
-  GREY = 'grey',
-  TRANSPARENT = 'transparent',
-  RED = 'red'
-}
+export { ButtonTheme };
 
-export enum ButtonMode {
-  FULL_SIZE = 'full_size',
-}
+export { ButtonMode };
 
-export enum ButtonSize {
-  S = 's',
-  M = 'm',
-  X = 'x',
-}
-export enum ButtonColorText {
-  BLUE = 'color-blue',
-  GREY = 'color-grey',
-  RED = 'color-red',
-}
+export { ButtonSize };
+
+export { ButtonColorText };
 
 export interface ButtonProps
-  extends DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
+  extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement> {
   theme: ButtonTheme
   mode?: ButtonMode
   size: ButtonSize
