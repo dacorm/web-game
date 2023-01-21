@@ -46,7 +46,6 @@ export class Text extends Shape implements IText {
     // todo
     drawShape(context: CanvasRenderingContext2D) {
         const words = this.text.split(' ');
-        console.log('words', words);
 
         words.forEach((word, i) => {
             // межстрочный отступ
@@ -57,19 +56,12 @@ export class Text extends Shape implements IText {
             if (this.height > this.width) {
                 d = (this.height / 10) * i;
             }
-
-            console.log(`${this.fontSize}px serif`);
             context.font = `${this.fontSize}px serif`;
-            console.log('text', this.text);
-            console.log('text x: ', this.x, 'text y: ', this.y);
-            console.log('width: ', this.width, 'height: ', this.height);
-
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillStyle = 'black';
             context.save();
             if (this.rotate) {
-                console.log('rotate', this.rotate);
                 const gradus = (this.rotate * Math.PI) / 180;
                 context.translate(this.x, this.y);
                 context.rotate(gradus);
