@@ -31,4 +31,4 @@ export enum BoardCellType {
   stage,
 }
 
-export type BoardItemSize = Record<Sizes, number> & {rotate?: number}
+export type BoardItemSize = Record<Sizes, number> & {rotate?: number, maxWidth?: number, fontSize?: number}

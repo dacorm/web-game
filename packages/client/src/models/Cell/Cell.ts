@@ -75,8 +75,19 @@ export class Cell implements ICell {
             const { rotate, ...otherProps } = props;
 
             if (this.image) {
-                this.shape = new ImageShape({ image: this.image, ...props });
-                new Rect(props).drawShape(this.context);
+                if (this.department) {
+                    this.shape = new ImageShape({
+                        ...props,
+                        image: this.image,
+                        width: 0.9 * props.width,
+                        height: 0.9 * props.height,
+                        y: props.y + props.height * 0.1,
+                    });
+                    new Rect(props).drawShape(this.context);
+                } else {
+                    this.shape = new ImageShape({ image: this.image, ...props });
+                    new Rect(props).drawShape(this.context);
+                }
             } else {
                 this.shape = new Rect(otherProps);
             }
@@ -88,44 +99,71 @@ export class Cell implements ICell {
     }
 
     createTitle(props: BoardItemSize) {
+        const departmentProps = {
+            ...props,
+            x: props.x + props.width / 2,
+            y: props.y + props.height / 15,
+            maxWidth: (props.width - (props.width * 0.02)),
+            fontSize: (props.width / 6),
+        };
+
         if (this.context) {
             switch (this.axis) {
             case BoardCellAxis.top:
+                if (this.department) {
+                    props = departmentProps;
+                } else {
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 2,
+                        y: props.y + props.height / 15,
+                        maxWidth: (props.width - (props.width * 0.02)),
+                        fontSize: (props.width / 6),
+                    };
+                }
 
-                props = {
-                    ...props,
-                    x: props.x + props.width / 2,
-                    y: props.y + props.height / 15,
-                    maxWidth: (props.width - (props.width * 0.02)),
-                    fontSize: (props.width / 6),
-                };
                 break;
             case BoardCellAxis.right:
-                props = {
-                    ...props,
-                    x: props.x + (14 * props.width) / 15,
-                    y: props.y + props.height / 2,
-                    maxWidth: (props.height - (props.height * 0.02)),
-                    fontSize: (props.height / 6),
-                };
+                if (this.department) {
+                    props = departmentProps;
+                } else {
+                    props = {
+                        ...props,
+                        x: props.x + (14 * props.width) / 15,
+                        y: props.y + props.height / 2,
+                        maxWidth: (props.height - (props.height * 0.02)),
+                        fontSize: (props.height / 6),
+                    };
+                }
+
                 break;
             case BoardCellAxis.bottom:
-                props = {
-                    ...props,
-                    x: props.x + props.width / 2,
-                    y: props.y + (14 * props.height) / 15,
-                    maxWidth: props.width - (props.width * 0.02),
-                    fontSize: (props.width / 6),
-                };
+                if (this.department) {
+                    props = departmentProps;
+                } else {
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 2,
+                        y: props.y + (14 * props.height) / 15,
+                        maxWidth: props.width - (props.width * 0.02),
+                        fontSize: (props.width / 6),
+                    };
+                }
+
                 break;
             case BoardCellAxis.left:
-                props = {
-                    ...props,
-                    x: props.x + props.width / 15,
-                    y: props.y + props.height / 2,
-                    maxWidth: props.height - (props.height * 0.02),
-                    fontSize: (props.height / 6),
-                };
+                if (this.department) {
+                    props = departmentProps;
+                } else {
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 15,
+                        y: props.y + props.height / 2,
+                        maxWidth: props.height - (props.height * 0.02),
+                        fontSize: (props.height / 6),
+                    };
+                }
+
                 break;
             default:
             }

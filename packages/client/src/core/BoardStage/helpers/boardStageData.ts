@@ -53,7 +53,7 @@ export const boardStageData = () => ({
     cells: [
         createDepartment('Старт', BoardCellAxis.top, imgStart),
         createProperty('Житная улица', BoardCellGroup.goldenrod, BoardCellAxis.top),
-        createQuestion('Общественная казана', BoardCellAxis.top, imgTreasury),
+        createQuestion('Общественная казна', BoardCellAxis.top, imgTreasury),
         createProperty('Нагатинская улица', BoardCellGroup.goldenrod, BoardCellAxis.top),
         createTax(BoardCellAxis.top),
         createStation(BoardCellAxis.top),

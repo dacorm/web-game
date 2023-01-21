@@ -54,7 +54,6 @@ export class Text extends Shape implements IText {
             const d = (this.width / 8) * i;
             console.log(`${this.fontSize}px serif`);
             context.font = `${this.fontSize}px serif`;
-            // console.log('context', this.context);
             console.log('text', this.text);
             console.log('text x: ', this.x, 'text y: ', this.y);
             console.log('width: ', this.width, 'height: ', this.height);
