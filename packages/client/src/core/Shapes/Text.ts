@@ -49,9 +49,15 @@ export class Text extends Shape implements IText {
         console.log('words', words);
 
         words.forEach((word, i) => {
-            // this.context = context;
-            // const fontSize = this.width / 6;
-            const d = (this.width / 8) * i;
+            // межстрочный отступ
+            let d = 0;
+            if (this.width > this.height) {
+                d = (this.width / 10) * i;
+            }
+            if (this.height > this.width) {
+                d = (this.height / 10) * i;
+            }
+
             console.log(`${this.fontSize}px serif`);
             context.font = `${this.fontSize}px serif`;
             console.log('text', this.text);
