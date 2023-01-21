@@ -82,13 +82,54 @@ export class Cell implements ICell {
             }
 
             this.shape.drawShape(this.context);
-            this.createTitle(otherProps);
+            this.createTitle(props);
             this.createColorHead();
         }
     }
 
     createTitle(props: BoardItemSize) {
         if (this.context) {
+            switch (this.axis) {
+            case BoardCellAxis.top:
+
+                props = {
+                    ...props,
+                    x: props.x + props.width / 2,
+                    y: props.y + props.height / 15,
+                    maxWidth: (props.width - (props.width * 0.02)),
+                    fontSize: (props.width / 6),
+                };
+                break;
+            case BoardCellAxis.right:
+                props = {
+                    ...props,
+                    x: props.x + (14 * props.width) / 15,
+                    y: props.y + props.height / 2,
+                    maxWidth: (props.height - (props.height * 0.02)),
+                    fontSize: (props.height / 6),
+                };
+                break;
+            case BoardCellAxis.bottom:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 2,
+                    y: props.y + (14 * props.height) / 15,
+                    maxWidth: props.width - (props.width * 0.02),
+                    fontSize: (props.width / 6),
+                };
+                break;
+            case BoardCellAxis.left:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 15,
+                    y: props.y + props.height / 2,
+                    maxWidth: props.height - (props.height * 0.02),
+                    fontSize: (props.height / 6),
+                };
+                break;
+            default:
+            }
+
             new Text({ text: this.name, ...props }).drawShape(this.context);
         }
     }

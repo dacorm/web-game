@@ -14,9 +14,19 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
     const horizontalSize = Util.getHorizontalItemSize(canvas);
     const verticalSize = Util.getVerticalItemSize(canvas);
 
+    if (size.width !== 0) {
+        console.log('size', size);
+        console.log('horizontalSize', horizontalSize);
+        console.log('verticalSize', verticalSize);
+        console.log('stage', stage);
+    }
+
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     stage.cells.forEach((cell, index) => {
+        if (size.width !== 0) {
+            console.log(cell);
+        }
         cell.context = context;
         const isDepartment = cell.department;
         const horizontalX = horizontalSize.width * (index % lineItemCount) - horizontalSize.width + size.width;
@@ -26,6 +36,10 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
         switch (cell.axis) {
         case BoardCellAxis.top:
             props = isDepartment ? { ...size, x: 0, y: 0 } : { ...horizontalSize, x: horizontalX, y: 0 };
+
+            if (size.width !== 0) {
+                console.log('top props', props);
+            }
             break;
         case BoardCellAxis.right:
             props = isDepartment ? { ...size, y: 0 } : {
@@ -46,6 +60,9 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
             props = { ...size };
         }
 
+        if (size.width !== 0) {
+            console.log(cell);
+        }
         cell.draw(props);
     });
 
