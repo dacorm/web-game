@@ -79,9 +79,9 @@ export class Cell implements ICell {
                     this.shape = new ImageShape({
                         ...props,
                         image: this.image,
-                        width: 0.9 * props.width,
-                        height: 0.9 * props.height,
-                        y: props.y + props.height * 0.1,
+                        width: 0.8 * props.width,
+                        height: 0.8 * props.height,
+                        y: props.y + props.height * 0.15,
                     });
                     new Rect(props).drawShape(this.context);
                 } else {
@@ -95,6 +95,57 @@ export class Cell implements ICell {
             this.shape.drawShape(this.context);
             this.createTitle(props);
             this.createColorHead();
+            this.createPrice(props);
+        }
+    }
+
+    createPrice(props: BoardItemSize) {
+        if (this.card) {
+            if (this.context) {
+                switch (this.axis) {
+                case BoardCellAxis.top:
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 2,
+                        y: props.y + (5 * props.height) / 6,
+                        maxWidth: (props.width - (props.width * 0.02)),
+                        fontSize: (props.width / 6),
+                    };
+
+                    break;
+                case BoardCellAxis.right:
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 6,
+                        y: props.y + props.height / 2,
+                        maxWidth: (props.height - (props.height * 0.02)),
+                        fontSize: (props.height / 6),
+                    };
+
+                    break;
+                case BoardCellAxis.bottom:
+                    props = {
+                        ...props,
+                        x: props.x + props.width / 2,
+                        y: props.y + props.height / 6,
+                        maxWidth: props.width - (props.width * 0.02),
+                        fontSize: (props.width / 6),
+                    };
+                    break;
+                case BoardCellAxis.left:
+
+                    props = {
+                        ...props,
+                        x: props.x + (5 * props.width) / 6,
+                        y: props.y + props.height / 2,
+                        maxWidth: props.height - (props.height * 0.02),
+                        fontSize: (props.height / 6),
+                    };
+                    break;
+                default:
+                }
+                new Text({ text: this.card.price.toString(), ...props }).drawShape(this.context);
+            }
         }
     }
 
@@ -102,9 +153,9 @@ export class Cell implements ICell {
         const departmentProps = {
             ...props,
             x: props.x + props.width / 2,
-            y: props.y + props.height / 15,
+            y: props.y + props.height / 10,
             maxWidth: (props.width - (props.width * 0.02)),
-            fontSize: (props.width / 6),
+            fontSize: (props.width / 7),
         };
 
         if (this.context) {
@@ -167,7 +218,6 @@ export class Cell implements ICell {
                 break;
             default:
             }
-
             new Text({ text: this.name, ...props }).drawShape(this.context);
         }
     }
