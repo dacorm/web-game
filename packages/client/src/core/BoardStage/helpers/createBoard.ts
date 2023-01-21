@@ -17,9 +17,6 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     stage.cells.forEach((cell, index) => {
-        if (size.width !== 0) {
-            console.log(cell);
-        }
         cell.context = context;
         const isDepartment = cell.department;
         const horizontalX = horizontalSize.width * (index % lineItemCount) - horizontalSize.width + size.width;
