@@ -34,7 +34,5 @@ export class Text extends Shape implements IText {
     // todo
     drawShape(context: CanvasRenderingContext2D) {
         this.context = context;
-
-        console.log(this.text);
     }
 }

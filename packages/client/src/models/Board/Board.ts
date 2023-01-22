@@ -17,7 +17,7 @@ class Board implements IBoard {
 
     getCell(index: number) {
         if (this.stage) {
-            return this.cells?.find((_v, i) => i === index);
+            return this.stage.cells?.find((_v, i) => i === index);
         }
         return undefined;
     }
@@ -45,9 +45,11 @@ class Board implements IBoard {
 
     /** генартор-функция последовательности ходов в зависимости от оставшихся игроков  */
     * generateMoveSequence() {
-        while (true) {
-            for (let i = 0; i < this.players.length; i++) {
-                yield this.players[i].userId;
+        if (this.players.length) {
+            while (true) {
+                for (let i = 0; i < this.players.length; i++) {
+                    yield this.players[i].userId;
+                }
             }
         }
     }
@@ -60,6 +62,10 @@ class Board implements IBoard {
     /** установка следующего хода */
     setNextTurn() {
         this.currentTurn = this.generatorMoveSequence.next().value;
+    }
+
+    getCurrentTurn() {
+        return this.currentTurn;
     }
 }
 

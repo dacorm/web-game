@@ -11,6 +11,7 @@ import imgTax from '../../../assets/img/sprites/tax.png';
 import imgTreasury from '../../../assets/img/sprites/treasury.png';
 import imgWaterSupply from '../../../assets/img/sprites/water-supply.png';
 import { BoardCellAxis, BoardCellGroup, BoardCellType } from '../../types';
+import Property from '../../../models/Cards/Card/PropertyCard/PropertyCard';
 
 function createDepartment(name: string, axis: BoardCellAxis, image: string, type?: BoardCellType): Cell {
     return new Cell({
@@ -19,7 +20,11 @@ function createDepartment(name: string, axis: BoardCellAxis, image: string, type
 }
 function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis): Cell {
     return new Cell({
-        type: BoardCellType.property, group, name, axis,
+        type: BoardCellType.property,
+        group,
+        name,
+        axis,
+        card: new Property(1000, name), // нужно будет везде передавать это поле, пока данные карты захардкожены
     });
 }
 // когда не знаешь что это и какой должен быть функционал

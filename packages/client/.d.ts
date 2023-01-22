@@ -21,3 +21,4 @@ declare module '*.svg' {
 }
 
 declare module 'sw'
+
