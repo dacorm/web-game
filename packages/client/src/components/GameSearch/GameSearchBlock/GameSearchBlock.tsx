@@ -9,6 +9,7 @@ import {
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
 import styles from './GameSearchBlock.module.css';
+import Button from '../../../shared/ui/Button/Button';
 
 const GameSearchBlock: FC = () => {
     const [gameItems, setGameItems] = useState<TExampGameItemsState[]>([]);
@@ -35,6 +36,7 @@ const GameSearchBlock: FC = () => {
                 {gameItems.map((game) => (
                     <GameSearchItem key={game.id_game} players={game.players} />
                 ))}
+
             </div>
         </div>
     );

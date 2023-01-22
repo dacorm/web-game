@@ -4,6 +4,7 @@ import { GameSearchItemProps } from './GameSearchItem.types';
 
 import styles from './GameSearchItem.module.css';
 import connectInGameImg from '../../../assets/img/connectInGame.svg';
+import Button from '../../../shared/ui/Button';
 
 const GameSearchItem: FC<GameSearchItemProps> = ({ players }) => {
     const playersAndFreePlaces = useRef(players);
@@ -27,6 +28,7 @@ const GameSearchItem: FC<GameSearchItemProps> = ({ players }) => {
                     />
                 ),
             )}
+            <Button className={styles.buttonGame}>Играть</Button>
         </div>
     );
 };
