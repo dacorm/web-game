@@ -7,7 +7,7 @@ export const ProfileBlockAvatar: React.FC<ProfileBlockAvatarProps> = ({
     avatar,
     onClick,
 }) => {
-    const userAvatar = avatar || defaultAvatar;
+    const userAvatar = avatar && avatar?.includes('null') ? defaultAvatar : avatar;
     return (
         <div className={styles.blockAvatar}>
             <div className={styles.divAvatar} onClick={onClick}>
