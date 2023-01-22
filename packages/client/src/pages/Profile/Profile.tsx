@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import Modal from '../../shared/ui/Modal';
-import { ProfileFormPass } from '../../components/ProfileFormPass/ProfileFormPass';
-import ProfileFormAvatar from '../../components/ProfileFormAvatar';
-import ProfileBlockAvatar from '../../components/ProfileBlockAvatar';
-import ProfileBlockData from '../../components/ProfileBlockData';
+import { ProfileFormPass } from '../../components/Profile/ProfileFormPass/ProfileFormPass';
+import ProfileFormAvatar from '../../components/Profile/ProfileFormAvatar';
+import ProfileBlockAvatar from '../../components/Profile/ProfileBlockAvatar';
+import ProfileBlockData from '../../components/Profile/ProfileBlockData';
 import Button from '../../shared/ui/Button';
 import {
     ButtonColorText,

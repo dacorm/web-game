@@ -1,7 +1,9 @@
 import { FC, useEffect, useRef } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import styles from './ForumThemeMessages.module.css';
 import { ForumThemeMessagesProps } from './ForumThemeMessages.types';
 import ForumThemeMessageItem from '../ForumThemeMessageItem';
+import ErrorFallback from '../../ErrorFallback';
 
 const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -20,19 +22,23 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
 
     return (
         <div ref={wrapperRef} className={styles.messagesWrapper}>
-            <ul className="messages">
-                {messages.map(({
-                    msgId, text, authorId, date,
-                }) => (
-                    <ForumThemeMessageItem
-                        key={msgId}
-                        msgId={msgId}
-                        text={text}
-                        authorId={authorId}
-                        date={date}
-                    />
-                ))}
-            </ul>
+            <ErrorBoundary
+                FallbackComponent={ErrorFallback}
+            >
+                <ul className="messages">
+                    {messages.map(({
+                        msgId, text, authorId, date,
+                    }) => (
+                        <ForumThemeMessageItem
+                            key={msgId}
+                            msgId={msgId}
+                            text={text}
+                            authorId={authorId}
+                            date={date}
+                        />
+                    ))}
+                </ul>
+            </ErrorBoundary>
         </div>
     );
 };

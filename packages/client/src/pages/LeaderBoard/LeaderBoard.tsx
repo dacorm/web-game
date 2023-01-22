@@ -1,6 +1,7 @@
 import styles from './LeaderBoard.module.css';
-import userLogo from '../../assets/img/defaultUserAvatar.png';
+
 import MenuHeader from '../../components/MenuHeader';
+import LeaderBoardUserList from '../../components/LeaderBoard/LeaderBoardUserList';
 
 const leaders = [
     {
@@ -35,29 +36,15 @@ export default function LeaderBoard() {
             <MenuHeader text="ЛидерБорд" />
             <div className={styles.leader}>
                 <table className={styles.leaderTable}>
-                    <tr className={styles.tableHeader}>
-                        <td>Место</td>
-                        <td>Пользователь</td>
-                        <td>Количество баллов</td>
-                        <td>Количество игр</td>
-                    </tr>
-                    {leaders.map((leader) => (
-                        <tr className={styles.leaderData}>
-                            <td className={styles.place}>{leader.place}</td>
-                            <td>
-                                <div className={styles.leaderName}>
-                                    <img
-                                        className={styles.leaderLogo}
-                                        src={userLogo}
-                                        alt={leader.name}
-                                    />
-                                    <div>{leader.name}</div>
-                                </div>
-                            </td>
-                            <td>{leader.points}</td>
-                            <td>{leader.games}</td>
+                    <thead>
+                        <tr className={styles.tableHeader}>
+                            <td>Место</td>
+                            <td>Пользователь</td>
+                            <td>Количество баллов</td>
+                            <td>Количество игр</td>
                         </tr>
-                    ))}
+                    </thead>
+                    <LeaderBoardUserList leaders={leaders} />
                 </table>
             </div>
         </>

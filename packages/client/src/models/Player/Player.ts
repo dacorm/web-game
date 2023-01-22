@@ -3,35 +3,41 @@ import { Circle } from '../../core/Shapes/Circle';
 import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
-import { BoardCellAxis, CellType } from '../../core/BoardStage/helpers/boardStageData';
+import store from '../../redux/store';
+import { actionStart, stopCellMoving } from '../../redux/actionCreators/game';
+import { Cell } from '../Cell/Cell';
+import { BoardCellAxis } from '../../core/types';
 
 export interface Player {
   x: number
   y: number
   currentPos: number
-  cells: CellType[]
+  cells: Cell[]
   radius: number
   fill: string
   canvas: Canvas
   trails: { x: number; y: number }[]
   trailCount: number
   userId: number
+  displayName: string
   init(): void
-  draw(velocity: { x: number; y: number }, cell?: CellType): void
-  move(cell?: CellType): void
+  draw(velocity: { x: number; y: number }, cell?: Cell): void
+  move(cell?: Cell): void
   stopVelocity(
     velocity: { x: number; y: number },
-    cell?: CellType,
+    cell?: Cell,
   ): { x: number; y: number }
 }
 /* eslint-disable-next-line */
 export class Player {
     // todo: канвас везде надо забирать из стора
-    constructor({ canvas, userId }: PlayerProps) {
-        this.canvas = canvas;
+    constructor({ canvas, userId, displayName }: PlayerProps) {
+        this.canvas = canvas as Canvas;
         this.userId = userId;
+        this.displayName = displayName;
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
+        board.players.push(this);
     }
 
     init() {
@@ -43,14 +49,10 @@ export class Player {
         this.trails = [];
         this.trailCount = 10;
 
-        if (!board.players.includes(this)) {
-            board.players.push(this);
-        }
-
         this.draw();
     }
 
-    addCell(cell?: CellType) {
+    addCell(cell?: Cell) {
         if (cell) {
             this.cells.push(cell);
         }
@@ -63,9 +65,17 @@ export class Player {
     }
 
     // eslint-disable-next-line default-param-last
-    draw(velocity = { x: 0, y: 0 }, cell?: CellType) {
+    draw(velocity = { x: 0, y: 0 }, cell?: Cell) {
         if (cell) {
             velocity = this.stopVelocity(velocity, cell);
+        }
+        // проверка закончила ли фишка передвижение
+        const xIsNull = velocity.x === 0;
+        const yIsNull = velocity.y === 0;
+        if (xIsNull && yIsNull && store.getState().game.cellIsMoving) {
+            console.log('cellIsMoving false');
+            store.dispatch(stopCellMoving());
+            store.dispatch(actionStart());
         }
 
         this.x += velocity.x;
@@ -80,7 +90,18 @@ export class Player {
         circle.drawShape(this.canvas.getContext());
     }
 
-    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: CellType) {
+    /** перерисовка компонента в той же позиции */
+    reDraw() {
+        const circle = new Circle({
+            x: this.x,
+            y: this.y,
+            radius: this.radius,
+            fill: this.fill,
+        });
+        circle.drawShape(this.canvas.getContext());
+    }
+
+    stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: Cell) {
         if (shape) {
             switch (axis) {
             case BoardCellAxis.top:
@@ -115,7 +136,7 @@ export class Player {
         return velocity;
     }
 
-    move(cell: CellType) {
+    move(cell: Cell) {
         this.trails.push({ x: this.x, y: this.y });
         if (this.trails.length > this.trailCount) {
             this.trails.shift();
@@ -178,7 +199,7 @@ export class Player {
     }
 
     // прибавляем к текущей позиции число кубиков
-    // если результат > 37, то обнуляем
+    // если результат > 39(число ячеек доски), то обнуляем
     updateCurrentPos(value: number) {
         this.currentPos += value;
 

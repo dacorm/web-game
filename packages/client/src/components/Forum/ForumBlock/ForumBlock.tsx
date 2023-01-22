@@ -85,6 +85,7 @@ const ForumBlock: FC = () => {
 
     return (
         <>
+
             <ul className={styles.forumBlock}>
                 {forumThemes.map((theme) => {
                     if (theme === null) {
@@ -107,6 +108,7 @@ const ForumBlock: FC = () => {
                     );
                 })}
             </ul>
+
             <nav className={styles.paginationNav}>
                 <Pagination
                     currentPage={currentPage}

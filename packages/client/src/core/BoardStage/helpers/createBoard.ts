@@ -1,10 +1,12 @@
 import { Canvas } from '../../Canvas/helpers/Canvas';
-import { boardSize, Util } from '../../Util';
+import { boardCount, Util } from '../../Util';
 import { board } from '../../../models/Board/Board';
-import { BoardCellAxis, boardStageData } from './boardStageData';
-import { Rect } from '../../Shapes/Rect';
+import { BoardCellAxis, BoardItemSize } from '../../types';
+import { boardStageData } from './boardStageData';
+import { ImageShape } from '../../Shapes/ImageShape';
+import background from '../../../assets/img/sprites/background.png';
 
-const lineItemCount = boardSize + 1;
+const lineItemCount = boardCount + 1;
 
 export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageData>) {
     const context = canvas.getContext();
@@ -12,43 +14,48 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
     const horizontalSize = Util.getHorizontalItemSize(canvas);
     const verticalSize = Util.getVerticalItemSize(canvas);
 
-    const shape: Rect[] = [];
-    stage.cells.forEach((cell, index) => {
-        const isDepartment = !(index % lineItemCount);
-        const horizontalX = size.width / 2 + ((canvas.width - size.width * 2) / boardSize) * (index % lineItemCount);
-        const verticalY = size.height / 2 + ((canvas.height - size.height * 2) / boardSize) * (index % lineItemCount);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
+    stage.cells.forEach((cell, index) => {
+        cell.context = context;
+        const isDepartment = cell.department;
+        const horizontalX = horizontalSize.width * (index % lineItemCount) - horizontalSize.width + size.width;
+        const verticalY = verticalSize.height * (index % lineItemCount) - verticalSize.height + size.height + 1;
+
+        let props: BoardItemSize;
         switch (cell.axis) {
         case BoardCellAxis.top:
-            shape.push(isDepartment
-                ? new Rect({ ...size, x: 0, y: 0 })
-                : new Rect({ ...horizontalSize, x: horizontalX, y: 0 }));
+            props = isDepartment ? { ...size, x: 0, y: 0 } : { ...horizontalSize, x: horizontalX, y: 0 };
             break;
         case BoardCellAxis.right:
-            shape.push(isDepartment
-                ? new Rect({ ...size, y: 0 })
-                : new Rect({ ...verticalSize, x: canvas.width - size.width, y: verticalY }));
+            props = isDepartment ? { ...size, y: 0 } : {
+                ...verticalSize, x: canvas.width - size.width, y: verticalY, rotate: 90,
+            };
             break;
         case BoardCellAxis.bottom:
-            shape.push(isDepartment
-                ? new Rect({ ...size })
-                : new Rect({ ...horizontalSize, x: horizontalX, y: canvas.height - size.height }));
+            props = isDepartment ? { ...size } : {
+                ...horizontalSize, x: horizontalX, y: canvas.height - size.height, rotate: 180,
+            };
             break;
         case BoardCellAxis.left:
-            shape.push(isDepartment
-                ? new Rect({ ...size, x: 0 })
-                : new Rect({ ...verticalSize, x: 0, y: verticalY }));
+            props = isDepartment ? { ...size, x: 0 } : {
+                ...verticalSize, x: 0, y: verticalY, rotate: 270,
+            };
             break;
         default:
+            props = { ...size };
         }
 
-        cell.shape = shape.shift();
+        cell.draw(props);
     });
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    stage.cells.forEach((cell) => {
-        cell.shape?.drawShape(context);
-    });
+    new ImageShape({
+        x: size.width,
+        y: size.height,
+        width: Math.round((canvas.width - size.width * 2)),
+        height: Math.round((canvas.height - size.height * 2)),
+        image: background,
+    }).drawShape(context);
 
     board.stage = stage;
 }

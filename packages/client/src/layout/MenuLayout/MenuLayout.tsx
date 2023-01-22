@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router';
 import MenuStub from '../../components/MenuStub';
-import { NavBar } from '../../components/NavBar';
+import { NavBar } from '../../components/NavBarComponents/NavBar';
 
 import styles from './MenuLayout.module.css';
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
