@@ -5,3 +5,11 @@ export const createGame = (game:Game) => ({
     type: CreateGameActyonTypes.CREATE_GAME,
     payload: game,
 });
+
+export const addUserToGame = (game:Game, user) => ({
+    type: CreateGameActyonTypes.ADD_USER_TO_GAME,
+    payload: {
+        game,
+        user,
+    },
+});

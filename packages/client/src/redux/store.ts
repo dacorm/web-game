@@ -5,12 +5,13 @@ import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
-import { createGame } from './actionCreators/createGame';
+
+import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
 
 const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
-    games: createGame,
+    games: createGameReducer,
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));

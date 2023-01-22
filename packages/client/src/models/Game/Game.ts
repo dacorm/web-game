@@ -1,8 +1,14 @@
-interface IGame {
+export interface UserGame {
+  userName: string,
+  avatar: string,
+  id: number
+}
+
+export interface IGame {
   id: number
   countPlayers: number
-  players: number[]
-  userCreaterId: number
+  players: UserGame[]
+  userCreater: UserGame
   name: string
 }
 
@@ -13,19 +19,19 @@ export class Game implements IGame {
 
     players = [];
 
-    userCreaterId;
+    userCreater;
 
     name;
 
     constructor(props: IGame) {
         this.id = props.id;
         this.countPlayers = props.countPlayers;
-        this.userCreaterId = props.userCreaterId;
+        this.userCreater = props.userCreater;
         this.name = props.name;
-        this.addUserToGame(this.userCreaterId);
+        this.addUserToGame(this.userCreater);
     }
 
-    addUserToGame(userId:number) {
-        this.players.push(userId);
+    addUserToGame(user:UserGame) {
+        this.players.push(user);
     }
 }

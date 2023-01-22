@@ -1,7 +1,7 @@
 .games-item {
     display: flex;
     background-color: var(--color-white);
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 5px;
     flex: 1 1 46%;
     margin-right: 15px;
@@ -13,4 +13,18 @@
 
 .buttonGame {
     padding: 15px;
+    margin: 5px
+}
+
+.btnAdduser {
+    margin: 5px;
+    padding: 15px;
+    background: #f16d0e;
+}
+
+.gameName {
+    padding: 15px;
+    background: #6EAC96;
+    color: white;
+    border-radius: 10px;
 }

@@ -15,6 +15,13 @@ export const createGameReducer = (state = initialState, action = initialAction) 
             ...state,
             games: [...state.games, action.payload],
         };
+    case CreateGameActyonTypes.ADD_USER_TO_GAME:
+        console.log('reducer ', action.payload);
+        action.payload.game.addUserToGame(action.payload.user);
+        return {
+            ...state,
+            games: [...state.games],
+        };
     default: return state;
     }
 };

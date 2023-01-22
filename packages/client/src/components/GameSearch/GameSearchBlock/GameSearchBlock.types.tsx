@@ -1,6 +1,6 @@
 export type TExampleGameUsers = {
-  id_player?: number
-  name: string
+  playerId?: number
+  userName: string
   avatar: string
 }
 
