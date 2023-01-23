@@ -26,6 +26,7 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
         switch (cell.axis) {
         case BoardCellAxis.top:
             props = isDepartment ? { ...size, x: 0, y: 0 } : { ...horizontalSize, x: horizontalX, y: 0 };
+
             break;
         case BoardCellAxis.right:
             props = isDepartment ? { ...size, y: 0 } : {
