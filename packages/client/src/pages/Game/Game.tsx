@@ -11,6 +11,7 @@ export default function Game() {
     const playersFetch = useRef<TPlayer[]>([ // типа ответ с бэка
         { displayName: 'Player_1', userId: 1 },
         { displayName: 'Player_2', userId: 2 },
+
     ]);
 
     // устанавливаем игроков

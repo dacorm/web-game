@@ -1,5 +1,3 @@
-
-
 .bought {
     display: flex;
     flex-direction: column;
@@ -7,6 +5,4 @@
 }
 .btnBought {
     margin-top: 15px;
-    
-    
 }
