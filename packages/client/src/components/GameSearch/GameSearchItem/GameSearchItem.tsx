@@ -6,7 +6,6 @@ import { GameSearchItemProps } from './GameSearchItem.types';
 import styles from './GameSearchItem.module.css';
 import connectInGameImg from '../../../assets/img/connectInGame.svg';
 import Button from '../../../shared/ui/Button';
-import { UserGame } from '../../../models/Game/Game';
 import { addUserToGame } from '../../../redux/actionCreators/createGame';
 
 const GameSearchItem: FC<GameSearchItemProps> = ({ game, currentuser }) => {

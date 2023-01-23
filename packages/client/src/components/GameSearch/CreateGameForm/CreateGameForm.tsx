@@ -12,9 +12,8 @@ import styles from './CreateGameForm.module.css';
 import Input from '../../../shared/ui/Input';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { Game, UserGame } from '../../../models/Game/Game';
-import { createGame } from '../../../redux/actionCreators/createGame';
 
-const CreateGameForm: FC = () => {
+const CreateGameForm: FC = ({ socket }) => {
     const dispatch = useDispatch();
     const [nameGame, setNameGame] = useState('');
     const countPlayersAll = useRef<number[]>([2, 3, 4, 5]);
@@ -41,6 +40,7 @@ const CreateGameForm: FC = () => {
             id: user.id,
         };
         if (countPlayers) {
+            // @ts-ignore
             const game = new Game({
                 id: Math.floor(Math.random() * Date.now()),
                 countPlayers,
@@ -48,7 +48,16 @@ const CreateGameForm: FC = () => {
                 name: nameGame,
             });
             console.log('GAME', game);
-            dispatch(createGame(game));
+            socket.send(JSON.stringify({
+                method: 'addGame',
+                game: {
+                    id: Math.floor(Math.random() * Date.now()),
+                    countPlayers,
+                    userCreater: userGame,
+                    name: nameGame,
+                },
+            }));
+            // dispatch(createGame(game));
         }
     };
 
