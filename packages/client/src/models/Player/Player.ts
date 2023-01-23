@@ -40,7 +40,7 @@ export class Player {
         this.displayName = displayName;
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
-        this.property = []; // айдишники приобретенного имущества
+        this.property = []; // экземпляры классов приобретенного имущества
         this.balance = 1500; // баланс у игроков(при старте выдается 1500)
         board.players.push(this);
     }
