@@ -9,12 +9,10 @@ export const NavBarProfile = memo(
     ({ userLogo, userName }: NavBarProfileProps) => {
         const [drop, setDrop] = useState(false);
 
-        
-
         const clickHandler = () => {
             setDrop((prev) => !prev);
         };
-   
+
         return (
             <div className={styles.navbarUser}>
                 <div onClick={clickHandler} className={styles.wrapper}>
