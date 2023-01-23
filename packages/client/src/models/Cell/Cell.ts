@@ -72,6 +72,7 @@ export class Cell implements ICell {
 
     draw(props: BoardItemSize) {
         if (this.context) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { rotate, ...otherProps } = props;
 
             if (this.image) {

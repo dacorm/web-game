@@ -24,6 +24,7 @@ import {
 import TitleBoard from '../../components/Game/TitleBoard';
 import Action from '../../components/Game/Action';
 
+// eslint-disable-next-line react/prop-types
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }) => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
