@@ -51,6 +51,13 @@ module.exports = {
     'array-callback-return': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
   },
+
+  globals: {
+    document: true,
+    foo: true,
+    window: true
+  },
+
   overrides: [
     {
       files: ['**/src/**/*.test.{ts,tsx}'],
