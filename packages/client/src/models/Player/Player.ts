@@ -123,8 +123,6 @@ export class Player {
                 return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.bottom:
                 if (name === 'Бесплатная стоянка') {
-                    console.log(shape.y + shape.height / 2);
-                    console.log(this.y);
                     return shape.y + Math.floor(shape.height / 2) <= this.y ? { x: 0, y: 0 } : velocity;
                 }
 

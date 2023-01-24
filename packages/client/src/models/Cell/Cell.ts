@@ -76,19 +76,8 @@ export class Cell implements ICell {
             const { rotate, ...otherProps } = props;
 
             if (this.image) {
-                if (this.department) {
-                    this.shape = new ImageShape({
-                        ...props,
-                        image: this.image,
-                        width: 0.8 * props.width,
-                        height: 0.8 * props.height,
-                        y: props.y + props.height * 0.15,
-                    });
-                    new Rect(props).drawShape(this.context);
-                } else {
-                    this.shape = new ImageShape({ image: this.image, ...props });
-                    new Rect(props).drawShape(this.context);
-                }
+                this.shape = new ImageShape({ image: this.image, ...props });
+                new Rect(props).drawShape(this.context);
             } else {
                 this.shape = new Rect(otherProps);
             }
@@ -145,6 +134,7 @@ export class Cell implements ICell {
                     break;
                 default:
                 }
+                // todo: типизация
                 new Text({ text: this.card.prices.buyProperty.toString(), ...props }).drawShape(this.context);
             }
         }
@@ -219,6 +209,7 @@ export class Cell implements ICell {
                 break;
             default:
             }
+            // todo: типизация
             new Text({ text: this.name, ...props }).drawShape(this.context);
         }
     }

@@ -59,7 +59,7 @@ export const activeCanvas = ({
 
             if (player) {
                 const sumSquares = squares.reduce((a, b) => a + b);
-                const updatedCurrentPos = player.updateCurrentPos(20);
+                const updatedCurrentPos = player.updateCurrentPos(sumSquares);
                 player.addCell(board.getCell(updatedCurrentPos));
 
                 // eslint-disable-next-line no-restricted-syntax
