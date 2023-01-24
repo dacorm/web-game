@@ -19,28 +19,29 @@ export function createBoard(canvas: Canvas, stage: ReturnType<typeof boardStageD
     stage.cells.forEach((cell, index) => {
         cell.context = context;
         const isDepartment = cell.department;
-        const horizontalX = horizontalSize.width * (index % lineItemCount) - horizontalSize.width + size.width;
-        const verticalY = verticalSize.height * (index % lineItemCount) - verticalSize.height + size.height + 1;
+        const horizontalTopX = horizontalSize.width * (index % lineItemCount) - horizontalSize.width + size.width;
+        const horizontalBottomX = horizontalSize.width * (((lineItemCount * 3) - index) % lineItemCount) - horizontalSize.width + size.width;
+        const verticalRightY = verticalSize.height * (index % lineItemCount) - verticalSize.height + size.height + 1;
+        const verticalLeftY = verticalSize.height * (((lineItemCount * 4) - index) % lineItemCount) - verticalSize.height + size.height + 1;
 
         let props: BoardItemSize;
         switch (cell.axis) {
         case BoardCellAxis.top:
-            props = isDepartment ? { ...size, x: 0, y: 0 } : { ...horizontalSize, x: horizontalX, y: 0 };
-
+            props = isDepartment ? { ...size, x: 0, y: 0 } : { ...horizontalSize, x: horizontalTopX, y: 0 };
             break;
         case BoardCellAxis.right:
             props = isDepartment ? { ...size, y: 0 } : {
-                ...verticalSize, x: canvas.width - size.width, y: verticalY, rotate: 90,
+                ...verticalSize, x: canvas.width - size.width, y: verticalRightY, rotate: 90,
             };
             break;
         case BoardCellAxis.bottom:
             props = isDepartment ? { ...size } : {
-                ...horizontalSize, x: horizontalX, y: canvas.height - size.height, rotate: 180,
+                ...horizontalSize, x: horizontalBottomX, y: canvas.height - size.height, rotate: 180,
             };
             break;
         case BoardCellAxis.left:
             props = isDepartment ? { ...size, x: 0 } : {
-                ...verticalSize, x: 0, y: verticalY, rotate: 270,
+                ...verticalSize, x: 0, y: verticalLeftY, rotate: 270,
             };
             break;
         default:

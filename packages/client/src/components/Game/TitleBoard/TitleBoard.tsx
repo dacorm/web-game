@@ -7,6 +7,10 @@ const TitleBoard:FC<TitleBoardProps> = ({ currentPlayer }) => (
         <div className={styles.player}>
             <div className={styles.playerDescription}>Ход игрока:</div>
             <div className={styles.playerInfo}>{currentPlayer.displayName}</div>
+            <div className={styles.playerInfo}>
+                {currentPlayer.balance}
+                $
+            </div>
         </div>
     </div>
 );
