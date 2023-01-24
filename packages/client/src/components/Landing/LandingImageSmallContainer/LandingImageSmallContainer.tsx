@@ -1,19 +1,19 @@
 import React from 'react';
 import { LandingImageSmallContainerProps } from './LandingImageSmallContainer.types';
-import './LandingImageSmallContainer.css';
+import styles from './LandingImageSmallContainer.module.css';
 import { getMultilinesPText } from '../../../core/getMultilinesPText';
 
 export default function LandingImageSmallContainer({ image, text }: LandingImageSmallContainerProps) {
     return (
-        <div className="landingImageContainer">
-            <div className="landingImageContainerTextBlock">
-                <span className="landingImageContainerText">
+        <div className={styles.landingImageContainer}>
+            <div className={styles.landingImageContainerTextBlock}>
+                <span className={styles.landingImageContainerText}>
                     {getMultilinesPText(text)}
                 </span>
             </div>
-            <div className="landingImageOuterWrapper">
-                <div className="landingImageWrapper">
-                    <img className="landingImage" src={image} alt={text} />
+            <div className={styles.landingImageOuterWrapper}>
+                <div className={styles.landingImageWrapper}>
+                    <img className={styles.landingImage} src={image} alt={text} />
                 </div>
             </div>
         </div>
