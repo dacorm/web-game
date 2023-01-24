@@ -145,7 +145,7 @@ export class Cell implements ICell {
                     break;
                 default:
                 }
-                new Text({ text: this.card.price.toString(), ...props }).drawShape(this.context);
+                new Text({ text: this.card.prices.buyProperty.toString(), ...props }).drawShape(this.context);
             }
         }
     }
