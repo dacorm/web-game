@@ -3,4 +3,4 @@ pre-commit:
   commands:
     lint:
       glob: '*.{ts,tsx}'
-      run: yarn eslint {staged_files}
+      run: npm run eslint:ts

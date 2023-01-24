@@ -10,7 +10,8 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "lint:ts": "eslint \"**/*.{ts,tsx}\""
   },
   "license": "MIT",
   "workspaces": [
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@evilmartians/lefthook": "^1.1.1",
     "classnames": "^2.3.2",
+    "lefthook": "^1.2.8",
     "lerna": "^5.4.3",
     "react-error-boundary": "^3.1.4",
     "sass": "^1.57.1"
