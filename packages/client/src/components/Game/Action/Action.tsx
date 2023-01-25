@@ -1,27 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import { getCellFromBoard } from '../helpers/getCellFromBoard';
-import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
-import styles from './Action.module.css';
 import { actionStop, turnStop } from '../../../redux/actionCreators/game';
 import { Cell } from '../../../models/Cell/Cell';
+import { BoardCellType } from '../../../core/types';
+import { StatePropertyCard } from '../../../models/Cards/Card/PropertyCard/PropertyCard.types';
+import { getCurrentPlayer } from '../../../redux/reducers/gameReducer/gameSelector';
+import PropertyFreeAction from './components/PropertyFreeAction';
+import PropertyBoughtAction from './components/PropertyBoughtAction';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
     const [cell, setCell] = useState<Cell | undefined>(undefined);
 
     const dispatch = useDispatch<Dispatch>();
+    const player = useSelector(getCurrentPlayer);
 
-    const handleBuy = useCallback(() => {
-        const card = cell?.card;
-        if (card) {
-            card.buy();
-        }
-    }, [cell]);
+    // завершение экшена карточки
     const handleCompleteAction = useCallback(() => {
         const card = cell?.card;
         if (card) {
@@ -39,6 +38,7 @@ const Action = () => {
         setCell(getCellFromBoard());
     }, []);
 
+    // временная проверка пока не всем ячейкам присвоили карточку
     if (!cell || !cell.card) {
         return (
             <Button onClick={temporaryFunc} size={ButtonSize.M} theme={ButtonTheme.GREEN}>
@@ -47,50 +47,29 @@ const Action = () => {
         );
     }
 
-    switch (cell?.card.typeCard) {
-    case 'property': {
-        return (
-            <div className={styles.actionProperty}>
-                <div className={styles.actionInner}>
-                    <div className={styles.card}>
-                        <img src={defaultAvatar} className={styles.img} alt="avatar" />
-                        <div className={styles.info}>
-                            <div className={styles.name}>{cell.card.nameCard}</div>
-                            <div className={styles.price}>
-                                {cell.card.price}
-                                {' '}
-                                руб
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.buttons}>
-                        <Button
-                            className={styles.buttonBuy}
-                            theme={ButtonTheme.GREEN}
-                            size={ButtonSize.M}
-                            onClick={handleBuy}
-                        >
-                            Купить
+    // если ячейка типа недвижки
+    if (cell.type === BoardCellType.property) {
+        // если недвижка ни кем не куплена
+        if (cell.card.stateCard === StatePropertyCard.FREE) {
+            return (
+                <PropertyFreeAction cell={cell} player={player} handleCompleteAction={handleCompleteAction} />
+            );
+        }
 
-                        </Button>
-                        <Button
-                            className={styles.buttonSell}
-                            theme={ButtonTheme.RED}
-                            size={ButtonSize.M}
-                            onClick={handleCompleteAction}
-                        >
-                            Отмена
+        // если недвижка кем то куплена
+        if (cell.card.stateCard === StatePropertyCard.BOUGHT) {
+            return (
+                <PropertyBoughtAction cell={cell} player={player} handleCompleteAction={handleCompleteAction} />
+            );
+        }
 
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        );
+        // если недвижка заложена
+        if (cell.card.stateCard === StatePropertyCard.MORTAGED) {
+            handleCompleteAction();
+        }
     }
-    default: {
-        return <div />;
-    }
-    }
+
+    return <div />;
 };
 
 export default Action;

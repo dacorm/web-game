@@ -7,6 +7,7 @@ import store from '../../redux/store';
 import { actionStart, stopCellMoving } from '../../redux/actionCreators/game';
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
+import Property from '../Cards/Card/PropertyCard/PropertyCard';
 
 export interface Player {
   x: number
@@ -20,6 +21,8 @@ export interface Player {
   trailCount: number
   userId: number
   displayName: string
+  property: Property[]
+  balance: number
   init(): void
   draw(velocity: { x: number; y: number }, cell?: Cell): void
   move(cell?: Cell): void
@@ -37,6 +40,8 @@ export class Player {
         this.displayName = displayName;
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
+        this.property = []; // экземпляры классов приобретенного имущества
+        this.balance = 1500; // баланс у игроков(при старте выдается 1500)
         board.players.push(this);
     }
 
@@ -118,16 +123,16 @@ export class Player {
                 return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.bottom:
                 if (name === 'Бесплатная стоянка') {
-                    return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
+                    return shape.y + Math.floor(shape.height / 2) <= this.y ? { x: 0, y: 0 } : velocity;
                 }
 
-                return shape.x + shape.width / 2 <= this.canvas.width - this.x ? { x: 0, y: 0 } : velocity;
+                return shape.x + shape.width / 2 >= this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.left:
                 if (name === 'Тюрьма') {
                     return shape.x + shape.width / 2 >= this.x ? { x: 0, y: 0 } : velocity;
                 }
 
-                return shape.y + shape.height / 2 <= this.canvas.height - this.y ? { x: 0, y: 0 } : velocity;
+                return shape.y + shape.height / 2 >= this.y ? { x: 0, y: 0 } : velocity;
             default:
                 return velocity;
             }

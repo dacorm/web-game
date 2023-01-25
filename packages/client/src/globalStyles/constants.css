@@ -11,4 +11,16 @@
     --color-menu-background2: #6aacf873;
     --color-sub-text: #8C8C8C;
     --border-radius-btn: 11px;
+
+    /*-------- цвета карточек доски------- */
+    --color-goldenrod: goldenrod;
+    --color-salmon: salmon;
+    --color-royalBlue: royalBlue;
+    --color-indigo: indigo;
+    --color-limeGreen: limeGreen;
+    --color-darkOrange: darkOrange;
+    --color-deepPink: deepPink;
+    --color-linen: linen;
+
+     /*-------- цвета карточек доски------- */
 }

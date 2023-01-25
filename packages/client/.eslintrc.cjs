@@ -26,6 +26,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     "linebreak-style": 0,
     'no-unused-vars': 'off',
+    'no-return-await':"off",
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/require-default-props': 'off',
     'react/react-in-jsx-scope': 'off',
@@ -50,6 +51,13 @@ module.exports = {
     'array-callback-return': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
   },
+
+  globals: {
+    document: true,
+    foo: true,
+    window: true
+  },
+
   overrides: [
     {
       files: ['**/src/**/*.test.{ts,tsx}'],

@@ -1,5 +1,5 @@
-import { TPlayer } from '../../../pages/Game/Game.types';
+import { Player } from '../../../models/Player/Player';
 
 export interface TitleBoardProps {
-    currentPlayer: TPlayer
+    currentPlayer: Player
 }
