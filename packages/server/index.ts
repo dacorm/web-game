@@ -7,8 +7,8 @@ import express from 'express'
 import expressWs = require('express-ws');
 
 
-
-
+// @ts-ignore
+let games:any[] = []
 const app = express()
 // @ts-ignore
 const WSserver = expressWs(app)
@@ -21,17 +21,49 @@ app.ws('/', (ws, req)=>{
   }))
   ws.on('message', (msg:string)=>{
     const message = JSON.parse(msg)
-    console.log("getted mes from client", msg)
+    //console.log("getted mes from client", msg)
     console.log("getted mes from client", message)
     switch (message.method) {
-      case "connection":{
+      case MethodsMessages.connection:{
         connectionHandler(ws, msg)
         break;
       }
-      case "addGame":{
+      case MethodsMessages.addGame:{
         broadcastConnection(ws, msg)
+        // @ts-ignore
+        games=[...games, ...message.games]
+        console.log("games on the server", games)
         break;
       }
+      case MethodsMessages.addAllGames:{
+        // @ts-ignore
+        if(games.length>0){
+          ws.send(JSON.stringify({
+            method: 'addAllGames',
+            games: games
+          }))
+        }
+
+        break;
+      }
+      case MethodsMessages.addUser:{
+         let idsGames: number[]|[]=[]
+        idsGames=getIdsofGamesfromState(games)
+         if(idsGames.includes(Number(message.gameId))){
+           games.forEach((game)=> {
+             if (game.id === Number(message.gameId)) {
+               game.players.push(message.user);
+             }
+           })
+         }
+
+        // @ts-ignore
+
+        broadcastConnection(ws, msg)
+
+        break;
+      }
+
 
       default: break
     }
@@ -61,8 +93,12 @@ app.listen(port, () => {
 const connectionHandler = (ws, msg) => {
   broadcastConnection(ws, msg)
 }
+
+
+
 // @ts-ignore
 const broadcastConnection = (ws, msg) => {
+  console.log("broadcAST!!!!!!!!!!::::::::", msg)
   let i=0;
   // @ts-ignore
   aWss.clients.forEach((client) => {
@@ -73,3 +109,22 @@ const broadcastConnection = (ws, msg) => {
 
   })
 }
+
+function getIdsofGamesfromState(games:any[]) {
+  const idsGames: any[] = [];
+  games.forEach((game) => {
+    if (game?.id) {
+      idsGames.push(game.id);
+    }
+  });
+  return idsGames;
+}
+
+export enum MethodsMessages  {
+  addGame='addGame',
+  addAllGames= "addAllGames",
+  connection = 'connection',
+  addUser = 'addUser',
+}
+
+export type MethodsMessagesType = MethodsMessages.addGame | MethodsMessages.addAllGames | MethodsMessages.connection

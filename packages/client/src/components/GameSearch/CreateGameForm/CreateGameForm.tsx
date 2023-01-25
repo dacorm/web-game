@@ -1,7 +1,7 @@
 import React, {
+    ChangeEventHandler,
     FC, useCallback, useRef, useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Button from '../../../shared/ui/Button';
@@ -12,8 +12,9 @@ import styles from './CreateGameForm.module.css';
 import Input from '../../../shared/ui/Input';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { Game, UserGame } from '../../../models/Game/Game';
+import { sendMessage } from '../../../redux/actionCreators/createGame';
 
-const CreateGameForm: FC = ({ socket }) => {
+const CreateGameForm: FC = () => {
     const dispatch = useDispatch();
     const [nameGame, setNameGame] = useState('');
     const countPlayersAll = useRef<number[]>([2, 3, 4, 5]);
@@ -23,9 +24,8 @@ const CreateGameForm: FC = ({ socket }) => {
     const handleClickCounters = useCallback((e: React.MouseEvent) => {
         setCountPlayers(Number(e.currentTarget?.textContent));
     }, []);
-    const navigate = useNavigate();
 
-    const changeHandler = (e:React.MouseEvent) => {
+    const changeHandler:ChangeEventHandler<HTMLInputElement> = (e) => {
         const { value } = e.target as HTMLInputElement;
         setNameGame(value);
     };
@@ -48,16 +48,19 @@ const CreateGameForm: FC = ({ socket }) => {
                 name: nameGame,
             });
             console.log('GAME', game);
-            socket.send(JSON.stringify({
+            const gameString = JSON.stringify({
                 method: 'addGame',
-                game: {
+                games: [{
                     id: Math.floor(Math.random() * Date.now()),
                     countPlayers,
                     userCreater: userGame,
                     name: nameGame,
-                },
-            }));
-            // dispatch(createGame(game));
+                    players: [userGame],
+                }],
+            });
+
+            // @ts-ignore
+            dispatch(sendMessage(gameString));
         }
     };
 

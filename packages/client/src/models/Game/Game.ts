@@ -32,6 +32,7 @@ export class Game implements IGame {
     }
 
     addUserToGame(user:UserGame) {
+        // @ts-ignore
         this.players.push(user);
     }
 }

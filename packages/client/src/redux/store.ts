@@ -7,13 +7,11 @@ import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
-import { websocketReducer } from './reducers/websocketReducer/websocketReducer';
 
 const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
     games: createGameReducer,
-    webSocket: websocketReducer,
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
