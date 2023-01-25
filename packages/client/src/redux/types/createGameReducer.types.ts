@@ -26,7 +26,7 @@ export interface Player {
   userName: string
 }
 
-export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error| null
+export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error
 
 export interface Message {
   gameId?: number

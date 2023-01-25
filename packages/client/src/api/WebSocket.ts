@@ -8,20 +8,19 @@ type SubscriberforStatusWS = (status: StatusesWS) => void
 type Subscribers = SubscriberforMessages | SubscriberforStatusWS
 
 type AllSubscribers= {
-  forMessages: Subscribers[] | []
-  forStatus: Subscribers[] | []
+  forMessages: Subscribers[];
+  forStatus: Subscribers[];
 }
 
-const subscribers:AllSubscribers = {
+const subscribers: AllSubscribers = {
     forMessages: [],
     forStatus: [],
 };
 
 let ws: WebSocket| null = null;
 
-const notifySubsAboutNewStatus = (status:StatusesWS) => {
-    // @ts-ignore
-    subscribers.forStatus.forEach((sub) => sub(status));
+const notifySubsAboutNewStatus = (status: StatusesWS) => {
+    subscribers.forStatus.forEach((sub) => sub(status as Message & StatusesWS));
 };
 
 const messageHandler = (e: MessageEvent) => {
@@ -34,12 +33,10 @@ const messageHandler = (e: MessageEvent) => {
 };
 
 const openHandler = () => {
-    console.log('client ooOpen');
     notifySubsAboutNewStatus(StatusWS.ready);
 };
 
 const errorHandler = () => {
-    console.log('client error');
     notifySubsAboutNewStatus(StatusWS.error);
 };
 const closeHandler = () => {
@@ -71,21 +68,17 @@ export const GameAPI = {
         createChannel();
     },
     subscribe(eventName:string, callback: Subscribers) {
-        // @ts-ignore
-        subscribers[eventName].push(callback);
+        subscribers[eventName as keyof typeof subscribers].push(callback);
         return () => {
-            // @ts-ignore
-            subscribers[eventName] = subscribers.filter((sub) => sub !== callback);
+            subscribers[eventName as keyof typeof subscribers] = subscribers[eventName as keyof typeof subscribers].filter((sub) => sub !== callback);
         };
     },
     unsubscribe(eventName:string, callback: Subscribers) {
-        // @ts-ignore
-        subscribers[eventName] = subscribers[eventName].filter((sub) => sub !== callback);
+        subscribers[eventName as keyof typeof subscribers] = subscribers[eventName as keyof typeof subscribers].filter((sub) => sub !== callback);
     },
 
     sendMesseg(mes: Message) {
-        // @ts-ignore
-        ws?.send(mes);
+        ws?.send(mes as unknown as string);
     },
     stop() {
         subscribers.forMessages = [];
