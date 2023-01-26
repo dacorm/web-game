@@ -19,7 +19,7 @@ function createDepartment(name: string, axis: BoardCellAxis, image: string, type
     });
 }
 
-export type TPrices = {
+export type TPricesProperty = {
     buyProperty: number,
     sellProperty: number
     buyHouse: number
@@ -30,13 +30,15 @@ export type TPrices = {
     rentWithFourHouse : number
     rentWithHotel: number
 }
-function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis, prices: TPrices): Cell {
+function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis, prices: TPricesProperty): Cell {
     return new Cell({
         type: BoardCellType.property,
         group,
         name,
         axis,
-        card: new Property({ name, group, prices }), // нужно будет везде передавать это поле, пока данные карты захардкожены
+        card: new Property({
+            name, group, prices, type: BoardCellType.property,
+        }), // нужно будет везде передавать это поле, пока данные карты захардкожены
     });
 }
 // когда не знаешь что это и какой должен быть функционал
