@@ -1,31 +1,21 @@
-import { TPrices } from '../../../../core/BoardStage/helpers/boardStageData';
-import { BoardCellType } from '../../../../core/types';
-import { actionStop, turnStop } from '../../../../redux/actionCreators/game';
-import store from '../../../../redux/store';
+import { TPricesProperty } from '../../../../core/BoardStage/helpers/boardStageData';
 import { Player } from '../../../Player/Player';
 import { calculateRent } from '../../helpers/calculateRent';
+import { Card } from '../Card';
 import { IProperty, PropertyProps, StatePropertyCard } from './PropertyCard.types';
 
-class Property implements IProperty {
-    prices: TPrices;
+class Property extends Card implements IProperty {
+    prices: TPricesProperty;
 
     owner: null | Player;
 
     stateCard: StatePropertyCard;
 
-    name;
-
-    type;
-
-    group;
-
     houses: number | null;
 
     constructor(props: PropertyProps) {
+        super(props);
         this.prices = props.prices;
-        this.name = props.name;
-        this.group = props.group;
-        this.type = BoardCellType.property;
         this.stateCard = StatePropertyCard.FREE;
         this.owner = null;
         this.houses = null;
@@ -36,9 +26,11 @@ class Property implements IProperty {
         if (player.balance >= this.prices.buyProperty) { // достаточный ли баланс у игрока для покупки
             this.owner = player;
             player.property.push(this);
-            player.balance -= this.prices.buyProperty;
+            player.payMoneyToTheBank(this.prices.buyProperty);
             this.stateCard = StatePropertyCard.BOUGHT;
             this.complete();
+        } else {
+            console.log('недостаточно денег');
         }
     }
 
@@ -52,23 +44,13 @@ class Property implements IProperty {
     rentPayment(player: Player) {
         if (this.owner) {
             const currentRent = calculateRent(this) as number;
-            player.balance -= currentRent;
-            this.owner.balance += currentRent;
+            player.payMoneyToThePlayer(currentRent, this.owner);
 
             console.log(
                 `игрок ${player.displayName} заплатил ${currentRent}$ игроку ${this.owner.displayName}`,
             );
         }
         this.complete();
-    }
-
-    // todo: в общий класс карты нужно вынести
-    /** завершить экшен */
-    /* eslint-disable-next-line */
-    complete() {
-        store.dispatch(actionStop());
-        store.dispatch(turnStop());
-        console.log('экшен карточки завершен');
     }
 }
 

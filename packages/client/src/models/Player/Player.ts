@@ -22,6 +22,7 @@ export interface Player {
   userId: number
   displayName: string
   property: Property[]
+  stations: any // пока нету класса жд дорог так что any
   balance: number
   init(): void
   draw(velocity: { x: number; y: number }, cell?: Cell): void
@@ -41,6 +42,7 @@ export class Player {
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
         this.property = []; // экземпляры классов приобретенного имущества
+        this.stations = []; // экземпляры классов приобретенных жд дорог
         this.balance = 1500; // баланс у игроков(при старте выдается 1500)
         board.players.push(this);
     }
@@ -203,8 +205,23 @@ export class Player {
         });
     }
 
-    // прибавляем к текущей позиции число кубиков
-    // если результат > 39(число ячеек доски), то обнуляем
+    /** заплатить деньги другому игроку */
+    payMoneyToThePlayer(value: number, owner: Player) {
+        this.balance -= value;
+        owner.balance += value;
+    }
+
+    /** заплатить деньги в банк  */
+    payMoneyToTheBank(value: number) {
+        this.balance -= value;
+    }
+
+    /** получить деньги от банка */
+    getMoney(value: number) {
+        this.balance += value;
+    }
+
+    /** обновить текущую позицию игрока на новую клетку в зависимости от кубика  */
     updateCurrentPos(value: number) {
         this.currentPos += value;
 

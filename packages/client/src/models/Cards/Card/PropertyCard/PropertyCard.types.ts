@@ -1,4 +1,4 @@
-import { TPrices } from '../../../../core/BoardStage/helpers/boardStageData';
+import { TPricesProperty } from '../../../../core/BoardStage/helpers/boardStageData';
 import { BoardCellGroup, BoardCellType } from '../../../../core/types';
 import { Player } from '../../../Player/Player';
 
@@ -9,17 +9,17 @@ export enum StatePropertyCard {
 }
 
 export interface IProperty {
-    prices: TPrices
+    prices: TPricesProperty
     owner: null | Player
     stateCard: StatePropertyCard
     houses: number|null
     type: BoardCellType
     group: BoardCellGroup
-
 }
 
 export interface PropertyProps {
     name: string
     group: BoardCellGroup
-    prices: TPrices
+    prices: TPricesProperty
+    type: BoardCellType
 }
