@@ -7,7 +7,7 @@ import store from '../../redux/store';
 import { actionStart, stopCellMoving } from '../../redux/actionCreators/game';
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
-import Property from '../Cards/Card/PropertyCard/PropertyCard';
+import Property from '../Cards/PropertyCard/PropertyCard';
 
 export interface Player {
   x: number

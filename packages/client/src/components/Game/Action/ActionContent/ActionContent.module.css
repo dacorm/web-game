@@ -1,0 +1,27 @@
+.actionContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.text {
+    flex: 80%;
+    text-align: center;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: 600;
+}
+.buttons {
+  display:flex
+}
+.accept {
+    border-bottom-right-radius: 0px;
+    
+}
+.cancel{
+  border-bottom-left-radius: 0px;
+ 
+}
+.button {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}

@@ -1,18 +1,25 @@
 import { board } from '../../Board/Board';
 import { Cell } from '../../Cell/Cell';
-import Property from '../Card/PropertyCard/PropertyCard';
+import PropertyCard from '../PropertyCard/PropertyCard';
 
 /** расчет ренты относительно построек или владения полной сети недвижимости */
-export const calculateRent = (card: Property) => {
-    const withHouses = card.houses; // есть ли домики на карте
-
-    const isFullGroup = () => { // полная ли группа карточек у владельца
+export const calculatePropertyRent = (card: PropertyCard) => {
+    /** есть ли домики на карте и сколько их */
+    const withHouses = card.houses;
+    /** полная ли группа карточек у владельца */
+    const isFullGroup = () => {
         const { group } = card;
         const { cells } = board;
 
-        const groupedCells = cells?.filter((cell) => cell?.card?.group === group) as Cell[];
+        const groupedCells = cells?.filter((cell) => {
+            if (cell.card) {
+                return (cell?.card as PropertyCard).group === group;
+            }
+            return false;
+        }) as Cell[];
 
         const isFull = !groupedCells.some((cell) => card.owner !== cell.card.owner);
+
         return isFull;
     };
 

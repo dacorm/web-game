@@ -11,7 +11,8 @@ import imgTax from '../../../assets/img/sprites/tax.png';
 import imgTreasury from '../../../assets/img/sprites/treasury.png';
 import imgWaterSupply from '../../../assets/img/sprites/water-supply.png';
 import { BoardCellAxis, BoardCellGroup, BoardCellType } from '../../types';
-import Property from '../../../models/Cards/Card/PropertyCard/PropertyCard';
+import PropertyCard from '../../../models/Cards/PropertyCard/PropertyCard';
+import StationCard from '../../../models/Cards/StationCard';
 
 function createDepartment(name: string, axis: BoardCellAxis, image: string, type?: BoardCellType): Cell {
     return new Cell({
@@ -20,8 +21,8 @@ function createDepartment(name: string, axis: BoardCellAxis, image: string, type
 }
 
 export type TPricesProperty = {
-    buyProperty: number,
-    sellProperty: number
+    buyCard: number,
+    sellCard: number
     buyHouse: number
     rentWithoutBuildings: number,
     rentWithOneHouse : number
@@ -30,13 +31,22 @@ export type TPricesProperty = {
     rentWithFourHouse : number
     rentWithHotel: number
 }
+
+export type TPricesStation = {
+    buyCard: number
+    sellCard: number
+    rentWithOnePort: number
+    rentWithTwoPort: number
+    rentWithThreePort: number
+    rentWithFourPort: number
+}
 function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis, prices: TPricesProperty): Cell {
     return new Cell({
         type: BoardCellType.property,
         group,
         name,
         axis,
-        card: new Property({
+        card: new PropertyCard({
             name, group, prices, type: BoardCellType.property,
         }), // нужно будет везде передавать это поле, пока данные карты захардкожены
     });
@@ -54,7 +64,22 @@ function createTax(axis: BoardCellAxis): Cell {
 }
 function createStation(axis: BoardCellAxis): Cell {
     return new Cell({
-        type: BoardCellType.station, name: 'Железная дорога', axis, image: imgRailwayStation,
+        type: BoardCellType.station,
+        name: 'Железная дорога',
+        axis,
+        image: imgRailwayStation,
+        card: new StationCard({
+            prices: {
+                buyCard: 200,
+                sellCard: 100,
+                rentWithOnePort: 25,
+                rentWithTwoPort: 50,
+                rentWithThreePort: 100,
+                rentWithFourPort: 200,
+            },
+            type: BoardCellType.station,
+            name: 'Железная дорога',
+        }),
     });
 }
 function createChance(axis: BoardCellAxis): Cell {
@@ -71,8 +96,8 @@ export const boardStageData = () => ({
             BoardCellGroup.goldenrod,
             BoardCellAxis.top,
             {
-                buyProperty: 60,
-                sellProperty: 30,
+                buyCard: 60,
+                sellCard: 30,
                 buyHouse: 50,
                 rentWithoutBuildings: 2,
                 rentWithOneHouse: 10,
@@ -89,8 +114,8 @@ export const boardStageData = () => ({
             BoardCellGroup.goldenrod,
             BoardCellAxis.top,
             {
-                buyProperty: 60,
-                sellProperty: 30,
+                buyCard: 60,
+                sellCard: 30,
                 buyHouse: 50,
                 rentWithoutBuildings: 4,
                 rentWithOneHouse: 20,
@@ -108,8 +133,8 @@ export const boardStageData = () => ({
             BoardCellGroup.limeGreen,
             BoardCellAxis.top,
             {
-                buyProperty: 100,
-                sellProperty: 50,
+                buyCard: 100,
+                sellCard: 50,
                 buyHouse: 50,
                 rentWithoutBuildings: 6,
                 rentWithOneHouse: 30,
@@ -126,8 +151,8 @@ export const boardStageData = () => ({
             BoardCellGroup.limeGreen,
             BoardCellAxis.top,
             {
-                buyProperty: 100,
-                sellProperty: 50,
+                buyCard: 100,
+                sellCard: 50,
                 buyHouse: 50,
                 rentWithoutBuildings: 6,
                 rentWithOneHouse: 30,
@@ -143,8 +168,8 @@ export const boardStageData = () => ({
             BoardCellGroup.limeGreen,
             BoardCellAxis.top,
             {
-                buyProperty: 120,
-                sellProperty: 60,
+                buyCard: 120,
+                sellCard: 60,
                 buyHouse: 50,
                 rentWithoutBuildings: 8,
                 rentWithOneHouse: 40,
@@ -162,8 +187,8 @@ export const boardStageData = () => ({
             BoardCellGroup.deepPink,
             BoardCellAxis.right,
             {
-                buyProperty: 140,
-                sellProperty: 70,
+                buyCard: 140,
+                sellCard: 70,
                 buyHouse: 100,
                 rentWithoutBuildings: 10,
                 rentWithOneHouse: 50,
@@ -180,8 +205,8 @@ export const boardStageData = () => ({
             BoardCellGroup.deepPink,
             BoardCellAxis.right,
             {
-                buyProperty: 140,
-                sellProperty: 70,
+                buyCard: 140,
+                sellCard: 70,
                 buyHouse: 100,
                 rentWithoutBuildings: 10,
                 rentWithOneHouse: 50,
@@ -197,8 +222,8 @@ export const boardStageData = () => ({
             BoardCellGroup.deepPink,
             BoardCellAxis.right,
             {
-                buyProperty: 160,
-                sellProperty: 80,
+                buyCard: 160,
+                sellCard: 80,
                 buyHouse: 100,
                 rentWithoutBuildings: 12,
                 rentWithOneHouse: 60,
@@ -215,8 +240,8 @@ export const boardStageData = () => ({
             BoardCellGroup.darkOrange,
             BoardCellAxis.right,
             {
-                buyProperty: 180,
-                sellProperty: 90,
+                buyCard: 180,
+                sellCard: 90,
                 buyHouse: 100,
                 rentWithoutBuildings: 14,
                 rentWithOneHouse: 70,
@@ -233,8 +258,8 @@ export const boardStageData = () => ({
             BoardCellGroup.darkOrange,
             BoardCellAxis.right,
             {
-                buyProperty: 180,
-                sellProperty: 90,
+                buyCard: 180,
+                sellCard: 90,
                 buyHouse: 100,
                 rentWithoutBuildings: 14,
                 rentWithOneHouse: 70,
@@ -250,8 +275,8 @@ export const boardStageData = () => ({
             BoardCellGroup.darkOrange,
             BoardCellAxis.right,
             {
-                buyProperty: 200,
-                sellProperty: 100,
+                buyCard: 200,
+                sellCard: 100,
                 buyHouse: 100,
                 rentWithoutBuildings: 16,
                 rentWithOneHouse: 80,
@@ -269,8 +294,8 @@ export const boardStageData = () => ({
             BoardCellGroup.salmon,
             BoardCellAxis.bottom,
             {
-                buyProperty: 220,
-                sellProperty: 110,
+                buyCard: 220,
+                sellCard: 110,
                 buyHouse: 150,
                 rentWithoutBuildings: 18,
                 rentWithOneHouse: 90,
@@ -287,8 +312,8 @@ export const boardStageData = () => ({
             BoardCellGroup.salmon,
             BoardCellAxis.bottom,
             {
-                buyProperty: 220,
-                sellProperty: 110,
+                buyCard: 220,
+                sellCard: 110,
                 buyHouse: 150,
                 rentWithoutBuildings: 18,
                 rentWithOneHouse: 90,
@@ -304,8 +329,8 @@ export const boardStageData = () => ({
             BoardCellGroup.salmon,
             BoardCellAxis.bottom,
             {
-                buyProperty: 240,
-                sellProperty: 120,
+                buyCard: 240,
+                sellCard: 120,
                 buyHouse: 150,
                 rentWithoutBuildings: 20,
                 rentWithOneHouse: 100,
@@ -322,8 +347,8 @@ export const boardStageData = () => ({
             BoardCellGroup.linen,
             BoardCellAxis.bottom,
             {
-                buyProperty: 260,
-                sellProperty: 130,
+                buyCard: 260,
+                sellCard: 130,
                 buyHouse: 150,
                 rentWithoutBuildings: 22,
                 rentWithOneHouse: 110,
@@ -339,8 +364,8 @@ export const boardStageData = () => ({
             BoardCellGroup.linen,
             BoardCellAxis.bottom,
             {
-                buyProperty: 260,
-                sellProperty: 130,
+                buyCard: 260,
+                sellCard: 130,
                 buyHouse: 150,
                 rentWithoutBuildings: 22,
                 rentWithOneHouse: 110,
@@ -357,8 +382,8 @@ export const boardStageData = () => ({
             BoardCellGroup.linen,
             BoardCellAxis.bottom,
             {
-                buyProperty: 280,
-                sellProperty: 140,
+                buyCard: 280,
+                sellCard: 140,
                 buyHouse: 150,
                 rentWithoutBuildings: 24,
                 rentWithOneHouse: 120,
@@ -376,8 +401,8 @@ export const boardStageData = () => ({
             BoardCellGroup.indigo,
             BoardCellAxis.left,
             {
-                buyProperty: 300,
-                sellProperty: 150,
+                buyCard: 300,
+                sellCard: 150,
                 buyHouse: 200,
                 rentWithoutBuildings: 26,
                 rentWithOneHouse: 130,
@@ -393,8 +418,8 @@ export const boardStageData = () => ({
             BoardCellGroup.indigo,
             BoardCellAxis.left,
             {
-                buyProperty: 300,
-                sellProperty: 150,
+                buyCard: 300,
+                sellCard: 150,
                 buyHouse: 200,
                 rentWithoutBuildings: 26,
                 rentWithOneHouse: 130,
@@ -411,8 +436,8 @@ export const boardStageData = () => ({
             BoardCellGroup.indigo,
             BoardCellAxis.left,
             {
-                buyProperty: 320,
-                sellProperty: 160,
+                buyCard: 320,
+                sellCard: 160,
                 buyHouse: 200,
                 rentWithoutBuildings: 28,
                 rentWithOneHouse: 150,
@@ -430,8 +455,8 @@ export const boardStageData = () => ({
             BoardCellGroup.royalBlue,
             BoardCellAxis.left,
             {
-                buyProperty: 350,
-                sellProperty: 175,
+                buyCard: 350,
+                sellCard: 175,
                 buyHouse: 200,
                 rentWithoutBuildings: 35,
                 rentWithOneHouse: 175,
@@ -448,8 +473,8 @@ export const boardStageData = () => ({
             BoardCellGroup.royalBlue,
             BoardCellAxis.left,
             {
-                buyProperty: 400,
-                sellProperty: 200,
+                buyCard: 400,
+                sellCard: 200,
                 buyHouse: 200,
                 rentWithoutBuildings: 50,
                 rentWithOneHouse: 200,
