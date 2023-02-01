@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import styles from './ProfileFormAvatar.module.css';
 import Button from '../../../shared/ui/Button';
+import { checkIsImageFileType } from '../../../core/checkIsImageFileType';
 
 import { useActions } from '../../../hooks/useActions';
 
@@ -10,16 +11,10 @@ export function ProfileFormAvatar() {
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<boolean>(false);
     const { setUserAvatarThunk } = useActions();
-
-    const isImage = (theFile: File) => {
-        const fileType: string = theFile.type;
-        console.log('fileType', fileType);
-        const regex = /image\//;
-        return fileType.match(regex);
-    };
+    const errorMessage = 'Выбран ошибочный файл - необходимо изображение для загрузки';
 
     const putImage = (tempFile: File) => {
-        if (isImage(tempFile)) {
+        if (checkIsImageFileType(tempFile)) {
             setError(false);
             setFile(tempFile);
         } else {
@@ -84,7 +79,7 @@ export function ProfileFormAvatar() {
             >
                 <span>или перетяните на поле</span>
             </div>
-            {error && <p className={styles.error}>{error ? 'Выбран ошибочный файл - необходимо изображение для загрузки' : ''}</p>}
+            {error && <p className={styles.error}>{errorMessage}</p>}
             {file && <p className={styles.choosedFiles}>{file ? `Выбран файл - ${file.name}` : ''}</p>}
             {file && (
                 <Button
