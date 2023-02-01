@@ -5,7 +5,7 @@ import styles from './GameSearchProfile.module.css';
 
 const GameSearchProfile: FC<TExampleGameUsers> = ({
     playerId,
-    name,
+    userName,
     avatar,
 }) => {
     const onConnect = useCallback(() => {
@@ -21,7 +21,7 @@ const GameSearchProfile: FC<TExampleGameUsers> = ({
             onClick={(!playerId && onConnect) || undefined}
         >
             <img src={avatar} alt="avatar" className={styles['profile-avatar']} />
-            <div className={styles['profile-name']}>{name}</div>
+            <div className={styles['profile-name']}>{userName}</div>
         </div>
     );
 };

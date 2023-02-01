@@ -24,7 +24,7 @@ import {
 import TitleBoard from '../../components/Game/TitleBoard';
 import Action from '../../components/Game/Action';
 
-export const BoardStage: FC<BoardStageProps> = React.memo(({ players }) => {
+export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
     const { random } = useBoard();

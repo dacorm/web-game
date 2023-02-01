@@ -1,0 +1,16 @@
+.actionInner {
+    padding: 0px 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    
+}
+.buttonBuy {
+    margin-right: 20px;
+}

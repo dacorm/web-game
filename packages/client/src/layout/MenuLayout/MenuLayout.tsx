@@ -12,7 +12,7 @@ const MenuLayout: FC = () => {
     return (
         <>
             <NavBar
-                userLogo={userState.avatar ? userState.avatar : defaultAvatar}
+                userLogo={userState.avatar && userState.avatar.includes('null') ? defaultAvatar : userState.avatar}
                 userName={userState.userName ? userState.userName : 'SomeUser'}
             />
             <main className={styles.main}>

@@ -1,6 +1,6 @@
 import { Props } from '../../../types/global.types';
-import { TExampleGameUsers } from '../GameSearchBlock/GameSearchBlock.types';
+import { Game } from '../../../redux/types/createGameReducer.types';
 
 export interface GameSearchItemProps extends Props {
-  players: TExampleGameUsers[]
+  game: Game
 }
