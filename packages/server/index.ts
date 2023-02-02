@@ -5,6 +5,7 @@ dotenv.config()
 import express from 'express'
 // @ts-ignore
 import expressWs = require('express-ws');
+import * as path from 'path'
 
 
 // @ts-ignore
