@@ -3,17 +3,22 @@ import {
 } from 'redux';
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { userReducer } from './userReducer/userReducer';
+import { userReducer } from './reducers/userReducer/userReducer';
+import { gameReducer } from './reducers/gameReducer/gameReducer';
+
+import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
 
 const reducers = combineReducers({
     user: userReducer,
+    game: gameReducer,
+    games: createGameReducer,
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export type ActionType = {
-  type: string;
-  payload?: any;
+type: string;
+payload?: any;
 }
 
 export type appDispatch = typeof store.dispatch;

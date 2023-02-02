@@ -5,6 +5,7 @@ import MenuLayout from '../MenuLayout';
 import GameSearch from '../../pages/GameSearch';
 import { ROUTES } from './RouterConst';
 import GameLayout from '../GameLayout';
+import LandingLayout from '../LandingLayout';
 
 const LeaderBoardPage = routerSuspense(
     lazy(() => import('../../pages/LeaderBoard')),
@@ -19,9 +20,13 @@ const RegisterPage = routerSuspense(
     lazy(() => import('../../pages/RegisterPage')),
 );
 const LoginPage = routerSuspense(lazy(() => import('../../pages/AuthPage')));
+const LandingPage = routerSuspense(lazy(() => import('../../pages/Landing')));
 
 const RouterLayout = () => (
     <Routes>
+        <Route path={ROUTES.MAIN} element={<LandingLayout />}>
+            <Route path={ROUTES.LANDING} element={LandingPage} />
+        </Route>
         <Route path={ROUTES.MAIN} element={<MenuLayout />}>
             <Route index element={<GameSearch />} />
             <Route path={ROUTES.FORUM} element={ForumPage} />

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router';
 import MenuStub from '../../components/MenuStub';
-import { NavBar } from '../../components/NavBar';
+import { NavBar } from '../../components/NavBarComponents/NavBar';
 
 import styles from './MenuLayout.module.css';
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
@@ -12,7 +12,7 @@ const MenuLayout: FC = () => {
     return (
         <>
             <NavBar
-                userLogo={userState.avatar ? userState.avatar : defaultAvatar}
+                userLogo={userState.avatar && userState.avatar.includes('null') ? defaultAvatar : userState.avatar}
                 userName={userState.userName ? userState.userName : 'SomeUser'}
             />
             <main className={styles.main}>

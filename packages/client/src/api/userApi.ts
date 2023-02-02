@@ -14,15 +14,14 @@ class UserApi {
             }),
             credentials: 'include',
         });
-        return res;
+        return await res;
     }
 
     // eslint-disable-next-line class-methods-use-this
     async getUser() {
-        const data = await fetch(UserURL.USERINFO, {
+        return await fetch(UserURL.USERINFO, {
             credentials: 'include',
         });
-        return data;
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -39,7 +38,7 @@ class UserApi {
 
     // eslint-disable-next-line class-methods-use-this
     async reg(userName: string, email: string, password: string) {
-        const data = await fetch(UserURL.SIGNUP, {
+        return await fetch(UserURL.SIGNUP, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,17 +53,15 @@ class UserApi {
             }),
             credentials: 'include',
         });
-        return data;
     }
 
     // eslint-disable-next-line class-methods-use-this
     async setAvatar(fd: FormData) {
-        const data = await fetch(UserURL.AVATAR, {
+        return await fetch(UserURL.AVATAR, {
             method: 'PUT',
             body: fd,
             credentials: 'include',
         });
-        return data;
     }
 }
 
