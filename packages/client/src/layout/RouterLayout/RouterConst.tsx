@@ -7,5 +7,6 @@ export const ROUTES = {
     AUTH: '/login',
     REGISTER: '/signup',
     GAME: '/game',
+    GAMEID: '/game/:id',
     LANDING: '/landing',
 };

@@ -36,6 +36,7 @@ const RouterLayout = () => (
         </Route>
         <Route path={ROUTES.MAIN} element={<GameLayout />}>
             <Route path={ROUTES.GAME} element={GamePage} />
+            <Route path={ROUTES.GAMEID} element={GamePage} />
         </Route>
         <Route path={ROUTES.REGISTER} element={RegisterPage} />
         <Route path={ROUTES.AUTH} element={LoginPage} />

@@ -7,15 +7,16 @@ import styles from './GameSearchItem.module.css';
 import connectInGameImg from '../../../assets/img/connectInGame.svg';
 import Button from '../../../shared/ui/Button';
 import { sendMessage } from '../../../redux/actionCreators/createGame';
-import { Game, MethodsMessages, Player } from '../../../redux/types/createGameReducer.types';
+import { Game, MethodsMessages } from '../../../redux/types/createGameReducer.types';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/shared/shared.button.types';
+import { GamePlayer } from '../../../redux/types/gameReducer.types';
 
 const userInGame = (game:Game, userId:number) => {
     if (game.players.length > 0) {
         const idsPlayers:number[]|[] = [];
         // @ts-ignore
-        game.players.forEach((p:Player) => idsPlayers.push(p.id));
+        game.players.forEach((p:Player) => idsPlayers.push(p.userId));
         // @ts-ignore
         return idsPlayers.includes(userId);
     }
@@ -36,18 +37,17 @@ const GameSearchItem: FC<GameSearchItemProps> = ({ game }) => {
 
     while (playersAndFreePlaces.length < game.countPlayers) {
         playersAndFreePlaces.push({
-            userName: 'свободно',
+            displayName: 'свободно',
             avatar: connectInGameImg,
-            id: `000${Math.floor(Math.random() * (8 + 1))}0000${Math.floor(Math.random() * (8 + 1))}`,
+            userId: `000${Math.floor(Math.random() * (8 + 1))}0000${Math.floor(Math.random() * (8 + 1))}`,
         });
     }
-    console.log('playersAndFreePlaces', playersAndFreePlaces);
     const handlerAddUserClick = (e:React.MouseEvent) => {
         e.preventDefault();
-        const userGame: Player = {
-            userName: user.userName,
+        const userGame: GamePlayer = {
+            displayName: user.userName,
             avatar: user.avatar,
-            id: user.id,
+            userId: user.id,
         };
 
         const mes = {
@@ -64,11 +64,11 @@ const GameSearchItem: FC<GameSearchItemProps> = ({ game }) => {
         <div className={styles['games-item']}>
             <div className={styles.gameName}>{game.name}</div>
             {playersAndFreePlaces.map(
-                ({ id, userName, avatar }, index) => (
+                ({ userId, displayName, avatar }, index) => (
                     <GameSearchProfile
-                        key={id || `${index}_key`}
-                        playerId={id}
-                        userName={userName}
+                        key={userId || `${index}_key`}
+                        playerId={userId}
+                        userName={displayName}
                         avatar={avatar}
                     />
                 ),

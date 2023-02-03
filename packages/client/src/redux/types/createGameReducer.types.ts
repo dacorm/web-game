@@ -1,3 +1,5 @@
+import { GamePlayer } from './gameReducer.types';
+
 export enum CreateGameActyonTypes {
   ADD_GAMES='ADD_GAMES',
   ADD_USER_TO_GAME='ADD_USER_TO_GAME',
@@ -20,28 +22,22 @@ export enum StatusWS {
   error = 'error',
 }
 
-export interface Player {
-  avatar: string
-  id: number
-  userName: string
-}
-
-export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error
+export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error| null
 
 export interface Message {
   gameId?: number
   method: MethodsMessagesType
   games?: []
   statusWS?: StatusesWS
-  user?:Player
+  user?:GamePlayer
 }
 
 export interface Game {
   id: number,
     countPlayers: number,
-  userCreater: Player,
+  userCreater: GamePlayer,
   name: string,
-    players:Player [ ]
+    players:GamePlayer [ ]
 }
 
 export interface CreateGameReducerState {
@@ -58,7 +54,7 @@ type TCreateGameActionAddUserToGame = {
   type: CreateGameActyonTypes.ADD_USER_TO_GAME,
   payload: {
     gameId: number,
-    user: Player,
+    user: GamePlayer,
   },
 }
 

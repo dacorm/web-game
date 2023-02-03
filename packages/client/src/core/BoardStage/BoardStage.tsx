@@ -15,7 +15,7 @@ import { ROUTES } from '../../constants';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import {
-    rollTheDiceTrue, setCurrentPlayer, turnStart,
+    rollTheDiceTrue, setCurrentPlayer, startGame, turnStart,
 } from '../../redux/actionCreators/game';
 import { BoardStageProps } from './BoardStage.types';
 import {
@@ -23,19 +23,19 @@ import {
 } from '../../redux/reducers/gameReducer/gameSelector';
 import TitleBoard from '../../components/Game/TitleBoard';
 import Action from '../../components/Game/Action';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
-    const { random } = useBoard();
-
-    const [isGameStarting, setIsGameStarting] = useState<boolean>(false);
+    const random = useTypedSelector((state) => state.game.random);
     const [modals, setModals] = useState({
         showWinModal: false,
         showLoseModal: false,
     });
 
     const dispatch = useDispatch<Dispatch>();
+    const isGameStarting = useTypedSelector((state) => state.game.isGameStarting);
     const currentPlayer = useSelector(getCurrentPlayer);
     const actionStarting = useSelector(getActionStarting);
     const turnComleted = useSelector(getTurnCompleted);
@@ -57,10 +57,18 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
 
     /** инициализация старта игры */
     const initStartGame = useCallback(() => {
+        dispatch(startGame());
         dispatch(setCurrentPlayer());
         dispatch(rollTheDiceTrue());
         console.log('Игра запущена');
     }, []);
+
+    const startGameHandle = () => {
+        if (!isGameStarting && players) {
+            initStartGame();
+            console.log('isGameStarting!!!!', isGameStarting);
+        }
+    };
 
     const containerSizes = useMemo(
         () => ({ width: rect?.width || 0, height: rect?.height || 0 }),
@@ -78,12 +86,12 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
     }, []);
 
     // вызываем инициализацию стара игры
-    useEffect(() => {
-        if (!isGameStarting && players) {
-            setIsGameStarting(true);
-            initStartGame();
-        }
-    }, [players]);
+    // useEffect(() => {
+    //     if (!isGameStarting && players) {
+    //         setIsGameStarting(true);
+    //         initStartGame();
+    //     }
+    // }, [players]);
 
     return (
         <>
@@ -107,6 +115,17 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
 
                                         </Button>
                                     )}
+                                    {!isGameStarting && (
+                                        <Button
+                                            size={ButtonSize.M}
+                                            theme={ButtonTheme.GREEN}
+                                            onClick={startGameHandle}
+                                        >
+                                            Старт Игры!!!
+
+                                        </Button>
+                                    )}
+
                                 </div>
                             )}
                     </div>

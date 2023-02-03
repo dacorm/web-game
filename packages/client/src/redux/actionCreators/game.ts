@@ -1,4 +1,4 @@
-import { GameActionTypes } from '../types/gameReducer.types';
+import { GameActionTypes, GamePlayer } from '../types/gameReducer.types';
 /** сообщаем о начале передвижения фишки */
 export const startCellMoving = () => ({
     type: GameActionTypes.CELL_START_MOVING,
@@ -34,4 +34,31 @@ export const turnStart = () => ({
 /** даем возможность игроку завершить ход */
 export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
+});
+/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЯ ВЫПАВШИЕ НА КУБИКАХ */
+export const setRandoms = (random:number[]) => ({
+    type: GameActionTypes.SET_RANDOM,
+    payload: random,
+});
+/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЕ GameID */
+export const setGameId = (id: number) => ({
+    type: GameActionTypes.SET_GAME_ID,
+    payload: id,
+});
+
+/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЕ GameType */
+export const setGameType = (type:string) => ({
+    type: GameActionTypes.SET_GAME_TYPE,
+    payload: type,
+});
+
+/** УСТАНАВЛИВАЕМ ИГРОКОВ */
+export const setPlayers = (players:GamePlayer[]) => ({
+    type: GameActionTypes.SET_PLAYERS,
+    payload: players,
+});
+
+/** СООБЩАЕМ О СТАРТЕ ИГРЫ */
+export const startGame = () => ({
+    type: GameActionTypes.START_GAME,
 });

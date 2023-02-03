@@ -5,17 +5,20 @@ import { Util } from '../../../core/Util';
 import Button from '../../../shared/ui/Button';
 import { useBoard } from '../../../core/BoardStage/BoardProvider';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
-import { rollTheDiceFalse, startCellMoving } from '../../../redux/actionCreators/game';
+import { rollTheDiceFalse, setRandoms, startCellMoving } from '../../../redux/actionCreators/game';
 import { getCanRollTheDice } from '../../../redux/reducers/gameReducer/gameSelector';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 const Cube = () => {
-    const { random, setRandom } = useBoard();
+    // const { random, setRandom } = useBoard();
     const dispatch = useDispatch<Dispatch>();
-
+    const randomsfromStore = useTypedSelector((state) => state.game.random);
     const canRollTheDice = useSelector(getCanRollTheDice);
 
     const handleClick = useCallback(() => {
-        setRandom([Util.randomNumber(), Util.randomNumber()]);
+        const randoms = [Util.randomNumber(), Util.randomNumber()];
+        // setRandom(randoms);
+        dispatch(setRandoms(randoms));
         dispatch(startCellMoving());
         dispatch(rollTheDiceFalse());
     }, []);
@@ -23,10 +26,12 @@ const Cube = () => {
     return (
         <>
             <pre>
-                {random}
+                {randomsfromStore[0]}
+                {' '}
+                {randomsfromStore[1]}
                 {' '}
                 =
-                {random.reduce((a, i) => a + i, 0)}
+                {randomsfromStore.reduce((a, i) => a + i, 0)}
             </pre>
             {canRollTheDice && <Button theme={ButtonTheme.GREEN} size={ButtonSize.M} onClick={handleClick}>Кинуть кубики</Button>}
         </>
