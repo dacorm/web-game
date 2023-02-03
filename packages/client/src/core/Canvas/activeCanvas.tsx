@@ -5,6 +5,7 @@ import { Player } from '../../models/Player/Player';
 import { board } from '../../models/Board/Board';
 import { ActiveCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
 
+console.log('BOARD2', board.getCurrentTurn());
 // Активный канвас. На нем будет рисоваться вся графика при взаимодействии с пользователем
 export const activeCanvas = ({
     width, height, squares, players,
@@ -14,7 +15,7 @@ export const activeCanvas = ({
     const frame = useRef<number>(0);
 
     // const cellIsMoving = getCellIsMoving();
-
+    console.log('BOARD3', board.getCurrentTurn());
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
 
@@ -54,12 +55,15 @@ export const activeCanvas = ({
     useEffect(() => {
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора
         if (squares?.some((v) => v)) {
+            console.log('board', board);
+            console.log('board.currentTurn', board.currentTurn);
             const player = board.getPlayerById(board.currentTurn);
             console.log(`ходит игрок с id = ${player?.userId}, ${player?.displayName}`);
 
             if (player) {
                 const sumSquares = squares.reduce((a, b) => a + b);
                 const updatedCurrentPos = player.updateCurrentPos(sumSquares);
+                console.log('updatedCurrentPos', updatedCurrentPos);
                 player.addCell(board.getCell(updatedCurrentPos));
 
                 // eslint-disable-next-line no-restricted-syntax

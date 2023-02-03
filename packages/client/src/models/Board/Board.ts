@@ -70,5 +70,5 @@ class Board implements IBoard {
 }
 
 export const board = new Board();
-
+console.log('BOARD1', board.getCurrentTurn());
 (window as any).board = board;
