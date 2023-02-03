@@ -12,9 +12,11 @@ function App() {
 
     return (
         <StrictMode>
+
             <BrowserRouter>
                 <RouterLayout />
             </BrowserRouter>
+
         </StrictMode>
     );
 }
