@@ -26,6 +26,7 @@ export interface userGame{
 }
 
 export enum GameActionTypes {
+     CLEAN_GAME_DATA='CLEAN_GAME_DATA',
     START_GAME='START_GAME',
     SET_RANDOM='SET_RANDOM',
     SET_GAME_TYPE='SET_GAME_TYPE',

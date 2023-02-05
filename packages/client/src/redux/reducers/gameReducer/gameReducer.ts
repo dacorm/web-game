@@ -19,6 +19,11 @@ const initialAction = { type: '__INIT__' };
 
 export const gameReducer = (state:userGame = initialState, action:ActionType = initialAction): any => {
     switch (action.type) {
+    case GameActionTypes.CLEAN_GAME_DATA:
+        console.log('CLEAN_gAME_dATA');
+        return {
+            ...initialState,
+        };
     case GameActionTypes.START_GAME:
         console.log('HHHHHHHHHHHHHHHHHHHHHH');
         return {

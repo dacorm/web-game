@@ -3,7 +3,6 @@ import React, {
     FC, useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
@@ -14,9 +13,12 @@ import Input from '../../../shared/ui/Input';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { sendMessage } from '../../../redux/actionCreators/createGame';
 import { GameTypes } from '../../../redux/types/gameReducer.types';
-import { setGameId, setGameType, setPlayers } from '../../../redux/actionCreators/game';
+import {
+    cleanGameData, setGameId, setGameType, setPlayers,
+} from '../../../redux/actionCreators/game';
+import { CreateGameProps } from './CreateGameForm.types';
 
-const CreateGameForm: FC = () => {
+const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
     const dispatch = useDispatch();
     const [nameGame, setNameGame] = useState('');
     const [selectValue, setSelectValue] = useState('');
@@ -34,7 +36,7 @@ const CreateGameForm: FC = () => {
         setNameGame(value);
     };
 
-    const selectChangeHandle = (e) => {
+    const selectChangeHandle:ChangeEventHandler<HTMLSelectElement> = (e) => {
         setSelectValue(e.target.value);
     };
 
@@ -81,7 +83,7 @@ const CreateGameForm: FC = () => {
                         players[i] = { displayName: `Player_${i}`, userId: i + 1 };
                     }
                 }
-
+                dispatch(cleanGameData());
                 dispatch(setGameType(GameTypes.LOCAL));
                 dispatch(setGameId(gameID));
                 dispatch(setPlayers(players));
@@ -99,7 +101,7 @@ const CreateGameForm: FC = () => {
                         Выберите тип игры:
                         <select value={selectValue} onChange={selectChangeHandle}>
                             <option value=""> </option>
-                            <option value={GameTypes.NETWORK}>{GameTypes.NETWORK}</option>
+                            {network && <option value={GameTypes.NETWORK}>{GameTypes.NETWORK}</option>}
                             <option value={GameTypes.LOCAL}>{GameTypes.LOCAL}</option>
                         </select>
                     </label>

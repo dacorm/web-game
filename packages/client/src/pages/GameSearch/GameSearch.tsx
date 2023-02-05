@@ -54,19 +54,13 @@ const GameSearch: FC = () => {
 
     return (
         <div className="search-game">
-            {wsStatus === 'ready' ? (
-                <MenuHeader
-                    text="Ожидают игры"
-                    buttonText="Создать игру"
-                    onClick={openCreateGameModal}
-                />
-            )
-                : (
-                    <MenuHeader
-                        text="Connecting to the server..."
-                        onClick={openCreateGameModal}
-                    />
-                )}
+
+            <MenuHeader
+                text={(wsStatus === 'ready') ? 'Ожидают игру' : 'Подключение к серверу...'}
+                buttonText="Создать игру"
+                onClick={openCreateGameModal}
+            />
+
             {/* eslint-disable-next-line react/button-has-type */}
             <button onClick={GetAllGamesHandler}>   Получить все игры с сервера</button>
             <GameSearchBlock />
@@ -74,8 +68,9 @@ const GameSearch: FC = () => {
                 title="Создание игры"
                 isShow={createGameModal}
                 onClose={closeCreateGameModal}
+
             >
-                <CreateGameForm />
+                <CreateGameForm network={(wsStatus === 'ready')} />
             </Modal>
         </div>
     );

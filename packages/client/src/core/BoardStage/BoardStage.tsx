@@ -15,6 +15,7 @@ import { ROUTES } from '../../constants';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import {
+    cleanGameData,
     rollTheDiceTrue, setCurrentPlayer, startGame, turnStart,
 } from '../../redux/actionCreators/game';
 import { BoardStageProps } from './BoardStage.types';

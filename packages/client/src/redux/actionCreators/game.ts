@@ -62,3 +62,8 @@ export const setPlayers = (players:GamePlayer[]) => ({
 export const startGame = () => ({
     type: GameActionTypes.START_GAME,
 });
+
+/** ОЧИЩАЕМ ДАННЫЕ ИГРЫ - НУЖНО ЕСЛИ НАЧИНАЕМ НОВУЮ ИГРУ, А КЕШЕ СОДЕРЖАТЬСЯ ДАННЫЕ ОТ ПРЕДЫДУЩЕЙ */
+export const cleanGameData = () => ({
+    type: GameActionTypes.CLEAN_GAME_DATA,
+});
