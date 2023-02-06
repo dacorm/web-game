@@ -25,7 +25,7 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
             ...initialState,
         };
     case GameActionTypes.START_GAME:
-        console.log('HHHHHHHHHHHHHHHHHHHHHH');
+        console.log('START_GAME');
         return {
             ...state,
             isGameStarting: true,

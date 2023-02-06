@@ -17,6 +17,7 @@ import {
     cleanGameData, setGameId, setGameType, setPlayers,
 } from '../../../redux/actionCreators/game';
 import { CreateGameProps } from './CreateGameForm.types';
+import { Util } from '../../../core/Util';
 
 const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
     const countPlayersAll = useRef<number[]>([2, 3, 4, 5]);
     const [countPlayers, setCountPlayers] = useState<number | null>(null);
     const user = useTypedSelector((state) => state.user);
-
+    const playerColors = Util.playerColors();
     const handleClickCounters = useCallback((e: React.MouseEvent) => {
         setCountPlayers(Number(e.currentTarget?.textContent));
     }, []);
@@ -56,6 +57,7 @@ const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
             displayName: user.userName,
             avatar: user.avatar,
             userId: user.id,
+            color: playerColors[0],
         };
         if (countPlayers) {
             // @ts-ignore
@@ -80,7 +82,7 @@ const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
                     if (i === 0) {
                         players[i] = userGame;
                     } else {
-                        players[i] = { displayName: `Player_${i}`, userId: i + 1 };
+                        players[i] = { displayName: `Player_${i}`, userId: i + 1, color: playerColors[i] };
                     }
                 }
                 dispatch(cleanGameData());

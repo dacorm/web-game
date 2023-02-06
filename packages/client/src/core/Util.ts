@@ -50,4 +50,18 @@ export const Util = {
 
         return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     },
+
+    playerColors() {
+        return [
+            '#9f1c1c',
+            '#00FF00',
+            '#000000',
+            '#00FFFF',
+            '#FF00FF',
+            '#0000FF',
+            '#FFFFFF',
+
+        ];
+    },
+
 };
