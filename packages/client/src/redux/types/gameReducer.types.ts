@@ -5,6 +5,7 @@ export enum GameTypes {
 
 export type GameType= GameTypes.LOCAL | GameTypes.NETWORK| undefined
 export interface GamePlayer {
+  currentPos: number
   displayName: string
   userId: number
   avatar?: string
@@ -40,5 +41,6 @@ export enum GameActionTypes {
     ACTION_START = 'ACTION_START',
     ACTION_STOP = 'ACTION_STOP',
     TURN_START = 'TURN_START',
-    TURN_STOP = 'TURN_STOP'
+    TURN_STOP = 'TURN_STOP',
+    ADD_PLAYER_CURRENT_POSITION='ADD_PLAYER_CURRENT_POSITION'
 }

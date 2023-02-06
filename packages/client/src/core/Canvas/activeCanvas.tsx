@@ -39,10 +39,11 @@ export const activeCanvas = ({
     useEffect(() => {
         if (!board.players.length) {
             console.log('init players');
-            players?.map(({ userId, displayName, color }) => (new Player({
-                canvas: ref.current, userId, displayName, color,
+            players?.map((player) => (new Player({
+                canvas: ref.current, userId: player.userId, displayName: player.displayName, color: player.color, currentPos: player.currentPos ? player.currentPos : 0,
             })));
         }
+        console.log('board.players', board.players);
         if (board.players.length && players?.length !== board.players.length) {
             console.log('перерасчет игроков');
             board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));

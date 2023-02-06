@@ -4,7 +4,7 @@ import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
 import store from '../../redux/store';
-import { actionStart, stopCellMoving } from '../../redux/actionCreators/game';
+import { actionStart, addPlayerCurrentPosition, stopCellMoving } from '../../redux/actionCreators/game';
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 import Property from '../Cards/Card/PropertyCard/PropertyCard';
@@ -37,12 +37,12 @@ export interface Player {
 export class Player {
     // todo: канвас везде надо забирать из стора
     constructor({
-        canvas, userId, displayName, color,
+        canvas, userId, displayName, color, currentPos = 0,
     }: PlayerProps) {
         this.canvas = canvas as Canvas;
         this.userId = userId;
         this.displayName = displayName;
-        this.currentPos = 0; // текущая позиция фишки относительно id карточки
+        this.currentPos = currentPos; // текущая позиция фишки относительно id карточки nameCell
         this.cells = []; // todo: возможно стоит объединить с переменной выше
         this.property = []; // экземпляры классов приобретенного имущества
         this.stations = []; // экземпляры классов приобретенных жд дорог
@@ -86,9 +86,9 @@ export class Player {
     // eslint-disable-next-line default-param-last
     draw(velocity = { x: 0, y: 0 }, cell?: Cell) {
         if (cell) {
-            console.log('CELL', cell);
+            // console.log('CELL', cell);
             velocity = this.stopVelocity(velocity, cell);
-            console.log('velocity', velocity);
+            // console.log('velocity', velocity);
         }
         // проверка закончила ли фишка передвижение
         const xIsNull = velocity.x === 0;
@@ -96,6 +96,7 @@ export class Player {
         if (xIsNull && yIsNull && store.getState().game.cellIsMoving) {
             console.log('cellIsMoving false');
             store.dispatch(stopCellMoving());
+            store.dispatch(addPlayerCurrentPosition({ userId: this.userId, currentPos: this.currentPos }));
             store.dispatch(actionStart());
         }
 
@@ -115,6 +116,7 @@ export class Player {
 
     /** перерисовка компонента в той же позиции */
     reDraw() {
+        console.log('currentPos!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', this.currentPos);
         // const circle = new Circle({
         //     x: this.x,
         //     y: this.y,

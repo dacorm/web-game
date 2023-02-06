@@ -5,4 +5,5 @@ export interface PlayerProps {
     userId: number
     displayName: string
   color: string
+  currentPos: number
 }

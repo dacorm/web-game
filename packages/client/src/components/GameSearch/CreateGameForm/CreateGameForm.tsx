@@ -82,7 +82,9 @@ const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
                     if (i === 0) {
                         players[i] = userGame;
                     } else {
-                        players[i] = { displayName: `Player_${i}`, userId: i + 1, color: playerColors[i] };
+                        players[i] = {
+                            displayName: `Player_${i}`, userId: i + 1, color: playerColors[i],
+                        };
                     }
                 }
                 dispatch(cleanGameData());

@@ -50,6 +50,16 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
             ...state,
             type: action.payload,
         };
+    case GameActionTypes.ADD_PLAYER_CURRENT_POSITION: {
+        state.players.forEach((player) => {
+            if (player.userId === action.payload.userId) {
+                player.currentPos = action.payload.currentPos;
+                console.log('ADD_PLAYER_CURRENT_POSITION', action.payload);
+            }
+        });
+        return state;
+    }
+
     case GameActionTypes.SET_PLAYERS:
         return {
             ...state,
