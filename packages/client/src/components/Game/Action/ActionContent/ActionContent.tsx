@@ -6,7 +6,7 @@ import { ButtonMode, ButtonSize, ButtonTheme } from '../../../../shared/ui/share
 import styles from './ActionContent.module.css';
 import { ActionContentProps } from './ActionContent.types';
 
-const ActionContent:FC<ActionContentProps> = ({ text, acceptInfoBtn, cancelInfoBtn = null }) => (
+const ActionContent:FC<ActionContentProps> = ({ text, acceptInfoBtn, cancelInfoBtn }) => (
     <div className={styles.actionContent}>
         <div className={styles.text}>
             {text}

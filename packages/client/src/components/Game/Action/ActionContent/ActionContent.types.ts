@@ -8,5 +8,5 @@ export type TInfoBtn = {
 export interface ActionContentProps {
     text: string
     acceptInfoBtn: TInfoBtn
-    cancelInfoBtn?: TInfoBtn | null
+    cancelInfoBtn?: TInfoBtn
 }
