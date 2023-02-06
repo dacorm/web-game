@@ -1,16 +1,23 @@
-import { BoardCellGroup, BoardCellType } from '../../../core/types';
-import Property from './PropertyCard/PropertyCard';
+import { BoardCellType } from '../../../core/types';
+import PropertyCard from '../PropertyCard/PropertyCard';
+import StationCard from '../StationCard';
 
 export interface ICard {
     name: string
     type: BoardCellType
-    group: BoardCellGroup
+
 }
 
 export interface CardProps {
     name: string
     type: BoardCellType
-    group: BoardCellGroup
+
 }
 
-export type TCard = Property
+export enum StateCard {
+    FREE = 'free', // никем не приобретена
+    BOUGHT = 'bought', // куплена
+    MORTAGED = 'mortgaged' // заложена
+}
+
+export type TCard = PropertyCard | StationCard

@@ -7,22 +7,20 @@ import { Dispatch } from 'redux';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
 import { staticCanvas } from '../Canvas/staticCanvas';
 import { activeCanvas } from '../Canvas/activeCanvas';
-import Cube from '../../components/Game/Cube';
 import styles from './BoardStage.module.css';
 import { useBoard } from './BoardProvider';
 import Modal from '../../shared/ui/Modal';
 import { ROUTES } from '../../constants';
-import Button from '../../shared/ui/Button';
-import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import {
+    addNewGameChatMessage,
     rollTheDiceTrue, setCurrentPlayer, turnStart,
 } from '../../redux/actionCreators/game';
 import { BoardStageProps } from './BoardStage.types';
 import {
     getActionStarting, getCurrentPlayer, getTurnCompleted,
 } from '../../redux/reducers/gameReducer/gameSelector';
-import TitleBoard from '../../components/Game/TitleBoard';
-import Action from '../../components/Game/Action';
+import ChatBoard from '../../components/Game/Chat/ChatBoard';
+import ControllerBoard from '../../components/Game/ControllerBoard';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -49,11 +47,16 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
 
     /**  Завершение хода */
     const completeTheMove = useCallback(() => {
-        console.log('Ход завершён');
+        dispatch(addNewGameChatMessage(
+            {
+                playerName: currentPlayer.displayName,
+                message: 'заканчивает свой ход',
+            },
+        ));
         dispatch(setCurrentPlayer());
         dispatch(rollTheDiceTrue());
         dispatch(turnStart());
-    }, []);
+    }, [currentPlayer]);
 
     /** инициализация старта игры */
     const initStartGame = useCallback(() => {
@@ -90,26 +93,9 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
             <div className={styles.wrapper} ref={ref}>
                 {/* todo: вынести в компонент */}
                 <div className={styles.innerBoard}>
-                    <TitleBoard currentPlayer={currentPlayer} />
-                    <div className={styles.ContentBoard}>
-                        {actionStarting
-                            ? <Action />
-                            : (
-                                <div className={styles.controller}>
-                                    <Cube />
-                                    {turnComleted && (
-                                        <Button
-                                            size={ButtonSize.M}
-                                            theme={ButtonTheme.RED}
-                                            onClick={completeTheMove}
-                                        >
-                                            Завершить ход
-
-                                        </Button>
-                                    )}
-                                </div>
-                            )}
-                    </div>
+                    {/* <TitleBoard currentPlayer={currentPlayer} /> */}
+                    <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} />
+                    <ChatBoard />
                 </div>
             </div>
             <Modal
