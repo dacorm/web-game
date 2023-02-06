@@ -2,8 +2,7 @@ import { FC, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getGameChatMessages } from '../../../../redux/reducers/gameReducer/gameSelector';
 import ChatMessagesList from '../ChatMessagesList';
-import { setAutoscroll } from '../utils/autoScrollIsNeeded';
-
+import { setAutoscroll } from '../utils/setAutoscroll';
 import styles from './ChatBoard.module.css';
 
 const ChatBoard: FC = () => {

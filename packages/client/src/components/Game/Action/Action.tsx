@@ -8,11 +8,9 @@ import { Cell } from '../../../models/Cell/Cell';
 import { BoardCellType } from '../../../core/types';
 
 import { getCurrentPlayer } from '../../../redux/reducers/gameReducer/gameSelector';
-import PropertyFreeAction from './components/Property/PropertyFreeAction';
-import PropertyBoughtAction from './components/Property/PropertyBoughtAction';
 import { StateCard } from '../../../models/Cards/Card/Card.types';
-import StationBoughtAction from './components/Station/StationBoughtAction';
-import StationFreeAction from './components/Station/StationFreeAction';
+import PropertyAction from './components/Property/PropertyAction';
+import StationAction from './components/Station/StationAction';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
@@ -21,39 +19,20 @@ const Action = () => {
     const dispatch = useDispatch<Dispatch>();
     const player = useSelector(getCurrentPlayer);
 
-    const ACTION_TEXT = {
-        StationFree: 'Вы попали на жд станцию, желаете купить?',
-        StationBought: `Вам необходимо заплатить ренту игроку ${cell?.card?.owner?.displayName}`,
-        PropertyBought: `Вам необходимо заплатить ренту игроку ${cell?.card?.owner?.displayName}`,
-        PropertyFree: `Вы попали на ${cell?.card?.name}. Желаете приобрести?`,
-    };
-
     // завершение экшена карточки
     const handleCompleteAction = useCallback(() => {
-        const { card } = cell as Cell;
-        if (card) {
-            card.complete();
-        }
+        cell?.card.complete();
     }, [cell]);
 
     const handleBuy = useCallback(() => {
-        const { card } = cell as Cell;
-        if (card) {
-            card.buy(player);
-        }
+        cell?.card.buy(player);
     }, [cell]);
     const handleRefuseToBuy = useCallback(() => {
-        const { card } = cell as Cell;
-        if (card) {
-            card.refuseToBuy();
-        }
+        cell?.card.refuseToBuy();
     }, [cell]);
 
     const handleRentPayment = useCallback(() => {
-        const { card } = cell as Cell;
-        if (card) {
-            card.rentPayment(player);
-        }
+        cell?.card.rentPayment(player);
     }, [cell]);
 
     // если у карточки нету экшена - сразу завершаем его
@@ -86,7 +65,6 @@ const Action = () => {
             <div>загрузка...</div>
         );
     }
-
     // если недвижка\станция заложена
     if (cell.card.stateCard === StateCard.MORTAGED) {
         handleCompleteAction();
@@ -94,56 +72,30 @@ const Action = () => {
 
     // если ячейка типа недвижки
     if (cell.type === BoardCellType.property) {
-        // если недвижка ни кем не куплена
-        if (cell.card.stateCard === StateCard.FREE) {
-            return (
-                <PropertyFreeAction
-                    cell={cell}
-                    text={ACTION_TEXT.PropertyFree}
-                    handleBuy={handleBuy}
-                    handleRefuseToBuy={handleRefuseToBuy}
-                />
-            );
-        }
-
-        // если недвижка кем то куплена
-        if (cell.card.stateCard === StateCard.BOUGHT) {
-            return (
-                <PropertyBoughtAction
-                    cell={cell}
-                    player={player}
-                    text={ACTION_TEXT.PropertyBought}
-                    handleRentPayment={handleRentPayment}
-                    handleCompleteAction={handleCompleteAction}
-                />
-            );
-        }
+        return (
+            <PropertyAction
+                cell={cell}
+                player={player}
+                handleBuy={handleBuy}
+                handleCompleteAction={handleCompleteAction}
+                handleRefuseToBuy={handleRefuseToBuy}
+                handleRentPayment={handleRentPayment}
+            />
+        );
     }
+
     // если ячейка типа станции
     if (cell.type === BoardCellType.station) {
-        // если станция свободна
-        if (cell.card.stateCard === StateCard.FREE) {
-            return (
-                <StationFreeAction
-                    cell={cell}
-                    text={ACTION_TEXT.StationFree}
-                    handleBuy={handleBuy}
-                    handleRefuseToBuy={handleRefuseToBuy}
-                />
-            );
-        }
-        // если станция куплена
-        if (cell.card.stateCard === StateCard.BOUGHT) {
-            return (
-                <StationBoughtAction
-                    cell={cell}
-                    player={player}
-                    text={ACTION_TEXT.StationBought}
-                    handleCompleteAction={handleCompleteAction}
-                    handleRentPayment={handleRentPayment}
-                />
-            );
-        }
+        return (
+            <StationAction
+                cell={cell}
+                player={player}
+                handleBuy={handleBuy}
+                handleCompleteAction={handleCompleteAction}
+                handleRefuseToBuy={handleRefuseToBuy}
+                handleRentPayment={handleRentPayment}
+            />
+        );
     }
 
     return <div />;

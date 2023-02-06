@@ -45,7 +45,7 @@ class PropertyCard extends Card implements IPropertyCard {
 
             this.complete();
         } else {
-            alert('недостаточно денег');
+            console.log('недостаточно денег');
         }
     }
 
