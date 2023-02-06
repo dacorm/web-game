@@ -9,9 +9,10 @@ const StationBoughtAction:FC<StationBoughtActionProps> = ({
 }) => {
     useEffect(() => {
         const ownerIsCurrentPlayer = cell.card.owner === player;
-        if (ownerIsCurrentPlayer) {
-            handleCompleteAction();
+        if (!ownerIsCurrentPlayer) {
+            return;
         }
+        handleCompleteAction();
     }, []);
 
     return (
