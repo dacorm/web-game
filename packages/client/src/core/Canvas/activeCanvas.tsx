@@ -15,7 +15,7 @@ export const activeCanvas = ({
     const frame = useRef<number>(0);
     const stopCellMoving = useTypedSelector((state) => state.game.cellIsMoving);
     // const cellIsMoving = getCellIsMoving();
-
+    const currentPlayer = useTypedSelector((state) => state.game.currentPlayer);
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
 
@@ -48,8 +48,17 @@ export const activeCanvas = ({
             console.log('перерасчет игроков');
             board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
         }
-        // TODO: при наличии currentPlayer в store (из кеша), необходимо после создания генератора переключить ход на того игрока который содержиться в current
+
         board.createGeneratorMoveSequnce();
+
+        // TODO: при наличии currentPlayer в store (в стор он попадет из кеша localStorage), необходимо после создания генератора переключить ход на того игрока который содержиться в current
+        if (currentPlayer.userId !== null) {
+            if (board.currentTurn === null) {
+                while (currentPlayer.userId !== board.currentTurn) {
+                    board.setNextTurn();
+                }
+            }
+        }
     }, [players]);
 
     // при ресайзе доски переинициализируем фишки и саму доску

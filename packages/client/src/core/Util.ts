@@ -53,10 +53,10 @@ export const Util = {
 
     playerColors() {
         return [
-            '#9f1c1c',
+            '#D8D050',
             '#00FF00',
-            '#000000',
-            '#00FFFF',
+            '#4B89D6',
+            '#FE0000',
             '#FF00FF',
             '#0000FF',
             '#FFFFFF',

@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import CountPlayersList from '../CountPlayersList';
@@ -83,7 +84,10 @@ const CreateGameForm: FC<CreateGameProps> = ({ network }:CreateGameProps) => {
                         players[i] = userGame;
                     } else {
                         players[i] = {
-                            displayName: `Player_${i}`, userId: i + 1, color: playerColors[i],
+                            displayName: `Player_${i}`,
+                            userId: i + 1,
+                            color: playerColors[i],
+                            avatar: defaultAvatar,
                         };
                     }
                 }

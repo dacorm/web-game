@@ -5,6 +5,7 @@ import { Grid, Row, Col } from '../../shared/ui/Grid';
 import style from './Game.module.css';
 import { TPlayer } from './Game.types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { UsersData } from '../../components/Game/UsersData/UsersData';
 
 export default function Game() {
     // const [players, setPlayers] = useState<TPlayer[] | null>(null);
@@ -25,7 +26,7 @@ export default function Game() {
             <Grid className={style.grid}>
                 <Row className={style.row} middle="xs">
                     <Col xs={3}>
-                        Users data
+                        <UsersData />
                     </Col>
                     <Col xs={9} className={style.col}>
                         <BoardStage players={players} />

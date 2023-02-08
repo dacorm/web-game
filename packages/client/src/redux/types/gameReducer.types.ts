@@ -5,10 +5,11 @@ export enum GameTypes {
 
 export type GameType= GameTypes.LOCAL | GameTypes.NETWORK| undefined
 export interface GamePlayer {
-  currentPos: number
+  currentPos?: number
   displayName: string
   userId: number
   avatar?: string
+  color:string
 }
 export interface userGame{
     id: string| null
