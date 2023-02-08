@@ -52,8 +52,6 @@ export class Player {
     }
 
     init() {
-        console.log('this.displayName', this.displayName);
-        console.log('currentPos!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', this.currentPos);
         // беруться размеры ячейки старт
         // const { width, height } = Util.getCornerItemSize(this.canvas);
         // this.x = Number((width / 2).toFixed());
@@ -64,14 +62,12 @@ export class Player {
         this.trailCount = 10;
         const cell = board.getCell(this.currentPos);
         if (cell) {
-            console.log('cell!!!!!', cell);
             const {
                 width, height, x, y,
             } = cell.shape;
             this.x = x + Number((width / 2).toFixed());
             this.y = y + Number((height / 2).toFixed());
         }
-        console.log('x', this.x, 'y', this.y);
         this.circle = new Circle({
             x: this.x,
             y: this.y,
@@ -86,7 +82,6 @@ export class Player {
         if (cell) {
             this.cells.push(cell);
         }
-        console.log('CELL!!!!!!!!!!!!', this.cells);
     }
 
     * generateCells() {
@@ -115,28 +110,11 @@ export class Player {
         this.x += velocity.x;
         this.y += velocity.y;
 
-        // const circle = new Circle({
-        //     x: this.x,
-        //     y: this.y,
-        //     radius: this.radius,
-        //     fill: this.fill,
-        // });
-        // circle.drawShape(this.canvas.getContext());
-
         this.circle.draw(this.canvas.getContext(), this.x, this.y);
     }
 
     /** перерисовка компонента в той же позиции */
     reDraw() {
-        // console.log('cell', cell);
-        // const circle = new Circle({
-        //     x: this.x,
-        //     y: this.y,
-        //     radius: this.radius,
-        //     fill: this.fill,
-        // });
-        // circle.drawShape(this.canvas.getContext());
-
         this.circle.draw(this.canvas.getContext(), this.x, this.y);
     }
 

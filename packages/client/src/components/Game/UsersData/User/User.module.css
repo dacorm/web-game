@@ -4,7 +4,7 @@
 }
 
 .userData {
-    max-width: 70%;
+    max-width: 90%;
   margin: 10px;
     background:black;
   border-radius: 5px;
@@ -41,12 +41,32 @@
 
 }
 
- @media (max-width: 800px) {
+ @media (max-width: 900px) {
 
-   .balance {
+   .data {
      display: none;
    }
     }
+
+@media (max-width: 1100px) {
+
+    .balance {
+        font-size:x-large;
+    }
+    .data {
+        min-width: 30%;
+    }
+}
+
+@media (max-width: 700px) {
+    .userImg {
+    display: none;
+
+    }
+
+
+}
+
 
 .hr
 {

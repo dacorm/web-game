@@ -9,7 +9,7 @@ export interface GamePlayer {
   displayName: string
   userId: number
   avatar?: string
-  color:string
+  color?:string
 }
 export interface userGame{
     id: string| null

@@ -8,7 +8,7 @@ export const UsersData = () => {
     const currentPlayer = useTypedSelector((state) => state.game.currentPlayer);
     return (
         <div className={styles.usersData}>
-            {players.map((player:GamePlayer) => (<User player={player} currentPlayer={currentPlayer} />))}
+            {players.map((player:GamePlayer) => (<User key={player.userId} player={player} currentPlayer={currentPlayer} />))}
 
         </div>
     );

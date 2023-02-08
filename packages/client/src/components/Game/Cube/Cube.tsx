@@ -31,7 +31,7 @@ const Cube = () => {
                 {randomsfromStore[1]}
                 {' '}
                 =
-                {randomsfromStore.reduce((a, i) => a + i, 0)}
+                {randomsfromStore.reduce((a:number, i:number) => a + i, 0)}
             </pre>
             {canRollTheDice && <Button theme={ButtonTheme.GREEN} size={ButtonSize.M} onClick={handleClick}>Кинуть кубики</Button>}
         </>

@@ -43,7 +43,7 @@ export const activeCanvas = ({
                 canvas: ref.current, userId: player.userId, displayName: player.displayName, color: player.color, currentPos: player.currentPos ? player.currentPos : 0,
             })));
         }
-        console.log('board.players', board.players);
+
         if (board.players.length && players?.length !== board.players.length) {
             console.log('перерасчет игроков');
             board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
@@ -54,6 +54,7 @@ export const activeCanvas = ({
         // TODO: при наличии currentPlayer в store (в стор он попадет из кеша localStorage), необходимо после создания генератора переключить ход на того игрока который содержиться в current
         if (currentPlayer.userId !== null) {
             if (board.currentTurn === null) {
+                console.log('перерасчет ходов после перезагрузке страницы');
                 while (currentPlayer.userId !== board.currentTurn) {
                     board.setNextTurn();
                 }
