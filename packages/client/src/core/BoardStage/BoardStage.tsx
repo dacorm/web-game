@@ -98,7 +98,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
             <div className={styles.wrapper} ref={ref}>
                 {/* todo: вынести в компонент */}
                 <div className={styles.innerBoard}>
-                    <TitleBoard currentPlayer={currentPlayer} />
+                    {/* <TitleBoard currentPlayer={currentPlayer} /> */}
                     <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} isGameStarting={isGameStarting} startGameHandle={startGameHandle} />
                     <ChatBoard />
 
