@@ -27,7 +27,6 @@ import Action from '../../components/Game/Action';
 import ChatBoard from '../../components/Game/Chat/ChatBoard';
 import ControllerBoard from '../../components/Game/ControllerBoard';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Cube from '../../components/Game/Cube/Cube';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -94,53 +93,15 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
         ref.current?.prepend(staticLayer.canvas, activeLayer.canvas);
     }, []);
 
-    // вызываем инициализацию стара игры
-    // useEffect(() => {
-    //     if (!isGameStarting && players) {
-    //         setIsGameStarting(true);
-    //         initStartGame();
-    //     }
-    // }, [players]);
-
     return (
         <>
             <div className={styles.wrapper} ref={ref}>
                 {/* todo: вынести в компонент */}
                 <div className={styles.innerBoard}>
                     <TitleBoard currentPlayer={currentPlayer} />
-                    {/* <TitleBoard currentPlayer={currentPlayer} /> */}
-                    <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} />
+                    <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} isGameStarting={isGameStarting} startGameHandle={startGameHandle} />
                     <ChatBoard />
-                    <div className={styles.ContentBoard}>
-                        {actionStarting
-                            ? <Action />
-                            : (
-                                <div className={styles.controller}>
-                                    <Cube />
-                                    {turnComleted && (
-                                        <Button
-                                            size={ButtonSize.M}
-                                            theme={ButtonTheme.RED}
-                                            onClick={completeTheMove}
-                                        >
-                                            Завершить ход
 
-                                        </Button>
-                                    )}
-                                    {!isGameStarting && (
-                                        <Button
-                                            size={ButtonSize.M}
-                                            theme={ButtonTheme.GREEN}
-                                            onClick={startGameHandle}
-                                        >
-                                            Старт Игры!!!
-
-                                        </Button>
-                                    )}
-
-                                </div>
-                            )}
-                    </div>
                 </div>
             </div>
             <Modal
