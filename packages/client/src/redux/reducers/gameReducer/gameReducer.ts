@@ -13,6 +13,7 @@ const initialState: userGame = {
     turnCompleted: false,
     players: [],
     isGameStarting: false,
+    messages: [],
 };
 
 const initialAction = { type: '__INIT__' };
@@ -113,6 +114,12 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         return {
             ...state,
             turnCompleted: true,
+        };
+    }
+    case GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE: {
+        return {
+            ...state,
+            messages: [...state.messages, action.payload],
         };
     }
     default:

@@ -1,3 +1,4 @@
+import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
 import { GameActionTypes, GamePlayer } from '../types/gameReducer.types';
 /** сообщаем о начале передвижения фишки */
 export const startCellMoving = () => ({
@@ -34,6 +35,11 @@ export const turnStart = () => ({
 /** даем возможность игроку завершить ход */
 export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
+});
+/** добавить событие в чат */
+export const addNewGameChatMessage = (message: TGameChatMessage) => ({
+    type: GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE,
+    payload: message,
 });
 /** УСТАНАВЛИВАЕМ ЗНАЧЕНИЯ ВЫПАВШИЕ НА КУБИКАХ */
 export const setRandoms = (random:number[]) => ({

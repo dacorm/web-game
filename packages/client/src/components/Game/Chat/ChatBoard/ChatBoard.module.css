@@ -1,0 +1,10 @@
+.chatBoard {
+    height: 80%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.804);
+    overflow: auto;
+  }
+.inner {
+    padding: 20px;
+}
+

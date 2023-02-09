@@ -1,3 +1,5 @@
+import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
+
 export enum GameTypes {
   LOCAL='LOCAL',
   NETWORK = 'NETWORK'
@@ -11,6 +13,7 @@ export interface GamePlayer {
   avatar?: string
   color?:string
 }
+
 export interface userGame{
     id: string| null
     type: GameType
@@ -25,6 +28,7 @@ export interface userGame{
     turnCompleted: boolean
   players:GamePlayer[]
   isGameStarting: boolean
+    messages: TGameChatMessage[]
 }
 
 export enum GameActionTypes {
@@ -43,5 +47,6 @@ export enum GameActionTypes {
     ACTION_STOP = 'ACTION_STOP',
     TURN_START = 'TURN_START',
     TURN_STOP = 'TURN_STOP',
-    ADD_PLAYER_CURRENT_POSITION='ADD_PLAYER_CURRENT_POSITION'
+    ADD_NEW_GAME_CHAT_MESSAGE = ' ADD_NEW_GAME_CHAT_MESSAGE',
+    ADD_PLAYER_CURRENT_POSITION='ADD_PLAYER_CURRENT_POSITION',
 }

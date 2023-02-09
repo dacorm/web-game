@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 import { Canvas } from './helpers/Canvas';
 import { Player } from '../../models/Player/Player';
 import { board } from '../../models/Board/Board';
 import { ActiveCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
-import { stopCellMoving } from '../../redux/actionCreators/game';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-
+import { addNewGameChatMessage } from '../../redux/actionCreators/game';
 // Активный канвас. На нем будет рисоваться вся графика при взаимодействии с пользователем
 export const activeCanvas = ({
     width, height, squares, players,
@@ -14,6 +16,8 @@ export const activeCanvas = ({
     const ref = useRef<Canvas>(new Canvas({ width, height }));
     const frame = useRef<number>(0);
     const stopCellMoving = useTypedSelector((state) => state.game.cellIsMoving);
+    const dispatch = useDispatch<Dispatch>();
+
     // const cellIsMoving = getCellIsMoving();
     const currentPlayer = useTypedSelector((state) => state.game.currentPlayer);
     const context = ref.current.getContext();
@@ -78,6 +82,12 @@ export const activeCanvas = ({
             if (player) {
                 // получаем сумму значений выпавших на кубиках
                 const sumSquares = squares.reduce((a, b) => a + b);
+                dispatch(addNewGameChatMessage(
+                    {
+                        playerName: player.displayName,
+                        message: `бросает кубики и выбивает число ${sumSquares}`,
+                    },
+                ));
                 // получаем id ячейки на которую необходимо передвинуться
                 const updatedCurrentPos = player.updateCurrentPos(sumSquares);
                 // получаем ячейку по ее id и добавляем эту ячейку в массив у игрока

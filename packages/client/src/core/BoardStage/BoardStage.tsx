@@ -7,14 +7,14 @@ import { Dispatch } from 'redux';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
 import { staticCanvas } from '../Canvas/staticCanvas';
 import { activeCanvas } from '../Canvas/activeCanvas';
-import Cube from '../../components/Game/Cube';
 import styles from './BoardStage.module.css';
-import { useBoard } from './BoardProvider';
+
 import Modal from '../../shared/ui/Modal';
 import { ROUTES } from '../../constants';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import {
+    addNewGameChatMessage,
     cleanGameData,
     rollTheDiceTrue, setCurrentPlayer, startGame, turnStart,
 } from '../../redux/actionCreators/game';
@@ -24,7 +24,10 @@ import {
 } from '../../redux/reducers/gameReducer/gameSelector';
 import TitleBoard from '../../components/Game/TitleBoard';
 import Action from '../../components/Game/Action';
+import ChatBoard from '../../components/Game/Chat/ChatBoard';
+import ControllerBoard from '../../components/Game/ControllerBoard';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import Cube from '../../components/Game/Cube/Cube';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -50,11 +53,16 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
 
     /**  Завершение хода */
     const completeTheMove = useCallback(() => {
-        console.log('Ход завершён');
+        dispatch(addNewGameChatMessage(
+            {
+                playerName: currentPlayer.displayName,
+                message: 'заканчивает свой ход',
+            },
+        ));
         dispatch(setCurrentPlayer());
         dispatch(rollTheDiceTrue());
         dispatch(turnStart());
-    }, []);
+    }, [currentPlayer]);
 
     /** инициализация старта игры */
     const initStartGame = useCallback(() => {
@@ -100,6 +108,9 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                 {/* todo: вынести в компонент */}
                 <div className={styles.innerBoard}>
                     <TitleBoard currentPlayer={currentPlayer} />
+                    {/* <TitleBoard currentPlayer={currentPlayer} /> */}
+                    <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} />
+                    <ChatBoard />
                     <div className={styles.ContentBoard}>
                         {actionStarting
                             ? <Action />
