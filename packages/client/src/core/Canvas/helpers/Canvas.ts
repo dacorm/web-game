@@ -25,7 +25,8 @@ export class Canvas {
         this.pixelRatio = config.pixelRatio ?? 2;
         this.width = config.width ?? 0;
         this.height = config.height ?? 0;
-        this.canvas = Util.createCanvasElement();
+        this.canvas = Util.createCanvasElement() as HTMLCanvasElement;
+        if (typeof document === 'undefined') return;
         this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D;
         this.canvas.style.padding = '0';
         this.canvas.style.margin = '0';

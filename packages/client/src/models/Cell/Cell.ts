@@ -135,6 +135,7 @@ export class Cell implements ICell {
                 default:
                 }
                 // todo: типизация
+                // @ts-ignore
                 new Text({ text: (this.card.prices.buyCard as number).toString(), ...props }).drawShape(this.context);
             }
         }
@@ -210,6 +211,7 @@ export class Cell implements ICell {
             default:
             }
             // todo: типизация
+            // @ts-ignore
             new Text({ text: this.name, ...props }).drawShape(this.context);
         }
     }

@@ -70,5 +70,3 @@ class Board implements IBoard {
 }
 
 export const board = new Board();
-
-(window as any).board = board;

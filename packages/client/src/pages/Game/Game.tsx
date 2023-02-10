@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { BoardStage } from '../../core/BoardStage/BoardStage';
 import { BoardProvider } from '../../core/BoardStage/BoardProvider';
-import { Grid, Row, Col } from '../../shared/ui/Grid';
 import style from './Game.module.css';
 import { TPlayer } from './Game.types';
+import { Col, Grid, Row } from '../../shared/ui/Grid';
 
 export default function Game() {
     const [players, setPlayers] = useState<TPlayer[] | null>(null);

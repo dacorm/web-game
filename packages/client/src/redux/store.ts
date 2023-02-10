@@ -6,12 +6,20 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 
+export type TInitialStateStore = Record<string, unknown> | undefined
+
 const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
 });
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const preloadedState = typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined;
+
+export const configureStore = (preloadedState:TInitialStateStore) => (
+    createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+);
+
+const store = createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export type ActionType = {
 type: string;
