@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
+import * as path from 'path';
 // import { VitePWA } from 'vite-plugin-pwa';
 
 dotenv.config();
@@ -35,6 +36,18 @@ export default defineConfig({
     },
     define: {
         __SERVER_PORT__: process.env.SERVER_PORT,
+    },
+    build: {
+        lib: {
+            entry: path.resolve(__dirname, 'src/main.tsx'),
+            name: 'main',
+            formats: ['cjs'],
+        },
+        rollupOptions: {
+            output: {
+                dir: 'dist',
+            },
+        },
     },
     plugins: [
         react(),

@@ -32,8 +32,7 @@ function getColClassNames(props: Partial<PropTypes>) {
     return Object.keys(props)
         .filter((key) => classMap[key as ClassMap])
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-        .map((key) => getClass(isInteger(props[key])
+        .map((key) => getClass(isInteger(props[key as keyof PropTypes] as (string | number))
             ? (`${classMap[key as ClassMap]}-${props[key as keyof PropTypes]}`)
             : classMap[key as ClassMap]))
         .concat(extraClasses);

@@ -1,3 +1,19 @@
+.dragZone {
+    margin-top: 20px;
+    height: 200px;
+    border: 1px solid black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-btn);
+}
+
+.dragZone.active {
+    opacity: 80%;
+    background-color: var(--color-green);
+}
+
 .profileForm {
     text-align: center;
 }
@@ -30,16 +46,24 @@
 }
 
 .fileInput {
-   visibility: hidden;
+    visibility: hidden;
 
 }
 
-.choosedFiles {
+.choosedFiles, .error {
     margin: 10px;
     font-family: 'Inter', serif;
     font-size: 14pt;
     font-style: normal;
     font-weight: 400;
     text-align: center;
+
+}
+
+.choosedFiles {
     color: var(--color-sub-text);
+}
+
+.error {
+    color: var(--color-red);
 }

@@ -56,6 +56,10 @@ export const activeCanvas = ({
     }, [width, height]);
 
     useEffect(() => {
+        board.initAllPlayers();
+    });
+
+    useEffect(() => {
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора
         if (squares?.some((v) => v)) {
             const player = board.getPlayerById(board.currentTurn);
