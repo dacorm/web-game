@@ -10,7 +10,7 @@ type PropTypes = {
     xl: ColumnSizeType,
     className: string,
     children: ReactNode,
-};
+}
 
 const classMap = {
     xs: 'col-xs', sm: 'col-sm', md: 'col-md', lg: 'col-lg', xl: 'col-xl',

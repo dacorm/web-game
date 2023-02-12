@@ -15,7 +15,7 @@ type PropTypes = {
     between: ViewportSizeType,
     className: string,
     children: ReactNode,
-};
+}
 
 function getRowClassNames(props: Partial<PropTypes>) {
     const modification = [props.className, getClass('row')];
