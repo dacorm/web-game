@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styles from './NavBarProfileDropMenu.module.css';
 import { ROUTES } from '../../../layout/RouterLayout/RouterConst';
@@ -15,6 +15,7 @@ export function NavBarProfileDropMenu({
     drop,
     onClick,
 }: NavBarProfileDropMenuProps) {
+    const navigate = useNavigate();
     const style = drop
         ? `${styles.dropdown} ${styles.dropdownActive}`
         : `${styles.dropdown}`;
@@ -22,6 +23,7 @@ export function NavBarProfileDropMenu({
 
     const handleLogout = () => {
         dispatch(logoutThunk());
+        navigate(ROUTES.AUTH);
     };
 
     return (
