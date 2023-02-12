@@ -111,7 +111,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                         {' '}
                         Вы выиграли!
                     </div>
-                    <Link className={styles.winBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
+                    <Link className={styles.winBtn} to={ROUTES.GAME_SEARCH}>Вернуться в главное меню</Link>
                 </div>
 
             </Modal>
@@ -129,7 +129,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                         Вы проиграли!
                     </div>
 
-                    <Link className={styles.loseBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
+                    <Link className={styles.loseBtn} to={ROUTES.GAME_SEARCH}>Вернуться в главное меню</Link>
 
                 </div>
             </Modal>
