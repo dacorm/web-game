@@ -1,4 +1,4 @@
-import { UserURL } from '../redux/types/userReducer.types';
+import { UserURL, redirectURI } from '../redux/types/userReducer.types';
 
 class UserApi {
     // eslint-disable-next-line class-methods-use-this
@@ -15,6 +15,15 @@ class UserApi {
             credentials: 'include',
         });
         return await res;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async oAuthGetService() {
+        const url = `${UserURL.OAUTH_SERVICE_ID}?redirect_uri=${redirectURI}`;
+        console.log('get oauth url:', url);
+        return await fetch(url, {
+            credentials: 'include',
+        });
     }
 
     // eslint-disable-next-line class-methods-use-this

@@ -1,8 +1,9 @@
 import { userApi } from '../../api/userApi';
 import { appDispatch } from '../store';
 import {
-    TUserAction, UserActionTypes, UserData, UserURL,
+    TUserAction, UserActionTypes, UserData, UserURL, redirectURI,
 } from '../types/userReducer.types';
+import { OAuthGetServiceResponse } from '../../api/apiTypes';
 
 export const setUser = (userName: string, email: string, id: string, avatar:string): TUserAction => {
     const userData :UserData = {
@@ -103,6 +104,27 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
         } else {
             const errorres = await loginRes.json();
             dispatch(setLoginError(errorres.reason));
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const loginOAuthThunk = () => async (dispatch: appDispatch) => {
+    try {
+        const serviceIdRes = await userApi.oAuthGetService();
+        if (serviceIdRes.status === 200) {
+            // eslint-disable-next-line camelcase
+            const { service_id } = await serviceIdRes.json() as OAuthGetServiceResponse;
+            // eslint-disable-next-line camelcase
+            const serviceId = service_id;
+            console.log('serviceId', serviceId);
+            const redirectUserUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${redirectURI}`;
+            window.location.replace(redirectUserUrl);
+            // возвращается на http://localhost:3000?code=7654321, где и надо производить обработку кода code и проводить установку пользователя через await userApi.getUser();
+        } else {
+            const errors = await serviceIdRes.json();
+            dispatch(setLoginError(errors.reason));
         }
     } catch (e) {
         console.warn(e);

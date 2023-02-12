@@ -10,9 +10,11 @@ import { FormProps } from './Form.types';
 import {
     loginThunk,
     registerUserThunk,
+    loginOAuthThunk,
 } from '../../redux/actionCreators/user';
 import { Dispatcher } from '../../redux/store';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { ROUTES } from '../../constants';
 
 export const Form: React.FC<FormProps> = ({ isAuth }) => {
     const [email, setEmail] = useState('');
@@ -32,8 +34,13 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             dispatch(loginThunk(nickname, password));
         }
     };
+    const handleOAuthLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log('oauth');
+        dispatch(loginOAuthThunk());
+    };
     if (isLoggedIn) {
-        navigate('/');
+        navigate(ROUTES.MAIN);
     }
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
@@ -80,6 +87,17 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             >
                 {isAuth ? 'Войти' : 'Зарегистрироваться'}
             </Button>
+            {isAuth && (
+                <Button
+                    theme={ButtonTheme.GREEN}
+                    type="submit"
+                    className={styles.button}
+                    size={ButtonSize.M}
+                    onClick={handleOAuthLogin}
+                >
+                    Войти с помощью яндекса
+                </Button>
+            )}
         </form>
     );
 };
