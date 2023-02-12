@@ -57,7 +57,7 @@ export const activeCanvas = ({
 
     useEffect(() => {
         board.initAllPlayers();
-    });
+    }, []);
 
     useEffect(() => {
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора
