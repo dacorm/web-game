@@ -7,11 +7,13 @@ import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
+import { leaderboardReducer } from './reducers/leaderboardReducer/leaderboardReducer';
 
 const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
     games: createGameReducer,
+    leaderboard: leaderboardReducer,
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
