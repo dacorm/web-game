@@ -45,7 +45,7 @@ export default function Landing() {
                     <span className={styles.landingMessage}>Вперед - к новым победам!</span>
                     <LinkButton
                         key="btn_1"
-                        to={ROUTES.MAIN}
+                        to={ROUTES.AUTH}
                         text="Играть"
                         size={ButtonSize.M}
                         theme={ButtonTheme.GREEN}
@@ -75,7 +75,7 @@ export default function Landing() {
                 </div>
                 <LinkButton
                     key="btn_2"
-                    to={ROUTES.MAIN}
+                    to={ROUTES.AUTH}
                     text="Играть"
                     size={ButtonSize.M}
                     theme={ButtonTheme.GREEN}

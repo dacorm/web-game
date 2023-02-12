@@ -40,7 +40,7 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
         dispatch(loginOAuthThunk());
     };
     if (isLoggedIn) {
-        navigate(ROUTES.MAIN);
+        navigate(ROUTES.GAME_SEARCH);
     }
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
