@@ -20,7 +20,6 @@ class UserApi {
     // eslint-disable-next-line class-methods-use-this
     async oAuthGetService() {
         const url = `${UserURL.OAUTH_SERVICE_ID}?redirect_uri=${redirectURI}`;
-        console.log('get oauth url:', url);
         return await fetch(url, {
             credentials: 'include',
         });
@@ -28,13 +27,10 @@ class UserApi {
 
     // eslint-disable-next-line class-methods-use-this
     async oAuthLogin(codeValue: string, redirectUri: string) {
-        console.log('oAuthLogin code:', codeValue);
-        console.log('oAuthLogin redirectUri:', redirectUri);
         const payload = JSON.stringify({
             code: codeValue,
             redirect_uri: redirectUri,
         });
-        console.log('oAuthLogin payload:', payload);
         return await fetch(UserURL.OAUTH_LOGIN, {
             method: 'POST',
             credentials: 'include',
