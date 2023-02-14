@@ -7,6 +7,7 @@ import { InputFeature } from '../../shared/ui/Input/Input.types';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import { FormProps } from './Form.types';
+import yandexLogo from '../../assets/img/yandex-logo.svg';
 import {
     loginThunk,
     registerUserThunk,
@@ -88,13 +89,13 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             </Button>
             {isAuth && (
                 <Button
-                    theme={ButtonTheme.GREEN}
+                    theme={ButtonTheme.BLACK}
                     type="submit"
                     className={styles.button}
-                    size={ButtonSize.M}
+                    size={ButtonSize.S}
                     onClick={handleOAuthLogin}
                 >
-                    Войти с помощью яндекса
+                    <img src={yandexLogo} alt="Войти с Яндекс ID" />
                 </Button>
             )}
         </form>

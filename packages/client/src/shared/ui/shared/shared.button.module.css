@@ -32,6 +32,11 @@
     background-color: var(--color-red);
     color: var(--color-white);
   }
+
+  .black {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
   
   /* -------theme end------ */
   /* -------color-text------ */
