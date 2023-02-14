@@ -21,8 +21,7 @@ SET_AVATAR='SET_AVATAR',
 LOGIN_ERROR='LOGIN_ERROR'
 }
 
-export const redirectURI = 'http://localhost:3000';
-// export const redirectURI = 'http://localhost/login:3000';  //только http://localhost:3000 зарегистрирован как callback_url в практикуме
+export const redirectURI = 'http://localhost:3000'; // только http://localhost:3000 зарегистрирован как callback_url в практикуме
 
 export enum UserURL {
   BASE_AVATAR_URL='https://ya-praktikum.tech/api/v2/resources/',

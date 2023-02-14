@@ -10,7 +10,7 @@ import { FormProps } from './Form.types';
 import {
     loginThunk,
     registerUserThunk,
-    loginOAuthThunk,
+    loginOAuthPart1Thunk,
 } from '../../redux/actionCreators/user';
 import { Dispatcher } from '../../redux/store';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -36,8 +36,7 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
     };
     const handleOAuthLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('oauth');
-        dispatch(loginOAuthThunk());
+        dispatch(loginOAuthPart1Thunk());
     };
     if (isLoggedIn) {
         navigate(ROUTES.GAME_SEARCH);

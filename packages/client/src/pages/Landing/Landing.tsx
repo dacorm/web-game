@@ -1,4 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Dispatcher } from '../../redux/store';
+import {
+    loginOAuthPart2Thunk,
+} from '../../redux/actionCreators/user';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import styles from './Landing.module.css';
 import landingGame from '../../assets/img/landingGame.jpg';
 import landingImage1 from '../../assets/img/landingImage1.jpg';
@@ -11,8 +18,26 @@ import LinkButton from '../../shared/ui/LinkButton';
 import { ROUTES } from '../../layout/RouterLayout/RouterConst';
 
 const monopolyName = 'Monopoly';
+const codeUriParamName = 'code';
 
 export default function Landing() {
+    const dispatch = useDispatch<Dispatcher>();
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { loginError, isLoggedIn } = useTypedSelector((state) => state.user);
+    useEffect(() => {
+        if (!isLoggedIn && searchParams.has(codeUriParamName)) {
+            const codeParamValueString = searchParams.get(codeUriParamName) as string;
+            dispatch(loginOAuthPart2Thunk(codeParamValueString));
+            navigate(ROUTES.GAME_SEARCH);
+        }
+    }, []);
+
+    if (!isLoggedIn && loginError) {
+        navigate(ROUTES.AUTH);
+    }
+    const selectedRoute = isLoggedIn ? ROUTES.GAME_SEARCH : ROUTES.AUTH;
+
     return (
         <>
             <div className={styles.landingHeadBackground} />
@@ -45,7 +70,7 @@ export default function Landing() {
                     <span className={styles.landingMessage}>Вперед - к новым победам!</span>
                     <LinkButton
                         key="btn_1"
-                        to={ROUTES.AUTH}
+                        to={selectedRoute}
                         text="Играть"
                         size={ButtonSize.M}
                         theme={ButtonTheme.GREEN}
@@ -75,7 +100,7 @@ export default function Landing() {
                 </div>
                 <LinkButton
                     key="btn_2"
-                    to={ROUTES.AUTH}
+                    to={selectedRoute}
                     text="Играть"
                     size={ButtonSize.M}
                     theme={ButtonTheme.GREEN}
