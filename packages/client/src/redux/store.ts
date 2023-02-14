@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
+import { leaderboardReducer } from './reducers/leaderboardReducer/leaderboardReducer';
 
 export type TInitialStateStore = Record<string, unknown> | undefined
 
@@ -13,6 +14,7 @@ const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
     games: createGameReducer,
+    leaderboard: leaderboardReducer,
 });
 
 const preloadedState = typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined;
