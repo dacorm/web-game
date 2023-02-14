@@ -53,7 +53,8 @@ export default function Profile() {
     }, []);
     const dispatch = useDispatch<Dispatcher>();
     const navigate = useNavigate();
-    const handleLogout = () => {
+    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         dispatch(logoutThunk());
         navigate(ROUTES.AUTH);
     };
