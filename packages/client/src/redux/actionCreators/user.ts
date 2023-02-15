@@ -1,8 +1,9 @@
 import { userApi } from '../../api/userApi';
 import { appDispatch } from '../store';
 import {
-    TUserAction, UserActionTypes, UserData, UserURL,
+    redirectURI, TUserAction, UserActionTypes, UserData, UserURL,
 } from '../types/userReducer.types';
+import { OAuthGetServiceResponse } from '../../api/apiTypes';
 
 export const setUser = (userName: string, email: string, id: string, avatar:string): TUserAction => {
     const userData :UserData = {
@@ -84,7 +85,7 @@ export const getUserInfo = () => async (dispatch: appDispatch) => {
         if (res.status === 200) {
             dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
         } else {
-            console.log('getuserError', userData);
+            console.log('getUserError', userData);
         }
     } catch (e) {
         console.warn(e);
@@ -94,15 +95,46 @@ export const getUserInfo = () => async (dispatch: appDispatch) => {
 export const loginThunk = (userName: string, password: string) => async (dispatch: appDispatch) => {
     try {
         const loginRes = await userApi.login(userName, password);
-        console.log('loginDATA', loginRes);
         if (loginRes.status === 200) {
             const resUser = await userApi.getUser();
             const userData = await resUser.json();
-            console.log('serDATA', userData);
             dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
         } else {
-            const errorres = await loginRes.json();
-            dispatch(setLoginError(errorres.reason));
+            const errors = await loginRes.json();
+            dispatch(setLoginError(errors.reason));
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const loginOAuthPart1Thunk = () => async (dispatch: appDispatch) => {
+    try {
+        const serviceIdRes = await userApi.oAuthGetService();
+        if (serviceIdRes.status === 200) {
+            const responseOAuthGetService = await serviceIdRes.json() as OAuthGetServiceResponse;
+            const redirectUserUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${responseOAuthGetService.service_id}&redirect_uri=${redirectURI}`;
+            window.location.replace(redirectUserUrl);
+            // возвращается на http://localhost:3000?code=7654321, где и надо производить обработку кода code и проводить установку пользователя через await userApi.getUser();
+        } else {
+            const errors = await serviceIdRes.json();
+            dispatch(setLoginError(errors.reason));
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const loginOAuthPart2Thunk = (code: string) => async (dispatch: appDispatch) => {
+    try {
+        const oAuthLoginRes = await userApi.oAuthLogin(code, redirectURI);
+        if (oAuthLoginRes.status === 200) {
+            const resUser = await userApi.getUser();
+            const userData = await resUser.json();
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+        } else {
+            const errors = await oAuthLoginRes.json();
+            dispatch(setLoginError(errors.reason));
         }
     } catch (e) {
         console.warn(e);

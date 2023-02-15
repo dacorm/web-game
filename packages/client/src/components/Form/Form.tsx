@@ -7,12 +7,15 @@ import { InputFeature } from '../../shared/ui/Input/Input.types';
 import Button from '../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
 import { FormProps } from './Form.types';
+import yandexLogo from '../../assets/img/yandex-logo.svg';
 import {
     loginThunk,
     registerUserThunk,
+    loginOAuthPart1Thunk,
 } from '../../redux/actionCreators/user';
 import { Dispatcher } from '../../redux/store';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { ROUTES } from '../../constants';
 
 export const Form: React.FC<FormProps> = ({ isAuth }) => {
     const [email, setEmail] = useState('');
@@ -32,8 +35,12 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             dispatch(loginThunk(nickname, password));
         }
     };
+    const handleOAuthLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        dispatch(loginOAuthPart1Thunk());
+    };
     if (isLoggedIn) {
-        navigate('/');
+        navigate(ROUTES.GAME_SEARCH);
     }
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
@@ -80,6 +87,17 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
             >
                 {isAuth ? 'Войти' : 'Зарегистрироваться'}
             </Button>
+            {isAuth && (
+                <Button
+                    theme={ButtonTheme.BLACK}
+                    type="submit"
+                    className={styles.button}
+                    size={ButtonSize.S}
+                    onClick={handleOAuthLogin}
+                >
+                    <img src={yandexLogo} alt="Войти с Яндекс ID" />
+                </Button>
+            )}
         </form>
     );
 };

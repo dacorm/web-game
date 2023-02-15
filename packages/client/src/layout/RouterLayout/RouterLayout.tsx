@@ -25,10 +25,11 @@ const LandingPage = routerSuspense(lazy(() => import('../../pages/Landing')));
 const RouterLayout = () => (
     <Routes>
         <Route path={ROUTES.MAIN} element={<LandingLayout />}>
+            <Route index element={LandingPage} />
             <Route path={ROUTES.LANDING} element={LandingPage} />
         </Route>
         <Route path={ROUTES.MAIN} element={<MenuLayout />}>
-            <Route index element={<GameSearch />} />
+            <Route path={ROUTES.GAME_SEARCH} element={<GameSearch />} />
             <Route path={ROUTES.FORUM} element={ForumPage} />
             <Route path={ROUTES.FORUM_THEME} element={ForumThemePage} />
             <Route path={ROUTES.LEADER} element={LeaderBoardPage} />
