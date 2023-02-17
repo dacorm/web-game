@@ -4,11 +4,26 @@ import {
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
 import { leaderboardReducer } from './reducers/leaderboardReducer/leaderboardReducer';
+
+const createNoopStorage = () => ({
+    getItem(_key:any) {
+        return Promise.resolve(null);
+    },
+    setItem(_key:any, value:any) {
+        return Promise.resolve(value);
+    },
+    removeItem(_key:any) {
+        return Promise.resolve();
+    },
+});
+
+const storage = typeof window === 'undefined' ? createNoopStorage() : createWebStorage('local');
 
 export type TInitialStateStore = Record<string, unknown> | undefined
 

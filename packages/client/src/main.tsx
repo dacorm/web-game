@@ -19,16 +19,9 @@ const app = (
     </Provider>
 );
 
-// if (rootElement.innerHTML === '<!--ssr-outlet-->') {
-//     ReactDOM.createRoot(rootElement).render(app);
-// } else {
-//     ReactDOM.hydrateRoot(rootElement, app);
-// }
-
 persistor.subscribe(() => {
     /* Hydrate React components when persistor has synced with redux store */
     const { bootstrapped } = persistor.getState();
-
     if (bootstrapped) {
         if (rootElement.innerHTML === '<!--ssr-outlet-->') {
             ReactDOM.createRoot(rootElement).render(app);
