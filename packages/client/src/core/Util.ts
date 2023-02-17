@@ -7,7 +7,10 @@ export const boardCount = 9 as const;
 // сюда засовываем различные помощники для работы с канвас
 export const Util = {
     createCanvasElement() {
-        return document.createElement('canvas');
+        if (typeof document !== 'undefined') {
+            return document.createElement('canvas');
+        }
+        return null;
     },
 
     getCornerItemSize(canvas: Canvas): BoardItemSize {

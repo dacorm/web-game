@@ -7,8 +7,10 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
-
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
+import { leaderboardReducer } from './reducers/leaderboardReducer/leaderboardReducer';
+
+export type TInitialStateStore = Record<string, unknown> | undefined
 
 const persistConfig = {
     key: 'root',
@@ -20,8 +22,15 @@ const reducers = combineReducers({
     user: userReducer,
     game: gameReducer,
     games: createGameReducer,
+    leaderboard: leaderboardReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducers);
+
+const preloadedState = typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined;
+
+export const configureStore = (preloadedState:TInitialStateStore) => (
+    createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+);
 
 const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 export const persistor = persistStore(store);

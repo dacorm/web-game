@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build:client": "vite build --config vite.config.ts",
+    "build": "yarn build:ssr && yarn build:client",
+    "build:ssr": "vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",

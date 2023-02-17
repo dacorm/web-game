@@ -1,5 +1,6 @@
-import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
 import { GameActionTypes, GamePlayer } from '../types/gameReducer.types';
+import { TMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
+
 /** сообщаем о начале передвижения фишки */
 export const startCellMoving = () => ({
     type: GameActionTypes.CELL_START_MOVING,
@@ -37,7 +38,7 @@ export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
 });
 /** добавить событие в чат */
-export const addNewGameChatMessage = (message: TGameChatMessage) => ({
+export const addNewGameChatMessage = (message: TMessage) => ({
     type: GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE,
     payload: message,
 });

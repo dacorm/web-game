@@ -8,22 +8,17 @@ import { useResizeObserver } from '../../hooks/useResizeObserver';
 import { staticCanvas } from '../Canvas/staticCanvas';
 import { activeCanvas } from '../Canvas/activeCanvas';
 import styles from './BoardStage.module.css';
-
 import Modal from '../../shared/ui/Modal';
 import { ROUTES } from '../../constants';
-import Button from '../../shared/ui/Button';
-import { ButtonSize, ButtonTheme } from '../../shared/ui/Button/Button.types';
+
 import {
     addNewGameChatMessage,
-    cleanGameData,
     rollTheDiceTrue, setCurrentPlayer, startGame, turnStart,
 } from '../../redux/actionCreators/game';
 import { BoardStageProps } from './BoardStage.types';
 import {
     getActionStarting, getCurrentPlayer, getTurnCompleted,
 } from '../../redux/reducers/gameReducer/gameSelector';
-import TitleBoard from '../../components/Game/TitleBoard';
-import Action from '../../components/Game/Action';
 import ChatBoard from '../../components/Game/Chat/ChatBoard';
 import ControllerBoard from '../../components/Game/ControllerBoard';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -117,7 +112,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                         {' '}
                         Вы выиграли!
                     </div>
-                    <Link className={styles.winBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
+                    <Link className={styles.winBtn} to={ROUTES.GAME_SEARCH}>Вернуться в главное меню</Link>
                 </div>
 
             </Modal>
@@ -135,7 +130,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                         Вы проиграли!
                     </div>
 
-                    <Link className={styles.loseBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
+                    <Link className={styles.loseBtn} to={ROUTES.GAME_SEARCH}>Вернуться в главное меню</Link>
 
                 </div>
             </Modal>

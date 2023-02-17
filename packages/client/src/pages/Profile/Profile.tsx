@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../shared/ui/Modal';
 import { ProfileFormPass } from '../../components/Profile/ProfileFormPass/ProfileFormPass';
 import ProfileFormAvatar from '../../components/Profile/ProfileFormAvatar';
@@ -15,6 +17,9 @@ import styles from './Profile.module.css';
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
 import { TProfileModals } from './Profile.types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { logoutThunk } from '../../redux/actionCreators/user';
+import { ROUTES } from '../../layout/RouterLayout/RouterConst';
+import { Dispatcher } from '../../redux/store';
 
 const userData = {
     points: 10,
@@ -46,7 +51,13 @@ export default function Profile() {
     const closeAvatardModal = useCallback(() => {
         setModals((prev) => ({ ...prev, showAvatarModal: false }));
     }, []);
-
+    const dispatch = useDispatch<Dispatcher>();
+    const navigate = useNavigate();
+    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        dispatch(logoutThunk());
+        navigate(ROUTES.AUTH);
+    };
     return (
         <>
             <div className={styles.block}>
@@ -76,6 +87,7 @@ export default function Profile() {
                     size={ButtonSize.M}
                     colorText={ButtonColorText.RED}
                     className={styles.button}
+                    onClick={handleLogout}
                 >
                     Выход
                 </Button>

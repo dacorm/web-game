@@ -1,4 +1,4 @@
-import { UserURL } from '../redux/types/userReducer.types';
+import { redirectURI, UserURL } from '../redux/types/userReducer.types';
 
 class UserApi {
     // eslint-disable-next-line class-methods-use-this
@@ -18,6 +18,30 @@ class UserApi {
     }
 
     // eslint-disable-next-line class-methods-use-this
+    async oAuthGetService() {
+        const url = `${UserURL.OAUTH_SERVICE_ID}?redirect_uri=${redirectURI}`;
+        return await fetch(url, {
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async oAuthLogin(codeValue: string, redirectUri: string) {
+        const payload = JSON.stringify({
+            code: codeValue,
+            redirect_uri: redirectUri,
+        });
+        return await fetch(UserURL.OAUTH_LOGIN, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: payload,
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
     async getUser() {
         return await fetch(UserURL.USERINFO, {
             credentials: 'include',
@@ -26,14 +50,13 @@ class UserApi {
 
     // eslint-disable-next-line class-methods-use-this
     async logout() {
-        const data = await fetch(UserURL.LOGOUT, {
+        return await fetch(UserURL.LOGOUT, {
             method: 'POST',
             credentials: 'include',
             headers: {
                 Accept: 'application/json',
             },
         });
-        return data;
     }
 
     // eslint-disable-next-line class-methods-use-this

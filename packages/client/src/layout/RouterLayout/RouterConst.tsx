@@ -8,5 +8,6 @@ export const ROUTES = {
     REGISTER: '/signup',
     GAME: '/game',
     GAMEID: '/game/:id',
+    GAME_SEARCH: '/gameSearch',
     LANDING: '/landing',
 };
