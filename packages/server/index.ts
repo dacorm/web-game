@@ -170,7 +170,8 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
- 
+
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
 
 
   if (!isDev()) {
