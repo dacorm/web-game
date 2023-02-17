@@ -24,6 +24,6 @@ if (rootElement.innerHTML === '<!--ssr-outlet-->') {
     ReactDOM.hydrateRoot(rootElement, app);
 }
 
-if (process.env.NODE_ENV === 'production') {
-    startServiceWorker();
-}
+// if (process.env.NODE_ENV === 'production') {
+//     startServiceWorker();
+// }
