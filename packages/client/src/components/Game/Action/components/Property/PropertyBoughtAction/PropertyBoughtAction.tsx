@@ -9,10 +9,10 @@ import { PropertyBoughtActionProps } from './PropertyBoughtAction.types';
 const PropertyBoughtAction: FC<PropertyBoughtActionProps> = ({
     cell, player, text, handleCompleteAction, handleRentPayment,
 }) => {
-    console.log(cell.card);
+    const card = cell.card as PropertyCard;
     // если на купленную недвижку встал собственник то вызов комплита экшена
     useEffect(() => {
-        const ownerIsCurrentPlayer = cell.card.owner === player;
+        const ownerIsCurrentPlayer = card.owner === player;
         if (ownerIsCurrentPlayer) {
             handleCompleteAction();
         }
@@ -22,7 +22,7 @@ const PropertyBoughtAction: FC<PropertyBoughtActionProps> = ({
         <ActionContent
             text={text}
             acceptInfoBtn={{
-                text: `Заплатить ${calculatePropertyRent(cell.card as PropertyCard)} $`,
+                text: `Заплатить ${calculatePropertyRent(card)} $`,
                 onClick: handleRentPayment,
             }}
         />

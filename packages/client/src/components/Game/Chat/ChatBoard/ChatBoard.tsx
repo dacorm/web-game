@@ -12,7 +12,7 @@ const ChatBoard: FC = () => {
     useEffect(() => {
         const chatBoard = chatBoardRef.current as HTMLDivElement;
 
-        setAutoscroll(chatBoard, 50);
+        setAutoscroll(chatBoard, 100);
     }, [messages]);
 
     return (

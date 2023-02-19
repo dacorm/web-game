@@ -1,4 +1,5 @@
 import { BoardCellType } from '../../../core/types';
+import BoxCard from '../BonusCard/BoxCard/BoxCard';
 import PropertyCard from '../PropertyCard/PropertyCard';
 import StationCard from '../StationCard';
 
@@ -20,4 +21,4 @@ export enum StateCard {
     MORTAGED = 'mortgaged' // заложена
 }
 
-export type TCard = PropertyCard | StationCard
+export type TCard = PropertyCard | StationCard | BoxCard

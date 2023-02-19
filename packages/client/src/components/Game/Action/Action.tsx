@@ -11,6 +11,9 @@ import { getCurrentPlayer } from '../../../redux/reducers/gameReducer/gameSelect
 import { StateCard } from '../../../models/Cards/Card/Card.types';
 import PropertyAction from './components/Property/PropertyAction';
 import StationAction from './components/Station/StationAction';
+import BoxAction from './components/Box';
+import PropertyCard from '../../../models/Cards/PropertyCard';
+import ChanceAction from './components/Chance';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
@@ -25,14 +28,14 @@ const Action = () => {
     }, [cell]);
 
     const handleBuy = useCallback(() => {
-        cell?.card.buy(player);
+        (cell?.card as PropertyCard).buy(player);
     }, [cell]);
     const handleRefuseToBuy = useCallback(() => {
-        cell?.card.refuseToBuy();
+        (cell?.card as PropertyCard).refuseToBuy();
     }, [cell]);
 
     const handleRentPayment = useCallback(() => {
-        cell?.card.rentPayment(player);
+        (cell?.card as PropertyCard).rentPayment(player);
     }, [cell]);
 
     // если у карточки нету экшена - сразу завершаем его
@@ -58,7 +61,7 @@ const Action = () => {
 
     useEffect(() => {
         setCell(getCellFromBoard());
-    }, []);
+    }, [player]);
 
     if (!cell || !cell.card) {
         return (
@@ -66,7 +69,7 @@ const Action = () => {
         );
     }
     // если недвижка\станция заложена
-    if (cell.card.stateCard === StateCard.MORTAGED) {
+    if ((cell.card as PropertyCard).stateCard === StateCard.MORTAGED) {
         handleCompleteAction();
     }
 
@@ -94,6 +97,25 @@ const Action = () => {
                 handleCompleteAction={handleCompleteAction}
                 handleRefuseToBuy={handleRefuseToBuy}
                 handleRentPayment={handleRentPayment}
+            />
+        );
+    }
+
+    // если ячейка типа казна
+    if (cell.type === BoardCellType.box) {
+        return (
+            <BoxAction
+                cell={cell}
+                player={player}
+            />
+        );
+    }
+    // если ячейка типа шанс
+    if (cell.type === BoardCellType.chance) {
+        return (
+            <ChanceAction
+                cell={cell}
+                player={player}
             />
         );
     }
