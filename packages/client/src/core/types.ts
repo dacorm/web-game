@@ -29,6 +29,7 @@ export enum BoardCellType {
   prison,
   station,
   stage,
+  box,
 }
 
 export type BoardItemSize = Record<Sizes, number> & {rotate?: number, maxWidth?: number, fontSize?: number}

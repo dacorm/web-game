@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { StateCard } from '../../../../../../models/Cards/Card/Card.types';
+import PropertyCard from '../../../../../../models/Cards/PropertyCard';
 import PropertyBoughtAction from '../PropertyBoughtAction';
 import PropertyFreeAction from '../PropertyFreeAction';
 import { PropertyActionProps } from './PropertyAction.types';
@@ -7,13 +8,14 @@ import { PropertyActionProps } from './PropertyAction.types';
 const PropertyAction:FC<PropertyActionProps> = ({
     cell, player, handleBuy, handleRefuseToBuy, handleRentPayment, handleCompleteAction,
 }) => {
+    const card = cell.card as PropertyCard;
     const PROPERTY_ACTION_TEXT = {
-        PropertyBought: `Вам необходимо заплатить ренту игроку ${cell?.card?.owner?.displayName}`,
-        PropertyFree: `Вы попали на ${cell?.card?.name}. Желаете приобрести?`,
+        PropertyBought: `Вам необходимо заплатить ренту игроку ${card.owner?.displayName}`,
+        PropertyFree: `Вы попали на ${card.name}. Желаете приобрести?`,
     };
 
     // если недвижка ни кем не куплена
-    if (cell.card.stateCard === StateCard.FREE) {
+    if (card.stateCard === StateCard.FREE) {
         return (
             <PropertyFreeAction
                 cell={cell}
@@ -25,7 +27,7 @@ const PropertyAction:FC<PropertyActionProps> = ({
     }
 
     // если недвижка кем то куплена
-    if (cell.card.stateCard === StateCard.BOUGHT) {
+    if (card.stateCard === StateCard.BOUGHT) {
         return (
             <PropertyBoughtAction
                 cell={cell}

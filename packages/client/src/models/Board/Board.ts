@@ -7,7 +7,7 @@ class Board implements IBoard {
 
     players: Player[] = [];
 
-    currentTurn: number|null = null;
+    currentTurn: number | null = null;
 
     generatorMoveSequence: any;
 
@@ -22,7 +22,7 @@ class Board implements IBoard {
         return undefined;
     }
 
-    getPlayerById(id: number|null) {
+    getPlayerById(id: number | null) {
         for (let i = 0; i < this.players.length; i++) {
             if (this.players[i].userId === id) {
                 return this.players[i];
@@ -70,5 +70,4 @@ class Board implements IBoard {
 }
 
 export const board = new Board();
-
 (window as any).board = board;

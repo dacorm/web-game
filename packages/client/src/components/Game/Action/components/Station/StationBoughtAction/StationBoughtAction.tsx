@@ -7,8 +7,9 @@ import { StationBoughtActionProps } from './StationBoughtAction.types';
 const StationBoughtAction:FC<StationBoughtActionProps> = ({
     cell, player, text, handleCompleteAction, handleRentPayment,
 }) => {
+    const card = cell.card as StationCard;
     useEffect(() => {
-        const ownerIsCurrentPlayer = cell.card.owner === player;
+        const ownerIsCurrentPlayer = card.owner === player;
         if (!ownerIsCurrentPlayer) {
             return;
         }
@@ -19,7 +20,7 @@ const StationBoughtAction:FC<StationBoughtActionProps> = ({
         <ActionContent
             text={text}
             acceptInfoBtn={{
-                text: `Заплатить ${calculateStationRent(cell.card as StationCard)} $`,
+                text: `Заплатить ${calculateStationRent(card)} $`,
                 onClick: handleRentPayment,
             }}
         />

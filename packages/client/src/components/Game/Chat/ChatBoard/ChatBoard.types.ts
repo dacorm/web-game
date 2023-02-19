@@ -1,4 +1,4 @@
-export type TMessage = {
+export type TGameChatMessage = {
     playerName: string,
     message: string
 }

@@ -68,7 +68,7 @@ export const activeCanvas = ({
                         message: `бросает кубики и выбивает число ${sumSquares}`,
                     },
                 ));
-                const updatedCurrentPos = player.updateCurrentPos(sumSquares);
+                const updatedCurrentPos = player.updateCurrentPos(11);
                 player.addCell(board.getCell(updatedCurrentPos));
 
                 // eslint-disable-next-line no-restricted-syntax
