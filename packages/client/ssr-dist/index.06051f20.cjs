@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./Form.43fc07e8.cjs"),s=require("./ssr.6f1a65a0.cjs"),r=()=>s.jsx("div",{className:e.styles.container,children:s.jsx(e.Form,{isAuth:!1})});exports.default=r;
