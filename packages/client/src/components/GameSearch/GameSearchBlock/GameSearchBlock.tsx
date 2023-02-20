@@ -6,7 +6,6 @@ import { Game } from '../../../redux/types/createGameReducer.types';
 
 const GameSearchBlock: FC = () => {
     const games = useTypedSelector((state) => state.games.games);
-    console.log('games', games);
     return (
         <div className={styles['games-block']}>
             <div className={styles['games-block-inner']}>
