@@ -14,9 +14,10 @@ import {
     startAddGameListening,
     stopAddGameListening,
 } from '../../redux/actionCreators/createGame';
+import { Dispatcher } from '../../redux/store';
 
 const GameSearch: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<Dispatcher>();
     const [createGameModal, setCreateGameModal] = useState(false);
     const user = useTypedSelector((state) => state.user);
     const wsStatus = useTypedSelector((state) => state.games.statusWS);
@@ -31,13 +32,11 @@ const GameSearch: FC = () => {
 
     useEffect(() => {
         if (user.id !== null) {
-            // @ts-ignore
             dispatch(startAddGameListening());
         }
 
         // при уходе от компоненты нужно убрать всех подписчиков
         return () => {
-            // @ts-ignore
             dispatch(stopAddGameListening());
         };
     }, [user]);

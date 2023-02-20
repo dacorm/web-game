@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import { useDispatch } from 'react-redux';
 import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
@@ -58,6 +59,7 @@ payload?: any;
 export type appDispatch = typeof store.dispatch;
 type RootReducerType = typeof reducers;
 export type AppStateType = ReturnType<RootReducerType>
+export const useAppDispatch = () => useDispatch<appDispatch>();
 
 export type Dispatcher = ThunkDispatch<AppStateType, undefined, AnyAction>;
 

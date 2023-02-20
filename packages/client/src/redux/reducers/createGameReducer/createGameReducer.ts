@@ -6,7 +6,7 @@ import {
 } from '../../types/createGameReducer.types';
 
 const initialState : CreateGameReducerState = {
-    games: [],
+    games: null,
     statusWS: null,
 };
 const initialAction: TCreateGameAction = {
@@ -14,10 +14,9 @@ const initialAction: TCreateGameAction = {
 };
 
 function getIdsofGamesfromState(state:CreateGameReducerState) {
-    const idsGames:number[]|[] = [];
-    state.games.forEach((game:Game) => {
+    const idsGames: number[] = [];
+    state!.games!.forEach((game:Game) => {
         if (game?.id) {
-            // @ts-ignore
             idsGames.push(game.id);
         }
     });
@@ -25,44 +24,39 @@ function getIdsofGamesfromState(state:CreateGameReducerState) {
 }
 
 export const createGameReducer = (state = initialState, action:TCreateGameAction = initialAction) => {
+    let idsGames: number[];
+    const newGames: Game[] = [];
     switch (action.type) {
     case CreateGameActyonTypes.ADD_GAMES:
-        // eslint-disable-next-line no-case-declarations
-        let idsGames:number[]|[] = [];
-        // eslint-disable-next-line no-case-declarations
-        const newGames: Game[]|[] = [];
-        if (state.games.length > 0) {
+        if (state!.games!.length > 0) {
             idsGames = getIdsofGamesfromState(state);
 
             if (action.payload.length > 0) {
                 action.payload.forEach((game: Game) => {
-                    // @ts-ignore
                     if (!idsGames.includes(game.id)) {
-                        // @ts-ignore
-                        state.games.push(game);
+                        state!.games!.push(game);
                     }
                 });
             }
         } else {
             return {
                 ...state,
-                games: [...state.games, ...action.payload],
+                games: [...action.payload],
             };
         }
 
         return {
             ...state,
-            games: [...state.games, ...newGames],
+            games: [...newGames],
         };
 
     case CreateGameActyonTypes.ADD_USER_TO_GAME:
         // eslint-disable-next-line no-case-declarations
-        let iDsGames:number[]|[] = [];
-        if (state.games.length > 0) {
+        let iDsGames: number[];
+        if (state!.games!.length > 0) {
             iDsGames = getIdsofGamesfromState(state);
-            // @ts-ignore
             if (iDsGames.includes(Number(action.payload.gameId))) {
-                state.games.forEach((game) => {
+                state!.games!.forEach((game) => {
                     if (game.id === Number(action.payload.gameId)) {
                         game.players.push(action.payload.user);
                     }
@@ -71,7 +65,7 @@ export const createGameReducer = (state = initialState, action:TCreateGameAction
         }
         return {
             ...state,
-            games: [...state.games],
+            games: state.games,
         };
 
     case CreateGameActyonTypes.SET_WS_STATUS: {

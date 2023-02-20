@@ -1,47 +1,51 @@
 import { GamePlayer } from './gameReducer.types';
 
 export enum CreateGameActyonTypes {
-  ADD_GAMES='ADD_GAMES',
-  ADD_USER_TO_GAME='ADD_USER_TO_GAME',
-SET_WS_STATUS = 'SET_WS_STATUS',
-__INIT__='__INIT__'
+  ADD_GAMES = 'ADD_GAMES',
+  ADD_USER_TO_GAME = 'ADD_USER_TO_GAME',
+  SET_WS_STATUS = 'SET_WS_STATUS',
+  __INIT__ = '__INIT__'
 }
 
 export enum MethodsMessages {
-  addGame='addGame',
-  addAllGames= 'addAllGames',
+  addGame = 'addGame',
+  addAllGames = 'addAllGames',
   connection = 'connection',
   addUser = 'addUser',
 }
 
-export type MethodsMessagesType = MethodsMessages.addGame | MethodsMessages.addAllGames | MethodsMessages.connection |MethodsMessages.addUser
+export type MethodsMessagesType =
+  MethodsMessages.addGame
+  | MethodsMessages.addAllGames
+  | MethodsMessages.connection
+  | MethodsMessages.addUser
 
 export enum StatusWS {
-  pending ='pending',
+  pending = 'pending',
   ready = 'ready',
   error = 'error',
 }
 
-export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error| null
+export type StatusesWS = StatusWS.pending | StatusWS.ready | StatusWS.error | null
 
 export interface Message {
   gameId?: number
   method: MethodsMessagesType
   games?: []
   statusWS?: StatusesWS
-  user?:GamePlayer
+  user?: GamePlayer
 }
 
 export interface Game {
   id: number,
-    countPlayers: number,
+  countPlayers: number,
   userCreater: GamePlayer,
   name: string,
-    players:GamePlayer [ ]
+  players: GamePlayer[]
 }
 
 export interface CreateGameReducerState {
-  games: Game []| []
+  games: Game[] | null
   statusWS: StatusesWS
 }
 
@@ -64,12 +68,12 @@ type TCreateGameActionSetWsStatus = {
 }
 
 type TCreateGameActionInitial = {
-  type:CreateGameActyonTypes.__INIT__,
+  type: CreateGameActyonTypes.__INIT__,
 
 }
 
 export type TCreateGameAction =
-  TCreateGameActionCreateGame|
+  TCreateGameActionCreateGame |
   TCreateGameActionInitial |
   TCreateGameActionAddUserToGame |
   TCreateGameActionSetWsStatus

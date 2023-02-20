@@ -33,22 +33,15 @@ const newGamesHandlerCreator = (dispatch:Dispatch) => {
             // console.log('mes from server', msg);
             switch (msg.method) {
             case MethodsMessages.addGame: {
-                // @ts-ignore
-                dispatch(actionAddGame(msg.games));
+                if (msg.games) dispatch(actionAddGame(msg.games));
                 break;
             }
             case MethodsMessages.addAllGames: {
-                // @ts-ignore
-                if (msg.games.length > 0) {
-                    // @ts-ignore
-                    dispatch(actionAddGame(msg.games));
-                }
-
+                if (msg.games) dispatch(actionAddGame(msg.games));
                 break;
             }
             case MethodsMessages.addUser: {
-                // @ts-ignore
-                dispatch(addUserToGame(msg.gameId, msg.user));
+                if (msg.gameId) dispatch(addUserToGame(msg.gameId, msg.user));
                 break;
             }
             default: break;
@@ -82,6 +75,4 @@ export const stopAddGameListening = () => async (dispatch:Dispatch) => {
     GameAPI.stop();
 };
 
-export const sendMessage = (msg:Message) => {
-    GameAPI.sendMesseg(msg);
-};
+export const sendMessage = (msg: Message) => GameAPI.sendMesseg(msg);

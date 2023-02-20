@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { AnyAction } from 'redux';
 import GameSearchProfile from '../GameSearchProfile';
 import { GameSearchItemProps } from './GameSearchItem.types';
 
@@ -7,17 +8,16 @@ import styles from './GameSearchItem.module.css';
 import connectInGameImg from '../../../assets/img/connectInGame.svg';
 import Button from '../../../shared/ui/Button';
 import { sendMessage } from '../../../redux/actionCreators/createGame';
-import { Game, MethodsMessages } from '../../../redux/types/createGameReducer.types';
+import { Game, Message, MethodsMessages } from '../../../redux/types/createGameReducer.types';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/shared/shared.button.types';
 import { GamePlayer } from '../../../redux/types/gameReducer.types';
+import { Dispatcher } from '../../../redux/store';
 
 const userInGame = (game:Game, userId:number) => {
     if (game.players.length > 0) {
-        const idsPlayers:number[]|[] = [];
-        // @ts-ignore
-        game.players.forEach((p:Player) => idsPlayers.push(p.userId));
-        // @ts-ignore
+        const idsPlayers: number[] = [];
+        game.players.forEach((p) => idsPlayers.push(p.userId));
         return idsPlayers.includes(userId);
     }
 };
@@ -25,7 +25,7 @@ const userInGame = (game:Game, userId:number) => {
 const freePlaceInGame = (game:Game) => game.countPlayers > game.players.length;
 
 const GameSearchItem: FC<GameSearchItemProps> = ({ game }) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<Dispatcher>();
     const playersAndFreePlaces = [];
     const user = useTypedSelector((state) => state.user);
 
@@ -56,8 +56,7 @@ const GameSearchItem: FC<GameSearchItemProps> = ({ game }) => {
             gameId: game.id,
         };
 
-        // @ts-ignore
-        dispatch(sendMessage(JSON.stringify(mes)));
+        dispatch(sendMessage(JSON.stringify(mes) as unknown as Message) as unknown as AnyAction);
     };
 
     return (
