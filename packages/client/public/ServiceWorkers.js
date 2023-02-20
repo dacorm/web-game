@@ -60,7 +60,6 @@ async function networkFirst(req) {
     // открываем динамический кеш
 }
 
-// @ts-ignore
 // eslint-disable-next-line no-restricted-globals
 self.addEventListener('install', async (event) => {
     console.log('Install___________________');

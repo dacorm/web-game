@@ -1,5 +1,3 @@
-import { UserActionTypes } from './userReducer.types';
-
 export type UserResult = {
   data: {
     score: number;

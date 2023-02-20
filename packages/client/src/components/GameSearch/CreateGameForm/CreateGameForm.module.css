@@ -31,3 +31,12 @@
     text-align: center;
     margin-top: 40px;
 }
+
+.selectTypeGame {
+    margin: 10px;
+    font-weight: 600;
+}
+
+option {
+    font-weight: 600;
+}

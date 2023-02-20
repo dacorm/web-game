@@ -52,8 +52,9 @@ export const registerUserThunk = (userName: string, email: string, password: str
     try {
         const res = await userApi.reg(userName, email, password);
         const userData = await res.json();
+        console.log(userData);
         if (res.status === 200) {
-            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            dispatch(setUser(userName, email, userData.id, ''));
         } else {
             console.log('regError', userData);
             dispatch(setLoginError(userData.reason));
