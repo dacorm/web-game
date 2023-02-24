@@ -1,19 +1,24 @@
 import {
     FC, useEffect, useRef, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 import { TForumTheme } from './ForumBlock.types';
 
 import styles from './ForumBlock.module.css';
 import ForumItem from '../ForumItem';
 import Pagination from '../../Pagination';
 import { usePaginationItems } from '../../../hooks/usePaginationItems';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { getThemeList, setThemeList } from '../../../redux/actionCreators/forum';
 
 const ForumBlock: FC = () => {
-    const [forumThemes, setForumThemes] = useState<TForumTheme[]>([]);
+    const forumThemes = useTypedSelector((state) => state.forum.themes);
+    const dispatch = useDispatch();
+    console.log('THEMES', forumThemes);
+
+    // const [forumThemes, setForumThemes] = useState<TForumTheme[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const PAGE_SIZE = useRef<number>(7);
-
-    //   примерный ответ с бэка
     const EXAMPLE_FORUM_THEMES = useRef<TForumTheme[]>([
         {
             themeId: 10,
@@ -73,15 +78,10 @@ const ForumBlock: FC = () => {
         },
     ]);
 
-    const currentPaginationItems = usePaginationItems(
-        EXAMPLE_FORUM_THEMES.current,
-        currentPage,
-        PAGE_SIZE.current,
-    );
-
     useEffect(() => {
-        setForumThemes(currentPaginationItems);
-    }, [currentPaginationItems]);
+        // dispatch(setThemeList(THEMES));
+        dispatch(getThemeList());
+    }, []);
 
     return (
         <>
@@ -92,7 +92,7 @@ const ForumBlock: FC = () => {
                         return;
                     }
                     const {
-                        themeId, createdById, date, countMsg, themeName,
+                        themeId, createdById, createdAt, countMsg, themeName,
                     } = theme;
 
                     /* eslint-disable-next-line */
@@ -101,7 +101,7 @@ const ForumBlock: FC = () => {
                             key={themeId}
                             themeId={themeId}
                             createdById={createdById}
-                            date={date}
+                            date={createdAt}
                             countMsg={countMsg}
                             themeName={themeName}
                         />
@@ -112,7 +112,7 @@ const ForumBlock: FC = () => {
             <nav className={styles.paginationNav}>
                 <Pagination
                     currentPage={currentPage}
-                    totalCount={EXAMPLE_FORUM_THEMES.current.length}
+                    totalCount={5}
                     pageSize={PAGE_SIZE.current}
                     onPageChange={setCurrentPage}
                 />

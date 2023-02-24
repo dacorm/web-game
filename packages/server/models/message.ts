@@ -1,31 +1,31 @@
 import type { ModelAttributes } from 'sequelize'
 import { DataType, Model } from 'sequelize-typescript'
 
-export interface IForum {
+export interface IMessage
+{
+  msgId?: number,
   themeId: number,
-  createdById: number,
-  countMsg: number,
-  themeName: string,
+  text: string,
+  authorId: number
 }
 
-export const forumModel: ModelAttributes<Model, IForum>= {
-  themeId: {
+export const messageModel: ModelAttributes<Model, IMessage>= {
+  msgId: {
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-
     allowNull: false
   },
-  createdById: {
+  themeId: {
     type: DataType.INTEGER,
     allowNull: false
   },
-  countMsg: {
-    type: DataType.INTEGER,
-    allowNull: false
-  },
-  themeName: {
+  text: {
     type: DataType.STRING,
+    allowNull: false
+  },
+  authorId: {
+    type: DataType.INTEGER,
     allowNull: false
   }
 };

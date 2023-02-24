@@ -10,14 +10,19 @@ interface IForumController {
 
 export class ForumController implements IForumController{
   async getAll(_req:Request, _res:Response){
-    console.log("Пришел запрпос")
+    console.log("Пришел запрос")
    const data= await  forumServise.findAll()
-    console.log(data)
     _res.send(data)
   }
   async create(req:Request, res:Response){
-    console.log(req)
-    console.log(res)
+    try {
+      const {createdById, countMsg, themeName}=req.body
+      await forumServise.createForum(createdById, countMsg, themeName)
+      res.status(200).json({message: 'OK'})
+    } catch (e) {
+      res.status(500).json({message: "Ощибка сервера"})
+    }
+
   }
 
 

@@ -16,6 +16,8 @@ import { forumModel } from './models/forum'
 import { ForumServices } from './services/forumServices'
 import forumRouter from './routes/forumRoute'
 import { webSocket } from './webSocket/WS'
+import { messageModel } from './models/message'
+import { MessageService } from './services/messageService'
 
 
 
@@ -27,9 +29,19 @@ export const sequelize = new Sequelize(sequelizeOptions);
 
 // Инициализируем модели
 export const Forum = sequelize.define('Forum', forumModel, {});
+export const Message = sequelize.define('Message', messageModel, {});
+// Forum.hasMany(Message, {
+//   foreignKey: 'themeId'
+// });
+// Message.belongsTo(Forum);
 // Инициализируем Сервисы
 export  const forumServise= new ForumServices(Forum)
-forumServise.createForum("fghdfghdfhfh fdxgRFFF", 6)
+export  const messageServise= new MessageService(Message)
+
+
+
+//const forumThemeId= Math.floor(Math.random()*100)
+//forumServise.createForum(4, 5, `Theme-${forumThemeId}`)
 dbConnect()
 
 
@@ -95,7 +107,7 @@ async function startServer() {
 
   app.use(express.json());
 //____________Postgres-------------------------
-  app.use("/forums", forumRouter)
+  app.use("/api", forumRouter)
 
 
   console.log("process.env.NODE_ENV", process.env.NODE_ENV)
