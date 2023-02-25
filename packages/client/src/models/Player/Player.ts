@@ -1,5 +1,5 @@
 import {
-    addNewGameChatMessage, actionStop, actionStart, stopCellMoving,
+    addNewGameChatMessage, actionStop, actionStart, stopCellMoving, addPlayerCurrentPosition,
 } from '../../redux/actionCreators/game';
 
 import { Canvas } from '../../core/Canvas/helpers/Canvas';
@@ -8,9 +8,6 @@ import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
 import store from '../../redux/store';
-
-import { actionStart, addPlayerCurrentPosition, stopCellMoving } from '../../redux/actionCreators/game';
-
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 import Property from '../Cards/PropertyCard/PropertyCard';
@@ -70,7 +67,7 @@ export class Player {
         if (cell) {
             const {
                 width, height, x, y,
-            } = cell.shape;
+            } = cell.shape as any;
             this.x = x + Number((width / 2).toFixed());
             this.y = y + Number((height / 2).toFixed());
         }

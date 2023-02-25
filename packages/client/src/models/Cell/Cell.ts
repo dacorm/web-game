@@ -142,7 +142,6 @@ export class Cell implements ICell {
                     // @ts-ignore
                     new Text({ text: (this.card.prices.buyCard as number).toString(), ...props }).drawShape(this.context);
                 }
-
             }
         }
     }

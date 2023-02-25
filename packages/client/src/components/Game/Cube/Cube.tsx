@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Util } from '../../../core/Util';
 import Button from '../../../shared/ui/Button';
-import { useBoard } from '../../../core/BoardStage/BoardProvider';
 import { ButtonMode, ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import { rollTheDiceFalse, setRandoms, startCellMoving } from '../../../redux/actionCreators/game';
 import { getCanRollTheDice } from '../../../redux/reducers/gameReducer/gameSelector';
@@ -35,16 +34,18 @@ const Cube :FC<CubeProps> = ({
     }, []);
 
     return (
-        <>
-            <pre>
-                {randomsfromStore[0]}
-                {' '}
-                {randomsfromStore[1]}
-                {' '}
-                =
-                {randomsfromStore.reduce((a:number, i:number) => a + i, 0)}
-            </pre>
-            {canRollTheDice && <Button theme={ButtonTheme.GREEN} size={ButtonSize.M} onClick={handleClick}>Кинуть кубики</Button>}
+        <div className={styles.cube}>
+            <div className={styles.top}>
+                <pre>
+                    {randomsfromStore[0]}
+                    {' '}
+                    {randomsfromStore[1]}
+                    {' '}
+                    =
+                    {randomsfromStore.reduce((a:number, i:number) => a + i, 0)}
+                </pre>
+            </div>
+            {canRollTheDice && <Button theme={ButtonTheme.GREEN} size={ButtonSize.M} onClick={handleClick} className={styles.button}>Кинуть кубики</Button>}
             {turnComleted && (
                 <Button
                     size={ButtonSize.M}
@@ -63,11 +64,11 @@ const Cube :FC<CubeProps> = ({
                     theme={ButtonTheme.GREEN}
                     onClick={startGameHandle}
                 >
-                    Старт Игры!!!
+                    Старт игры
 
                 </Button>
             )}
-        </>
+        </div>
     );
 };
 

@@ -75,7 +75,7 @@ export const cleanGameData = () => ({
     type: GameActionTypes.CLEAN_GAME_DATA,
 });
 
-export const addPlayerCurrentPosition = (data:{userId:number, currentPos:string}) => ({
+export const addPlayerCurrentPosition = (data:{userId:number, currentPos:number}) => ({
     type: GameActionTypes.ADD_PLAYER_CURRENT_POSITION,
     payload: data,
 });
