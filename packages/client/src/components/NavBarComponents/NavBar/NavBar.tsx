@@ -8,7 +8,7 @@ import { NavBarProps } from './NavBar.types';
 import { ROUTES } from '../../../layout/RouterLayout/RouterConst';
 
 const menuItems: NavbarItemProps[] = [
-    { id: 1, path: ROUTES.MAIN, title: 'Поиск игры' },
+    { id: 1, path: ROUTES.GAME_SEARCH, title: 'Поиск игры' },
     { id: 2, path: ROUTES.FORUM, title: 'Форум' },
     { id: 3, path: ROUTES.LEADER, title: 'Лидерборд' },
     { id: 4, path: ROUTES.LANDING, title: 'Описание' },

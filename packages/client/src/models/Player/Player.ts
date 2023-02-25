@@ -9,6 +9,8 @@ import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
 import store from '../../redux/store';
 
+import { actionStart, addPlayerCurrentPosition, stopCellMoving } from '../../redux/actionCreators/game';
+
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 import Property from '../Cards/PropertyCard/PropertyCard';
@@ -28,6 +30,7 @@ export interface Player {
   property: Property[]
   stations: any // пока нету класса жд дорог так что any
   balance: number
+  circle: Circle
   init(): void
   draw(velocity: { x: number; y: number }, cell?: Cell): void
   move(cell?: Cell): void
@@ -39,28 +42,46 @@ export interface Player {
 /* eslint-disable-next-line */
 export class Player {
     // todo: канвас везде надо забирать из стора
-    constructor({ canvas, userId, displayName }: PlayerProps) {
+    constructor({
+        canvas, userId, displayName, color, currentPos = 0,
+    }: PlayerProps) {
         this.canvas = canvas as Canvas;
         this.userId = userId;
         this.displayName = displayName;
-        this.currentPos = 0; // текущая позиция фишки относительно id карточки
+        this.currentPos = currentPos; // текущая позиция фишки относительно id карточки nameCell
         this.cells = []; // todo: возможно стоит объединить с переменной выше
         this.property = []; // экземпляры классов приобретенного имущества
         this.stations = []; // экземпляры классов приобретенных жд дорог
         this.balance = 1500; // баланс у игроков(при старте выдается 1500)
+        this.fill = color;
         board.players.push(this);
     }
 
     init() {
-        const { width, height } = Util.getCornerItemSize(this.canvas);
-        this.x = Number((width / 2).toFixed());
-        this.y = Number((height / 2).toFixed());
+        // беруться размеры ячейки старт
+        // const { width, height } = Util.getCornerItemSize(this.canvas);
+        // this.x = Number((width / 2).toFixed());
+        // this.y = Number((height / 2).toFixed());
         this.radius = 50;
-        this.fill = Util.randomColor();
+        // this.fill = Util.randomColor();
         this.trails = [];
         this.trailCount = 10;
-
-        this.draw();
+        const cell = board.getCell(this.currentPos);
+        if (cell) {
+            const {
+                width, height, x, y,
+            } = cell.shape;
+            this.x = x + Number((width / 2).toFixed());
+            this.y = y + Number((height / 2).toFixed());
+        }
+        this.circle = new Circle({
+            x: this.x,
+            y: this.y,
+            radius: this.radius,
+            fill: this.fill,
+        });
+        // this.draw();
+        this.reDraw();
     }
 
     addCell(cell?: Cell) {
@@ -78,7 +99,9 @@ export class Player {
     // eslint-disable-next-line default-param-last
     draw(velocity = { x: 0, y: 0 }, cell?: Cell) {
         if (cell) {
+            // console.log('CELL', cell);
             velocity = this.stopVelocity(velocity, cell);
+            // console.log('velocity', velocity);
         }
         // проверка закончила ли фишка передвижение
         const xIsNull = velocity.x === 0;
@@ -86,33 +109,23 @@ export class Player {
         if (xIsNull && yIsNull && store.getState().game.cellIsMoving) {
             console.log('cellIsMoving false');
             store.dispatch(stopCellMoving());
+            store.dispatch(addPlayerCurrentPosition({ userId: this.userId, currentPos: this.currentPos }));
             store.dispatch(actionStart());
         }
 
         this.x += velocity.x;
         this.y += velocity.y;
 
-        const circle = new Circle({
-            x: this.x,
-            y: this.y,
-            radius: this.radius,
-            fill: this.fill,
-        });
-        circle.drawShape(this.canvas.getContext());
+        this.circle.draw(this.canvas.getContext(), this.x, this.y);
     }
 
     /** перерисовка компонента в той же позиции */
     reDraw() {
-        const circle = new Circle({
-            x: this.x,
-            y: this.y,
-            radius: this.radius,
-            fill: this.fill,
-        });
-        circle.drawShape(this.canvas.getContext());
+        this.circle.draw(this.canvas.getContext(), this.x, this.y);
     }
 
     stopVelocity(velocity: { x: 0; y: 0 }, { shape, axis, name }: Cell) {
+        // console.log('shape', shape);
         if (shape) {
             switch (axis) {
             case BoardCellAxis.top:

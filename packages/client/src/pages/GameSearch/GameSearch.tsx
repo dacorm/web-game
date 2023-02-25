@@ -1,7 +1,6 @@
 import React, {
-    FC, useCallback, useEffect, useState,
+    FC, useCallback, useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import CreateGameForm from '../../components/GameSearch/CreateGameForm';
 import GameSearchBlock from '../../components/GameSearch/GameSearchBlock';
 import MenuHeader from '../../components/MenuHeader';
@@ -9,18 +8,18 @@ import Modal from '../../shared/ui/Modal';
 import './GameSearch.css';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-import {
-    sendMessage,
-    startAddGameListening,
-    stopAddGameListening,
-} from '../../redux/actionCreators/createGame';
+// import {
+//     sendMessage,
+//     startAddGameListening,
+//     stopAddGameListening,
+// } from '../../redux/actionCreators/createGame';
+// import { Dispatcher } from '../../redux/store';
 
 const GameSearch: FC = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch<Dispatcher>();
+    // const user = useTypedSelector((state) => state.user);
     const [createGameModal, setCreateGameModal] = useState(false);
-    const user = useTypedSelector((state) => state.user);
     const wsStatus = useTypedSelector((state) => state.games.statusWS);
-    console.log('wsStatus', wsStatus);
     const openCreateGameModal = useCallback(() => {
         setCreateGameModal(true);
     }, []);
@@ -29,44 +28,38 @@ const GameSearch: FC = () => {
         setCreateGameModal(false);
     }, []);
 
-    useEffect(() => {
-        if (user.id !== null) {
-            // @ts-ignore
-            dispatch(startAddGameListening());
-        }
+    // Подключение веб-сокетов - пока закомментил
+    // useEffect(() => {
+    //     if (user.id !== null) {
+    //         dispatch(startAddGameListening());
+    //     }
+    //
+    //     // при уходе от компоненты нужно убрать всех подписчиков
+    //     return () => {
+    //         dispatch(stopAddGameListening());
+    //     };
+    // }, [user]);
 
-        // при уходе от компоненты нужно убрать всех подписчиков
-        return () => {
-            // @ts-ignore
-            dispatch(stopAddGameListening());
-        };
-    }, [user]);
-
+    // получение игр с сервера - пока отключенно
     const GetAllGamesHandler = (e:React.MouseEvent) => {
         e.preventDefault();
-        if (wsStatus === 'ready') {
-            // @ts-ignore
-            dispatch(sendMessage(JSON.stringify({
-                method: 'addAllGames',
-            })));
-        }
+        // if (wsStatus === 'ready') {
+        //     // @ts-ignore
+        //     dispatch(sendMessage(JSON.stringify({
+        //         method: 'addAllGames',
+        //     })));
+        // }
     };
 
     return (
         <div className="search-game">
-            {wsStatus === 'ready' ? (
-                <MenuHeader
-                    text="Ожидают игры"
-                    buttonText="Создать игру"
-                    onClick={openCreateGameModal}
-                />
-            )
-                : (
-                    <MenuHeader
-                        text="Connecting to the server..."
-                        onClick={openCreateGameModal}
-                    />
-                )}
+
+            <MenuHeader
+                text={(wsStatus === 'ready') ? 'Ожидают игру' : 'Подключение к серверу...'}
+                buttonText="Создать игру"
+                onClick={openCreateGameModal}
+            />
+
             {/* eslint-disable-next-line react/button-has-type */}
             <button onClick={GetAllGamesHandler}>   Получить все игры с сервера</button>
             <GameSearchBlock />
@@ -74,8 +67,9 @@ const GameSearch: FC = () => {
                 title="Создание игры"
                 isShow={createGameModal}
                 onClose={closeCreateGameModal}
+
             >
-                <CreateGameForm />
+                <CreateGameForm network={(wsStatus === 'ready')} />
             </Modal>
         </div>
     );

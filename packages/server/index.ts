@@ -3,7 +3,6 @@ import cors from 'cors'
 dotenv.config()
 
 import express from 'express'
-// @ts-ignore
 import expressWs = require('express-ws');
 import * as path from 'path'
 import * as fs from 'fs'
@@ -11,10 +10,8 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
 
-// @ts-ignore
-let games:any[] = []
+let games: any[]
 const app = express()
-// @ts-ignore
 const WSserver = expressWs(app)
 const aWss = WSserver.getWss()
 // @ts-ignore
@@ -34,13 +31,11 @@ app.ws('/', (ws, req)=>{
       }
       case MethodsMessages.addGame:{
         broadcastConnection(ws, msg)
-        // @ts-ignore
         games=[...games, ...message.games]
         console.log("games on the server", games)
         break;
       }
       case MethodsMessages.addAllGames:{
-        // @ts-ignore
         if(games.length>0){
           ws.send(JSON.stringify({
             method: 'addAllGames',
@@ -61,7 +56,6 @@ app.ws('/', (ws, req)=>{
            })
          }
 
-        // @ts-ignore
 
         broadcastConnection(ws, msg)
 
@@ -79,7 +73,6 @@ app.ws('/', (ws, req)=>{
 
 
 
-//console.log(WSserver)
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -97,18 +90,15 @@ app.get("/ServiceWorkers.js", (req, res) => {
 
 
 
-// @ts-ignore
-const connectionHandler = (ws, msg) => {
+const connectionHandler = (ws: any, msg: any) => {
   broadcastConnection(ws, msg)
 }
 
 
 
-// @ts-ignore
-const broadcastConnection = (ws, msg) => {
+const broadcastConnection = (_: any, msg: any) => {
   console.log("broadcAST!!!!!!!!!!::::::::", msg)
   let i=0;
-  // @ts-ignore
   aWss.clients.forEach((client) => {
 
       console.log('Index', i)
@@ -170,7 +160,8 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
- 
+
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
 
 
   if (!isDev()) {

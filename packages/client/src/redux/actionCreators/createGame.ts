@@ -1,15 +1,16 @@
 import { Dispatch } from 'redux';
 import {
-    CreateGameActyonTypes, Game, Message, MethodsMessages, Player, StatusesWS, TCreateGameAction,
+    CreateGameActyonTypes, Game, Message, MethodsMessages, StatusesWS, TCreateGameAction,
 } from '../types/createGameReducer.types';
 import { GameAPI } from '../../api/WebSocket';
+import { GamePlayer } from '../types/gameReducer.types';
 
 export const actionAddGame = (games:Game[]): TCreateGameAction => ({
     type: CreateGameActyonTypes.ADD_GAMES,
     payload: games,
 });
 
-export const addUserToGame = (gameId: number, user: Player): TCreateGameAction => ({
+export const addUserToGame = (gameId: number, user: GamePlayer): TCreateGameAction => ({
     type: CreateGameActyonTypes.ADD_USER_TO_GAME,
     payload: {
         gameId,
@@ -33,22 +34,15 @@ const newGamesHandlerCreator = (dispatch:Dispatch) => {
             // console.log('mes from server', msg);
             switch (msg.method) {
             case MethodsMessages.addGame: {
-                // @ts-ignore
-                dispatch(actionAddGame(msg.games));
+                if (msg.games) dispatch(actionAddGame(msg.games));
                 break;
             }
             case MethodsMessages.addAllGames: {
-                // @ts-ignore
-                if (msg.games.length > 0) {
-                    // @ts-ignore
-                    dispatch(actionAddGame(msg.games));
-                }
-
+                if (msg.games) dispatch(actionAddGame(msg.games));
                 break;
             }
             case MethodsMessages.addUser: {
-                // @ts-ignore
-                dispatch(addUserToGame(msg.gameId, msg.user));
+                if (msg.gameId && msg.user) dispatch(addUserToGame(msg.gameId, msg.user));
                 break;
             }
             default: break;
@@ -82,6 +76,4 @@ export const stopAddGameListening = () => async (dispatch:Dispatch) => {
     GameAPI.stop();
 };
 
-export const sendMessage = (msg:Message) => {
-    GameAPI.sendMesseg(msg);
-};
+export const sendMessage = (msg: Message) => GameAPI.sendMesseg(msg);
