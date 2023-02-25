@@ -12,8 +12,17 @@ export class ForumServices{
     return this.forum.findAll();
   }
 
+  async findThemesForOnePage (offset: number, limit:number){
+   return this.forum.findAll({ offset: offset, limit: limit, order: [
+       ['themeId', 'DESC']] })
+  }
+
   async createForum( createdById:number, countMsg:number, themeName:string,) {
     await this.forum.create({ createdById, countMsg, themeName });
+  }
+
+  async getCountThemes(){
+    return this.forum.count()
   }
 
 }

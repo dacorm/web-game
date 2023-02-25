@@ -7,9 +7,16 @@ export const setThemeList = (themes: IForum[]) :TsetThemeList => ({
     payload: themes,
 });
 
-export const getThemeList = () => async (dispatch: appDispatch) => {
+export const setCountThemes = (countThemes:number) => ({
+    type: ForumActionTypes.SET_COUNT_THEMES,
+    payload: countThemes,
+});
+
+export const getThemeList = (currentPage = 1, PAGE_SIZE = 3) => async (dispatch: appDispatch) => {
+    console.log('!!!!!!!!!!!!!currentPage', currentPage, 'PAGE_SIZE', PAGE_SIZE);
     try {
-        const res = await forumApi.getAllThemes();
+        const res = await forumApi.getAllThemes(currentPage, PAGE_SIZE);
+        console.log('res', res);
         const themData = await res.json();
         console.log('themData', themData);
         if (res.status === 200) {
@@ -22,6 +29,21 @@ export const getThemeList = () => async (dispatch: appDispatch) => {
     }
 };
 
+export const getCountThemes = () => async (dispatch: appDispatch) => {
+    try {
+        const res = await forumApi.getCountThemes();
+        const count = await res.json();
+        console.log('count', count);
+        if (res.status === 200) {
+            dispatch(setCountThemes(count.count));
+        } else {
+            console.log('getThemeError', count);
+        }
+    } catch (e) {
+        console.log('error', e);
+    }
+};
+
 export const createForumThunk = (themeName:string) => async (dispatch: appDispatch) => {
     try {
         const res = await forumApi.createTheme(themeName);
@@ -29,6 +51,7 @@ export const createForumThunk = (themeName:string) => async (dispatch: appDispat
         if (res.status === 200) {
             if (forumData.message === 'OK') {
                 dispatch(getThemeList());
+                dispatch(getCountThemes());
             }
         }
         console.log(forumData);

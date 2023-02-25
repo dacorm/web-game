@@ -1,91 +1,48 @@
-import {
-    FC, useEffect, useRef, useState,
+import React, {
+    ChangeEventHandler,
+    FC, useEffect, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { TForumTheme } from './ForumBlock.types';
-
 import styles from './ForumBlock.module.css';
 import ForumItem from '../ForumItem';
 import Pagination from '../../Pagination';
-import { usePaginationItems } from '../../../hooks/usePaginationItems';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
-import { getThemeList, setThemeList } from '../../../redux/actionCreators/forum';
+import { getCountThemes, getThemeList } from '../../../redux/actionCreators/forum';
 
 const ForumBlock: FC = () => {
-    const forumThemes = useTypedSelector((state) => state.forum.themes);
     const dispatch = useDispatch();
-    console.log('THEMES', forumThemes);
-
-    // const [forumThemes, setForumThemes] = useState<TForumTheme[]>([]);
+    const forumThemes = useTypedSelector((state) => state.forum.themes);
+    const countThemes = useTypedSelector((state) => state.forum.countThemes);
+    const [PAGE_SIZE, setPageSize] = useState(3);
     const [currentPage, setCurrentPage] = useState(1);
-    const PAGE_SIZE = useRef<number>(7);
-    const EXAMPLE_FORUM_THEMES = useRef<TForumTheme[]>([
-        {
-            themeId: 10,
-            createdById: 4,
-            countMsg: 22,
-            date: new Date(),
-            themeName: 'my new theme',
-        },
-        {
-            themeId: 11,
-            createdById: 4,
-            countMsg: 12,
-            date: new Date(),
-            themeName: 'my new second theme',
-        },
-        {
-            themeId: 12,
-            createdById: 4,
-            countMsg: 22,
-            date: new Date(),
-            themeName: 'my new theme',
-        },
-        {
-            themeId: 13,
-            createdById: 4,
-            countMsg: 12,
-            date: new Date(),
-            themeName: 'my new second theme',
-        },
-        {
-            themeId: 14,
-            createdById: 2,
-            countMsg: 2,
-            date: new Date(),
-            themeName: 'my new third theme',
-        },
-        {
-            themeId: 15,
-            createdById: 4,
-            countMsg: 22,
-            date: new Date(),
-            themeName: 'my new theme',
-        },
-        {
-            themeId: 16,
-            createdById: 4,
-            countMsg: 12,
-            date: new Date(),
-            themeName: 'my new second theme',
-        },
-        {
-            themeId: 17,
-            createdById: 2,
-            countMsg: 2,
-            date: new Date(),
-            themeName: 'my new third theme',
-        },
-    ]);
 
     useEffect(() => {
-        // dispatch(setThemeList(THEMES));
-        dispatch(getThemeList());
+        dispatch(getCountThemes());
     }, []);
+
+    useEffect(() => {
+        if (countThemes !== 0) {
+            dispatch(getThemeList(currentPage, PAGE_SIZE));
+        }
+    }, [countThemes, PAGE_SIZE, currentPage]);
+    const selectChangeHandle:ChangeEventHandler<HTMLSelectElement> = (e) => {
+        setPageSize(Number(e.target.value));
+        setCurrentPage(1);
+    };
 
     return (
         <>
-
+            <div className={styles.selectCountThemes}>
+                <label htmlFor="pagesize">
+                    Количество тем на странице:
+                    {' '}
+                    {' '}
+                    <select name="pagesize" value={PAGE_SIZE} onChange={selectChangeHandle}>
+                        <option value={3}>3</option>
+                        <option value={5}>5</option>
+                    </select>
+                </label>
+            </div>
             <ul className={styles.forumBlock}>
                 {forumThemes.map((theme) => {
                     if (theme === null) {
@@ -112,8 +69,8 @@ const ForumBlock: FC = () => {
             <nav className={styles.paginationNav}>
                 <Pagination
                     currentPage={currentPage}
-                    totalCount={5}
-                    pageSize={PAGE_SIZE.current}
+                    totalCount={countThemes}
+                    pageSize={PAGE_SIZE}
                     onPageChange={setCurrentPage}
                 />
             </nav>

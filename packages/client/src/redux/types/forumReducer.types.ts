@@ -1,5 +1,6 @@
 export enum ForumActionTypes {
-  SET_THEMES='SET_THEMES'
+  SET_THEMES='SET_THEMES',
+  SET_COUNT_THEMES='SET_COUNT_THEMES'
 }
 export interface IForum {
   themeId: number,
@@ -9,6 +10,7 @@ export interface IForum {
 }
 export interface forumState {
   themes : IForum[]
+  countThemes: number
 }
 
 export type TsetThemeList = {

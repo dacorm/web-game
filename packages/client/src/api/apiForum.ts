@@ -1,7 +1,14 @@
 class ForumAPI {
 // eslint-disable-next-line class-methods-use-this
-    async getAllThemes() {
-        return await fetch('http://localhost:3001/api/forums', {
+    async getAllThemes(currentPage:number, PAGE_SIZE:number) {
+        return await fetch(`http://localhost:3001/api/forums?page=${currentPage}&count=${PAGE_SIZE}`, {
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async getCountThemes() {
+        return await fetch('http://localhost:3001/api/themecount', {
             credentials: 'include',
         });
     }
