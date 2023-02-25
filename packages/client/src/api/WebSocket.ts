@@ -1,5 +1,5 @@
 import {
-    Message, MethodsMessagesType, StatusesWS, StatusWS,
+    Message, StatusesWS, StatusWS,
 } from '../redux/types/createGameReducer.types';
 
 type SubscriberforMessages = (msg: Message) => void

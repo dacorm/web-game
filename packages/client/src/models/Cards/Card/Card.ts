@@ -9,12 +9,9 @@ export class Card implements ICard {
 
     type;
 
-    group;
-
-    constructor({ name, type, group }: CardProps) {
+    constructor({ name, type }: CardProps) {
         this.name = name;
         this.type = type;
-        this.group = group;
     }
 
     /** завершить экшен */

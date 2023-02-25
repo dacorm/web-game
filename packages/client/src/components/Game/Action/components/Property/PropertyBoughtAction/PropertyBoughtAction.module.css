@@ -1,0 +1,8 @@
+.bought {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btnBought {
+    margin-top: 2px;
+}

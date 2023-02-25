@@ -2,16 +2,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Button from '../../../shared/ui/Button';
-import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
 import { getCellFromBoard } from '../helpers/getCellFromBoard';
-import { actionStop, turnStop } from '../../../redux/actionCreators/game';
+import { actionStop, addNewGameChatMessage, turnStop } from '../../../redux/actionCreators/game';
 import { Cell } from '../../../models/Cell/Cell';
 import { BoardCellType } from '../../../core/types';
-import { StatePropertyCard } from '../../../models/Cards/Card/PropertyCard/PropertyCard.types';
+
 import { getCurrentPlayer } from '../../../redux/reducers/gameReducer/gameSelector';
-import PropertyFreeAction from './components/PropertyFreeAction';
-import PropertyBoughtAction from './components/PropertyBoughtAction';
+import { StateCard } from '../../../models/Cards/Card/Card.types';
+import PropertyAction from './components/Property/PropertyAction';
+import StationAction from './components/Station/StationAction';
+import BoxAction from './components/Box';
+import PropertyCard from '../../../models/Cards/PropertyCard';
+import ChanceAction from './components/Chance';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
@@ -22,51 +24,100 @@ const Action = () => {
 
     // завершение экшена карточки
     const handleCompleteAction = useCallback(() => {
-        const card = cell?.card;
-        if (card) {
-            card.complete();
-        }
+        cell?.card.complete();
     }, [cell]);
 
-    // временная функция для ячеек у которых не проработан экшен
-    const temporaryFunc = () => {
+    const handleBuy = useCallback(() => {
+        (cell?.card as PropertyCard).buy(player);
+    }, [cell]);
+    const handleRefuseToBuy = useCallback(() => {
+        (cell?.card as PropertyCard).refuseToBuy();
+    }, [cell]);
+
+    const handleRentPayment = useCallback(() => {
+        (cell?.card as PropertyCard).rentPayment(player);
+    }, [cell]);
+
+    // если у карточки нету экшена - сразу завершаем его
+    const skipAction = () => {
         dispatch(actionStop());
         dispatch(turnStop());
     };
 
     useEffect(() => {
-        setCell(getCellFromBoard());
-    }, []);
+        if (cell) {
+            dispatch(addNewGameChatMessage(
+                {
+                    playerName: player.displayName,
+                    message: `попадает на поле "${cell?.name}"`,
+                },
+            ));
 
-    // временная проверка пока не всем ячейкам присвоили карточку
+            if (!cell.card) {
+                skipAction();
+            }
+        }
+    }, [cell]);
+
+    useEffect(() => {
+        setCell(getCellFromBoard());
+    }, [player]);
+
     if (!cell || !cell.card) {
         return (
-            <Button onClick={temporaryFunc} size={ButtonSize.M} theme={ButtonTheme.GREEN}>
-                todo: обработать данный тип карты
-            </Button>
+            <div>загрузка...</div>
         );
+    }
+    // если недвижка\станция заложена
+    if ((cell.card as PropertyCard).stateCard === StateCard.MORTAGED) {
+        handleCompleteAction();
     }
 
     // если ячейка типа недвижки
     if (cell.type === BoardCellType.property) {
-        // если недвижка ни кем не куплена
-        if (cell.card.stateCard === StatePropertyCard.FREE) {
-            return (
-                <PropertyFreeAction cell={cell} player={player} handleCompleteAction={handleCompleteAction} />
-            );
-        }
+        return (
+            <PropertyAction
+                cell={cell}
+                player={player}
+                handleBuy={handleBuy}
+                handleCompleteAction={handleCompleteAction}
+                handleRefuseToBuy={handleRefuseToBuy}
+                handleRentPayment={handleRentPayment}
+            />
+        );
+    }
 
-        // если недвижка кем то куплена
-        if (cell.card.stateCard === StatePropertyCard.BOUGHT) {
-            return (
-                <PropertyBoughtAction cell={cell} player={player} handleCompleteAction={handleCompleteAction} />
-            );
-        }
+    // если ячейка типа станции
+    if (cell.type === BoardCellType.station) {
+        return (
+            <StationAction
+                cell={cell}
+                player={player}
+                handleBuy={handleBuy}
+                handleCompleteAction={handleCompleteAction}
+                handleRefuseToBuy={handleRefuseToBuy}
+                handleRentPayment={handleRentPayment}
+            />
+        );
+    }
 
-        // если недвижка заложена
-        if (cell.card.stateCard === StatePropertyCard.MORTAGED) {
-            handleCompleteAction();
-        }
+    // если ячейка типа казна
+    if (cell.type === BoardCellType.box) {
+        return (
+            <BoxAction
+                cell={cell}
+                player={player}
+            />
+        );
+    }
+    // если ячейка типа шанс
+    if (cell.type === BoardCellType.chance) {
+        return (
+            <ChanceAction
+                cell={cell}
+                player={player}
+            />
+        );
     }
 
     return <div />;

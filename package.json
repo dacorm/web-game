@@ -5,7 +5,8 @@
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
     "build": "lerna run build",
     "dev:client": "lerna run dev  --scope=client",
-    "dev:server": "lerna run dev --scope=server",
+    "dev:server": "cross-env NODE_ENV=development lerna run dev --scope=server",
+    "dev:server:prod": "cross-env NODE_ENV=production lerna run dev --scope=server",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
@@ -21,11 +22,17 @@
     "node": ">=15"
   },
   "devDependencies": {
+    "@babel/register": "^7.18.9",
     "@evilmartians/lefthook": "^1.1.1",
+    "canvas": "^2.11.0",
     "classnames": "^2.3.2",
     "lefthook": "^1.2.8",
     "lerna": "^5.4.3",
     "react-error-boundary": "^3.1.4",
     "sass": "^1.57.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "react-streaming": "^0.3.5"
   }
 }

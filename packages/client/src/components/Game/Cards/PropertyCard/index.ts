@@ -1,3 +1,3 @@
-import PropertyCard from './PropertyCard';
+import PropertyCardComponent from './PropertyCardComponent';
 
-export default PropertyCard;
+export default PropertyCardComponent;

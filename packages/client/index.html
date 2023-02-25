@@ -15,13 +15,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="stylesheet" href="./ssr-dist/style.css">
+    <link rel="stylesheet" href="/src/globalStyles/constants.css">
+    <link rel="stylesheet" href="/src/globalStyles/global-styles.css">
+    <link rel="stylesheet" href="/src/globalStyles/reset.css">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-
-
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--ssr-outlet--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

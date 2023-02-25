@@ -3,14 +3,15 @@ import cors from 'cors'
 dotenv.config()
 
 import express from 'express'
-// @ts-ignore
 import expressWs = require('express-ws');
+import * as path from 'path'
+import * as fs from 'fs'
+import { createServer as createViteServer } from 'vite';
+import type { ViteDevServer } from 'vite';
 
 
-// @ts-ignore
-let games:any[] = []
+let games: any[]
 const app = express()
-// @ts-ignore
 const WSserver = expressWs(app)
 const aWss = WSserver.getWss()
 // @ts-ignore
@@ -30,13 +31,11 @@ app.ws('/', (ws, req)=>{
       }
       case MethodsMessages.addGame:{
         broadcastConnection(ws, msg)
-        // @ts-ignore
         games=[...games, ...message.games]
         console.log("games on the server", games)
         break;
       }
       case MethodsMessages.addAllGames:{
-        // @ts-ignore
         if(games.length>0){
           ws.send(JSON.stringify({
             method: 'addAllGames',
@@ -57,7 +56,6 @@ app.ws('/', (ws, req)=>{
            })
          }
 
-        // @ts-ignore
 
         broadcastConnection(ws, msg)
 
@@ -75,7 +73,6 @@ app.ws('/', (ws, req)=>{
 
 
 
-//console.log(WSserver)
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -90,26 +87,18 @@ app.get("/ServiceWorkers.js", (req, res) => {
   console.log(req)
   res.sendFile(path.resolve(__dirname,  "../client/dist/ServiceWorkers.js"));
 });
-app.get('*', (req, res) => {
-  console.log(req)
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-})
-// @ts-ignore
-const connectionHandler = (ws, msg) => {
+
+
+const connectionHandler = (ws: any, msg: any) => {
   broadcastConnection(ws, msg)
 }
 
 
 
-// @ts-ignore
-const broadcastConnection = (ws, msg) => {
+const broadcastConnection = (_: any, msg: any) => {
   console.log("broadcAST!!!!!!!!!!::::::::", msg)
   let i=0;
-  // @ts-ignore
   aWss.clients.forEach((client) => {
 
       console.log('Index', i)
@@ -128,6 +117,121 @@ function getIdsofGamesfromState(games:any[]) {
   });
   return idsGames;
 }
+
+// -------------SSR------------------
+
+const isDev = () => process.env.NODE_ENV === 'development'
+
+async function startServer() {
+  const app = express()
+  app.use(cors())
+ 
+
+  let vite: ViteDevServer;
+ 
+  //чтобы это работало нужно создать ссылку на папку client с помощью yarn link
+  // и потом server в node_modules добавить ссылку на эту папку
+  // но чтобы проблем не было возни в разработке пока закоменчу
+
+  // const distPath = path.resolve(__dirname, 'node_modules/client/dist/index.html')
+  // const srcPath = path.resolve(__dirname, 'node_modules/client')
+  // const ssrClientPath = path.resolve(__dirname, 'node_modules/client/ssr-dist/client.cjs') 
+
+  const distPath = path.resolve(__dirname, '..//client/dist/index.html')
+   
+  const srcPath = path.resolve(__dirname, '../client')
+ 
+  const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs') 
+
+
+  if (isDev()) {
+    vite = await createViteServer({
+      server: { middlewareMode: true },
+      root: srcPath,
+      appType: 'custom'
+    })
+
+    app.use(vite.middlewares)
+  }
+
+  app.use(express.json());
+
+
+  app.get('/api', (_, res) => {
+    res.json('👋 Howdy from the server :)')
+  })
+
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
+
+
+  if (!isDev()) {
+    app.use('/assets', express.static(path.resolve(distPath, 'assets')))
+  }
+
+  app.use('*', async (req, res, next) => {
+    const url = req.originalUrl;
+
+    try {
+      let template: string;
+      let configureStore: (
+        preloadedState: Record<string, unknown> | undefined
+    ) => any;
+
+      if (!isDev()) {
+        template = fs.readFileSync(
+          path.resolve(distPath, 'index.html'),
+          'utf-8',
+        )
+      } else {
+        template = fs.readFileSync(
+          path.resolve(srcPath, 'index.html'),
+          'utf-8',
+        )
+       
+        template = await vite.transformIndexHtml(url, template)
+      }
+
+      let render: (req: string) => Promise<string>;
+
+      if (!isDev()) {
+        render = (await import(ssrClientPath)).render;
+        configureStore = (await import(ssrClientPath)).configureStore
+      } else {
+        render = (await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
+        configureStore = (await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).configureStore
+      }
+
+      const store = configureStore(undefined)
+      const state = store.getState()
+
+      const appHtml = await render(req.originalUrl)
+
+      const stateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
+        state
+    ).replace(/</g, "\\u003c")}</script>`;
+      
+      
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateHtml)
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+    } catch (e) {
+      if (isDev()) {
+        vite.ssrFixStacktrace(e as Error)
+      }
+      next(e)
+    }
+  });
+
+  app.listen(port, () => {
+    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+  })
+}
+
+startServer()
+
+
+// -------------END SSR------------------
+
 
 export enum MethodsMessages  {
   addGame='addGame',

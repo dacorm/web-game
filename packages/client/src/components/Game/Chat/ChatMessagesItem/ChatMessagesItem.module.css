@@ -1,0 +1,19 @@
+.item {
+    display:flex;
+    align-items:center;
+    margin-bottom: 10px;
+  }
+  .namePlayer {
+    font-size: 21px;
+    color: var(--color-fallout);
+    font-weight: bold;
+    align-self: flex-start;
+      font-family: fallout;
+  }
+  .message {
+    margin-left: 10px;
+    font-size: 17px;
+    color: var(--color-fallout);
+      font-family: fallout;
+  }
+  

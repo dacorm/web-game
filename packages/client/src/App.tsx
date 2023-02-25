@@ -1,5 +1,5 @@
 import React, { StrictMode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+
 import RouterLayout from './layout/RouterLayout/RouterLayout';
 
 import './globalStyles/reset.css';
@@ -12,9 +12,7 @@ function App() {
 
     return (
         <StrictMode>
-            <BrowserRouter>
-                <RouterLayout />
-            </BrowserRouter>
+            <RouterLayout />
         </StrictMode>
     );
 }

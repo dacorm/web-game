@@ -1,0 +1,83 @@
+@font-face {
+    font-family: fallout;
+    src: url(../../../../assets/fonts/overseerrusbydaymarius.ttf);
+}
+
+.userData {
+    max-width: 90%;
+  margin: 10px;
+    background:black;
+  border-radius: 5px;
+  color: #4BB04B;
+  font-weight:bold;
+  display: flex;
+    font-family: fallout;
+    box-shadow: 10px 5px 5px gray;
+
+}
+
+.userImg {
+ width: 50px;
+  border-radius: 3px;
+  margin: 5px;
+
+}
+
+.balance {
+  font-size:xx-large;
+}
+
+.color {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.color img {
+    width: 100%;
+
+}
+
+ @media (max-width: 900px) {
+
+   .data {
+     display: none;
+   }
+    }
+
+@media (max-width: 1100px) {
+
+    .balance {
+        font-size:x-large;
+    }
+    .data {
+        min-width: 30%;
+    }
+}
+
+@media (max-width: 700px) {
+    .userImg {
+    display: none;
+
+    }
+
+
+}
+
+
+.hr
+{
+    border: none; /* Убираем границу */
+    background-color: #4BB04B; /* Цвет линии */
+    color: #4BB04B; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+    margin-top: 2px;
+}
+
+.data {
+    min-width: 40%;
+}
+
