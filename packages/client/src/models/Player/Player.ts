@@ -1,10 +1,16 @@
+import {
+    addNewGameChatMessage, actionStop, actionStart, stopCellMoving,
+} from '../../redux/actionCreators/game';
+
 import { Canvas } from '../../core/Canvas/helpers/Canvas';
 import { Circle } from '../../core/Shapes/Circle';
 import { Util } from '../../core/Util';
 import { board } from '../Board/Board';
 import { PlayerProps } from './Player.types';
 import store from '../../redux/store';
+
 import { actionStart, addPlayerCurrentPosition, stopCellMoving } from '../../redux/actionCreators/game';
+
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 import Property from '../Cards/PropertyCard/PropertyCard';
@@ -232,12 +238,50 @@ export class Player {
         this.balance += value;
     }
 
+    /** получить деньги за прохождение старта */
+    getMoneyForStart() {
+        this.getMoney(200);
+    }
+
+    /** поменять координаты фишки игрока */
+    changePosition(cellIndex: number) {
+        const cell = board.getCell(cellIndex) as Cell;
+        this.x = cell.x as number + (cell?.width as number) / 2;
+        this.y = cell.y as number + (cell?.height as number) / 2;
+    }
+
+    /** отправить игрока на клетку без выплаты денег за старт */
+    sendPlayerToCellWithoutStart(cellIndex: number) {
+        this.changePosition(cellIndex);
+
+        this.currentPos = cellIndex;
+
+        store.dispatch(actionStop());
+        setTimeout(() => { store.dispatch(actionStart()); }, 0);
+    }
+
+    /** отправить игрока на клетку с возможностью выплаты денег за старт */
+    sendPlayerToCellWithStart(cellIndex: number) {
+        const index = this.currentPos > cellIndex // вычисляем на сколько нужно передвинуться игроку относительно своей позиции
+            ? board.stage?.cells.length as number - this.currentPos + cellIndex
+            : cellIndex - this.currentPos;
+
+        this.updateCurrentPos(index);
+
+        this.changePosition(cellIndex);
+
+        store.dispatch(actionStop());
+        setTimeout(() => { store.dispatch(actionStart()); }, 0);
+    }
+
     /** обновить текущую позицию игрока на новую клетку в зависимости от кубика  */
     updateCurrentPos(value: number) {
         this.currentPos += value;
 
         if (this.currentPos > 39) {
             this.currentPos -= 40;
+            this.getMoneyForStart();
+            store.dispatch(addNewGameChatMessage({ message: 'получает 200$ за прохождения поля "Старт"', playerName: this.displayName }));
         }
         console.log(`переход к ячейке с индексом ${this.currentPos}`);
 

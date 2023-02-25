@@ -6,6 +6,7 @@ import {
 import { FillRect } from '../../core/Shapes/FillRect';
 import { IText, Text } from '../../core/Shapes/Text';
 import { TCard } from '../Cards/Card/Card.types';
+import PropertyCard from '../Cards/PropertyCard';
 
 interface ICell {
   name: string
@@ -134,7 +135,14 @@ export class Cell implements ICell {
                     break;
                 default:
                 }
-                new Text({ text: this.card.prices.buyCard.toString(), ...props } as IText).drawShape(this.context);
+
+                // todo: типизация
+
+                if ((this.card as PropertyCard).prices) {
+                    // @ts-ignore
+                    new Text({ text: (this.card.prices.buyCard as number).toString(), ...props }).drawShape(this.context);
+                }
+
             }
         }
     }

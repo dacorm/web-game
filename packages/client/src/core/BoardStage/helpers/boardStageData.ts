@@ -13,6 +13,8 @@ import imgWaterSupply from '../../../assets/img/sprites/water-supply.png';
 import { BoardCellAxis, BoardCellGroup, BoardCellType } from '../../types';
 import PropertyCard from '../../../models/Cards/PropertyCard/PropertyCard';
 import StationCard from '../../../models/Cards/StationCard';
+import BoxCard from '../../../models/Cards/BonusCard/BoxCard/BoxCard';
+import ChanceCard from '../../../models/Cards/BonusCard/ChanceCard';
 
 function createDepartment(name: string, axis: BoardCellAxis, image: string, type?: BoardCellType): Cell {
     return new Cell({
@@ -62,6 +64,16 @@ function createTax(axis: BoardCellAxis): Cell {
         type: BoardCellType.tax, name: 'Подоходный налог', axis, image: imgTax,
     });
 }
+
+function createBox(axis: BoardCellAxis): Cell {
+    return new Cell({
+        type: BoardCellType.box,
+        name: 'Общественная казна',
+        axis,
+        image: imgTreasury,
+        card: BoxCard.getInstance(),
+    });
+}
 function createStation(axis: BoardCellAxis): Cell {
     return new Cell({
         type: BoardCellType.station,
@@ -84,7 +96,11 @@ function createStation(axis: BoardCellAxis): Cell {
 }
 function createChance(axis: BoardCellAxis): Cell {
     return new Cell({
-        type: BoardCellType.chance, name: 'Шанс', axis, image: imgChance,
+        type: BoardCellType.chance,
+        name: 'Шанс',
+        axis,
+        image: imgChance,
+        card: ChanceCard.getInstance(),
     });
 }
 
@@ -108,7 +124,7 @@ export const boardStageData = () => ({
 
             },
         ),
-        createQuestion('Общественная казана', BoardCellAxis.top, imgTreasury),
+        createBox(BoardCellAxis.top),
         createProperty(
             'Нагатинская улица',
             BoardCellGroup.goldenrod,
@@ -252,7 +268,7 @@ export const boardStageData = () => ({
 
             },
         ),
-        createQuestion('Общественная казана', BoardCellAxis.right, imgTreasury),
+        createBox(BoardCellAxis.right),
         createProperty(
             'улица Вавилова',
             BoardCellGroup.darkOrange,
@@ -430,7 +446,7 @@ export const boardStageData = () => ({
 
             },
         ),
-        createQuestion('Общественная казана', BoardCellAxis.left, imgTreasury),
+        createBox(BoardCellAxis.left),
         createProperty(
             'Кутузовский проспект',
             BoardCellGroup.indigo,

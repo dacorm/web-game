@@ -49,6 +49,7 @@ module.exports = {
     'consistent-return': 'warn',
     'no-return-assign': 'warn',
     'array-callback-return': 'warn',
+    'class-methods-use-this': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
   },
 
