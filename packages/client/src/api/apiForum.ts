@@ -7,6 +7,13 @@ class ForumAPI {
     }
 
     // eslint-disable-next-line class-methods-use-this
+    async getOneTheme(themeId:number) {
+        return await fetch(`http://localhost:3001/api/onetheme?themeId=${themeId}`, {
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
     async getCountThemes() {
         return await fetch('http://localhost:3001/api/themecount', {
             credentials: 'include',

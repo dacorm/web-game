@@ -12,6 +12,12 @@ export class ForumServices{
     return this.forum.findAll();
   }
 
+  async findOne(themeId:number){
+    return this.forum.findOne({where: {
+        themeId
+      }});
+  }
+
   async findThemesForOnePage (offset: number, limit:number){
    return this.forum.findAll({ offset: offset, limit: limit, order: [
        ['themeId', 'DESC']] })

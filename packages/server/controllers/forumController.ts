@@ -14,6 +14,12 @@ export class ForumController implements IForumController{
    const data= await  forumServise.findAll()
     _res.send(data)
   }
+  async getOne(_req:Request, _res:Response){
+    console.log("Пришел запрос")
+    const {themeId}=_req.query
+    const data= await  forumServise.findOne(Number(themeId))
+    _res.send(data)
+  }
 
   async getCountThemes(_req:Request, _res:Response){
     const data= await  forumServise.getCountThemes()

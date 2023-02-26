@@ -5,6 +5,7 @@ const initialState: forumState = {
     themes: [],
     countThemes: 0,
     currentMessages: [],
+    currentTheme: null,
 };
 
 const initialAction = { type: '__INIT__' };
@@ -25,6 +26,11 @@ export const forumReducer = (state = initialState, action:ActionType = initialAc
         return {
             ...state,
             currentMessages: action.payload,
+        };
+    case ForumActionTypes.SET_CURRENT_THEME:
+        return {
+            ...state,
+            currentTheme: action.payload,
         };
     default:
         return state;

@@ -3,7 +3,6 @@ import {
 } from '../types/forumReducer.types';
 import { appDispatch } from '../store';
 import { forumApi } from '../../api/apiForum';
-import app from '../../App';
 
 export const setThemeList = (themes: IForum[]) :TsetThemeList => ({
     type: ForumActionTypes.SET_THEMES,
@@ -20,6 +19,11 @@ export const setMessages = (messages: IMes[]) => ({
     payload: messages,
 });
 
+export const setCurrentTheme = (theme: IMes[]) => ({
+    type: ForumActionTypes.SET_CURRENT_THEME,
+    payload: theme,
+});
+
 export const getThemeList = (currentPage = 1, PAGE_SIZE = 3) => async (dispatch: appDispatch) => {
     console.log('!!!!!!!!!!!!!currentPage', currentPage, 'PAGE_SIZE', PAGE_SIZE);
     try {
@@ -31,6 +35,20 @@ export const getThemeList = (currentPage = 1, PAGE_SIZE = 3) => async (dispatch:
             dispatch(setThemeList(themData));
         } else {
             console.log('getThemeError', themData);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const getTheme = (themeId:number) => async (dispatch:appDispatch) => {
+    try {
+        const res = await forumApi.getOneTheme(themeId);
+        const themData = await res.json();
+        if (res.status === 200) {
+            dispatch(setCurrentTheme(themData));
+        } else {
+            console.log('getONEThemeError', themData);
         }
     } catch (e) {
         console.warn(e);
