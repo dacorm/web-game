@@ -18,6 +18,7 @@ import forumRouter from './routes/forumRoute'
 import { webSocket } from './webSocket/WS'
 import { messageModel } from './models/message'
 import { MessageService } from './services/messageService'
+//import { association } from './models/association'
 
 
 
@@ -30,10 +31,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 // Инициализируем модели
 export const Forum = sequelize.define('Forum', forumModel, {});
 export const Message = sequelize.define('Message', messageModel, {});
-// Forum.hasMany(Message, {
-//   foreignKey: 'themeId'
-// });
-// Message.belongsTo(Forum);
+
 // Инициализируем Сервисы
 export  const forumServise= new ForumServices(Forum)
 export  const messageServise= new MessageService(Message)
@@ -44,6 +42,8 @@ export  const messageServise= new MessageService(Message)
 //forumServise.createForum(4, 5, `Theme-${forumThemeId}`)
 dbConnect()
 
+//инициализация связей в моделях
+//association()
 
 
 

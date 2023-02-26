@@ -27,14 +27,14 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
             >
                 <ul className="messages">
                     {messages.map(({
-                        msgId, text, authorId, date,
+                        msgId, text, authorId, createdAt,
                     }) => (
                         <ForumThemeMessageItem
                             key={msgId}
                             msgId={msgId}
                             text={text}
                             authorId={authorId}
-                            date={date}
+                            date={createdAt}
                         />
                     ))}
                 </ul>

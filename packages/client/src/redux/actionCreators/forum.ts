@@ -1,6 +1,9 @@
-import { ForumActionTypes, IForum, TsetThemeList } from '../types/forumReducer.types';
+import {
+    ForumActionTypes, IForum, IMes, TsetThemeList,
+} from '../types/forumReducer.types';
 import { appDispatch } from '../store';
 import { forumApi } from '../../api/apiForum';
+import app from '../../App';
 
 export const setThemeList = (themes: IForum[]) :TsetThemeList => ({
     type: ForumActionTypes.SET_THEMES,
@@ -10,6 +13,11 @@ export const setThemeList = (themes: IForum[]) :TsetThemeList => ({
 export const setCountThemes = (countThemes:number) => ({
     type: ForumActionTypes.SET_COUNT_THEMES,
     payload: countThemes,
+});
+
+export const setMessages = (messages: IMes[]) => ({
+    type: ForumActionTypes.SET_CURRENT_MESSAGES,
+    payload: messages,
 });
 
 export const getThemeList = (currentPage = 1, PAGE_SIZE = 3) => async (dispatch: appDispatch) => {
@@ -54,7 +62,36 @@ export const createForumThunk = (themeName:string) => async (dispatch: appDispat
                 dispatch(getCountThemes());
             }
         }
-        console.log(forumData);
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const getMessages = (themeId:number) => async (dispatch: appDispatch) => {
+    try {
+        const res = await forumApi.getMes(themeId);
+        const messages = await res.json();
+        console.log('messages', messages);
+        if (res.status === 200) {
+            dispatch(setMessages(messages));
+        } else {
+            console.log('getThemeError', messages);
+        }
+    } catch (e) {
+        console.log('error', e);
+    }
+};
+
+export const createMes = (themeId:number, text:string, authorId:number) => async (dispatch:appDispatch) => {
+    try {
+        const res = await forumApi.createMes(themeId, text, authorId);
+        const forumData = await res.json();
+        console.log(res);
+        if (res.status === 200) {
+            if (forumData.message === 'OK') {
+                dispatch(getMessages(themeId));
+            }
+        }
     } catch (e) {
         console.warn(e);
     }

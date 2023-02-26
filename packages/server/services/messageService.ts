@@ -7,11 +7,12 @@ export class MessageService{
     this.message=model
   }
 
-  async findAll(){
-    return this.message.findAll();
+  async findAll(themeId:number){
+    return this.message.findAll({ where: { themeId }});
   }
 
-  async createMessage(  themeId: number, text: string, authorId: number) {
+
+  async create(  themeId: number, text: string, authorId: number) {
     await this.message.create({ themeId, text, authorId });
   }
 

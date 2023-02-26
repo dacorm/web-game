@@ -4,6 +4,7 @@ import { ActionType } from '../../store';
 const initialState: forumState = {
     themes: [],
     countThemes: 0,
+    currentMessages: [],
 };
 
 const initialAction = { type: '__INIT__' };
@@ -19,6 +20,11 @@ export const forumReducer = (state = initialState, action:ActionType = initialAc
         return {
             ...state,
             countThemes: action.payload,
+        };
+    case ForumActionTypes.SET_CURRENT_MESSAGES:
+        return {
+            ...state,
+            currentMessages: action.payload,
         };
     default:
         return state;

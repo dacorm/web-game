@@ -28,6 +28,27 @@ class ForumAPI {
             credentials: 'include',
         });
     }
+
+    // eslint-disable-next-line class-methods-use-this
+    async createMes(themeId:number, text:string, authorId:number) {
+        return await fetch('http://localhost:3001/api/createmes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                themeId, text, authorId,
+            }),
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async getMes(themeId:number) {
+        return await fetch(`http://localhost:3001/api/theme?themeId=${themeId}`, {
+            credentials: 'include',
+        });
+    }
 }
 
 export const forumApi = new ForumAPI();

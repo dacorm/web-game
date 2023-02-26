@@ -41,7 +41,7 @@ export class ForumController implements IForumController{
       await forumServise.createForum(createdById, countMsg, themeName)
       res.status(200).json({message: 'OK'})
     } catch (e) {
-      res.status(500).json({message: "Ощибка сервера"})
+      res.status(500).json({message: "Ошибка сервера"})
     }
 
   }
