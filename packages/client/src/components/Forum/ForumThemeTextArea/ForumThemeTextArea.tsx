@@ -13,7 +13,9 @@ const ForumThemeTextArea: FC<ForumThemeTextAreaProps> = ({ themeId }) => {
 
     const mesHandler = (e:React.MouseEvent) => {
         e.preventDefault();
-        dispatch(createMes(themeId, text, 2));
+        if (text.length !== 0) {
+            dispatch(createMes(themeId, text, 2));
+        }
     };
 
     const textChangeHandler:ChangeEventHandler<HTMLTextAreaElement> = (e) => {
