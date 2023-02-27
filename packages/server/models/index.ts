@@ -7,13 +7,12 @@ export interface IUser {
   lastName: string;
 }
 
-export const userModel: ModelAttributes<Model, IUser>= {
-  firstName: {
-    type: DataType.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: DataType.STRING,
-  }
+export const userModel: ModelAttributes<Model, IUser> = {
+    firstName: {
+        type: DataType.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: DataType.STRING,
+    },
 };
-

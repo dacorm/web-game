@@ -1,24 +1,25 @@
-import type { Theme } from '../index'
+import type { Theme } from '../index';
 
 export class ThemeService {
-  theme: typeof Theme
-  constructor(model: typeof Theme) {
-    this.theme=model
-  }
+    theme: typeof Theme;
 
-  async findAll(){
-    return this.theme.findAll()
-  }
+    constructor(model: typeof Theme) {
+        this.theme = model;
+    }
 
-  async findOne(id:number){
-    return this.theme.findOne({where: {id}})
-  }
+    async findAll() {
+        return this.theme.findAll();
+    }
 
-  async createTheme(theme: string, device: string, ownerId: string){
-    await this.theme.create({theme, device, ownerId})
-  }
+    async findOne(id: number) {
+        return this.theme.findOne({ where: { id } });
+    }
 
-  async getCountThemes(){
-    return this.theme.count()
-  }
+    async createTheme(theme: string, device: string, ownerId: string) {
+        await this.theme.create({ theme, device, ownerId });
+    }
+
+    async getCountThemes() {
+        return this.theme.count();
+    }
 }
