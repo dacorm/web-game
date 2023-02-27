@@ -1,10 +1,10 @@
-import  Models from './../models/index.ts'
+import type { User } from '../index'
+
 
 export class UserService {
-  constructor(sequelize) {
-    Models(sequelize);
-    this.client = sequelize;
-    this.models=sequelize.models
+  user: typeof User
+  constructor(model: typeof User) {
+    this.user=model
   }
 
   async getUser(){

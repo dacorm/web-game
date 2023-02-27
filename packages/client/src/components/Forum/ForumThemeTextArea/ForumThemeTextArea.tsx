@@ -1,24 +1,24 @@
-import { FC, useState } from 'react';
+import React, { ChangeEventHandler, FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
-
 import styles from './ForumThemeTextArea.module.css';
 import { createMes } from '../../../redux/actionCreators/forum';
+import { Dispatcher } from '../../../redux/store';
+import { ForumThemeTextAreaProps } from './ForumThemeTextArea.types';
 
-const ForumThemeTextArea: FC = ({ themeId }) => {
-    const dispatch = useDispatch();
+const ForumThemeTextArea: FC<ForumThemeTextAreaProps> = ({ themeId }) => {
+    const dispatch = useDispatch<Dispatcher>();
     const [text, setText] = useState('');
 
-    const mesHandler = (e) => {
-        console.log(themeId);
+    const mesHandler = (e:React.MouseEvent) => {
         e.preventDefault();
         dispatch(createMes(themeId, text, 2));
     };
 
-    const textChangeHandler = (e) => {
-        e.preventDefault();
-        setText(e.target.value);
+    const textChangeHandler:ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+        const target = e.target as HTMLTextAreaElement;
+        setText(target.value);
     };
 
     return (

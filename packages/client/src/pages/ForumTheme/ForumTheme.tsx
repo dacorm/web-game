@@ -8,20 +8,18 @@ import ForumThemeTextArea from '../../components/Forum/ForumThemeTextArea';
 import styles from './ForumTheme.module.css';
 import { getMessages, getTheme } from '../../redux/actionCreators/forum';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { Dispatcher } from '../../redux/store';
 
 const ForumTheme = () => {
     const { themeId } = useParams();
-    const dispatch = useDispatch();
-    console.log('THEMEID', themeId);
+    const dispatch = useDispatch<Dispatcher>();
     const currentTheme = useTypedSelector((state) => state.forum.currentTheme);
-    console.log('currentTheme', currentTheme);
     const currentMessages = useTypedSelector((state) => state.forum.currentMessages);
-    console.log('currentMessages', currentMessages);
     // в юрл получаем айди темы и будем ее подтягивать с бэка с +- такими данными:
 
     useEffect(() => {
-        dispatch(getTheme(themeId));
-        dispatch(getMessages(themeId));
+        dispatch(getTheme(Number(themeId)));
+        dispatch(getMessages(Number(themeId)));
     }, [themeId]);
 
     return (
@@ -34,7 +32,7 @@ const ForumTheme = () => {
             )}
             {!!currentTheme && <ForumThemeMessages messages={currentMessages} />}
             <div className={styles.formWrapper}>
-                <ForumThemeTextArea themeId={themeId} />
+                <ForumThemeTextArea themeId={Number(themeId)} />
             </div>
         </div>
     );

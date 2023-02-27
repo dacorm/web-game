@@ -5,10 +5,11 @@ import styles from '../../GameSearch/CreateGameForm/CreateGameForm.module.css';
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/shared/shared.button.types';
 import { createForumThunk } from '../../../redux/actionCreators/forum';
+import { Dispatcher } from '../../../redux/store';
 
 const CreateForumForm = () => {
     const [nameTheme, setNameTheme] = useState('');
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<Dispatcher>();
     const changeHandler:ChangeEventHandler<HTMLInputElement> = (e) => {
         const { value } = e.target as HTMLInputElement;
         setNameTheme(value);

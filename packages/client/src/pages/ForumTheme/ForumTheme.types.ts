@@ -2,7 +2,7 @@ export type TThemeMessage = {
   msgId: number
   text: string
   authorId: number
-  date: Date
+  createdAt: Date
 }
 
 export type TTheme = {

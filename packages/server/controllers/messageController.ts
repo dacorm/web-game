@@ -3,12 +3,17 @@ import { messageServise } from '../index'
 
 
 class MessageController{
-  async getAll(_req:Request, _res:Response){
-    console.log("Пришел запрос")
-    const {themeId}=_req.query
-    console.log("themId", themeId)
-    const data= await  messageServise.findAll(Number(themeId))
-    _res.send(data)
+  async getAll(req:Request, res:Response){
+    try{
+      console.log("Пришел запрос")
+      const {themeId}=req.query
+      const data= await  messageServise.findAll(Number(themeId))
+      res.send(data)
+    } catch (e) {
+      res.status(500).json({message: "Ошибка сервера"})
+    }
+
+
   }
 
   async create(req:Request, res:Response){

@@ -34,7 +34,7 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
                             msgId={msgId}
                             text={text}
                             authorId={authorId}
-                            date={createdAt}
+                            createdAt={createdAt}
                         />
                     ))}
                 </ul>

@@ -8,9 +8,11 @@ import ForumItem from '../ForumItem';
 import Pagination from '../../Pagination';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { getCountThemes, getThemeList } from '../../../redux/actionCreators/forum';
+import { Dispatcher } from '../../../redux/store';
+import { IForum } from '../../../redux/types/forumReducer.types';
 
 const ForumBlock: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<Dispatcher>();
     const forumThemes = useTypedSelector((state) => state.forum.themes);
     const countThemes = useTypedSelector((state) => state.forum.countThemes);
     const [PAGE_SIZE, setPageSize] = useState(3);
@@ -44,7 +46,7 @@ const ForumBlock: FC = () => {
                 </label>
             </div>
             <ul className={styles.forumBlock}>
-                {forumThemes.map((theme) => {
+                {forumThemes.map((theme:IForum) => {
                     if (theme === null) {
                         return;
                     }
@@ -52,16 +54,16 @@ const ForumBlock: FC = () => {
                         themeId, createdById, createdAt, countMsg, themeName,
                     } = theme;
 
-                    /* eslint-disable-next-line */
                     return (
                         <ForumItem
                             key={themeId}
                             themeId={themeId}
                             createdById={createdById}
-                            date={createdAt}
+                            createdAt={createdAt}
                             countMsg={countMsg}
                             themeName={themeName}
                         />
+
                     );
                 })}
             </ul>

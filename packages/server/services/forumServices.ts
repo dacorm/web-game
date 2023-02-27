@@ -4,7 +4,6 @@ import type { Forum } from '../index'
 export class ForumServices{
   forum: typeof Forum
   constructor(model: typeof Forum) {
-    console.log("model", model)
     this.forum=model
   }
 

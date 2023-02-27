@@ -9,35 +9,55 @@ interface IForumController {
 
 
 export class ForumController implements IForumController{
-  async getAll(_req:Request, _res:Response){
-    console.log("Пришел запрос")
-   const data= await  forumServise.findAll()
-    _res.send(data)
-  }
-  async getOne(_req:Request, _res:Response){
-    console.log("Пришел запрос")
-    const {themeId}=_req.query
-    const data= await  forumServise.findOne(Number(themeId))
-    _res.send(data)
-  }
-
-  async getCountThemes(_req:Request, _res:Response){
-    const data= await  forumServise.getCountThemes()
-    console.log("data", data)
-    _res.json({ count: data })
-  }
-
-  async findThemesForOnePage(_req:Request, _res:Response){
-    console.log("Пришел запрос!!!!", _req.query)
-    const {page, count}=_req.query
-    if(count && page){
-      const offset = Number(count)*(Number(page)-1)
-      const data= await forumServise.findThemesForOnePage(offset, Number(count))
-      //const data= await  forumServise.findAll()
-
-      _res.send(data)
+  async getAll(_req:Request, res:Response){
+    try{
+      console.log("Пришел запрос")
+      const data= await  forumServise.findAll()
+      res.send(data)
+    }catch (e){
+      res.status(500).json({message: "Ошибка сервера"})
     }
+
+
   }
+  async getOne(req:Request, res:Response){
+    try{
+      console.log("Пришел запрос")
+      const {themeId}=req.query
+      const data= await  forumServise.findOne(Number(themeId))
+      res.send(data)
+    }catch (e) {
+      res.status(500).json({message: "Ошибка сервера"})
+    }
+
+
+
+  }
+
+  async getCountThemes(_req:Request, res:Response){
+    try{
+      const data= await  forumServise.getCountThemes()
+      res.json({ count: data })
+    }catch (e) {
+      res.status(500).json({message: "Ошибка сервера"})
+    }
+
+
+  }
+
+  async findThemesForOnePage(req:Request, res:Response){
+    try{
+      console.log("Пришел запрос!!!!", req.query)
+      const {page, count}=req.query
+      if(count && page) {
+        const offset = Number(count) * (Number(page) - 1)
+        const data = await forumServise.findThemesForOnePage(offset, Number(count))
+        //const data= await  forumServise.findAll()
+        res.send(data)
+      }
+    } catch (e) {res.status(500).json({message: "Ошибка сервера"})}
+    }
+
 
 
 

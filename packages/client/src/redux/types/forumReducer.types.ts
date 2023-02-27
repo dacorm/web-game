@@ -9,6 +9,7 @@ export interface IForum {
   createdById: number,
   countMsg: number,
   themeName: string,
+  createdAt?: Date
 }
 export interface IMes {
   msgId?: number,
@@ -28,3 +29,24 @@ export type TsetThemeList = {
   type: ForumActionTypes.SET_THEMES,
   payload: IForum[],
 }
+
+export type TsetCountThemes = {
+  type: ForumActionTypes.SET_COUNT_THEMES,
+  payload: number,
+}
+
+export type TsetMessages = {
+  type: ForumActionTypes.SET_CURRENT_MESSAGES,
+  payload: IMes[],
+}
+
+export type TsetCurrentTheme = {
+  type: ForumActionTypes.SET_CURRENT_THEME,
+  payload: IForum,
+}
+
+export type TForumAction =
+  | TsetThemeList
+  | TsetCountThemes
+  | TsetMessages
+  | TsetCurrentTheme

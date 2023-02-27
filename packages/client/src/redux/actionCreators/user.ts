@@ -99,6 +99,7 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
         if (loginRes.status === 200) {
             const resUser = await userApi.getUser();
             const userData = await resUser.json();
+            console.log('LOGINDATA', userData);
             dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
         } else {
             const errors = await loginRes.json();

@@ -17,7 +17,7 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
     msgId,
     text,
     authorId,
-    date,
+    createdAt,
 }) => {
     const [author, setAuthor] = useState<TUser | null>(null);
     const EXAMPLE_USER = useRef<TUser>({
@@ -44,7 +44,7 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
                 />
                 <div className={styles.name}>{author?.name}</div>
                 <time className={styles.date}>
-                    {date.toLocaleString().slice(0, 17)}
+                    {createdAt.toLocaleString().slice(0, 17)}
                 </time>
             </div>
             <div className={styles.message}>

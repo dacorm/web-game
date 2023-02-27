@@ -18,6 +18,7 @@ import forumRouter from './routes/forumRoute'
 import { webSocket } from './webSocket/WS'
 import { messageModel } from './models/message'
 import { MessageService } from './services/messageService'
+import { userModel } from './models/user'
 //import { association } from './models/association'
 
 
@@ -31,7 +32,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 // Инициализируем модели
 export const Forum = sequelize.define('Forum', forumModel, {});
 export const Message = sequelize.define('Message', messageModel, {});
-
+export const User = sequelize.define('User', userModel, {});
 // Инициализируем Сервисы
 export  const forumServise= new ForumServices(Forum)
 export  const messageServise= new MessageService(Message)
