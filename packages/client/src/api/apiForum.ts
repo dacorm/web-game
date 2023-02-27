@@ -8,21 +8,21 @@ class ForumAPI {
 
     // eslint-disable-next-line class-methods-use-this
     async getOneTheme(themeId:number) {
-        return await fetch(`http://localhost:3001/api/onetheme?themeId=${themeId}`, {
+        return await fetch(`http://localhost:3001/api/oneforum?themeId=${themeId}`, {
             credentials: 'include',
         });
     }
 
     // eslint-disable-next-line class-methods-use-this
     async getCountThemes() {
-        return await fetch('http://localhost:3001/api/themecount', {
+        return await fetch('http://localhost:3001/api/forumcount', {
             credentials: 'include',
         });
     }
 
     // eslint-disable-next-line class-methods-use-this
     async createTheme(themeName:string) {
-        return await fetch('http://localhost:3001/api/createtheme', {
+        return await fetch('http://localhost:3001/api/createforum', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ class ForumAPI {
 
     // eslint-disable-next-line class-methods-use-this
     async getMes(themeId:number) {
-        return await fetch(`http://localhost:3001/api/theme?themeId=${themeId}`, {
+        return await fetch(`http://localhost:3001/api/forummes?themeId=${themeId}`, {
             credentials: 'include',
         });
     }

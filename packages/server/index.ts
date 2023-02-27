@@ -15,10 +15,14 @@ import { forumModel } from './models/forum'
 
 import { ForumServices } from './services/forumServices'
 import forumRouter from './routes/forumRoute'
+import themeRouter from './routes/themeRoute'
 import { webSocket } from './webSocket/WS'
 import { messageModel } from './models/message'
 import { MessageService } from './services/messageService'
 import { userModel } from './models/user'
+import { themeModel } from './models/theme'
+import { UserService } from './services/userService'
+import { ThemeService } from './services/themeService'
 //import { association } from './models/association'
 
 
@@ -33,14 +37,15 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export const Forum = sequelize.define('Forum', forumModel, {});
 export const Message = sequelize.define('Message', messageModel, {});
 export const User = sequelize.define('User', userModel, {});
+export const Theme = sequelize.define('Theme', themeModel, {});
+
 // Инициализируем Сервисы
 export  const forumServise= new ForumServices(Forum)
 export  const messageServise= new MessageService(Message)
+export const userService= new UserService(User)
+export const themeService= new ThemeService(Theme)
 
 
-
-//const forumThemeId= Math.floor(Math.random()*100)
-//forumServise.createForum(4, 5, `Theme-${forumThemeId}`)
 dbConnect()
 
 //инициализация связей в моделях
@@ -61,7 +66,6 @@ app.ws('/', webSocket)
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
 const port = Number(process.env.SERVER_PORT) || 3001
 
 
@@ -109,6 +113,7 @@ async function startServer() {
   app.use(express.json());
 //____________Postgres-------------------------
   app.use("/api", forumRouter)
+  app.use("/api", themeRouter)
 
 
   console.log("process.env.NODE_ENV", process.env.NODE_ENV)
