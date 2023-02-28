@@ -20,15 +20,15 @@ export const userModel: ModelAttributes<Model, IUser> = {
     },
     first_name: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     second_name: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     display_name: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     login: {
         type: DataType.STRING,
@@ -36,14 +36,14 @@ export const userModel: ModelAttributes<Model, IUser> = {
     },
     avatar: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     email: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     phone: {
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     },
 };

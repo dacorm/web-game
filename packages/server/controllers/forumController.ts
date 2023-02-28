@@ -2,14 +2,13 @@ import type { Request, Response } from 'express';
 import { forumServise } from '../index';
 
 interface IForumController {
-  getAll(req: Request, res: Response): void
-
-  create(req: Request, res: Response): void
+  getAll(req:Request, res:Response):void
+  create(req:Request, res:Response):void
 }
 
 export class ForumController implements IForumController {
     // eslint-disable-next-line class-methods-use-this
-    async getAll(_req: Request, res: Response) {
+    async getAll(_req:Request, res:Response) {
         try {
             console.log('Пришел запрос');
             const data = await forumServise.findAll();
@@ -20,7 +19,7 @@ export class ForumController implements IForumController {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async getOne(req: Request, res: Response) {
+    async getOne(req:Request, res:Response) {
         try {
             console.log('Пришел запрос');
             const { themeId } = req.query;
@@ -32,7 +31,7 @@ export class ForumController implements IForumController {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async getCountThemes(_req: Request, res: Response) {
+    async getCountThemes(_req:Request, res:Response) {
         try {
             const data = await forumServise.getCountThemes();
             res.json({ count: data });
@@ -42,7 +41,7 @@ export class ForumController implements IForumController {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async findThemesForOnePage(req: Request, res: Response) {
+    async findThemesForOnePage(req:Request, res:Response) {
         try {
             console.log('Пришел запрос!!!!', req.query);
             const { page, count } = req.query;
@@ -52,13 +51,11 @@ export class ForumController implements IForumController {
                 // const data= await  forumServise.findAll()
                 res.send(data);
             }
-        } catch (e) {
-            res.status(500).json({ message: 'Ошибка сервера' });
-        }
+        } catch (e) { res.status(500).json({ message: `Ошибка сервера - ${e}` }); }
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async create(req: Request, res: Response) {
+    async create(req:Request, res:Response) {
         try {
             const { createdById, countMsg, themeName } = req.body;
             await forumServise.createForum(createdById, countMsg, themeName);

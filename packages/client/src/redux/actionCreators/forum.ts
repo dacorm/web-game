@@ -57,6 +57,7 @@ export const getTheme = (themeId:number) => async (dispatch:appDispatch) => {
 export const getCountThemes = () => async (dispatch: appDispatch) => {
     try {
         const res = await forumApi.getCountThemes();
+        console.log('count', res);
         const count = await res.json();
         console.log('count', count);
         if (res.status === 200) {

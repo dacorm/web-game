@@ -13,6 +13,7 @@ import { forumModel } from './models/forum';
 
 import { ForumServices } from './services/forumServices';
 import forumRouter from './routes/forumRoute';
+import userRouter from './routes/userRoute';
 import themeRouter from './routes/themeRoute';
 import { webSocket } from './webSocket/WS';
 import { messageModel } from './models/message';
@@ -102,6 +103,7 @@ async function startServer() {
     // ____________Postgres-------------------------
     app.use('/api', forumRouter);
     app.use('/api', themeRouter);
+    app.use('/api', userRouter);
 
     console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
