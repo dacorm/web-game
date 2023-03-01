@@ -27,9 +27,7 @@ export const setCurrentTheme = (theme: IForum): TForumAction => ({
 export const getThemeList = (currentPage = 1, PAGE_SIZE = 3) => async (dispatch: appDispatch) => {
     try {
         const res = await forumApi.getAllThemes(currentPage, PAGE_SIZE);
-        console.log('res', res);
         const themData = await res.json();
-        console.log('themData', themData);
         if (res.status === 200) {
             dispatch(setThemeList(themData));
         } else {
@@ -57,9 +55,7 @@ export const getTheme = (themeId:number) => async (dispatch:appDispatch) => {
 export const getCountThemes = () => async (dispatch: appDispatch) => {
     try {
         const res = await forumApi.getCountThemes();
-        console.log('count', res);
         const count = await res.json();
-        console.log('count', count);
         if (res.status === 200) {
             dispatch(setCountThemes(count.count));
         } else {
@@ -85,11 +81,28 @@ export const createForumThunk = (themeName:string) => async (dispatch: Dispatche
     }
 };
 
+export const createUser = (
+    id:number,
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    avatar:string| null,
+    email: string,
+    phone:string,
+) => async (dispatch: Dispatcher) => {
+    try {
+        const res = await forumApi.createUser(id, first_name, second_name, display_name, login, avatar, email, phone);
+        const userData = await res.json();
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
 export const getMessages = (themeId:number) => async (dispatch: appDispatch) => {
     try {
         const res = await forumApi.getMes(themeId);
         const messages = await res.json();
-        console.log('messages', messages);
         if (res.status === 200) {
             dispatch(setMessages(messages));
         } else {
@@ -104,7 +117,6 @@ export const createMes = (themeId:number, text:string, authorId:number) => async
     try {
         const res = await forumApi.createMes(themeId, text, authorId);
         const forumData = await res.json();
-        console.log(res);
         if (res.status === 200) {
             if (forumData.message === 'OK') {
                 await dispatch(getMessages(themeId));

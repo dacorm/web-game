@@ -6,15 +6,17 @@ import styles from './ForumThemeTextArea.module.css';
 import { createMes } from '../../../redux/actionCreators/forum';
 import { Dispatcher } from '../../../redux/store';
 import { ForumThemeTextAreaProps } from './ForumThemeTextArea.types';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 const ForumThemeTextArea: FC<ForumThemeTextAreaProps> = ({ themeId }) => {
     const dispatch = useDispatch<Dispatcher>();
+    const currentUser = useTypedSelector((state) => state.user.id);
     const [text, setText] = useState('');
 
     const mesHandler = (e:React.MouseEvent) => {
         e.preventDefault();
         if (text.length !== 0) {
-            dispatch(createMes(themeId, text, 2));
+            dispatch(createMes(themeId, text, currentUser));
         }
     };
 

@@ -51,6 +51,29 @@ class ForumAPI {
     }
 
     // eslint-disable-next-line class-methods-use-this
+    async createUser(
+        id:number,
+        first_name: string,
+        second_name: string,
+        display_name: string,
+        login: string,
+        avatar:string| null,
+        email: string,
+        phone:string,
+    ) {
+        return await fetch('http://localhost:3001/api/createuser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id, first_name, second_name, display_name, login, avatar, email, phone,
+            }),
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
     async getMes(themeId:number) {
         return await fetch(`http://localhost:3001/api/mes?themeId=${themeId}`, {
             credentials: 'include',

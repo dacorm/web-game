@@ -31,7 +31,6 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
             />
             <div className={styles.name}>
                 {login}
-                !!!
             </div>
             <time className={styles.date}>
                 {createdAt.toLocaleString().slice(0, 17)}

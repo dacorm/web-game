@@ -42,8 +42,6 @@ export class UserController {
             } else {
                 res.status(500).json({ message: 'такой пользователь уже существует' });
             }
-
-            res.status(200).json({ message: 'OK' });
         } catch (e) {
             res.status(500).json({ message: `Ошибка сервера ${e}` });
         }
