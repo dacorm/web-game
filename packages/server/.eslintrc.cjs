@@ -23,6 +23,7 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.tsx'] },
     ],
     'import/no-unresolved': 'off',
+    'camelcase': 'off',
     'import/prefer-default-export': 'off',
     "linebreak-style": 0,
     'no-unused-vars': 'off',
