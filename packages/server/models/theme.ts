@@ -4,7 +4,6 @@ import type { ModelAttributes } from 'sequelize';
 export interface ITheme {
   id: number,
   theme: string,
-  device: string,
   ownerId: string
 }
 
@@ -16,10 +15,6 @@ export const themeModel: ModelAttributes<Model, ITheme> = {
         allowNull: false,
     },
     theme: {
-        type: DataType.STRING,
-        allowNull: false,
-    },
-    device: {
         type: DataType.STRING,
         allowNull: false,
     },

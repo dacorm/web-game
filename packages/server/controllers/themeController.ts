@@ -38,8 +38,8 @@ export class ThemeController {
     // eslint-disable-next-line class-methods-use-this
     async create(req: Request, res: Response) {
         try {
-            const { theme, device, ownerId } = req.body;
-            await themeService.createTheme(theme, device, ownerId);
+            const { theme, ownerId } = req.body;
+            await themeService.createTheme(theme, ownerId);
             res.status(200).json({ message: 'OK' });
         } catch (e) {
             res.status(500).json({ message: 'Ошибка сервера' });

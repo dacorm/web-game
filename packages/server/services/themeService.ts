@@ -15,8 +15,8 @@ export class ThemeService {
         return this.theme.findOne({ where: { id } });
     }
 
-    async createTheme(theme: string, device: string, ownerId: string) {
-        await this.theme.create({ theme, device, ownerId });
+    async createTheme(theme: string, ownerId: string) {
+        await this.theme.create({ theme, ownerId });
     }
 
     async getCountThemes() {
