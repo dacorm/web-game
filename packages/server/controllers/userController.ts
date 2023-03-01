@@ -38,6 +38,9 @@ export class UserController {
 
             if (user === null) {
                 await userService.createUser(id, first_name, second_name, display_name, login, avatar, email, phone);
+                res.status(200).json({ message: 'OK' });
+            } else {
+                res.status(500).json({ message: 'такой пользователь уже существует' });
             }
 
             res.status(200).json({ message: 'OK' });

@@ -18,7 +18,7 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
             },
             10,
         );
-    }, []);
+    }, [messages]);
 
     return (
         <div ref={wrapperRef} className={styles.messagesWrapper}>
@@ -27,7 +27,7 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
             >
                 <ul className="messages">
                     {messages.map(({
-                        msgId, text, authorId, createdAt,
+                        msgId, text, authorId, createdAt, login, avatar,
                     }) => (
                         <ForumThemeMessageItem
                             key={msgId}
@@ -35,6 +35,8 @@ const ForumThemeMessages: FC<ForumThemeMessagesProps> = ({ messages }) => {
                             text={text}
                             authorId={authorId}
                             createdAt={createdAt}
+                            login={login}
+                            avatar={avatar}
                         />
                     ))}
                 </ul>

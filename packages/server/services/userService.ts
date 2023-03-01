@@ -33,7 +33,7 @@ export class UserService {
         second_name: string,
         display_name: string,
         login: string,
-        avatar:string,
+        avatar:string| null,
         email: string,
         phone:string,
     ) {

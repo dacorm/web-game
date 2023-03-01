@@ -19,6 +19,14 @@ export class ForumServices {
         });
     }
 
+    async findBythemeName(themeName: string) {
+        return this.forum.findOne({
+            where: {
+                themeName,
+            },
+        });
+    }
+
     async findThemesForOnePage(offset: number, limit: number) {
         return this.forum.findAll({
             offset,

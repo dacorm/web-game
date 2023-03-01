@@ -15,6 +15,18 @@ class MessageController {
     }
 
     // eslint-disable-next-line class-methods-use-this
+    async getMesWithUserInfo(req: Request, res: Response) {
+        try {
+            const { themeId } = req.query;
+            console.log('Пришел запрос', req.query);
+            const data = await messageServise.getMesWithUserInfo(Number(themeId));
+            res.send(data);
+        } catch (e) {
+            res.status(500).json({ message: `Ошибка сервера ${e}` });
+        }
+    }
+
+    // eslint-disable-next-line class-methods-use-this
     async create(req: Request, res: Response) {
         console.log(req.body);
         try {

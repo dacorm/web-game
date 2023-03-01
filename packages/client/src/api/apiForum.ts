@@ -52,7 +52,7 @@ class ForumAPI {
 
     // eslint-disable-next-line class-methods-use-this
     async getMes(themeId:number) {
-        return await fetch(`http://localhost:3001/api/forummes?themeId=${themeId}`, {
+        return await fetch(`http://localhost:3001/api/mes?themeId=${themeId}`, {
             credentials: 'include',
         });
     }

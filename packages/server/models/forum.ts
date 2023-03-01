@@ -2,7 +2,7 @@ import type { ModelAttributes } from 'sequelize';
 import { DataType, Model } from 'sequelize-typescript';
 
 export interface IForum {
-  themeId: number,
+  themeId?: number,
   createdById: number,
   countMsg: number,
   themeName: string,

@@ -22,6 +22,8 @@ import { userModel } from './models/user';
 import { themeModel } from './models/theme';
 import { UserService } from './services/userService';
 import { ThemeService } from './services/themeService';
+import { InitialForumsData, InitialMessagesData, InitialUsersData } from './models/InitialData';
+// import { InitialUsersData } from './models/InitialData';
 
 dotenv.config();
 
@@ -34,10 +36,10 @@ const app = express();
 export const sequelize = new Sequelize(sequelizeOptions);
 
 // Инициализируем модели
-export const Forum = sequelize.define('Forum', forumModel, {});
-export const Message = sequelize.define('Message', messageModel, {});
-export const User = sequelize.define('User', userModel, {});
-export const Theme = sequelize.define('Theme', themeModel, {});
+export const Forum = sequelize.define('forum', forumModel, {});
+export const Message = sequelize.define('forum-mes', messageModel, {});
+export const User = sequelize.define('user_game', userModel, {});
+export const Theme = sequelize.define('theme', themeModel, {});
 
 // Инициализируем Сервисы
 export const forumServise = new ForumServices(Forum);
@@ -45,8 +47,12 @@ export const messageServise = new MessageService(Message);
 export const userService = new UserService(User);
 export const themeService = new ThemeService(Theme);
 
-dbConnect();
-
+dbConnect().then(() => {
+    InitialUsersData();
+    InitialForumsData();
+    InitialMessagesData();
+});
+//
 // инициализация связей в моделях
 // association()
 
