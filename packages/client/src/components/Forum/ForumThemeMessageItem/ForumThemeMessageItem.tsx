@@ -9,6 +9,7 @@ import {
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
 import styles from './ForumThemeMessageItem.module.css';
+import { UserURL } from '../../../redux/types/userReducer.types';
 
 const ForumThemeMessageItem: FC<TThemeMessage> = ({
     msgId,
@@ -25,7 +26,7 @@ const ForumThemeMessageItem: FC<TThemeMessage> = ({
     >
         <div className={styles.author}>
             <img
-                src={(avatar === null) ? defaultAvatar : avatar}
+                src={(avatar === null) ? defaultAvatar : UserURL.BASE_AVATAR_URL + avatar}
                 alt="avatar"
                 className={styles.avatar}
             />
