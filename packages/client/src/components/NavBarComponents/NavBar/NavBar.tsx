@@ -6,6 +6,9 @@ import { NavBarLogo } from '../NavBarLogo';
 import { NavbarItemProps } from '../NavBarItem/NavBarItem.types';
 import { NavBarProps } from './NavBar.types';
 import { ROUTES } from '../../../layout/RouterLayout/RouterConst';
+import Button from '../../../shared/ui/Button';
+import { ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button.types';
+import { useTheme } from '../../../hooks/useTheme';
 
 const menuItems: NavbarItemProps[] = [
     { id: 1, path: ROUTES.GAME_SEARCH, title: 'Поиск игры' },
@@ -15,6 +18,8 @@ const menuItems: NavbarItemProps[] = [
 ];
 
 export function NavBar({ userLogo, userName }: NavBarProps) {
+    const { toggleTheme } = useTheme();
+
     return (
         <nav className={styles.navbar}>
             <NavBarLogo />
@@ -28,6 +33,7 @@ export function NavBar({ userLogo, userName }: NavBarProps) {
                     />
                 ))}
             </ul>
+            <Button size={ButtonSize.M} theme={ButtonTheme.GREEN} onClick={toggleTheme}>Сменить тему</Button>
             <NavBarProfile userLogo={userLogo} userName={userName} />
         </nav>
     );

@@ -6,12 +6,12 @@
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    color: black;
+    color: var(--navbar-text-color);
     font-family: "Inter", serif;
 }
 
 .menuItemActive {
-    background: #6EAC96;
+    background: var(--color-green);
     color: white !important;
 }
 

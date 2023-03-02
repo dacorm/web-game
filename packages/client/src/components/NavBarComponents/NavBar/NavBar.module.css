@@ -12,7 +12,8 @@
     list-style: none;
     display: flex;
     align-items: center;
-    background: #F5F5F5;
+    background: var(--navbar-background-color);
+    color: var(--navbar-text-color);
     height: 60px;
     width: 100%;
     position: relative;

@@ -1,5 +1,6 @@
 .dropdown {
-    background: #F5F5F5;
+    background: var(--navbar-background-color);
+    color: var(--navbar-text-color);
     position: absolute;
     top: 58px;
     right: 10px;

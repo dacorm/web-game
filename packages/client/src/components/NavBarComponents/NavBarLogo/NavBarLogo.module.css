@@ -9,7 +9,7 @@
 }
 
 .textLogo {
-    color: black;
+    color: var(--navbar-text-color);
     text-align: center;
     font-family: var(--mainfont)!important;
 }

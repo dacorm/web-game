@@ -24,7 +24,7 @@
 
 .gameName {
     padding: 15px;
-    background: #6EAC96;
+    background: var(--color-green);
     color: white;
     border-radius: 10px;
 }
