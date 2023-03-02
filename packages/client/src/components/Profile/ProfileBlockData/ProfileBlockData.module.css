@@ -13,7 +13,7 @@
 }
 
 .blockData {
-    background: #6EAC96;
+    background: var(--color-green);
     border-radius: 40px;
     width: 150px;
     height: 150px;

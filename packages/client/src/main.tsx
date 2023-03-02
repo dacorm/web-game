@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import store, { persistor } from './redux/store';
+import ThemeProvider from './Providers/ThemeProvider';
 
 // import { startServiceWorker } from './sw/sw';
 
@@ -14,7 +15,9 @@ const rootElement = document.getElementById('root') as HTMLElement;
 const app = (
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <ThemeProvider>
+                <App />
+            </ThemeProvider>
         </BrowserRouter>
     </Provider>
 );

@@ -1,7 +1,8 @@
 .container {
     width: 400px;
     min-height: 600px;
-    background: #F5F5F5;
+    background: var(--navbar-background-color);
+    color: var(--navbar-text-color);
     border-radius: 10px;
     display: flex;
     flex-direction: column;

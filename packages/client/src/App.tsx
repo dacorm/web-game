@@ -6,13 +6,17 @@ import './globalStyles/reset.css';
 import './globalStyles/constants.css';
 import './globalStyles/global-styles.css';
 import { useIsAuth } from './hooks/useIsAuth';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
     const isAuth = useIsAuth();
+    const { theme } = useTheme();
 
     return (
         <StrictMode>
-            <RouterLayout />
+            <div className={theme}>
+                <RouterLayout />
+            </div>
         </StrictMode>
     );
 }
