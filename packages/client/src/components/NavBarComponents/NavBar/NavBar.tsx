@@ -33,7 +33,7 @@ export function NavBar({ userLogo, userName }: NavBarProps) {
                     />
                 ))}
             </ul>
-            <Button size={ButtonSize.M} theme={ButtonTheme.GREEN} onClick={toggleTheme}>Сменить тему</Button>
+            <Button size={ButtonSize.S} theme={ButtonTheme.GREEN} onClick={toggleTheme}>Сменить тему</Button>
             <NavBarProfile userLogo={userLogo} userName={userName} />
         </nav>
     );
