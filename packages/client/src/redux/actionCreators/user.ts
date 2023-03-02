@@ -1,9 +1,10 @@
 import { userApi } from '../../api/userApi';
-import { appDispatch } from '../store';
+import { appDispatch, Dispatcher } from '../store';
 import {
     redirectURI, TUserAction, UserActionTypes, UserData, UserURL,
 } from '../types/userReducer.types';
 import { OAuthGetServiceResponse } from '../../api/apiTypes';
+import { createUser } from './forum';
 
 export const setUser = (userName: string, email: string, id: string, avatar:string): TUserAction => {
     const userData :UserData = {
@@ -48,13 +49,24 @@ export const setUserAvatarThunk = (avatar:File) => async (dispatch:appDispatch) 
     }
 };
 
-export const registerUserThunk = (userName: string, email: string, password: string) => async (dispatch: appDispatch) => {
+export const registerUserThunk = (userName: string, email: string, password: string) => async (dispatch: Dispatcher) => {
     try {
         const res = await userApi.reg(userName, email, password);
         const userData = await res.json();
-        console.log(userData);
+
         if (res.status === 200) {
             dispatch(setUser(userName, email, userData.id, ''));
+            console.log('userData!!!!!', userData);
+            await dispatch(createUser(
+                userData.id,
+                userData.first_name,
+                userData.second_name,
+                userData.display_name,
+                userData.login,
+                userData.avatar,
+                userData.email,
+                userData.phone,
+            ));
         } else {
             console.log('regError', userData);
             dispatch(setLoginError(userData.reason));
@@ -79,12 +91,23 @@ export const logoutThunk = () => async (dispatch: appDispatch) => {
     }
 };
 
-export const getUserInfo = () => async (dispatch: appDispatch) => {
+export const getUserInfo = () => async (dispatch: Dispatcher) => {
     try {
         const res = await userApi.getUser();
         const userData = await res.json();
         if (res.status === 200) {
             dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            console.log('userData', userData);
+            await dispatch(createUser(
+                userData.id,
+                userData.first_name,
+                userData.second_name,
+                userData.display_name,
+                userData.login,
+                userData.avatar,
+                userData.email,
+                userData.phone,
+            ));
         } else {
             console.log('getUserError', userData);
         }
@@ -93,13 +116,24 @@ export const getUserInfo = () => async (dispatch: appDispatch) => {
     }
 };
 
-export const loginThunk = (userName: string, password: string) => async (dispatch: appDispatch) => {
+export const loginThunk = (userName: string, password: string) => async (dispatch: Dispatcher) => {
     try {
         const loginRes = await userApi.login(userName, password);
         if (loginRes.status === 200) {
             const resUser = await userApi.getUser();
             const userData = await resUser.json();
             dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            console.log('userData!!!!!', userData);
+            await dispatch(createUser(
+                userData.id,
+                userData.first_name,
+                userData.second_name,
+                userData.display_name,
+                userData.login,
+                userData.avatar,
+                userData.email,
+                userData.phone,
+            ));
         } else {
             const errors = await loginRes.json();
             dispatch(setLoginError(errors.reason));

@@ -10,3 +10,8 @@
     justify-content: center;
     margin-bottom: 30px;
 }
+
+.selectCountThemes {
+    padding: 10px;
+    font-family: fallout, serif;
+}

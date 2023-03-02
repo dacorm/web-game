@@ -1,7 +1,7 @@
 export const ROUTES = {
     MAIN: '/',
     FORUM: '/forum',
-    FORUM_THEME: '/forum/:id_theme',
+    FORUM_THEME: '/forum/:themeId',
     LEADER: '/leaderboard',
     PROFILE: '/profile',
     AUTH: '/login',

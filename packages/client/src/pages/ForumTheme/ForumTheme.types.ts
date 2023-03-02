@@ -2,7 +2,9 @@ export type TThemeMessage = {
   msgId: number
   text: string
   authorId: number
-  date: Date
+  createdAt: Date
+  login: string
+  avatar: string | null
 }
 
 export type TTheme = {

@@ -8,7 +8,7 @@ import styles from './ForumItem.module.css';
 const ForumItem: FC<TForumTheme> = ({
     themeId,
     createdById,
-    date,
+    createdAt,
     countMsg,
     themeName,
 }) => (
@@ -20,7 +20,7 @@ const ForumItem: FC<TForumTheme> = ({
                     ,
                     {' '}
                 </div>
-                <div className={styles.itemDate}>{date.toLocaleString()}</div>
+                <div className={styles.itemDate}>{createdAt.toLocaleString()}</div>
             </div>
             <div className={styles.itemInner}>
                 <div className={styles.itemName}>{themeName}</div>

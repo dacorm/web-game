@@ -11,6 +11,7 @@ import { userReducer } from './reducers/userReducer/userReducer';
 import { gameReducer } from './reducers/gameReducer/gameReducer';
 import { createGameReducer } from './reducers/createGameReducer/createGameReducer';
 import { leaderboardReducer } from './reducers/leaderboardReducer/leaderboardReducer';
+import { forumReducer } from './reducers/forumReducer/forumReducer';
 
 const createNoopStorage = () => ({
     getItem(_key:any) {
@@ -39,6 +40,7 @@ const reducers = combineReducers({
     game: gameReducer,
     games: createGameReducer,
     leaderboard: leaderboardReducer,
+    forum: forumReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducers);
 
