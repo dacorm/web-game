@@ -1,8 +1,5 @@
-import {
-    FC, useEffect, useRef, useState,
-} from 'react';
+import { FC } from 'react';
 import { TThemeMessage } from '../../../pages/ForumTheme/ForumTheme.types';
-import { TUser } from '../../../types/global.types';
 import Button from '../../../shared/ui/Button';
 import {
     ButtonColorText,
@@ -12,55 +9,47 @@ import {
 
 import defaultAvatar from '../../../assets/img/defaultUserAvatar.png';
 import styles from './ForumThemeMessageItem.module.css';
+import { UserURL } from '../../../redux/types/userReducer.types';
 
 const ForumThemeMessageItem: FC<TThemeMessage> = ({
     msgId,
     text,
     authorId,
-    date,
-}) => {
-    const [author, setAuthor] = useState<TUser | null>(null);
-    const EXAMPLE_USER = useRef<TUser>({
-        id_user: 1,
-        name: 'userName1',
-        avatar: null,
-    });
-
-    useEffect(() => {
-        setAuthor(EXAMPLE_USER.current);
-    }, []);
-
-    return (
-        <li
-            className={styles.messageItem}
-            data-id-msg={msgId}
-            data-id-author={authorId}
-        >
-            <div className={styles.author}>
-                <img
-                    src={author?.avatar || defaultAvatar}
-                    alt="avatar"
-                    className={styles.avatar}
-                />
-                <div className={styles.name}>{author?.name}</div>
-                <time className={styles.date}>
-                    {date.toLocaleString().slice(0, 17)}
-                </time>
+    createdAt,
+    login,
+    avatar,
+}) => (
+    <li
+        className={styles.messageItem}
+        data-id-msg={msgId}
+        data-id-author={authorId}
+    >
+        <div className={styles.author}>
+            <img
+                src={(avatar === null) ? defaultAvatar : UserURL.BASE_AVATAR_URL + avatar}
+                alt="avatar"
+                className={styles.avatar}
+            />
+            <div className={styles.name}>
+                {login}
             </div>
-            <div className={styles.message}>
-                <div className={styles.text}>{text}</div>
-                <div className={styles.button}>
-                    <Button
-                        theme={ButtonTheme.TRANSPARENT}
-                        colorText={ButtonColorText.BLUE}
-                        size={ButtonSize.S}
-                    >
-                        Ответить
-                    </Button>
-                </div>
+            <time className={styles.date}>
+                {createdAt.toLocaleString().slice(0, 17)}
+            </time>
+        </div>
+        <div className={styles.message}>
+            <div className={styles.text}>{text}</div>
+            <div className={styles.button}>
+                <Button
+                    theme={ButtonTheme.TRANSPARENT}
+                    colorText={ButtonColorText.BLUE}
+                    size={ButtonSize.S}
+                >
+                    Ответить
+                </Button>
             </div>
-        </li>
-    );
-};
+        </div>
+    </li>
+);
 
 export default ForumThemeMessageItem;
