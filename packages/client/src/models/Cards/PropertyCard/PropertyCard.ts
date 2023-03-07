@@ -30,6 +30,7 @@ class PropertyCard extends Card implements IPropertyCard {
 
     /** Купить недвижимость */
     buy(player: Player) {
+        console.log('player!!!!', player);
         if (player.balance >= this.prices.buyCard) { // достаточный ли баланс у игрока для покупки
             this.owner = player;
             player.property.push(this);

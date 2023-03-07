@@ -14,13 +14,23 @@ import StationAction from './components/Station/StationAction';
 import BoxAction from './components/Box';
 import PropertyCard from '../../../models/Cards/PropertyCard';
 import ChanceAction from './components/Chance';
+import { board } from '../../../models/Board/Board';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
     const [cell, setCell] = useState<Cell | undefined>(undefined);
-
+    const [player, setPlayer] = useState(null);
     const dispatch = useDispatch<Dispatch>();
-    const player = useSelector(getCurrentPlayer);
+    const currentPlayer = useSelector(getCurrentPlayer);
+    console.log('player from Store', currentPlayer);
+    console.log('player from Board', player);
+    useEffect(() => {
+        if (currentPlayer !== null) {
+            const boardPlayer = board.getPlayerById(currentPlayer.userId);
+            console.log('player from Board', boardPlayer);
+            setPlayer(boardPlayer);
+        }
+    }, [player]);
 
     // завершение экшена карточки
     const handleCompleteAction = useCallback(() => {
@@ -45,7 +55,7 @@ const Action = () => {
     };
 
     useEffect(() => {
-        if (cell) {
+        if (cell && player) {
             dispatch(addNewGameChatMessage(
                 {
                     playerName: player.displayName,
@@ -74,7 +84,7 @@ const Action = () => {
     }
 
     // если ячейка типа недвижки
-    if (cell.type === BoardCellType.property) {
+    if (cell.type === BoardCellType.property && player !== null) {
         return (
             <PropertyAction
                 cell={cell}
@@ -88,7 +98,7 @@ const Action = () => {
     }
 
     // если ячейка типа станции
-    if (cell.type === BoardCellType.station) {
+    if (cell.type === BoardCellType.station && player !== null) {
         return (
             <StationAction
                 cell={cell}
@@ -102,7 +112,7 @@ const Action = () => {
     }
 
     // если ячейка типа казна
-    if (cell.type === BoardCellType.box) {
+    if (cell.type === BoardCellType.box && player !== null) {
         return (
             <BoxAction
                 cell={cell}
@@ -111,7 +121,7 @@ const Action = () => {
         );
     }
     // если ячейка типа шанс
-    if (cell.type === BoardCellType.chance) {
+    if (cell.type === BoardCellType.chance && player !== null) {
         return (
             <ChanceAction
                 cell={cell}

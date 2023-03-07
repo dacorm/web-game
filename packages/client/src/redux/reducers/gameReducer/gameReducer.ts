@@ -73,11 +73,12 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         };
     case GameActionTypes.SET_CURRENT_PLAYER: {
         board.setNextTurn();
+
         const currentTurn = board.getCurrentTurn();
         const player = board.getPlayerById(currentTurn);
         return {
             ...state,
-            currentPlayer: player,
+            currentPlayer: { userId: currentTurn },
         };
     }
     case GameActionTypes.ROLL_THE_DICE_TRUE: {
