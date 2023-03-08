@@ -17,7 +17,7 @@ export class Game implements IGame {
 
     countPlayers;
 
-    players: UserGame[];
+    players = [];
 
     userCreater;
 
@@ -29,10 +29,10 @@ export class Game implements IGame {
         this.userCreater = props.userCreater;
         this.name = props.name;
         this.addUserToGame(this.userCreater);
-        this.players = [];
     }
 
     addUserToGame(user:UserGame) {
+        // @ts-ignore
         this.players.push(user);
     }
 }

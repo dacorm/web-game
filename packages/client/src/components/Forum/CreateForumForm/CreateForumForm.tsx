@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Input from '../../../shared/ui/Input';
-import styles from '../../GameSearch/CreateGameForm/CreateGameForm.module.css';
+
 import Button from '../../../shared/ui/Button';
 import { ButtonSize, ButtonTheme } from '../../../shared/ui/shared/shared.button.types';
 import { createForumThunk } from '../../../redux/actionCreators/forum';
@@ -25,12 +25,12 @@ const CreateForumForm = () => {
             <div>
                 <Input type="text" label="Название темы" onChange={changeHandler} value={nameTheme} />
             </div>
-            <div className={styles.buttonWrapper}>
+            <div>
                 <Button
                     theme={ButtonTheme.GREEN}
                     size={ButtonSize.X}
                     onClick={handleClick}
-                    className={styles.button}
+
                 >
                     Создать тему
                 </Button>

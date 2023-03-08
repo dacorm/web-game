@@ -50,7 +50,10 @@ export const configureStore = (preloadedState:TInitialStateStore) => (
     createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 );
 
-const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = createStore(
+    reducers,
+    composeWithDevTools(applyMiddleware(thunkMiddleware)),
+);
 export const persistor = persistStore(store);
 
 export type ActionType = {
