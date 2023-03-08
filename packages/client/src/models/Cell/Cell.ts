@@ -4,7 +4,7 @@ import {
     BoardCellAxis, BoardCellGroup, BoardCellType, BoardItemSize,
 } from '../../core/types';
 import { FillRect } from '../../core/Shapes/FillRect';
-import { IText, Text } from '../../core/Shapes/Text';
+import { Text } from '../../core/Shapes/Text';
 import { TCard } from '../Cards/Card/Card.types';
 import PropertyCard from '../Cards/PropertyCard';
 
@@ -135,7 +135,6 @@ export class Cell implements ICell {
                     break;
                 default:
                 }
-
                 // todo: типизация
 
                 if ((this.card as PropertyCard).prices) {
@@ -215,7 +214,9 @@ export class Cell implements ICell {
                 break;
             default:
             }
-            new Text({ text: this.name, ...props } as IText).drawShape(this.context);
+            // todo: типизация
+            // @ts-ignore
+            new Text({ text: this.name, ...props }).drawShape(this.context);
         }
     }
 

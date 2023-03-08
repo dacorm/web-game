@@ -22,7 +22,11 @@ import { userModel } from './models/user';
 import { themeModel } from './models/theme';
 import { UserService } from './services/userService';
 import { ThemeService } from './services/themeService';
-import { InitialForumsData, InitialMessagesData, InitialUsersData } from './models/InitialData';
+import {
+    InitialForumsData,
+    InitialMessagesData,
+    InitialUsersData,
+} from './models/InitialData';
 // import { InitialUsersData } from './models/InitialData';
 
 dotenv.config();
@@ -91,7 +95,7 @@ async function startServer() {
     // const srcPath = path.resolve(__dirname, 'node_modules/client')
     // const ssrClientPath = path.resolve(__dirname, 'node_modules/client/ssr-dist/client.cjs')
 
-    const distPath = path.resolve(__dirname, '..//client/dist/index.html');
+    const distPath = path.resolve(__dirname, '../client/dist/index.html');
     const srcPath = path.resolve(__dirname, '../client');
     const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
 
@@ -132,10 +136,7 @@ async function startServer() {
                     'utf-8',
                 );
             } else {
-                template = fs.readFileSync(
-                    path.resolve(srcPath, 'index.html'),
-                    'utf-8',
-                );
+                template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8');
 
                 template = await vite.transformIndexHtml(url, template);
             }
@@ -146,8 +147,11 @@ async function startServer() {
                 render = (await import(ssrClientPath)).render;
                 configureStore = (await import(ssrClientPath)).configureStore;
             } else {
-                render = (await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
-                configureStore = (await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).configureStore;
+                render = (await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+                    .render;
+                configureStore = (
+                    await vite.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))
+                ).configureStore;
             }
 
             const store = configureStore(undefined);
@@ -186,4 +190,7 @@ export enum MethodsMessages {
   addUser = 'addUser',
 }
 
-export type MethodsMessagesType = MethodsMessages.addGame | MethodsMessages.addAllGames | MethodsMessages.connection
+export type MethodsMessagesType =
+  | MethodsMessages.addGame
+  | MethodsMessages.addAllGames
+  | MethodsMessages.connection

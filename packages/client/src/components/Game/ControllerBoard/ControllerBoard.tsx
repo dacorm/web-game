@@ -5,9 +5,7 @@ import Cube from '../Cube';
 import styles from './ControllerBoard.module.css';
 import { ControllerBoardProps } from './ControllerBoard.types';
 
-const ControllerBoard:FC<ControllerBoardProps> = ({
-    actionStarting, completeTheMove, turnComleted, isGameStarting, startGameHandle,
-}) => (
+const ControllerBoard:FC<ControllerBoardProps> = ({ actionStarting, completeTheMove, turnComleted }) => (
     <div className={styles.controllerBoard}>
         <div className={styles.inner}>
             {actionStarting
@@ -16,8 +14,6 @@ const ControllerBoard:FC<ControllerBoardProps> = ({
                     <Cube
                         completeTheMove={completeTheMove}
                         turnComleted={turnComleted}
-                        isGameStarting={isGameStarting}
-                        startGameHandle={startGameHandle}
                     />
                 )}
         </div>

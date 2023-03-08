@@ -3,16 +3,11 @@ import { ActionType } from '../../store';
 import { GameActionTypes, userGame } from '../../types/gameReducer.types';
 
 const initialState: userGame = {
-    id: null,
-    type: undefined,
-    random: [0, 0],
     cellIsMoving: false,
     canRollTheDice: false,
     currentPlayer: { displayName: null, userId: null },
     actionStarting: false,
     turnCompleted: false,
-    players: [],
-    isGameStarting: false,
     messages: [],
 };
 
@@ -20,51 +15,10 @@ const initialAction = { type: '__INIT__' };
 
 export const gameReducer = (state:userGame = initialState, action:ActionType = initialAction): any => {
     switch (action.type) {
-    case GameActionTypes.CLEAN_GAME_DATA:
-        console.log('CLEAN_gAME_dATA');
-        return {
-            ...initialState,
-        };
-    case GameActionTypes.START_GAME:
-        console.log('START_GAME');
-        return {
-            ...state,
-            isGameStarting: true,
-        };
     case GameActionTypes.CELL_START_MOVING:
         return {
             ...state,
             cellIsMoving: true,
-        };
-    case GameActionTypes.SET_RANDOM:
-        return {
-            ...state,
-            random: action.payload,
-        };
-    case GameActionTypes.SET_GAME_ID:
-        return {
-            ...state,
-            id: action.payload,
-        };
-    case GameActionTypes.SET_GAME_TYPE:
-        return {
-            ...state,
-            type: action.payload,
-        };
-    case GameActionTypes.ADD_PLAYER_CURRENT_POSITION: {
-        state.players.forEach((player) => {
-            if (player.userId === action.payload.userId) {
-                player.currentPos = action.payload.currentPos;
-                console.log('ADD_PLAYER_CURRENT_POSITION', action.payload);
-            }
-        });
-        return state;
-    }
-
-    case GameActionTypes.SET_PLAYERS:
-        return {
-            ...state,
-            players: action.payload,
         };
     case GameActionTypes.CELL_STOP_MOVING:
         return {
