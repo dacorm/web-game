@@ -14,6 +14,7 @@ import StationAction from './components/Station/StationAction';
 import BoxAction from './components/Box';
 import PropertyCard from '../../../models/Cards/PropertyCard';
 import ChanceAction from './components/Chance';
+import TaxAction from './components/Tax';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
@@ -114,6 +115,15 @@ const Action = () => {
     if (cell.type === BoardCellType.chance) {
         return (
             <ChanceAction
+                cell={cell}
+                player={player}
+            />
+        );
+    }
+    // если ячейка типа налог
+    if (cell.type === BoardCellType.tax) {
+        return (
+            <TaxAction
                 cell={cell}
                 player={player}
             />
