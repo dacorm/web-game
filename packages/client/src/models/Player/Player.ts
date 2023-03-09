@@ -213,15 +213,36 @@ export class Player {
         });
     }
 
+    checkingBalance(value: number) {
+        if (this.balance >= value) return true;
+        return false;
+    }
+
+    eventNotEnoughMoney() {
+        console.log(`недостаточно денег у игрока ${this.displayName}`);
+        return false;
+    }
+
     /** заплатить деньги другому игроку */
     payMoneyToThePlayer(value: number, owner: Player) {
+        if (!this.checkingBalance(value)) {
+            return this.eventNotEnoughMoney();
+        }
+
         this.balance -= value;
         owner.balance += value;
+
+        return true;
     }
 
     /** заплатить деньги в банк  */
     payMoneyToTheBank(value: number) {
+        if (!this.checkingBalance(value)) {
+            return this.eventNotEnoughMoney();
+        }
         this.balance -= value;
+
+        return true;
     }
 
     /** получить деньги от банка */

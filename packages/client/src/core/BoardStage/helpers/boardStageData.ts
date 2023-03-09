@@ -3,18 +3,16 @@ import imgStart from '../../../assets/img/sprites/start.png';
 import imgGoJail from '../../../assets/img/sprites/go-jail.png';
 import imgJail from '../../../assets/img/sprites/jail.png';
 import imgParking from '../../../assets/img/sprites/parking.png';
-import imgPowerPlant from '../../../assets/img/sprites/power-plant.png';
 import imgChance from '../../../assets/img/sprites/chance.png';
 import imgRailwayStation from '../../../assets/img/sprites/railway-station.png';
-import imgSuperTax from '../../../assets/img/sprites/super-tax.png';
 import imgTax from '../../../assets/img/sprites/tax.png';
 import imgTreasury from '../../../assets/img/sprites/treasury.png';
-import imgWaterSupply from '../../../assets/img/sprites/water-supply.png';
 import { BoardCellAxis, BoardCellGroup, BoardCellType } from '../../types';
 import PropertyCard from '../../../models/Cards/PropertyCard/PropertyCard';
 import StationCard from '../../../models/Cards/StationCard';
 import BoxCard from '../../../models/Cards/BonusCard/BoxCard/BoxCard';
 import ChanceCard from '../../../models/Cards/BonusCard/ChanceCard';
+import TaxCard from '../../../models/Cards/TaxCard';
 
 function createDepartment(name: string, axis: BoardCellAxis, image: string, type?: BoardCellType): Cell {
     return new Cell({
@@ -53,15 +51,22 @@ function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis
         }), // нужно будет везде передавать это поле, пока данные карты захардкожены
     });
 }
-// когда не знаешь что это и какой должен быть функционал
-function createQuestion(name: string, axis: BoardCellAxis, image?: string): Cell {
-    return new Cell({
-        type: BoardCellType['???'], name, axis, image,
-    });
-}
+// // когда не знаешь что это и какой должен быть функционал
+// function createQuestion(name: string, axis: BoardCellAxis, image?: string): Cell {
+//     return new Cell({
+//         type: BoardCellType['???'], name, axis, image,
+//     });
+// }
 function createTax(axis: BoardCellAxis): Cell {
     return new Cell({
-        type: BoardCellType.tax, name: 'Подоходный налог', axis, image: imgTax,
+        type: BoardCellType.tax,
+        name: 'Подоходный налог',
+        axis,
+        image: imgTax,
+        card: new TaxCard({
+            name: 'Подоходный налог',
+            type: BoardCellType.tax,
+        }),
     });
 }
 
@@ -121,7 +126,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 90,
                 rentWithFourHouse: 160,
                 rentWithHotel: 250,
-
             },
         ),
         createBox(BoardCellAxis.top),
@@ -139,7 +143,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 180,
                 rentWithFourHouse: 320,
                 rentWithHotel: 450,
-
             },
         ),
         createTax(BoardCellAxis.top),
@@ -158,7 +161,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 270,
                 rentWithFourHouse: 400,
                 rentWithHotel: 550,
-
             },
         ),
         createChance(BoardCellAxis.top),
@@ -176,7 +178,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 270,
                 rentWithFourHouse: 400,
                 rentWithHotel: 550,
-
             },
         ),
         createProperty(
@@ -193,11 +194,15 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 300,
                 rentWithFourHouse: 450,
                 rentWithHotel: 600,
-
             },
         ),
 
-        createDepartment('Тюрьма', BoardCellAxis.right, imgJail, BoardCellType.prison),
+        createDepartment(
+            'Тюрьма',
+            BoardCellAxis.right,
+            imgJail,
+            BoardCellType.prison,
+        ),
         createProperty(
             'Полянка улица',
             BoardCellGroup.deepPink,
@@ -212,10 +217,10 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 450,
                 rentWithFourHouse: 625,
                 rentWithHotel: 750,
-
             },
         ),
-        createQuestion('Электростанция', BoardCellAxis.right, imgPowerPlant),
+        createTax(BoardCellAxis.right),
+
         createProperty(
             'Средняя улица',
             BoardCellGroup.deepPink,
@@ -230,7 +235,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 450,
                 rentWithFourHouse: 625,
                 rentWithHotel: 750,
-
             },
         ),
         createProperty(
@@ -247,7 +251,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 500,
                 rentWithFourHouse: 700,
                 rentWithHotel: 900,
-
             },
         ),
         createStation(BoardCellAxis.right),
@@ -265,7 +268,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 550,
                 rentWithFourHouse: 750,
                 rentWithHotel: 950,
-
             },
         ),
         createBox(BoardCellAxis.right),
@@ -283,7 +285,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 550,
                 rentWithFourHouse: 750,
                 rentWithHotel: 950,
-
             },
         ),
         createProperty(
@@ -300,11 +301,15 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 600,
                 rentWithFourHouse: 800,
                 rentWithHotel: 1000,
-
             },
         ),
 
-        createDepartment('Бесплатная стоянка', BoardCellAxis.bottom, imgParking, BoardCellType.stage),
+        createDepartment(
+            'Бесплатная стоянка',
+            BoardCellAxis.bottom,
+            imgParking,
+            BoardCellType.stage,
+        ),
         createProperty(
             'Нарвская улица',
             BoardCellGroup.salmon,
@@ -319,7 +324,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 700,
                 rentWithFourHouse: 875,
                 rentWithHotel: 1050,
-
             },
         ),
         createChance(BoardCellAxis.bottom),
@@ -337,7 +341,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 700,
                 rentWithFourHouse: 875,
                 rentWithHotel: 1050,
-
             },
         ),
         createProperty(
@@ -354,7 +357,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 750,
                 rentWithFourHouse: 925,
                 rentWithHotel: 1100,
-
             },
         ),
         createStation(BoardCellAxis.bottom),
@@ -372,7 +374,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 800,
                 rentWithFourHouse: 975,
                 rentWithHotel: 1150,
-
             },
         ),
         createProperty(
@@ -389,10 +390,9 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 800,
                 rentWithFourHouse: 975,
                 rentWithHotel: 1150,
-
             },
         ),
-        createQuestion('Водопровод', BoardCellAxis.bottom, imgWaterSupply),
+        createTax(BoardCellAxis.bottom),
         createProperty(
             'Смоленская площадь',
             BoardCellGroup.linen,
@@ -407,28 +407,26 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 850,
                 rentWithFourHouse: 1025,
                 rentWithHotel: 1200,
-
             },
         ),
 
-        createDepartment('Тюрьма', BoardCellAxis.left, imgGoJail, BoardCellType.prison),
-        createProperty(
-            'Улица Гусева',
-            BoardCellGroup.indigo,
+        createDepartment(
+            'Тюрьма',
             BoardCellAxis.left,
-            {
-                buyCard: 300,
-                sellCard: 150,
-                buyHouse: 200,
-                rentWithoutBuildings: 26,
-                rentWithOneHouse: 130,
-                rentWithTwoHouse: 390,
-                rentWithThreeHouse: 900,
-                rentWithFourHouse: 1100,
-                rentWithHotel: 1275,
-
-            },
+            imgGoJail,
+            BoardCellType.prison,
         ),
+        createProperty('Улица Гусева', BoardCellGroup.indigo, BoardCellAxis.left, {
+            buyCard: 300,
+            sellCard: 150,
+            buyHouse: 200,
+            rentWithoutBuildings: 26,
+            rentWithOneHouse: 130,
+            rentWithTwoHouse: 390,
+            rentWithThreeHouse: 900,
+            rentWithFourHouse: 1100,
+            rentWithHotel: 1275,
+        }),
         createProperty(
             'Гоголевский бульвар',
             BoardCellGroup.indigo,
@@ -443,7 +441,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 900,
                 rentWithFourHouse: 1100,
                 rentWithHotel: 1275,
-
             },
         ),
         createBox(BoardCellAxis.left),
@@ -461,7 +458,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 1000,
                 rentWithFourHouse: 1200,
                 rentWithHotel: 1400,
-
             },
         ),
         createStation(BoardCellAxis.left),
@@ -480,10 +476,9 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 1100,
                 rentWithFourHouse: 1300,
                 rentWithHotel: 1500,
-
             },
         ),
-        createQuestion('Сверхналог', BoardCellAxis.left, imgSuperTax),
+        createTax(BoardCellAxis.left),
         createProperty(
             'Улица Арбат',
             BoardCellGroup.royalBlue,
@@ -498,7 +493,6 @@ export const boardStageData = () => ({
                 rentWithThreeHouse: 1400,
                 rentWithFourHouse: 1700,
                 rentWithHotel: 2000,
-
             },
         ),
     ],
