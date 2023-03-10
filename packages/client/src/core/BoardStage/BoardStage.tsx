@@ -1,7 +1,6 @@
 import React, {
     FC, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
@@ -9,8 +8,6 @@ import { staticCanvas } from '../Canvas/staticCanvas';
 import { activeCanvas } from '../Canvas/activeCanvas';
 import styles from './BoardStage.module.css';
 import { useBoard } from './BoardProvider';
-import Modal from '../../shared/ui/Modal';
-import { ROUTES } from '../../constants';
 import {
     addNewGameChatMessage,
     rollTheDiceTrue, setCurrentPlayer, turnStart,
@@ -21,6 +18,9 @@ import {
 } from '../../redux/reducers/gameReducer/gameSelector';
 import ChatBoard from '../../components/Game/Chat/ChatBoard';
 import ControllerBoard from '../../components/Game/ControllerBoard';
+import { GreetModal } from './components/GreetModal';
+import { PunishModal } from './components/PunishModal';
+import { board } from '../../models/Board/Board';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -28,6 +28,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
     const { random } = useBoard();
 
     const [isGameStarting, setIsGameStarting] = useState<boolean>(false);
+    // todo: это состояние нужно перетащить в модалки
     const [modals, setModals] = useState({
         showWinModal: false,
         showLoseModal: false,
@@ -36,13 +37,10 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
     const dispatch = useDispatch<Dispatch>();
     const currentPlayer = useSelector(getCurrentPlayer);
     const actionStarting = useSelector(getActionStarting);
-    const turnComleted = useSelector(getTurnCompleted);
+    const turnCompleted = useSelector(getTurnCompleted);
 
-    const closeWindModal = useCallback(() => {
-        setModals((prev) => ({ ...prev, showWinModal: false }));
-    }, []);
-    const closeLosedModal = useCallback(() => {
-        setModals((prev) => ({ ...prev, showLoseModal: false }));
+    const closeModal = useCallback((keyType: keyof typeof modals) => () => {
+        setModals((prev) => ({ ...prev, [keyType]: false }));
     }, []);
 
     /**  Завершение хода */
@@ -76,8 +74,20 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
         players,
     });
 
+    const handlerActiveCanvasClicker = useCallback((e: MouseEvent) => {
+        board.stage?.cells.forEach((cell) => {
+            const { context, shape } = cell;
+            if (shape?.pathShape && context?.isPointInPath(shape?.pathShape, e.offsetX * 2, e.offsetY * 2)) {
+                cell.emit(e.type, e, cell);
+            }
+        });
+    }, []);
+
     useEffect(() => {
         ref.current?.prepend(staticLayer.canvas, activeLayer.canvas);
+
+        activeLayer.canvas.addEventListener('click', handlerActiveCanvasClicker);
+        return () => activeLayer.canvas.removeEventListener('click', handlerActiveCanvasClicker);
     }, []);
 
     // вызываем инициализацию стара игры
@@ -94,45 +104,13 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                 {/* todo: вынести в компонент */}
                 <div className={styles.innerBoard}>
                     {/* <TitleBoard currentPlayer={currentPlayer} /> */}
-                    <ControllerBoard turnComleted={turnComleted} actionStarting={actionStarting} completeTheMove={completeTheMove} />
+                    <ControllerBoard turnComleted={turnCompleted} actionStarting={actionStarting} completeTheMove={completeTheMove} />
                     <ChatBoard />
                 </div>
             </div>
-            <Modal
-                title="Поздравляем!"
-                onClose={closeWindModal}
-                isShow={modals.showWinModal}
-            >
-                <div className={styles.winWrapper}>
-                    <div className={styles.winText}>
-                        Достигнут статуса монополиста
-                        <br />
-                        <br />
-                        {' '}
-                        Вы выиграли!
-                    </div>
-                    <Link className={styles.winBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
-                </div>
+            <GreetModal isShow={modals.showWinModal} onClose={closeModal('showWinModal')} />
+            <PunishModal isShow={modals.showLoseModal} onClose={closeModal('showLoseModal')} />
 
-            </Modal>
-            <Modal
-                title="Увы..."
-                isShow={modals.showLoseModal}
-                onClose={closeLosedModal}
-            >
-                <div className={styles.loseWrapper}>
-                    <div className={styles.loseText}>
-                        Достигнут статуса банкрота
-                        <br />
-                        <br />
-                        {' '}
-                        Вы проиграли!
-                    </div>
-
-                    <Link className={styles.loseBtn} to={ROUTES.MAIN}>Вернуться в главное меню</Link>
-
-                </div>
-            </Modal>
         </>
     );
 });

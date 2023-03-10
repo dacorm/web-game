@@ -46,7 +46,7 @@ export interface Game {
 
 export interface CreateGameReducerState {
   games: Game []| []
-  statusWS: StatusesWS
+  statusWS?: StatusesWS
 }
 
 type TCreateGameActionCreateGame = {

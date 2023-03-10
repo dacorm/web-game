@@ -7,7 +7,7 @@ import {
 
 const initialState : CreateGameReducerState = {
     games: [],
-    statusWS: null,
+    statusWS: undefined,
 };
 const initialAction: TCreateGameAction = {
     type: CreateGameActyonTypes.__INIT__,

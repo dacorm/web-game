@@ -28,6 +28,9 @@ export class FillRect extends Shape implements IFillRect {
     }
 
     drawShape(context: CanvasRenderingContext2D) {
+        this.pathShape = new Path2D();
+        this.pathShape.rect(this.x, this.y, this.width, this.height);
+
         this.context = context;
 
         context.beginPath();

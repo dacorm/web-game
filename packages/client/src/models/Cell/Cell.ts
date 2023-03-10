@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-named-default
+import { default as EventEmitter } from 'eventemitter3';
 import { Rect } from '../../core/Shapes/Rect';
 import { ImageShape } from '../../core/Shapes/ImageShape';
 import {
@@ -26,7 +28,7 @@ interface ICell {
 
 type Props = Omit<ICell, 'shape' | 'department'> & Partial<Pick<ICell, 'department'>>
 
-export class Cell implements ICell {
+export class Cell extends EventEmitter implements ICell {
     name;
 
     department = false;
@@ -46,6 +48,8 @@ export class Cell implements ICell {
     context: CanvasRenderingContext2D | undefined;
 
     constructor(props: Props) {
+        super();
+
         this.name = props.name;
         this.department = props.department ?? false;
         this.type = props.type;
