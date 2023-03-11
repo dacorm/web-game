@@ -46,6 +46,7 @@ export const activeCanvas = ({
         }
 
         board.createGeneratorMoveSequnce();
+        board.initAllPlayers();
     }, [players]);
 
     // при ресайзе доски переинициализируем фишки и саму доску
@@ -54,10 +55,6 @@ export const activeCanvas = ({
         ref.current.setSize(width, height);
         board.initAllPlayers();
     }, [width, height]);
-
-    useEffect(() => {
-        board.initAllPlayers();
-    }, [players]);
 
     useEffect(() => {
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора

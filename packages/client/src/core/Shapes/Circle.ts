@@ -23,6 +23,8 @@ export class Circle extends Shape {
     }
 
     drawShape(context: CanvasRenderingContext2D) {
+        this.pathShape = new Path2D();
+        this.pathShape.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         this.context = context;
 
         context.beginPath();
