@@ -3,6 +3,10 @@
     display: flex;
     flex-direction: column;
 }
+.cubeValue {
+  font-size: 18px;
+  font-weight: bold;
+}
 .top {
   flex: 80%;
   text-align: center;

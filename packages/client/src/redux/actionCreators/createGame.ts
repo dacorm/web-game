@@ -30,7 +30,6 @@ let _newGamesHandler: ((msg: Message) => void)| null = null;
 const newGamesHandlerCreator = (dispatch:Dispatch) => {
     if (_newGamesHandler == null) {
         _newGamesHandler = (msg: Message) => {
-            // console.log('mes from server', msg);
             switch (msg.method) {
             case MethodsMessages.addGame: {
                 // @ts-ignore

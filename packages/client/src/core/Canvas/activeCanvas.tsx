@@ -17,19 +17,12 @@ export const activeCanvas = ({
     const frame = useRef<number>(0);
     const dispatch = useDispatch<Dispatch>();
 
-    // const cellIsMoving = getCellIsMoving();
-
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
 
     const animate: TAnimateFunc = (cell, player) => {
         frame.current = requestAnimationFrame(() => animate(cell, player));
         context.clearRect(0, 0, ref.current.width, ref.current.height);
-
-        // if (player.collisionDetection(cell)) {
-        //     stop();
-        // }
-
         player.move(cell);
         board.reDrawAllPlayers();
     };
@@ -37,11 +30,13 @@ export const activeCanvas = ({
     // инициализируем игорков, при изменении кол-ва игроков пересоздаем генератор ходов c исключением обанкротившихся игроков
     useEffect(() => {
         if (!board.players.length) {
-            console.log('init players');
-            players?.map(({ userId, displayName }) => (new Player({ canvas: ref.current, userId, displayName })));
+            players?.map(
+                ({ userId, displayName, avatar }) => new Player({
+                    canvas: ref.current, userId, displayName, avatar,
+                }),
+            );
         }
         if (board.players.length && players?.length !== board.players.length) {
-            console.log('перерасчет игроков');
             board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
         }
 
@@ -57,27 +52,26 @@ export const activeCanvas = ({
     }, [width, height]);
 
     useEffect(() => {
+        const player = board.getPlayerById(board.currentTurn);
+        if (!player) return;
+        if (player?.prisoner) return;
         // todo: этот код нужно перенести в обработчик кнопки кубиков, он здесь только потому что не было стора
         if (squares?.some((v) => v)) {
-            const player = board.getPlayerById(board.currentTurn);
+            const sumSquares = squares.reduce((a, b) => a + b);
+            dispatch(addNewGameChatMessage(
+                {
+                    playerName: player.displayName,
+                    message: `бросает кубики и выбивает число ${sumSquares}`,
+                },
+            ));
+            const updatedCurrentPos = player.updateCurrentPos(sumSquares);
+            player.addCell(board.getCell(updatedCurrentPos));
 
-            if (player) {
-                const sumSquares = squares.reduce((a, b) => a + b);
-                dispatch(addNewGameChatMessage(
-                    {
-                        playerName: player.displayName,
-                        message: `бросает кубики и выбивает число ${sumSquares}`,
-                    },
-                ));
-                const updatedCurrentPos = player.updateCurrentPos(4);
-                player.addCell(board.getCell(updatedCurrentPos));
-
-                // eslint-disable-next-line no-restricted-syntax
-                for (const cell of player.generateCells()) {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const cell of player.generateCells()) {
                 // todo: нужно дождаться завершения анимации и запустить следующую
-                    if (cell) {
-                        animate(cell, player);
-                    }
+                if (cell) {
+                    animate(cell, player);
                 }
             }
         }

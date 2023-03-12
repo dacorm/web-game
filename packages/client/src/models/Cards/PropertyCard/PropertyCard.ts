@@ -1,3 +1,4 @@
+import { Cell } from '../../Cell/Cell';
 import { TPricesProperty } from '../../../core/BoardStage/helpers/boardStageData';
 import { Player } from '../../Player/Player';
 import { Card } from '../Card/Card';
@@ -19,29 +20,33 @@ class PropertyCard extends Card implements IPropertyCard {
 
     group: BoardCellGroup;
 
+    cell: Cell | null;
+
     constructor(props: PropertyCardProps) {
         super(props);
         this.prices = props.prices;
         this.stateCard = StateCard.FREE;
         this.owner = null;
         this.houses = null;
+        this.cell = null;
         this.group = props.group;
     }
 
     /** Купить недвижимость */
     buy(player: Player) {
-        if (player.balance >= this.prices.buyCard) { // достаточный ли баланс у игрока для покупки
-            this.owner = player;
+        if (player.balance >= this.prices.buyCard) {
+            // достаточный ли баланс у игрока для покупки
+            this.changeOwner(player);
             player.property.push(this);
             player.payMoneyToTheBank(this.prices.buyCard);
             this.stateCard = StateCard.BOUGHT;
 
-            store.dispatch(addNewGameChatMessage(
-                {
+            store.dispatch(
+                addNewGameChatMessage({
                     playerName: player.displayName,
                     message: `приобретает ${this.name} за ${this.prices.buyCard} $`,
-                },
-            ));
+                }),
+            );
 
             this.complete();
         } else {
@@ -49,14 +54,21 @@ class PropertyCard extends Card implements IPropertyCard {
         }
     }
 
+    changeOwner(player: Player) {
+        this.owner = player;
+        if (this.cell) {
+            this.cell.createColorOwner(player.fill);
+        }
+    }
+
     /** Воздержаться от покупки недвижимости */
     refuseToBuy() {
-        store.dispatch(addNewGameChatMessage(
-            {
+        store.dispatch(
+            addNewGameChatMessage({
                 playerName: store.getState().game.currentPlayer.displayName,
                 message: 'решает воздержаться от покуки недвижимости',
-            },
-        ));
+            }),
+        );
 
         this.complete();
     }
@@ -65,12 +77,12 @@ class PropertyCard extends Card implements IPropertyCard {
     sell() {
         this.stateCard = StateCard.MORTAGED;
 
-        store.dispatch(addNewGameChatMessage(
-            {
+        store.dispatch(
+            addNewGameChatMessage({
                 playerName: (this.owner as Player).displayName,
                 message: `закладывает ${this.name} за ${this.prices.sellCard} $`,
-            },
-        ));
+            }),
+        );
 
         this.complete();
     }
@@ -81,12 +93,12 @@ class PropertyCard extends Card implements IPropertyCard {
             const currentRent = calculatePropertyRent(this) as number;
             player.payMoneyToThePlayer(currentRent, this.owner);
 
-            store.dispatch(addNewGameChatMessage(
-                {
+            store.dispatch(
+                addNewGameChatMessage({
                     playerName: player.displayName,
                     message: `выплачивает ренту игроку ${player.displayName} в размере ${currentRent} $`,
-                },
-            ));
+                }),
+            );
         }
         this.complete();
     }

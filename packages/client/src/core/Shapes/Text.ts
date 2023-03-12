@@ -60,6 +60,7 @@ export class Text extends Shape implements IText {
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillStyle = 'black';
+
             context.save();
             if (this.rotate) {
                 const gradus = (this.rotate * Math.PI) / 180;

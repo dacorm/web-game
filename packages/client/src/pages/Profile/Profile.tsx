@@ -36,7 +36,6 @@ export default function Profile() {
     });
 
     const userState = useTypedSelector((state) => state.user);
-    console.log('state!!!!!', userState);
 
     const openPasswordModal = useCallback(() => {
         setModals((prev) => ({ ...prev, showPasswordModal: true }));

@@ -12,6 +12,14 @@ export const stopCellMoving = () => ({
 export const setCurrentPlayer = () => ({
     type: GameActionTypes.SET_CURRENT_PLAYER,
 });
+/** инициализируем всех игроков */
+export const setAllPlayers = () => ({
+    type: GameActionTypes.SET_ALL_PLAYERS,
+});
+/** кидаем кубик */
+export const rollTheDice = () => ({
+    type: GameActionTypes.ROLL_THE_DICE,
+});
 /** разрешаем кидать кубик */
 export const rollTheDiceTrue = () => ({
     type: GameActionTypes.ROLL_THE_DICE_TRUE,
@@ -35,6 +43,10 @@ export const turnStart = () => ({
 /** даем возможность игроку завершить ход */
 export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
+});
+/** завершить игру(очищение стора) */
+export const endGame = () => ({
+    type: GameActionTypes.END_GAME,
 });
 /** добавить событие в чат */
 export const addNewGameChatMessage = (message: TGameChatMessage) => ({
