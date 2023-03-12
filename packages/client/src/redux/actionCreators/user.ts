@@ -1,13 +1,13 @@
 import { userApi } from '../../api/userApi';
 import { appDispatch, Dispatcher } from '../store';
 import {
-    redirectURI, TUserAction, UserActionTypes, UserData, UserURL,
+    redirectURI, TUserAction, UserActionTypes, UserData, UserCssTheme, UserURL,
 } from '../types/userReducer.types';
 import { OAuthGetServiceResponse } from '../../api/apiTypes';
 import { createUser } from './forum';
 
-export const setUser = (userName: string, email: string, id: string, avatar:string): TUserAction => {
-    const userData :UserData = {
+export const setUser = (userName: string, email: string, id: string, avatar: string): TUserAction => {
+    const userData: UserData = {
         userName,
         email,
         id,
@@ -19,21 +19,31 @@ export const setUser = (userName: string, email: string, id: string, avatar:stri
     };
 };
 
+export const setCssTheme = (themeName: string): TUserAction => {
+    const userCssTheme: UserCssTheme = {
+        cssTheme: themeName,
+    };
+    return {
+        type: UserActionTypes.SET_CSS_THEME,
+        payload: userCssTheme,
+    };
+};
+
 export const logout = (): TUserAction => ({
     type: UserActionTypes.LOGOUT,
 });
 
-export const setAvatar = (avatar:string): TUserAction => ({
+export const setAvatar = (avatar: string): TUserAction => ({
     type: UserActionTypes.SET_AVATAR,
     payload: avatar,
 });
 
-export const setLoginError = (error:string): TUserAction => ({
+export const setLoginError = (error: string): TUserAction => ({
     type: UserActionTypes.LOGIN_ERROR,
     payload: error,
 });
 
-export const setUserAvatarThunk = (avatar:File) => async (dispatch:appDispatch) => {
+export const setUserAvatarThunk = (avatar: File) => async (dispatch: appDispatch) => {
     const fd = new FormData();
     fd.append('avatar', avatar);
     try {
@@ -137,6 +147,41 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
         } else {
             const errors = await loginRes.json();
             dispatch(setLoginError(errors.reason));
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+export const createCssThemeThunk = (themeName: string, login: string) => async (dispatch: Dispatcher) => {
+    try {
+        console.log('createCssThemeThunk:', themeName, login);
+        const res = await userApi.createCssTheme(themeName, login);
+        console.log('set css theme status:', res.status);
+        if (res.status === 200) {
+            console.log('cssTheme', themeName);
+            dispatch(setCssTheme(themeName));
+        } else {
+            const errors = await res.json();
+            console.warn(errors);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+export const getCssThemeThunk = (login: string) => async (dispatch: Dispatcher) => {
+    try {
+        console.log('getCssThemeThunk:', login);
+        const res = await userApi.getCssTheme(login);
+        const cssThemeData = await res.json();
+        console.log('cssThemeData', cssThemeData);
+        if (res.status === 200) {
+            const srvTheme = cssThemeData?.cssTheme;
+            console.log('srvTheme', srvTheme);
+            dispatch(setCssTheme(srvTheme));
+        } else {
+            const errors = await res.json();
+            console.warn(errors);
         }
     } catch (e) {
         console.warn(e);

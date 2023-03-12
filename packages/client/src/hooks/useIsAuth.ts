@@ -5,6 +5,7 @@ import { Dispatcher } from '../redux/store';
 import { getUserInfo } from '../redux/actionCreators/user';
 
 export function useIsAuth() {
+    console.log('useIsAuth fired');
     const isLoggedIn = useSelector(getIsLoggedInFlag);
 
     const dispatch = useDispatch<Dispatcher>();
