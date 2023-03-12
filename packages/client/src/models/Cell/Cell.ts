@@ -90,6 +90,7 @@ export class Cell extends EventEmitter implements ICell {
             this.shape.drawShape(this.context);
             this.createTitle(props);
             this.createColorHead();
+            this.createColorOwner();
             this.createPrice(props);
         }
     }
@@ -103,8 +104,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 2,
                         y: props.y + (5 * props.height) / 6,
-                        maxWidth: (props.width - (props.width * 0.02)),
-                        fontSize: (props.width / 6),
+                        maxWidth: props.width - props.width * 0.02,
+                        fontSize: props.width / 6,
                     };
 
                     break;
@@ -113,8 +114,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 6,
                         y: props.y + props.height / 2,
-                        maxWidth: (props.height - (props.height * 0.02)),
-                        fontSize: (props.height / 6),
+                        maxWidth: props.height - props.height * 0.02,
+                        fontSize: props.height / 6,
                     };
 
                     break;
@@ -123,18 +124,17 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 2,
                         y: props.y + props.height / 6,
-                        maxWidth: props.width - (props.width * 0.02),
-                        fontSize: (props.width / 6),
+                        maxWidth: props.width - props.width * 0.02,
+                        fontSize: props.width / 6,
                     };
                     break;
                 case BoardCellAxis.left:
-
                     props = {
                         ...props,
                         x: props.x + (5 * props.width) / 6,
                         y: props.y + props.height / 2,
-                        maxWidth: props.height - (props.height * 0.02),
-                        fontSize: (props.height / 6),
+                        maxWidth: props.height - props.height * 0.02,
+                        fontSize: props.height / 6,
                     };
                     break;
                 default:
@@ -143,7 +143,11 @@ export class Cell extends EventEmitter implements ICell {
 
                 if ((this.card as PropertyCard).prices) {
                     // @ts-ignore
-                    new Text({ text: (this.card.prices.buyCard as number).toString(), ...props }).drawShape(this.context);
+                    new Text({
+                    // @ts-ignore
+                        text: (this.card.prices.buyCard as number).toString(),
+                        ...props,
+                    }).drawShape(this.context);
                 }
             }
         }
@@ -154,8 +158,8 @@ export class Cell extends EventEmitter implements ICell {
             ...props,
             x: props.x + props.width / 2,
             y: props.y + props.height / 10,
-            maxWidth: (props.width - (props.width * 0.02)),
-            fontSize: (props.width / 7),
+            maxWidth: props.width - props.width * 0.02,
+            fontSize: props.width / 7,
         };
 
         if (this.context) {
@@ -168,8 +172,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 2,
                         y: props.y + props.height / 15,
-                        maxWidth: (props.width - (props.width * 0.02)),
-                        fontSize: (props.width / 6),
+                        maxWidth: props.width - props.width * 0.02,
+                        fontSize: props.width / 6,
                     };
                 }
 
@@ -182,8 +186,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + (14 * props.width) / 15,
                         y: props.y + props.height / 2,
-                        maxWidth: (props.height - (props.height * 0.02)),
-                        fontSize: (props.height / 6),
+                        maxWidth: props.height - props.height * 0.02,
+                        fontSize: props.height / 6,
                     };
                 }
 
@@ -196,8 +200,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 2,
                         y: props.y + (14 * props.height) / 15,
-                        maxWidth: props.width - (props.width * 0.02),
-                        fontSize: (props.width / 6),
+                        maxWidth: props.width - props.width * 0.02,
+                        fontSize: props.width / 6,
                     };
                 }
 
@@ -210,8 +214,8 @@ export class Cell extends EventEmitter implements ICell {
                         ...props,
                         x: props.x + props.width / 15,
                         y: props.y + props.height / 2,
-                        maxWidth: props.height - (props.height * 0.02),
-                        fontSize: (props.height / 6),
+                        maxWidth: props.height - props.height * 0.02,
+                        fontSize: props.height / 6,
                     };
                 }
 
@@ -225,14 +229,24 @@ export class Cell extends EventEmitter implements ICell {
     }
 
     createColorHead() {
-        if (this.context && this.group) {
+        if (
+            this.context
+          && (this.group || this.type === BoardCellType.station)
+        ) {
             let props: BoardItemSize = {
-                width: this.width || 0, height: this.height || 0, x: this.x || 0, y: this.y || 0,
+                width: this.width || 0,
+                height: this.height || 0,
+                x: this.x || 0,
+                y: this.y || 0,
             };
 
             switch (this.axis) {
             case BoardCellAxis.top:
-                props = { ...props, height: props.height / 3, y: props.height - props.height / 3 };
+                props = {
+                    ...props,
+                    height: props.height / 3,
+                    y: props.height - props.height / 3,
+                };
                 break;
             case BoardCellAxis.right:
                 props = { ...props, width: props.width / 3 };
@@ -241,12 +255,65 @@ export class Cell extends EventEmitter implements ICell {
                 props = { ...props, height: props.height / 3 };
                 break;
             case BoardCellAxis.left:
-                props = { ...props, width: props.width / 3, x: props.width - props.width / 3 };
+                props = {
+                    ...props,
+                    width: props.width / 3,
+                    x: props.width - props.width / 3,
+                };
                 break;
             default:
             }
 
-            new FillRect({ ...props, fill: this.group as unknown as string }).drawShape(this.context);
+            new FillRect({
+                ...props,
+                fill: this.group || 'grey' as unknown as string,
+            }).drawShape(this.context);
+        }
+    }
+
+    createColorOwner(color = 'rgba(0, 0, 0, 0)') {
+        if (this.context && (this.group || this.type === BoardCellType.station)) {
+            let props: BoardItemSize = {
+                width: this.width || 0,
+                height: this.height || 0,
+                x: this.x || 0,
+                y: this.y || 0,
+            };
+
+            switch (this.axis) {
+            case BoardCellAxis.top:
+                props = {
+                    ...props,
+                    height: props.height / 1.5,
+                    y: props.height - props.height / 1,
+                };
+                break;
+            case BoardCellAxis.right:
+                props = {
+                    ...props,
+                    width: props.width / 1.5,
+                    x: props.x + props.width / 3,
+                };
+                break;
+            case BoardCellAxis.bottom:
+                props = {
+                    ...props,
+                    height: props.height / 1.5,
+                    y: props.y + props.height / 3,
+                };
+                break;
+            case BoardCellAxis.left:
+                props = {
+                    ...props,
+                    width: props.width / 1.5,
+                };
+                break;
+            default:
+            }
+
+            new FillRect({ ...props, fill: color, globalAlpha: 0.5 }).drawShape(
+                this.context,
+            );
         }
     }
 }

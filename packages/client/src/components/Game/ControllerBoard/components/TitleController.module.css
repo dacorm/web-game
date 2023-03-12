@@ -1,0 +1,12 @@
+.playerName {
+    font-size: 23px;
+    color: var(--color-red);
+    
+
+}
+.title {
+    margin-top: 3px;
+    font-size: 21px;
+    font-weight: bold;
+    text-align: center;
+}

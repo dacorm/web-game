@@ -7,14 +7,16 @@ import { useResizeObserver } from '../../hooks/useResizeObserver';
 import { staticCanvas } from '../Canvas/staticCanvas';
 import { activeCanvas } from '../Canvas/activeCanvas';
 import styles from './BoardStage.module.css';
-import { useBoard } from './BoardProvider';
 import {
+    actionStart,
     addNewGameChatMessage,
-    rollTheDiceTrue, setCurrentPlayer, turnStart,
+    endGame,
+    rollTheDiceFalse,
+    rollTheDiceTrue, setAllPlayers, setCurrentPlayer, turnStart,
 } from '../../redux/actionCreators/game';
 import { BoardStageProps } from './BoardStage.types';
 import {
-    getActionStarting, getCurrentPlayer, getTurnCompleted,
+    getActionStarting, getCurrentPlayer, getRollTheDice, getTurnCompleted,
 } from '../../redux/reducers/gameReducer/gameSelector';
 import ChatBoard from '../../components/Game/Chat/ChatBoard';
 import ControllerBoard from '../../components/Game/ControllerBoard';
@@ -25,7 +27,7 @@ import { board } from '../../models/Board/Board';
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
-    const { random } = useBoard();
+    const random = useSelector(getRollTheDice);
 
     const [isGameStarting, setIsGameStarting] = useState<boolean>(false);
     // todo: это состояние нужно перетащить в модалки
@@ -56,8 +58,18 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
         dispatch(turnStart());
     }, [currentPlayer]);
 
+    useEffect(() => {
+        if (!turnCompleted) {
+            if (currentPlayer.prisoner) {
+                dispatch(rollTheDiceFalse());
+                dispatch(actionStart());
+            }
+        }
+    }, [turnCompleted]);
+
     /** инициализация старта игры */
     const initStartGame = useCallback(() => {
+        dispatch(setAllPlayers());
         dispatch(setCurrentPlayer());
         dispatch(rollTheDiceTrue());
         console.log('Игра запущена');
@@ -87,7 +99,10 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
         ref.current?.prepend(staticLayer.canvas, activeLayer.canvas);
 
         activeLayer.canvas.addEventListener('click', handlerActiveCanvasClicker);
-        return () => activeLayer.canvas.removeEventListener('click', handlerActiveCanvasClicker);
+        return () => {
+            dispatch(endGame());
+            activeLayer.canvas.removeEventListener('click', handlerActiveCanvasClicker);
+        };
     }, []);
 
     // вызываем инициализацию стара игры

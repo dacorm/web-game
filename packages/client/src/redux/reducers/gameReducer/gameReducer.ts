@@ -1,3 +1,4 @@
+import { Util } from '../../../core/Util';
 import { board } from '../../../models/Board/Board';
 import { ActionType } from '../../store';
 import { GameActionTypes, userGame } from '../../types/gameReducer.types';
@@ -8,7 +9,9 @@ const initialState: userGame = {
     currentPlayer: { displayName: null, userId: null },
     actionStarting: false,
     turnCompleted: false,
+    players: [],
     messages: [],
+    rollTheDice: [0, 0],
 };
 
 const initialAction = { type: '__INIT__' };
@@ -32,6 +35,20 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         return {
             ...state,
             currentPlayer: player,
+        };
+    }
+    case GameActionTypes.SET_ALL_PLAYERS: {
+        const players = board.getPlayers();
+
+        return {
+            ...state,
+            players: [...players],
+        };
+    }
+    case GameActionTypes.ROLL_THE_DICE: {
+        return {
+            ...state,
+            rollTheDice: [Util.randomNumber(), Util.randomNumber()],
         };
     }
     case GameActionTypes.ROLL_THE_DICE_TRUE: {
@@ -68,6 +85,12 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         return {
             ...state,
             turnCompleted: true,
+        };
+    }
+    case GameActionTypes.END_GAME: {
+        board.endGame();
+        return {
+            ...initialState,
         };
     }
     case GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE: {

@@ -15,6 +15,7 @@ import BoxAction from './components/Box';
 import PropertyCard from '../../../models/Cards/PropertyCard';
 import ChanceAction from './components/Chance';
 import TaxAction from './components/Tax';
+import PrisonAction from './components/Prison';
 
 const Action = () => {
     // ячейка на которой стоит\перешёл игрок
@@ -47,14 +48,23 @@ const Action = () => {
 
     useEffect(() => {
         if (cell) {
-            dispatch(addNewGameChatMessage(
-                {
-                    playerName: player.displayName,
-                    message: `попадает на поле "${cell?.name}"`,
-                },
-            ));
+            if (cell.name === 'Тюрьма') {
+                dispatch(
+                    addNewGameChatMessage({
+                        playerName: player.displayName,
+                        message: 'находится в тюрьме и думает что делать',
+                    }),
+                );
+            } else {
+                dispatch(
+                    addNewGameChatMessage({
+                        playerName: player.displayName,
+                        message: `попадает на поле "${cell?.name}"`,
+                    }),
+                );
+            }
 
-            if (!cell.card) {
+            if (!cell.card && player.prisoner === false) { // если игрок в тюрьме то не скипаем экшен
                 skipAction();
             }
         }
@@ -64,11 +74,17 @@ const Action = () => {
         setCell(getCellFromBoard());
     }, [player]);
 
-    if (!cell || !cell.card) {
-        return (
-            <div>загрузка...</div>
-        );
+    if (!cell) {
+        return <div>загрузка...</div>;
     }
+    // если ячейка типа тюрьма
+    if (cell.type === BoardCellType.prison || player.prisoner === true) {
+        return <PrisonAction cell={cell} player={player} />;
+    }
+    if (!cell.card) {
+        return <div>загрузка карты...</div>;
+    }
+
     // если недвижка\станция заложена
     if ((cell.card as PropertyCard).stateCard === StateCard.MORTAGED) {
         handleCompleteAction();
@@ -104,30 +120,15 @@ const Action = () => {
 
     // если ячейка типа казна
     if (cell.type === BoardCellType.box) {
-        return (
-            <BoxAction
-                cell={cell}
-                player={player}
-            />
-        );
+        return <BoxAction cell={cell} player={player} />;
     }
     // если ячейка типа шанс
     if (cell.type === BoardCellType.chance) {
-        return (
-            <ChanceAction
-                cell={cell}
-                player={player}
-            />
-        );
+        return <ChanceAction cell={cell} player={player} />;
     }
     // если ячейка типа налог
     if (cell.type === BoardCellType.tax) {
-        return (
-            <TaxAction
-                cell={cell}
-                player={player}
-            />
-        );
+        return <TaxAction cell={cell} player={player} />;
     }
 
     return <div />;

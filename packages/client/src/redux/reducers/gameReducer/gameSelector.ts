@@ -5,6 +5,10 @@ import { AppStateType } from '../../store';
 export const getCellIsMoving = (state: AppStateType): boolean => state.game.cellIsMoving;
 /** получить игрока, к которому перешел ход */
 export const getCurrentPlayer = (state: AppStateType): Player => state.game.currentPlayer;
+/** получить всех игроков */
+export const getAllPlayers = (state: AppStateType): Player[] => state.game.players;
+/** получить значения кубиков */
+export const getRollTheDice = (state: AppStateType): number[] => state.game.rollTheDice;
 /** может ли игрок кинуть кубики */
 export const getCanRollTheDice = (state: AppStateType): boolean => state.game.canRollTheDice;
 /** показывать ли сцену экшена карточки */

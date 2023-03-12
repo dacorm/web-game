@@ -22,6 +22,13 @@ class Board implements IBoard {
         return undefined;
     }
 
+    endGame() {
+        this.stage = undefined;
+        this.currentTurn = null;
+        this.players = [];
+        this.generatorMoveSequence = undefined;
+    }
+
     getPlayerById(id: number | null) {
         for (let i = 0; i < this.players.length; i++) {
             if (this.players[i].userId === id) {
@@ -29,6 +36,10 @@ class Board implements IBoard {
             }
         }
         return null;
+    }
+
+    getPlayers() {
+        return this.players;
     }
 
     /** инициализация фишек */

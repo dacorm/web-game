@@ -1,4 +1,6 @@
-import React, { FC, useCallback, useRef } from 'react';
+import React, {
+    FC, useCallback, useRef, useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import Button from '../../../shared/ui/Button';
@@ -11,9 +13,15 @@ const CreateGameForm: FC = () => {
     const countPlayersAll = useRef<number[]>([2, 3, 4, 5]);
     const navigate = useNavigate();
 
-    const handleClick = useCallback(() => {
-        navigate(ROUTES.GAME);
+    const [countPlayers, setCountPlayers] = useState<number | null>(null);
+
+    const handlePickCount = useCallback((e: React.MouseEvent) => {
+        setCountPlayers(Number(e.currentTarget?.textContent));
     }, []);
+
+    const handleClick = useCallback(() => {
+        navigate(ROUTES.GAME, { state: { countPlayers } });
+    }, [countPlayers]);
 
     return (
         <form className={styles.form}>
@@ -21,7 +29,11 @@ const CreateGameForm: FC = () => {
                 <div className={styles.item}>
                     <div className={styles.itemName}>Количество игроков:</div>
                     <div className={styles.itemInput}>
-                        <CountPlayersList countPlayersAll={countPlayersAll.current} />
+                        <CountPlayersList
+                            countPlayersAll={countPlayersAll.current}
+                            countPlayers={countPlayers}
+                            handleClick={handlePickCount}
+                        />
                     </div>
                 </div>
                 <div className={styles.buttonWrapper}>

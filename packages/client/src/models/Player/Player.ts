@@ -1,5 +1,5 @@
 import {
-    addNewGameChatMessage, actionStop, actionStart, stopCellMoving,
+    addNewGameChatMessage, actionStop, actionStart, stopCellMoving, setAllPlayers,
 } from '../../redux/actionCreators/game';
 
 import { Canvas } from '../../core/Canvas/helpers/Canvas';
@@ -19,6 +19,7 @@ export interface Player {
   currentPos: number
   cells: Cell[]
   radius: number
+  avatar: string
   fill: string
   canvas: Canvas
   trails: { x: number; y: number }[]
@@ -28,26 +29,33 @@ export interface Player {
   property: Property[]
   stations: any // пока нету класса жд дорог так что any
   balance: number
+  prisoner: boolean
+  countMoves: number
   init(): void
   draw(velocity: { x: number; y: number }, cell?: Cell): void
   move(cell?: Cell): void
   stopVelocity(
     velocity: { x: number; y: number },
-    cell?: Cell,
+    cell?: Cell
   ): { x: number; y: number }
 }
 /* eslint-disable-next-line */
 export class Player {
     // todo: канвас везде надо забирать из стора
-    constructor({ canvas, userId, displayName }: PlayerProps) {
+    constructor({
+        canvas, userId, displayName, avatar,
+    }: PlayerProps) {
         this.canvas = canvas as Canvas;
         this.userId = userId;
+        this.avatar = avatar;
         this.displayName = displayName;
         this.currentPos = 0; // текущая позиция фишки относительно id карточки
         this.cells = []; // todo: возможно стоит объединить с переменной выше
         this.property = []; // экземпляры классов приобретенного имущества
         this.stations = []; // экземпляры классов приобретенных жд дорог
         this.balance = 1500; // баланс у игроков(при старте выдается 1500)
+        this.prisoner = false;
+        this.countMoves = 0;
         board.players.push(this);
     }
 
@@ -84,7 +92,6 @@ export class Player {
         const xIsNull = velocity.x === 0;
         const yIsNull = velocity.y === 0;
         if (xIsNull && yIsNull && store.getState().game.cellIsMoving) {
-            console.log('cellIsMoving false');
             store.dispatch(stopCellMoving());
             store.dispatch(actionStart());
         }
@@ -126,7 +133,7 @@ export class Player {
 
                 return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.right:
-                if (name === 'Тюрьма') {
+                if (name === 'Вас поймали') {
                     return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
                 }
 
@@ -231,8 +238,14 @@ export class Player {
 
         this.balance -= value;
         owner.balance += value;
+        this.updateStorePlayers();
 
         return true;
+    }
+
+    /** обновить в сторе состояние игроков(для юзердаты) */
+    updateStorePlayers() {
+        store.dispatch(setAllPlayers());
     }
 
     /** заплатить деньги в банк  */
@@ -241,6 +254,7 @@ export class Player {
             return this.eventNotEnoughMoney();
         }
         this.balance -= value;
+        this.updateStorePlayers();
 
         return true;
     }
@@ -248,11 +262,13 @@ export class Player {
     /** получить деньги от банка */
     getMoney(value: number) {
         this.balance += value;
+        this.updateStorePlayers();
     }
 
     /** получить деньги за прохождение старта */
     getMoneyForStart() {
         this.getMoney(200);
+        this.updateStorePlayers();
     }
 
     /** поменять координаты фишки игрока */
@@ -270,6 +286,15 @@ export class Player {
 
         store.dispatch(actionStop());
         setTimeout(() => { store.dispatch(actionStart()); }, 0);
+    }
+
+    /** отправить игрока на клетку без выплаты денег за старт и без экшена */
+    sendPlayerToCellWithoutStartAndAction(cellIndex: number) {
+        this.changePosition(cellIndex);
+
+        this.currentPos = cellIndex;
+
+        store.dispatch(actionStop());
     }
 
     /** отправить игрока на клетку с возможностью выплаты денег за старт */
@@ -295,7 +320,6 @@ export class Player {
             this.getMoneyForStart();
             store.dispatch(addNewGameChatMessage({ message: 'получает 200$ за прохождения поля "Старт"', playerName: this.displayName }));
         }
-        console.log(`переход к ячейке с индексом ${this.currentPos}`);
 
         return this.currentPos;
     }

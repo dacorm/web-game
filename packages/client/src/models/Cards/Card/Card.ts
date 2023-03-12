@@ -16,9 +16,8 @@ export class Card implements ICard {
 
     /** завершить экшен */
     /* eslint-disable-next-line */
-    complete() {
+  complete() {
         store.dispatch(actionStop());
         store.dispatch(turnStop());
-        console.log('экшен карточки завершен');
     }
 }

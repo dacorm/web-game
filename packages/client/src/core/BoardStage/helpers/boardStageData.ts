@@ -13,43 +13,85 @@ import StationCard from '../../../models/Cards/StationCard';
 import BoxCard from '../../../models/Cards/BonusCard/BoxCard/BoxCard';
 import ChanceCard from '../../../models/Cards/BonusCard/ChanceCard';
 import TaxCard from '../../../models/Cards/TaxCard';
+import JailCard from '../../../models/Cards/JailCard';
 
-function createDepartment(name: string, axis: BoardCellAxis, image: string, type?: BoardCellType): Cell {
+function createDepartment(
+    name: string,
+    axis: BoardCellAxis,
+    image: string,
+    type?: BoardCellType,
+): Cell {
     return new Cell({
-        type: type ?? BoardCellType.department, name, axis, image, department: true,
+        type: type ?? BoardCellType.department,
+        name,
+        axis,
+        image,
+        department: true,
+    });
+}
+function createPrison(
+    name: string,
+    axis: BoardCellAxis,
+    image: string,
+    type?: BoardCellType,
+): Cell {
+    return new Cell({
+        type: type ?? BoardCellType.department,
+        name,
+        axis,
+        image,
+        department: true,
+        card: new JailCard({
+            name,
+            type: BoardCellType.property,
+        }),
     });
 }
 
 export type TPricesProperty = {
-    buyCard: number,
-    sellCard: number
-    buyHouse: number
-    rentWithoutBuildings: number,
-    rentWithOneHouse : number
-    rentWithTwoHouse : number
-    rentWithThreeHouse : number
-    rentWithFourHouse : number
-    rentWithHotel: number
+  buyCard: number
+  sellCard: number
+  buyHouse: number
+  rentWithoutBuildings: number
+  rentWithOneHouse: number
+  rentWithTwoHouse: number
+  rentWithThreeHouse: number
+  rentWithFourHouse: number
+  rentWithHotel: number
 }
 
 export type TPricesStation = {
-    buyCard: number
-    sellCard: number
-    rentWithOnePort: number
-    rentWithTwoPort: number
-    rentWithThreePort: number
-    rentWithFourPort: number
+  buyCard: number
+  sellCard: number
+  rentWithOnePort: number
+  rentWithTwoPort: number
+  rentWithThreePort: number
+  rentWithFourPort: number
 }
-function createProperty(name: string, group: BoardCellGroup, axis: BoardCellAxis, prices: TPricesProperty): Cell {
-    return new Cell({
+function createProperty(
+    name: string,
+    group: BoardCellGroup,
+    axis: BoardCellAxis,
+    prices: TPricesProperty,
+): Cell {
+    const cell = new Cell({
         type: BoardCellType.property,
         group,
         name,
         axis,
         card: new PropertyCard({
-            name, group, prices, type: BoardCellType.property,
-        }), // нужно будет везде передавать это поле, пока данные карты захардкожены
+            name,
+            group,
+            prices,
+            type: BoardCellType.property,
+        }),
+    }).on('click', (event, t) => {
+        console.log(event, t);
     });
+
+    (cell.card as PropertyCard).cell = cell;
+
+    return cell;
 }
 // // когда не знаешь что это и какой должен быть функционал
 // function createQuestion(name: string, axis: BoardCellAxis, image?: string): Cell {
@@ -80,7 +122,7 @@ function createBox(axis: BoardCellAxis): Cell {
     });
 }
 function createStation(axis: BoardCellAxis): Cell {
-    return new Cell({
+    const cell = new Cell({
         type: BoardCellType.station,
         name: 'Железная дорога',
         axis,
@@ -97,7 +139,11 @@ function createStation(axis: BoardCellAxis): Cell {
             type: BoardCellType.station,
             name: 'Железная дорога',
         }),
+    }).on('click', (event, t) => {
+        console.log(event, t);
     });
+    (cell.card as StationCard).cell = cell;
+    return cell;
 }
 function createChance(axis: BoardCellAxis): Cell {
     return new Cell({
@@ -197,12 +243,7 @@ export const boardStageData = () => ({
             },
         ),
 
-        createDepartment(
-            'Тюрьма',
-            BoardCellAxis.right,
-            imgJail,
-            BoardCellType.prison,
-        ),
+        createPrison('Вас поймали', BoardCellAxis.right, imgJail, BoardCellType.prison),
         createProperty(
             'Полянка улица',
             BoardCellGroup.deepPink,
@@ -414,7 +455,7 @@ export const boardStageData = () => ({
             'Тюрьма',
             BoardCellAxis.left,
             imgGoJail,
-            BoardCellType.prison,
+            BoardCellType.stage,
         ),
         createProperty('Улица Гусева', BoardCellGroup.indigo, BoardCellAxis.left, {
             buyCard: 300,

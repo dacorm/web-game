@@ -4,4 +4,5 @@ export interface PlayerProps {
     canvas: Canvas
     userId: number
     displayName: string
+    avatar: string
 }
