@@ -55,6 +55,23 @@ export const Theme = sequelize.define('theme', themeModel, {
     ],
 });
 
+User.hasOne(Theme, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    foreignKey: {
+        name: 'ownerId',
+        allowNull: false,
+    },
+});
+Theme.belongsTo(User, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    foreignKey: {
+        name: 'ownerId',
+        allowNull: false,
+    },
+});
+
 // Инициализируем Сервисы
 export const forumServise = new ForumServices(Forum);
 export const messageServise = new MessageService(Message);
