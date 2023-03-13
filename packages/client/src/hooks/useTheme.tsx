@@ -29,7 +29,10 @@ export function useTheme(srvTheme: Theme | null = null): UseThemeResult {
     // }
 
     const toggleTheme = () => {
-        const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+        const localStorageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+        console.log('localStorageTheme', localStorageTheme);
+        const tTheme = localStorageTheme ?? theme;
+        const newTheme = tTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
 
         setTheme?.(newTheme);
         document.body.className = newTheme;

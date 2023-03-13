@@ -7,12 +7,13 @@ import { OAuthGetServiceResponse } from '../../api/apiTypes';
 import { createUser } from './forum';
 import { LOCAL_STORAGE_THEME_KEY, Theme } from '../../Contexts/ThemeContext';
 
-export const setUser = (userName: string, email: string, id: string, avatar: string): TUserAction => {
+export const setUser = (userName: string, email: string, id: string, avatar: string, themeName: string): TUserAction => {
     const userData: UserData = {
         userName,
         email,
         id,
         avatar: UserURL.BASE_AVATAR_URL + avatar,
+        cssTheme: themeName,
     };
     return {
         type: UserActionTypes.SET_USER,
@@ -83,7 +84,7 @@ export const registerUserThunk = (userName: string, email: string, password: str
         const userData = await res.json();
 
         if (res.status === 200) {
-            dispatch(setUser(userName, email, userData.id, ''));
+            dispatch(setUser(userName, email, userData.id, '', ''));
             console.log('userData!!!!!', userData);
             await dispatch(createUser(
                 userData.id,
@@ -124,7 +125,7 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
         const res = await userApi.getUser();
         const userData = await res.json();
         if (res.status === 200) {
-            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            // dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
             console.log('userData', userData);
             await dispatch(createUser(
                 userData.id,
@@ -136,39 +137,54 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
                 userData.email,
                 userData.phone,
             ));
-            console.log('getUserInfo userData.login:', userData.login);
-            const resCss = await userApi.getCssTheme(userData.login);
-            console.log('getUserInfo resCss from server', resCss);
-            const cssThemeData = await resCss.json();
-            console.log('getUserInfo cssThemeData from server', cssThemeData);
-            console.log('getUserInfo resCss.status', resCss.status);
-            if (resCss.status === 200) {
-                const srvTheme = cssThemeData?.theme;
-                console.log('getUserInfo srvTheme', srvTheme);
-                dispatch(setCssTheme(srvTheme));
+            let resultTheme : string = '';
+            try {
+                if (userData.login) {
+                    console.log('getUserInfo userData.login:', userData.login);
 
-                const localStorageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
-                console.log('localStorageTheme', localStorageTheme);
-                const theme = srvTheme || localStorageTheme;
-                console.log('theme', theme);
-                const resultTheme = theme || Theme.LIGHT;
-                localStorage.setItem(LOCAL_STORAGE_THEME_KEY, resultTheme);
-                document.body.className = resultTheme;
-                // await dispatch(createCssThemeThunk(resultTheme, userData.login));
-                console.log('save theme:', resultTheme, userData.login);
-                const res = await userApi.createCssTheme(resultTheme, userData.login);
-                console.log('set css theme status:', res.status);
-                if (res.status === 200) {
-                    console.log('cssTheme saved', resultTheme);
-                } else {
-                    const errors = await res.json();
-                    console.warn(errors);
+                    const resCss = await userApi.getCssTheme(userData.login);
+                    console.log('getUserInfo resCss from server', resCss);
+
+                    const cssThemeData = await resCss.json();
+                    console.log('getUserInfo cssThemeData from server', cssThemeData);
+                    console.log('getUserInfo resCss.status', resCss.status);
+
+                    if (resCss.status === 200) {
+                        const srvTheme = cssThemeData?.theme;
+                        console.log('getUserInfo srvTheme', srvTheme);
+                        // dispatch(setCssTheme(srvTheme));
+
+                        const localStorageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+                        console.log('getUserInfo localStorageTheme', localStorageTheme);
+
+                        const theme = srvTheme || localStorageTheme;
+                        console.log('getUserInfo theme', theme);
+
+                        resultTheme = theme || Theme.LIGHT;
+                        localStorage.setItem(LOCAL_STORAGE_THEME_KEY, resultTheme);
+                        document.body.className = resultTheme;
+                        // await dispatch(createCssThemeThunk(resultTheme, userData.login));
+
+                        console.log('getUserInfo save theme:', resultTheme, userData.login);
+                        const res = await userApi.createCssTheme(resultTheme, userData.login);
+                        console.log('createCssTheme res.status:', res.status);
+                        if (res.status === 200) {
+                            console.log('cssTheme saved', resultTheme);
+                        } else {
+                            const errors = await res.json();
+                            console.warn(errors);
+                        }
+                    } else {
+                        const errors = await resCss.json();
+                        console.log('getUserInfo resCss errors:');
+                        console.warn(errors);
+                    }
                 }
-            } else {
-                const errors = await resCss.json();
-                console.log('getUserInfo resCss errors:');
-                console.warn(errors);
+            } catch (e) {
+                console.warn(e);
             }
+
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar, resultTheme));
         } else {
             console.log('getUserError', userData);
         }
@@ -183,7 +199,7 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
         if (loginRes.status === 200) {
             const resUser = await userApi.getUser();
             const userData = await resUser.json();
-            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar, ''));
             console.log('userData!!!!!', userData);
             await dispatch(createUser(
                 userData.id,
@@ -246,7 +262,7 @@ export const loginOAuthPart2Thunk = (code: string) => async (dispatch: appDispat
         if (oAuthLoginRes.status === 200) {
             const resUser = await userApi.getUser();
             const userData = await resUser.json();
-            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
+            dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar, ''));
         } else {
             const errors = await oAuthLoginRes.json();
             dispatch(setLoginError(errors.reason));

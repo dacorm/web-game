@@ -12,7 +12,7 @@ export interface UserCssTheme {
   cssTheme: string | null;
 }
 
-export interface UserData {
+export interface UserData extends UserCssTheme {
   userName: string | null;
   id: string | null;
   email: string | null;
