@@ -118,6 +118,21 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
                 userData.email,
                 userData.phone,
             ));
+            console.log('getUserInfo userData.login:', userData.login);
+            const resCss = await userApi.getCssTheme(userData.login);
+            console.log('getUserInfo resCss from server', resCss);
+            const cssThemeData = await resCss.json();
+            console.log('getUserInfo cssThemeData from server', cssThemeData);
+            console.log('getUserInfo resCss.status', resCss.status);
+            if (resCss.status === 200) {
+                const srvTheme = cssThemeData?.theme;
+                console.log('getUserInfo srvTheme', srvTheme);
+                dispatch(setCssTheme(srvTheme));
+            } else {
+                const errors = await resCss.json();
+                console.log('getUserInfo resCss errors:');
+                console.warn(errors);
+            }
         } else {
             console.log('getUserError', userData);
         }

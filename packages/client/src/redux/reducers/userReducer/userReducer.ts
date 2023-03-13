@@ -42,6 +42,9 @@ export const userReducer = (state = initialState, action: ActionType = initialAc
             loginError: action.payload,
         };
     case UserActionTypes.SET_CSS_THEME:
+        console.log('userReducer UserActionTypes.SET_CSS_THEME');
+        console.log('userReducer state', state);
+        console.log('userReducer action.payload', action.payload);
         return {
             ...state,
             ...action.payload,
