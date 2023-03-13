@@ -22,11 +22,7 @@ import { userModel } from './models/user';
 import { themeModel } from './models/theme';
 import { UserService } from './services/userService';
 import { ThemeService } from './services/themeService';
-import {
-    InitialForumsData,
-    InitialMessagesData,
-    InitialUsersData,
-} from './models/InitialData';
+import { InitialForumsData, InitialMessagesData, InitialUsersData } from './models/InitialData';
 // import { InitialUsersData } from './models/InitialData';
 
 dotenv.config();
@@ -42,8 +38,22 @@ export const sequelize = new Sequelize(sequelizeOptions);
 // Инициализируем модели
 export const Forum = sequelize.define('forum', forumModel, {});
 export const Message = sequelize.define('forum-mes', messageModel, {});
-export const User = sequelize.define('user_game', userModel, {});
-export const Theme = sequelize.define('theme', themeModel, {});
+export const User = sequelize.define('user_game', userModel, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['login'],
+        },
+    ],
+});
+export const Theme = sequelize.define('theme', themeModel, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['ownerId'],
+        },
+    ],
+});
 
 // Инициализируем Сервисы
 export const forumServise = new ForumServices(Forum);
