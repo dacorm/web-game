@@ -15,6 +15,21 @@ export class ThemeService {
         return this.theme.findOne({ where: { id } });
     }
 
+    async findOneByOwnerId(ownerId: string) {
+        return this.theme.findOne({
+            where: {
+                ownerId,
+            },
+        });
+    }
+
+    async updateOne(theme: string, id: number) {
+        return this.theme.update(
+            { theme },
+            { where: { id } },
+        );
+    }
+
     async createTheme(theme: string, ownerId: string) {
         await this.theme.create({ theme, ownerId });
     }

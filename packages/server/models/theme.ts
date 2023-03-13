@@ -19,7 +19,7 @@ export const themeModel: ModelAttributes<Model, ITheme> = {
         allowNull: false,
     },
     ownerId: {
-        type: DataType.STRING,
+        type: DataType.INTEGER,
         allowNull: false,
     },
 };
