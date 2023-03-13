@@ -47,11 +47,8 @@ export const setLoginError = (error: string): TUserAction => ({
 
 export const createCssThemeThunk = (themeName: string, login: string) => async (dispatch: Dispatcher) => {
     try {
-        console.log('createCssThemeThunk:', themeName, login);
         const res = await userApi.createCssTheme(themeName, login);
-        console.log('set css theme status:', res.status);
         if (res.status === 200) {
-            console.log('cssTheme', themeName);
             dispatch(setCssTheme(themeName));
         } else {
             const errors = await res.json();
@@ -125,7 +122,6 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
         const res = await userApi.getUser();
         const userData = await res.json();
         if (res.status === 200) {
-            // dispatch(setUser(userData.login, userData.email, userData.id, userData.avatar));
             console.log('userData', userData);
             await dispatch(createUser(
                 userData.id,
@@ -140,43 +136,24 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
             let resultTheme : string = '';
             try {
                 if (userData.login) {
-                    console.log('getUserInfo userData.login:', userData.login);
-
                     const resCss = await userApi.getCssTheme(userData.login);
-                    console.log('getUserInfo resCss from server', resCss);
-
                     const cssThemeData = await resCss.json();
-                    console.log('getUserInfo cssThemeData from server', cssThemeData);
-                    console.log('getUserInfo resCss.status', resCss.status);
-
                     if (resCss.status === 200) {
                         const srvTheme = cssThemeData?.theme;
-                        console.log('getUserInfo srvTheme', srvTheme);
-                        // dispatch(setCssTheme(srvTheme));
-
                         const localStorageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
-                        console.log('getUserInfo localStorageTheme', localStorageTheme);
-
                         const theme = srvTheme || localStorageTheme;
-                        console.log('getUserInfo theme', theme);
-
                         resultTheme = theme || Theme.LIGHT;
                         localStorage.setItem(LOCAL_STORAGE_THEME_KEY, resultTheme);
                         document.body.className = resultTheme;
-                        // await dispatch(createCssThemeThunk(resultTheme, userData.login));
-
-                        console.log('getUserInfo save theme:', resultTheme, userData.login);
                         const res = await userApi.createCssTheme(resultTheme, userData.login);
-                        console.log('createCssTheme res.status:', res.status);
                         if (res.status === 200) {
-                            console.log('cssTheme saved', resultTheme);
+                            console.log('cssTheme saved at server', resultTheme);
                         } else {
                             const errors = await res.json();
                             console.warn(errors);
                         }
                     } else {
                         const errors = await resCss.json();
-                        console.log('getUserInfo resCss errors:');
                         console.warn(errors);
                     }
                 }
@@ -222,13 +199,10 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
 
 export const getCssThemeThunk = (login: string) => async (dispatch: Dispatcher) => {
     try {
-        console.log('getCssThemeThunk:', login);
         const res = await userApi.getCssTheme(login);
         const cssThemeData = await res.json();
-        console.log('cssThemeData', cssThemeData);
         if (res.status === 200) {
             const srvTheme = cssThemeData?.cssTheme;
-            console.log('srvTheme', srvTheme);
             dispatch(setCssTheme(srvTheme));
         } else {
             const errors = await res.json();

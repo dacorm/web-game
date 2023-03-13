@@ -54,22 +54,19 @@ export class UserController {
             const {
                 themeName, login,
             } = req.body;
-            console.log('createCssTheme params:', themeName, login);
             if (!login) {
                 res.status(500).json({ message: `Для смены темы не передан логин ${login}` });
             }
             const user = await userService.findByLogin(login);
-            console.log('user', user);
             if (user !== null) {
                 const themeRec = await themeService.findOneByOwnerId(user.id);
-                console.log('themeRec', themeRec);
                 if (themeRec !== null) {
                     await themeService.updateOne(themeName, themeRec.id);
-                    console.log('theme updated');
+                    console.log(`theme updated for ${themeName}`);
                     res.status(200).json({ message: 'OK' });
                 } else {
                     await themeService.createTheme(themeName, user.id);
-                    console.log('theme created');
+                    console.log(`theme created for ${themeName}`);
                     res.status(200).json({ message: 'OK' });
                 }
             } else {
@@ -87,18 +84,15 @@ export class UserController {
             const {
                 login,
             } = req.body;
-            console.log('getCssTheme params:', login);
             if (!login) {
                 res.status(500).json({ message: `Для получения темы не передан логин ${login}` });
             }
             const user = await userService.findByLogin(login);
-            console.log('user', user);
             if (user !== null) {
                 const themeRec = await themeService.findOneByOwnerId(user.id);
-                console.log('themeRec', themeRec);
                 // @ts-ignore
                 const themeVal = themeRec?.theme;
-                console.log('themeVal', themeVal);
+                console.log('getCssTheme themeVal:', themeVal);
                 res.status(200).json({ theme: themeVal });
             } else {
                 res.status(500).json({ message: `Для получения темы отсутствует пользователь с таким логином ${login}` });
