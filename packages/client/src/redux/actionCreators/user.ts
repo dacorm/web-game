@@ -5,6 +5,7 @@ import {
 } from '../types/userReducer.types';
 import { OAuthGetServiceResponse } from '../../api/apiTypes';
 import { createUser } from './forum';
+import { LOCAL_STORAGE_THEME_KEY, Theme } from '../../Contexts/ThemeContext';
 
 export const setUser = (userName: string, email: string, id: string, avatar: string): TUserAction => {
     const userData: UserData = {
@@ -42,6 +43,23 @@ export const setLoginError = (error: string): TUserAction => ({
     type: UserActionTypes.LOGIN_ERROR,
     payload: error,
 });
+
+export const createCssThemeThunk = (themeName: string, login: string) => async (dispatch: Dispatcher) => {
+    try {
+        console.log('createCssThemeThunk:', themeName, login);
+        const res = await userApi.createCssTheme(themeName, login);
+        console.log('set css theme status:', res.status);
+        if (res.status === 200) {
+            console.log('cssTheme', themeName);
+            dispatch(setCssTheme(themeName));
+        } else {
+            const errors = await res.json();
+            console.warn(errors);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+};
 
 export const setUserAvatarThunk = (avatar: File) => async (dispatch: appDispatch) => {
     const fd = new FormData();
@@ -128,6 +146,24 @@ export const getUserInfo = () => async (dispatch: Dispatcher) => {
                 const srvTheme = cssThemeData?.theme;
                 console.log('getUserInfo srvTheme', srvTheme);
                 dispatch(setCssTheme(srvTheme));
+
+                const localStorageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+                console.log('localStorageTheme', localStorageTheme);
+                const theme = srvTheme || localStorageTheme;
+                console.log('theme', theme);
+                const resultTheme = theme || Theme.LIGHT;
+                localStorage.setItem(LOCAL_STORAGE_THEME_KEY, resultTheme);
+                document.body.className = resultTheme;
+                // await dispatch(createCssThemeThunk(resultTheme, userData.login));
+                console.log('save theme:', resultTheme, userData.login);
+                const res = await userApi.createCssTheme(resultTheme, userData.login);
+                console.log('set css theme status:', res.status);
+                if (res.status === 200) {
+                    console.log('cssTheme saved', resultTheme);
+                } else {
+                    const errors = await res.json();
+                    console.warn(errors);
+                }
             } else {
                 const errors = await resCss.json();
                 console.log('getUserInfo resCss errors:');
@@ -162,22 +198,6 @@ export const loginThunk = (userName: string, password: string) => async (dispatc
         } else {
             const errors = await loginRes.json();
             dispatch(setLoginError(errors.reason));
-        }
-    } catch (e) {
-        console.warn(e);
-    }
-};
-export const createCssThemeThunk = (themeName: string, login: string) => async (dispatch: Dispatcher) => {
-    try {
-        console.log('createCssThemeThunk:', themeName, login);
-        const res = await userApi.createCssTheme(themeName, login);
-        console.log('set css theme status:', res.status);
-        if (res.status === 200) {
-            console.log('cssTheme', themeName);
-            dispatch(setCssTheme(themeName));
-        } else {
-            const errors = await res.json();
-            console.warn(errors);
         }
     } catch (e) {
         console.warn(e);
