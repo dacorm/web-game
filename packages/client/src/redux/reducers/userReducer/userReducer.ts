@@ -8,6 +8,7 @@ const initialState: userState = {
     isLoggedIn: false,
     avatar: null,
     loginError: null,
+    cssTheme: null,
 };
 
 const initialAction = { type: '__INIT__' };
@@ -39,6 +40,11 @@ export const userReducer = (state = initialState, action: ActionType = initialAc
         return {
             ...state,
             loginError: action.payload,
+        };
+    case UserActionTypes.SET_CSS_THEME:
+        return {
+            ...state,
+            ...action.payload,
         };
     default:
         return state;
