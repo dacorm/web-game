@@ -8,6 +8,7 @@ import Modal from '../../shared/ui/Modal';
 import './GameSearch.css';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import CreateGameForm from '../../components/GameSearch/CreateGameForm';
+import { ProtectedRoute } from '../../hof/protectedRoute';
 
 // import {
 //     sendMessage,
@@ -79,4 +80,4 @@ const GameSearch: FC = () => {
     );
 };
 
-export default GameSearch;
+export default ProtectedRoute(GameSearch, {});

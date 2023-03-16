@@ -20,6 +20,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { logoutThunk } from '../../redux/actionCreators/user';
 import { ROUTES } from '../../layout/RouterLayout/RouterConst';
 import { Dispatcher } from '../../redux/store';
+import { ProtectedRoute } from '../../hof/protectedRoute';
 
 const userData = {
     points: 10,
@@ -29,7 +30,7 @@ const userData = {
     userLogo: defaultAvatar,
 };
 
-export default function Profile() {
+function Profile() {
     const [modals, setModals] = useState<TProfileModals>({
         showPasswordModal: false,
         showAvatarModal: false,
@@ -110,3 +111,5 @@ export default function Profile() {
         </>
     );
 }
+
+export default ProtectedRoute(Profile, {});
