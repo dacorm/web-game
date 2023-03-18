@@ -23,7 +23,7 @@ export const Form: React.FC<FormProps> = ({ isAuth }) => {
     const dispatch = useDispatch<Dispatcher>();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!isAuth) {
+        if (!isAuth && (password !== '' && password === repeatPassword)) {
             dispatch(registerUserThunk(nickname, email, password));
         }
         if (isAuth) {

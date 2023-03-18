@@ -2,6 +2,7 @@ import styles from './LeaderBoard.module.css';
 
 import MenuHeader from '../../components/MenuHeader';
 import LeaderBoardUserList from '../../components/LeaderBoard/LeaderBoardUserList';
+import { ProtectedRoute } from '../../hof/protectedRoute';
 
 const leaders = [
     {
@@ -30,7 +31,7 @@ const leaders = [
     },
 ];
 
-export default function LeaderBoard() {
+function LeaderBoard() {
     return (
         <>
             <MenuHeader text="ЛидерБорд" />
@@ -50,3 +51,5 @@ export default function LeaderBoard() {
         </>
     );
 }
+
+export default ProtectedRoute(LeaderBoard, {});

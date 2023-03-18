@@ -82,7 +82,6 @@ export const registerUserThunk = (userName: string, email: string, password: str
 
         if (res.status === 200) {
             dispatch(setUser(userName, email, userData.id, '', ''));
-            console.log('userData!!!!!', userData);
             await dispatch(createUser(
                 userData.id,
                 userData.first_name,
@@ -94,7 +93,6 @@ export const registerUserThunk = (userName: string, email: string, password: str
                 userData.phone,
             ));
         } else {
-            console.log('regError', userData);
             dispatch(setLoginError(userData.reason));
         }
     } catch (e) {

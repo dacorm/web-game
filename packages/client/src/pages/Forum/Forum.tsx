@@ -7,6 +7,7 @@ import styles from './Forum.module.css';
 import Modal from '../../shared/ui/Modal';
 import CreateForumForm from '../../components/Forum/CreateForumForm/CreateForumForm';
 import { setMessages } from '../../redux/actionCreators/forum';
+import { ProtectedRoute } from '../../hof/protectedRoute';
 
 const Forum = () => {
     const dispatch = useDispatch();
@@ -43,4 +44,4 @@ const Forum = () => {
     );
 };
 
-export default Forum;
+export default ProtectedRoute(Forum, {});
