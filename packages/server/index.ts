@@ -23,6 +23,7 @@ import { themeModel } from './models/theme';
 import { UserService } from './services/userService';
 import { ThemeService } from './services/themeService';
 import { InitialForumsData, InitialMessagesData, InitialUsersData } from './models/InitialData';
+import { defaultPort } from './config/constants';
 // import { InitialUsersData } from './models/InitialData';
 
 dotenv.config();
@@ -96,7 +97,7 @@ app.ws('/', webSocket);
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/dist')));
-const port = Number(process.env.SERVER_PORT) || 3001;
+const port = Number(process.env.SERVER_PORT) || defaultPort;
 
 // -------------ServiceWorkers------------------
 app.get('/ServiceWorkers.js', (req, res) => {

@@ -1,6 +1,7 @@
 import {
     Message, StatusesWS, StatusWS,
 } from '../redux/types/createGameReducer.types';
+import { SERVER_PORT } from '../constants';
 
 type SubscriberforMessages = (msg: Message) => void
 type SubscriberforStatusWS = (status: StatusesWS) => void
@@ -56,7 +57,7 @@ function cleanup() {
 function createChannel() {
     cleanup();
     ws?.close();
-    ws = new WebSocket('ws://localhost:3001');
+    ws = new WebSocket(`ws://localhost:${SERVER_PORT}`);
     ws.addEventListener('close', closeHandler);
     ws.addEventListener('message', messageHandler);
     ws.addEventListener('open', openHandler);
