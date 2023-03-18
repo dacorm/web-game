@@ -1,5 +1,5 @@
 import { redirectURI, UserURL } from '../redux/types/userReducer.types';
-import { SERVER_PORT } from '../constants';
+import { hostName, SERVER_PORT } from '../constants';
 
 class UserApi {
     // eslint-disable-next-line class-methods-use-this
@@ -90,7 +90,7 @@ class UserApi {
 
     // eslint-disable-next-line class-methods-use-this
     async createCssTheme(themeName: string, login: string) {
-        return await fetch(`http://localhost:${SERVER_PORT}/api/createcsstheme`, {
+        return await fetch(`http://${hostName}:${SERVER_PORT}/api/createcsstheme`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ class UserApi {
 
     // eslint-disable-next-line class-methods-use-this
     async getCssTheme(login: string) {
-        return await fetch(`http://localhost:${SERVER_PORT}/api/getcsstheme`, {
+        return await fetch(`http://${hostName}:${SERVER_PORT}/api/getcsstheme`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
