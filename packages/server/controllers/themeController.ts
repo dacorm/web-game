@@ -5,7 +5,7 @@ export class ThemeController {
     // eslint-disable-next-line class-methods-use-this
     async getAll(_req: Request, res: Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const data = await themeService.findAll();
             res.send(data);
         } catch (e) {
@@ -16,7 +16,7 @@ export class ThemeController {
     // eslint-disable-next-line class-methods-use-this
     async getOne(req: Request, res: Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const { themeId } = req.query;
             const data = await themeService.findOne(Number(themeId));
             res.send(data);

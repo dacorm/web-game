@@ -7,7 +7,7 @@ import type { ViteDevServer } from 'vite';
 import { createServer as createViteServer } from 'vite';
 import { Sequelize } from 'sequelize-typescript';
 import expressWs = require('express-ws')
-import { sequelizeOptions } from './config/db.config';
+import { getSequelizeOptions } from './config/db.config';
 import { dbConnect } from './postgres';
 import { forumModel } from './models/forum';
 
@@ -23,6 +23,9 @@ import { themeModel } from './models/theme';
 import { UserService } from './services/userService';
 import { ThemeService } from './services/themeService';
 import { InitialForumsData, InitialMessagesData, InitialUsersData } from './models/InitialData';
+import {
+    defaultHostName, defaultPgDb, defaultPgOutPort, defaultPgPwd, defaultPgUser, defaultPort,
+} from './config/constants';
 // import { InitialUsersData } from './models/InitialData';
 
 dotenv.config();
@@ -33,7 +36,16 @@ const app = express();
 
 // ------------------Postgress------------------
 // Создаем инстанс Sequelize
-export const sequelize = new Sequelize(sequelizeOptions);
+
+const host = process.env.HOST_NAME || defaultHostName;
+const pgOutPort = Number(process.env.POSTGRES_OUT_PORT) || defaultPgOutPort;
+const pgUser = process.env.POSTGRES_USER || defaultPgUser;
+const pgPwd = process.env.POSTGRES_PASSWORD || defaultPgPwd;
+const pgDb = process.env.DB_NAME || defaultPgDb;
+
+const sqOptions = getSequelizeOptions(host, pgOutPort, pgUser, pgPwd, pgDb);
+
+export const sequelize = new Sequelize(sqOptions);
 
 // Инициализируем модели
 export const Forum = sequelize.define('forum', forumModel, {});
@@ -96,7 +108,7 @@ app.ws('/', webSocket);
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/dist')));
-const port = Number(process.env.SERVER_PORT) || 3001;
+const port = Number(process.env.SERVER_PORT) || defaultPort;
 
 // -------------ServiceWorkers------------------
 app.get('/ServiceWorkers.js', (req, res) => {

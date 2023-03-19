@@ -10,7 +10,7 @@ export class ForumController implements IForumController {
     // eslint-disable-next-line class-methods-use-this
     async getAll(_req:Request, res:Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const data = await forumServise.findAll();
             res.send(data);
         } catch (e) {
@@ -21,7 +21,7 @@ export class ForumController implements IForumController {
     // eslint-disable-next-line class-methods-use-this
     async getOne(req:Request, res:Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const { themeId } = req.query;
             const data = await forumServise.findOne(Number(themeId));
             res.send(data);
@@ -43,7 +43,7 @@ export class ForumController implements IForumController {
     // eslint-disable-next-line class-methods-use-this
     async findThemesForOnePage(req:Request, res:Response) {
         try {
-            console.log('Пришел запрос!!!!', req.query);
+            // console.log('Пришел запрос!!!!', req.query);
             const { page, count } = req.query;
             if (count && page) {
                 const offset = Number(count) * (Number(page) - 1);
