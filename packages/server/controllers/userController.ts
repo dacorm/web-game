@@ -5,7 +5,7 @@ export class UserController {
     // eslint-disable-next-line class-methods-use-this
     async getAll(_req: Request, res: Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const data = await userService.findAll();
             res.send(data);
         } catch (e) {
@@ -16,7 +16,7 @@ export class UserController {
     // eslint-disable-next-line class-methods-use-this
     async getOne(req: Request, res: Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const { id } = req.query;
             const data = await userService.findOne(Number(id));
             res.send(data);
@@ -28,13 +28,13 @@ export class UserController {
     // eslint-disable-next-line class-methods-use-this
     async create(req: Request, res: Response) {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const {
                 id, first_name, second_name, display_name, login, avatar, email, phone,
             } = req.body;
-            console.log(first_name, second_name, display_name, login, avatar, email);
+            // console.log(first_name, second_name, display_name, login, avatar, email);
             const user = await userService.findByLogin(login);
-            console.log('user', user);
+            // console.log('user', user);
 
             if (user === null) {
                 await userService.createUser(id, first_name, second_name, display_name, login, avatar, email, phone);
@@ -50,7 +50,7 @@ export class UserController {
     // eslint-disable-next-line class-methods-use-this
     async createCssTheme(req: Request, res: Response) {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const {
                 themeName, login,
             } = req.body;
@@ -80,7 +80,7 @@ export class UserController {
     // eslint-disable-next-line class-methods-use-this
     async getCssTheme(req: Request, res: Response) {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const {
                 login,
             } = req.body;

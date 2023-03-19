@@ -5,7 +5,7 @@ export class MessageService {
     message: typeof Message;
 
     constructor(model: typeof Message) {
-        console.log('model', model);
+        // console.log('model', model);
         this.message = model;
     }
 
