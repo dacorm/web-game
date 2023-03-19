@@ -8,7 +8,7 @@ export const defaultHostName = 'localhost';
 // @ts-ignore
 export const hostName = import.meta.env.VITE_HOST_NAME || defaultHostName;
 
-export const defaultProtocol = 'https';
+export const defaultProtocol = 'http';
 // @ts-ignore
 export const protocol = import.meta.env.VITE_PROTOCOL || defaultProtocol;
 
