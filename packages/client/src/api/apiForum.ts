@@ -1,30 +1,30 @@
-import { hostName, SERVER_PORT } from '../constants';
+import { fullServerHostNamePrefixNoSlash } from '../constants';
 
 class ForumAPI {
 // eslint-disable-next-line class-methods-use-this
-    async getAllThemes(currentPage:number, PAGE_SIZE:number) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/forums?page=${currentPage}&count=${PAGE_SIZE}`, {
+    async getAllThemes(currentPage: number, PAGE_SIZE: number) {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/forums?page=${currentPage}&count=${PAGE_SIZE}`, {
             credentials: 'include',
         });
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async getOneTheme(themeId:number) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/oneforum?themeId=${themeId}`, {
+    async getOneTheme(themeId: number) {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/oneforum?themeId=${themeId}`, {
             credentials: 'include',
         });
     }
 
     // eslint-disable-next-line class-methods-use-this
     async getCountThemes() {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/forumcount`, {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/forumcount`, {
             credentials: 'include',
         });
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async createTheme(themeName:string) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/createforum`, {
+    async createTheme(themeName: string) {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/createforum`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,8 +39,8 @@ class ForumAPI {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async createMes(themeId:number, text:string, authorId:number) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/createmes`, {
+    async createMes(themeId: number, text: string, authorId: number) {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/createmes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,16 +54,16 @@ class ForumAPI {
 
     // eslint-disable-next-line class-methods-use-this
     async createUser(
-        id:number,
+        id: number,
         first_name: string,
         second_name: string,
         display_name: string,
         login: string,
-        avatar:string| null,
+        avatar: string | null,
         email: string,
-        phone:string,
+        phone: string,
     ) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/createuser`, {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,8 +76,8 @@ class ForumAPI {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async getMes(themeId:number) {
-        return await fetch(`http://${hostName}:${SERVER_PORT}/api/mes?themeId=${themeId}`, {
+    async getMes(themeId: number) {
+        return await fetch(`${fullServerHostNamePrefixNoSlash}/api/mes?themeId=${themeId}`, {
             credentials: 'include',
         });
     }
