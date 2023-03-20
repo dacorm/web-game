@@ -6,6 +6,7 @@
     "dev": "vite",
     "build:client": "vite build --config vite.config.ts",
     "build": "yarn build:ssr && yarn build:client",
+    "build:old": "tsc && vite build",
     "build:ssr": "vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
