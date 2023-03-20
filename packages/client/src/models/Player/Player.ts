@@ -27,6 +27,7 @@ export interface Player {
   userId: number
   displayName: string
   property: Property[]
+  canBuyHouse: boolean;
   stations: any // пока нету класса жд дорог так что any
   balance: number
   prisoner: boolean
@@ -56,6 +57,7 @@ export class Player {
         this.balance = 1500; // баланс у игроков(при старте выдается 1500)
         this.prisoner = false;
         this.countMoves = 0;
+        this.canBuyHouse = true;
         board.players.push(this);
     }
 
@@ -128,28 +130,40 @@ export class Player {
             switch (axis) {
             case BoardCellAxis.top:
                 if (name === 'Старт') {
-                    return shape.y + shape.height / 2 >= this.y ? { x: 0, y: 0 } : velocity;
+                    return shape.y + shape.height / 2 >= this.y
+                        ? { x: 0, y: 0 }
+                        : velocity;
                 }
 
                 return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.right:
                 if (name === 'Вас поймали') {
-                    return shape.x + shape.width / 2 <= this.x ? { x: 0, y: 0 } : velocity;
+                    return shape.x + shape.width / 2 <= this.x
+                        ? { x: 0, y: 0 }
+                        : velocity;
                 }
 
-                return shape.y + shape.height / 2 <= this.y ? { x: 0, y: 0 } : velocity;
+                return shape.y + shape.height / 2 <= this.y
+                    ? { x: 0, y: 0 }
+                    : velocity;
             case BoardCellAxis.bottom:
                 if (name === 'Бесплатная стоянка') {
-                    return shape.y + Math.floor(shape.height / 2) <= this.y ? { x: 0, y: 0 } : velocity;
+                    return shape.y + Math.floor(shape.height / 2) <= this.y
+                        ? { x: 0, y: 0 }
+                        : velocity;
                 }
 
                 return shape.x + shape.width / 2 >= this.x ? { x: 0, y: 0 } : velocity;
             case BoardCellAxis.left:
                 if (name === 'Тюрьма') {
-                    return shape.x + shape.width / 2 >= this.x ? { x: 0, y: 0 } : velocity;
+                    return shape.x + shape.width / 2 >= this.x
+                        ? { x: 0, y: 0 }
+                        : velocity;
                 }
 
-                return shape.y + shape.height / 2 >= this.y ? { x: 0, y: 0 } : velocity;
+                return shape.y + shape.height / 2 >= this.y
+                    ? { x: 0, y: 0 }
+                    : velocity;
             default:
                 return velocity;
             }
@@ -274,8 +288,8 @@ export class Player {
     /** поменять координаты фишки игрока */
     changePosition(cellIndex: number) {
         const cell = board.getCell(cellIndex) as Cell;
-        this.x = cell.x as number + (cell?.width as number) / 2;
-        this.y = cell.y as number + (cell?.height as number) / 2;
+        this.x = (cell.x as number) + (cell?.width as number) / 2;
+        this.y = (cell.y as number) + (cell?.height as number) / 2;
     }
 
     /** отправить игрока на клетку без выплаты денег за старт */
@@ -285,7 +299,9 @@ export class Player {
         this.currentPos = cellIndex;
 
         store.dispatch(actionStop());
-        setTimeout(() => { store.dispatch(actionStart()); }, 0);
+        setTimeout(() => {
+            store.dispatch(actionStart());
+        }, 0);
     }
 
     /** отправить игрока на клетку без выплаты денег за старт и без экшена */
@@ -300,7 +316,7 @@ export class Player {
     /** отправить игрока на клетку с возможностью выплаты денег за старт */
     sendPlayerToCellWithStart(cellIndex: number) {
         const index = this.currentPos > cellIndex // вычисляем на сколько нужно передвинуться игроку относительно своей позиции
-            ? board.stage?.cells.length as number - this.currentPos + cellIndex
+            ? (board.stage?.cells.length as number) - this.currentPos + cellIndex
             : cellIndex - this.currentPos;
 
         this.updateCurrentPos(index);
@@ -308,7 +324,13 @@ export class Player {
         this.changePosition(cellIndex);
 
         store.dispatch(actionStop());
-        setTimeout(() => { store.dispatch(actionStart()); }, 0);
+        setTimeout(() => {
+            store.dispatch(actionStart());
+        }, 0);
+    }
+
+    setCanBuyHouse(val: boolean) {
+        this.canBuyHouse = val;
     }
 
     /** обновить текущую позицию игрока на новую клетку в зависимости от кубика  */
@@ -318,7 +340,12 @@ export class Player {
         if (this.currentPos > 39) {
             this.currentPos -= 40;
             this.getMoneyForStart();
-            store.dispatch(addNewGameChatMessage({ message: 'получает 200$ за прохождения поля "Старт"', playerName: this.displayName }));
+            store.dispatch(
+                addNewGameChatMessage({
+                    message: 'получает 200$ за прохождения поля "Старт"',
+                    playerName: this.displayName,
+                }),
+            );
         }
 
         return this.currentPos;

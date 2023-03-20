@@ -28,7 +28,7 @@ export class Text extends Shape implements IText {
 
     maxWidth: number;
 
-    fontSize:number;
+    fontSize: number;
 
     constructor(props: Props) {
         super(props);

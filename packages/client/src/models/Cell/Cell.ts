@@ -3,12 +3,16 @@ import { default as EventEmitter } from 'eventemitter3';
 import { Rect } from '../../core/Shapes/Rect';
 import { ImageShape } from '../../core/Shapes/ImageShape';
 import {
-    BoardCellAxis, BoardCellGroup, BoardCellType, BoardItemSize,
+    BoardCellAxis,
+    BoardCellGroup,
+    BoardCellType,
+    BoardItemSize,
 } from '../../core/types';
 import { FillRect } from '../../core/Shapes/FillRect';
 import { Text } from '../../core/Shapes/Text';
 import { TCard } from '../Cards/Card/Card.types';
 import PropertyCard from '../Cards/PropertyCard';
+import housImg from '../../assets/img/house.png';
 
 interface ICell {
   name: string
@@ -19,14 +23,15 @@ interface ICell {
   group?: BoardCellGroup
   shape?: Rect | ImageShape
   image?: string
-  card?: TCard;
+  card?: TCard
   readonly x?: number
   readonly y?: number
   readonly width?: number
   readonly height?: number
 }
 
-type Props = Omit<ICell, 'shape' | 'department'> & Partial<Pick<ICell, 'department'>>
+type Props = Omit<ICell, 'shape' | 'department'> &
+  Partial<Pick<ICell, 'department'>>
 
 export class Cell extends EventEmitter implements ICell {
     name;
@@ -89,6 +94,7 @@ export class Cell extends EventEmitter implements ICell {
 
             this.shape.drawShape(this.context);
             this.createTitle(props);
+
             this.createColorHead();
             this.createColorOwner();
             this.createPrice(props);
@@ -144,7 +150,7 @@ export class Cell extends EventEmitter implements ICell {
                 if ((this.card as PropertyCard).prices) {
                     // @ts-ignore
                     new Text({
-                    // @ts-ignore
+                        // @ts-ignore
                         text: (this.card.prices.buyCard as number).toString(),
                         ...props,
                     }).drawShape(this.context);
@@ -228,11 +234,105 @@ export class Cell extends EventEmitter implements ICell {
         }
     }
 
+    createHouse(countHouse: number) {
+        let props: BoardItemSize = {
+            width: this.width || 0,
+            height: this.height || 0,
+            x: this.x || 0,
+            y: this.y || 0,
+        };
+
+        if (this.context) {
+            switch (this.axis) {
+            case BoardCellAxis.top:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 2,
+                    y: props.y + props.height / 3,
+                    maxWidth: props.width - props.width * 0.02,
+                    fontSize: 36,
+                };
+                new FillRect({
+                    ...props,
+                    x: props.x - props.width / 6,
+                    y: props.y - props.height / 9,
+                    height: props.height / 2.5,
+                    width: props.width / 3,
+                    fill: 'white',
+                }).drawShape(this.context);
+
+                break;
+            case BoardCellAxis.right:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 1.5,
+                    y: props.y + props.height / 2,
+                    maxWidth: props.height - props.height * 0.02,
+                    fontSize: 36,
+                    rotate: 90,
+                };
+                new FillRect({
+                    ...props,
+                    x: props.x - props.width / 3.5,
+                    y: props.y - props.height / 6,
+                    height: props.height / 2.5,
+                    width: props.width / 2.5,
+                    fill: 'white',
+                }).drawShape(this.context);
+
+                break;
+            case BoardCellAxis.bottom:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 2,
+                    y: props.y + props.height / 1.5,
+                    maxWidth: props.width - props.width * 0.02,
+                    fontSize: 36,
+                    rotate: 180,
+                };
+                new FillRect({
+                    ...props,
+                    x: props.x - props.width / 6,
+                    y: props.y - props.height / 9,
+                    height: props.height / 2.5,
+                    width: props.width / 3,
+                    fill: 'white',
+                }).drawShape(this.context);
+
+                break;
+            case BoardCellAxis.left:
+                props = {
+                    ...props,
+                    x: props.x + props.width / 3,
+                    y: props.y + props.height / 2,
+                    maxWidth: props.height - props.height * 0.02,
+                    fontSize: 36,
+                    rotate: 270,
+                };
+                new FillRect({
+                    ...props,
+                    x: props.x - props.width / 9,
+                    y: props.y - props.height / 6,
+                    height: props.height / 2.5,
+                    width: props.width / 2.5,
+                    fill: 'white',
+                }).drawShape(this.context);
+
+                break;
+            default:
+            }
+            // todo: типизация
+
+            // @ts-ignore
+
+            new Text({ text: `🏠 -- х${countHouse}`, ...props }).drawShape(
+                this.context,
+            );
+        }
+    }
+
     createColorHead() {
-        if (
-            this.context
-          && (this.group || this.type === BoardCellType.station)
-        ) {
+        if (this.context && (this.group || this.type === BoardCellType.station)) {
             let props: BoardItemSize = {
                 width: this.width || 0,
                 height: this.height || 0,
@@ -266,7 +366,7 @@ export class Cell extends EventEmitter implements ICell {
 
             new FillRect({
                 ...props,
-                fill: this.group || 'grey' as unknown as string,
+                fill: this.group || ('grey' as unknown as string),
             }).drawShape(this.context);
         }
     }

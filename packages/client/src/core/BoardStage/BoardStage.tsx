@@ -23,6 +23,8 @@ import ControllerBoard from '../../components/Game/ControllerBoard';
 import { GreetModal } from './components/GreetModal';
 import { PunishModal } from './components/PunishModal';
 import { board } from '../../models/Board/Board';
+import { ModalCard } from '../../components/Game/ModalCard/ModalCard';
+import store from '../../redux/store';
 
 export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -56,6 +58,10 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
         dispatch(setCurrentPlayer());
         dispatch(rollTheDiceTrue());
         dispatch(turnStart());
+        const player = store.getState().game.currentPlayer;
+        if (player.canBuyHouse === false) {
+            player.setCanBuyHouse(true);
+        }
     }, [currentPlayer]);
 
     useEffect(() => {
@@ -125,6 +131,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
             </div>
             <GreetModal isShow={modals.showWinModal} onClose={closeModal('showWinModal')} />
             <PunishModal isShow={modals.showLoseModal} onClose={closeModal('showLoseModal')} />
+            <ModalCard />
 
         </>
     );

@@ -25,7 +25,7 @@ class StationCard extends Card implements IStationCard {
         this.cell = null;
     }
 
-    changeOwner(player:Player) {
+    changeOwner(player: Player) {
         this.owner = player;
         if (this.cell) {
             this.cell.createColorOwner(player.fill);
@@ -54,6 +54,23 @@ class StationCard extends Card implements IStationCard {
         }
     }
 
+    /** Выкупить заложенную станцию */
+    rebuy(player: Player) {
+        const payment = player.payMoneyToTheBank(this.prices.buyCard);
+        if (!payment) return;
+
+        this.stateCard = StateCard.BOUGHT;
+
+        store.dispatch(
+            addNewGameChatMessage({
+                playerName: player.displayName,
+                message: `выкупает ${this.name} за ${this.prices.buyCard} $`,
+            }),
+        );
+
+        this.complete();
+    }
+
     /** Воздержаться от покупки жд */
     refuseToBuy() {
         store.dispatch(
@@ -67,9 +84,9 @@ class StationCard extends Card implements IStationCard {
     }
 
     /** Заложить станцию */
-    sell() {
+    sell(player: Player) {
+        player.getMoney(this.prices.sellCard);
         this.stateCard = StateCard.MORTAGED;
-        this.complete();
 
         store.dispatch(
             addNewGameChatMessage({
@@ -77,6 +94,8 @@ class StationCard extends Card implements IStationCard {
                 message: `закладывает ${this.name} за ${this.prices.sellCard} $`,
             }),
         );
+
+        this.complete();
     }
 
     /** Заплатить ренту владельку станции */

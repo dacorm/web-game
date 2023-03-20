@@ -1,4 +1,5 @@
 import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
+import { Cell } from '../../models/Cell/Cell';
 import { GameActionTypes } from '../types/gameReducer.types';
 /** сообщаем о начале передвижения фишки */
 export const startCellMoving = () => ({
@@ -11,6 +12,10 @@ export const stopCellMoving = () => ({
 /** устанавливаем игрока, к которому перешел ход */
 export const setCurrentPlayer = () => ({
     type: GameActionTypes.SET_CURRENT_PLAYER,
+});
+/** обновляем данные игрока из доски в стор */
+export const updateCurrentPlayer = () => ({
+    type: GameActionTypes.UPDATE_CURRENT_PLAYER,
 });
 /** инициализируем всех игроков */
 export const setAllPlayers = () => ({
@@ -43,6 +48,19 @@ export const turnStart = () => ({
 /** даем возможность игроку завершить ход */
 export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
+});
+/** закрываем модалку с картой */
+export const closeModalCard = () => ({
+    type: GameActionTypes.CLOSE_CARD_MODAL,
+});
+/** открываем модалку с картой */
+export const openModalCard = () => ({
+    type: GameActionTypes.OPEN_CARD_MODAL,
+});
+/** открываем модалку с картой */
+export const setCellInCardModal = (cell: Cell) => ({
+    type: GameActionTypes.SET_CELL_IN_CARD_MODAL,
+    payload: cell,
 });
 /** завершить игру(очищение стора) */
 export const endGame = () => ({

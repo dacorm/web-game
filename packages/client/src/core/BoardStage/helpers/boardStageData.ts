@@ -14,6 +14,8 @@ import BoxCard from '../../../models/Cards/BonusCard/BoxCard/BoxCard';
 import ChanceCard from '../../../models/Cards/BonusCard/ChanceCard';
 import TaxCard from '../../../models/Cards/TaxCard';
 import JailCard from '../../../models/Cards/JailCard';
+import store from '../../../redux/store';
+import { openModalCard, setCellInCardModal } from '../../../redux/actionCreators/game';
 
 function createDepartment(
     name: string,
@@ -85,8 +87,9 @@ function createProperty(
             prices,
             type: BoardCellType.property,
         }),
-    }).on('click', (event, t) => {
-        console.log(event, t);
+    }).on('click', (event, cell) => {
+        store.dispatch(setCellInCardModal(cell));
+        store.dispatch(openModalCard());
     });
 
     (cell.card as PropertyCard).cell = cell;
@@ -139,9 +142,11 @@ function createStation(axis: BoardCellAxis): Cell {
             type: BoardCellType.station,
             name: 'Железная дорога',
         }),
-    }).on('click', (event, t) => {
-        console.log(event, t);
+    }).on('click', (event, cell) => {
+        store.dispatch(setCellInCardModal(cell));
+        store.dispatch(openModalCard());
     });
+
     (cell.card as StationCard).cell = cell;
     return cell;
 }

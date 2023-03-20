@@ -17,6 +17,7 @@ export class Card implements ICard {
     /** завершить экшен */
     /* eslint-disable-next-line */
   complete() {
+
         store.dispatch(actionStop());
         store.dispatch(turnStop());
     }
