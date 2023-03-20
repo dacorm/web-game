@@ -27,7 +27,7 @@ export default function Game() {
 
         for (let i = 1; i <= countPlayers; i++) { // TODO: глупая функция, но это из за локальной игры
             if (i === 1) {
-                const lastUrlSymbolsIsNull = userAvatar.slice(-4) === 'null';
+                const lastUrlSymbolsIsNull = userAvatar?.slice(-4) === 'null';
 
                 const userPlayer = { displayName: userName, avatar: lastUrlSymbolsIsNull ? defaultAvatar : userAvatar, userId };
                 playersArray.push(userPlayer);

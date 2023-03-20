@@ -1,6 +1,8 @@
 import { Player } from '../Player/Player';
 import { IBoard } from './Board.types';
 import { boardStageData } from '../../core/BoardStage/helpers/boardStageData';
+import { BoardCellGroup } from '../../core/types';
+import PropertyCard from '../Cards/PropertyCard';
 
 class Board implements IBoard {
     stage: ReturnType<typeof boardStageData> | undefined;
@@ -20,6 +22,14 @@ class Board implements IBoard {
             return this.stage.cells?.find((_v, i) => i === index);
         }
         return undefined;
+    }
+
+    getCellByGroup(group: BoardCellGroup) {
+        const cells = this.cells?.filter(
+            (cell) => (cell?.card as PropertyCard)?.group === group,
+        );
+        console.log('cells - ', cells);
+        return cells;
     }
 
     endGame() {

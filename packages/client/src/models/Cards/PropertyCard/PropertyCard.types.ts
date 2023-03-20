@@ -11,6 +11,7 @@ export interface IPropertyCard {
   houses: number | null
   type: BoardCellType
   group: BoardCellGroup
+  canBuyHouse: boolean
   cell: Cell | null
 }
 

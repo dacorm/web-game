@@ -28,7 +28,7 @@ export class FillRect extends Shape implements IFillRect {
         this.y = props.y;
         this.width = props.width;
         this.height = props.height;
-        this.globalAlpha = props.globalAlpha || 1;
+        this.globalAlpha = props.globalAlpha ?? 1;
     }
 
     drawShape(context: CanvasRenderingContext2D) {

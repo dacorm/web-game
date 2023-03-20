@@ -5,6 +5,7 @@
     --color-black: black;
     --color-red: rgb(223, 33, 33);
     --color-black-opacity: rgba(0, 0, 0, 0.6);
+    --color-black-disabled: rgba(0, 0, 0, 0.1);
     --color-blue: #0500EB;
     --color-stub-menu: #f5f5f5;
     --color-menu-background: #d3dfed;

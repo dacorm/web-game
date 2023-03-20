@@ -16,7 +16,9 @@ class PropertyCard extends Card implements IPropertyCard {
 
     stateCard: StateCard;
 
-    houses: number | null;
+    houses: number;
+
+    canBuyHouse: boolean;
 
     group: BoardCellGroup;
 
@@ -27,31 +29,47 @@ class PropertyCard extends Card implements IPropertyCard {
         this.prices = props.prices;
         this.stateCard = StateCard.FREE;
         this.owner = null;
-        this.houses = null;
+        this.houses = 0;
         this.cell = null;
         this.group = props.group;
+        this.canBuyHouse = true;
     }
 
     /** Купить недвижимость */
     buy(player: Player) {
-        if (player.balance >= this.prices.buyCard) {
-            // достаточный ли баланс у игрока для покупки
-            this.changeOwner(player);
-            player.property.push(this);
-            player.payMoneyToTheBank(this.prices.buyCard);
-            this.stateCard = StateCard.BOUGHT;
+        const payment = player.payMoneyToTheBank(this.prices.buyCard);
+        if (!payment) return;
 
-            store.dispatch(
-                addNewGameChatMessage({
-                    playerName: player.displayName,
-                    message: `приобретает ${this.name} за ${this.prices.buyCard} $`,
-                }),
-            );
+        this.changeOwner(player);
+        player.property.push(this);
 
-            this.complete();
-        } else {
-            console.log('недостаточно денег');
-        }
+        this.stateCard = StateCard.BOUGHT;
+
+        store.dispatch(
+            addNewGameChatMessage({
+                playerName: player.displayName,
+                message: `приобретает ${this.name} за ${this.prices.buyCard} $`,
+            }),
+        );
+
+        this.complete();
+    }
+
+    /** Выкупить заложенную недвижимость */
+    rebuy(player: Player) {
+        const payment = player.payMoneyToTheBank(this.prices.buyCard);
+        if (!payment) return;
+
+        this.stateCard = StateCard.BOUGHT;
+
+        store.dispatch(
+            addNewGameChatMessage({
+                playerName: player.displayName,
+                message: `выкупает ${this.name} за ${this.prices.buyCard} $`,
+            }),
+        );
+
+        this.complete();
     }
 
     changeOwner(player: Player) {
@@ -74,7 +92,8 @@ class PropertyCard extends Card implements IPropertyCard {
     }
 
     /** Заложить недвижимость */
-    sell() {
+    sell(player: Player) {
+        player.getMoney(this.prices.sellCard);
         this.stateCard = StateCard.MORTAGED;
 
         store.dispatch(
@@ -91,7 +110,8 @@ class PropertyCard extends Card implements IPropertyCard {
     rentPayment(player: Player) {
         if (this.owner) {
             const currentRent = calculatePropertyRent(this) as number;
-            player.payMoneyToThePlayer(currentRent, this.owner);
+            const payment = player.payMoneyToThePlayer(currentRent, this.owner);
+            if (!payment) return;
 
             store.dispatch(
                 addNewGameChatMessage({
@@ -101,6 +121,47 @@ class PropertyCard extends Card implements IPropertyCard {
             );
         }
         this.complete();
+    }
+
+    changeCountHouse(val: 1 | -1) {
+        this.houses += val;
+        console.log('thishouses - ', this.houses);
+        this.cell?.createHouse(this.houses);
+    }
+
+    buyHouse(player: Player) {
+        const payment = player.payMoneyToTheBank(this.prices.buyHouse);
+        if (!payment) return;
+        this.changeCountHouse(1);
+        player.setCanBuyHouse(false);
+
+        store.dispatch(
+            addNewGameChatMessage({
+                playerName: player.displayName,
+                message: `купил дом для ${this.name} за ${this.prices.buyHouse} $`,
+            }),
+        );
+    }
+
+    sellHouse(player: Player) {
+        if (
+            !StateCard.BOUGHT
+          && player.userId !== this.owner?.userId
+          && this.houses <= 0
+        ) {
+            console.log('no way');
+            return;
+        }
+        player.getMoney(this.prices.buyHouse);
+
+        this.changeCountHouse(-1);
+
+        store.dispatch(
+            addNewGameChatMessage({
+                playerName: player.displayName,
+                message: `продал дом у ${this.name} за ${this.prices.buyHouse / 2} $`,
+            }),
+        );
     }
 }
 

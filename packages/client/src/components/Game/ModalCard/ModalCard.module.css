@@ -1,0 +1,64 @@
+.modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--color-black-opacity);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.modal.modalShow {
+    opacity: 1;
+    pointer-events: visible;
+}
+
+.modalContent {
+    background-color: var(--color-menu-background);
+    padding: 30px 30px 10px 30px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    width: 600px;
+   
+}
+
+.title {
+    position: relative;
+    min-width: 300px;
+}
+
+.titleText {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+.titleClose {
+    text-align: right;
+    position: absolute;
+    right: 5px;
+    top: -10px;
+    cursor: pointer;
+}
+
+.formWrapper {
+    margin-top: 30px;
+    margin-bottom: 20px;
+     text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.disabled {
+  background-color: var(--color-black-disabled);
+  cursor:not-allowed;
+}

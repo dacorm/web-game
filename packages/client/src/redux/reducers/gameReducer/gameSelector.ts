@@ -1,3 +1,4 @@
+import { Cell } from '../../../models/Cell/Cell';
 import { TGameChatMessage } from '../../../components/Game/Chat/ChatBoard/ChatBoard.types';
 import { Player } from '../../../models/Player/Player';
 import { AppStateType } from '../../store';
@@ -15,5 +16,9 @@ export const getCanRollTheDice = (state: AppStateType): boolean => state.game.ca
 export const getActionStarting = (state: AppStateType): boolean => state.game.actionStarting;
 /** может ли игрок завершить ход */
 export const getTurnCompleted = (state: AppStateType):boolean => state.game.turnCompleted;
+/** открыта ли модалка с картой */
+export const getStageModalCard = (state: AppStateType): boolean => state.game.cardModalIsShow;
+/** получить ячейку для модалки */
+export const getCellForModalCard = (state: AppStateType): Cell => state.game.cellForModal;
 /** получить сообщения чата */
 export const getGameChatMessages = (state: AppStateType):TGameChatMessage[] => state.game.messages;

@@ -11,6 +11,8 @@ const initialState: userGame = {
     turnCompleted: false,
     players: [],
     messages: [],
+    cellForModal: null,
+    cardModalIsShow: false,
     rollTheDice: [0, 0],
 };
 
@@ -32,6 +34,16 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         board.setNextTurn();
         const currentTurn = board.getCurrentTurn();
         const player = board.getPlayerById(currentTurn);
+        return {
+            ...state,
+            currentPlayer: player,
+        };
+    }
+    case GameActionTypes.UPDATE_CURRENT_PLAYER: {
+        const currentTurn = board.getCurrentTurn();
+        const player = board.getPlayerById(currentTurn);
+        console.log('player1 - ', player);
+
         return {
             ...state,
             currentPlayer: player,
@@ -91,6 +103,24 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         board.endGame();
         return {
             ...initialState,
+        };
+    }
+    case GameActionTypes.OPEN_CARD_MODAL: {
+        return {
+            ...state,
+            cardModalIsShow: true,
+        };
+    }
+    case GameActionTypes.CLOSE_CARD_MODAL: {
+        return {
+            ...state,
+            cardModalIsShow: false,
+        };
+    }
+    case GameActionTypes.SET_CELL_IN_CARD_MODAL: {
+        return {
+            ...state,
+            cellForModal: { ...action.payload },
         };
     }
     case GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE: {

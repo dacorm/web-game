@@ -1,9 +1,9 @@
-import { Cell } from '../../Cell/Cell';
 import { BoardCellType } from '../../../core/types';
 import BoxCard from '../BonusCard/BoxCard/BoxCard';
 import PropertyCard from '../PropertyCard/PropertyCard';
 import StationCard from '../StationCard';
 import TaxCard from '../TaxCard';
+import JailCard from '../JailCard';
 
 export interface ICard {
     name: string
