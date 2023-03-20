@@ -6,13 +6,15 @@
     "build": "lerna run build",
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "cross-env NODE_ENV=development lerna run dev --scope=server",
-    "dev:server:prod": "cross-env NODE_ENV=production lerna run dev --scope=server",
+    "dev:server:prodOld": "cross-env NODE_ENV=production lerna run dev --scope=server",
+    "dev:server:prod": "cross-env NODE_ENV=production lerna run prod --scope=server",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
     "preview": "lerna run preview",
-    "lint:ts": "eslint \"**/*.{ts,tsx}\""
+    "lint:ts": "eslint \"**/*.{ts,tsx}\"",
+    "eslint-fix": "eslint --fix"
   },
   "license": "MIT",
   "workspaces": [
