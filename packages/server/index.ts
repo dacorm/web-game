@@ -131,12 +131,33 @@ async function startServer() {
     // но чтобы проблем не было возни в разработке пока закоменчу
 
     // const distPath = path.resolve(__dirname, 'node_modules/client/dist/index.html')
-    // const srcPath = path.resolve(__dirname, 'node_modules/client')
-    // const ssrClientPath = path.resolve(__dirname, 'node_modules/client/ssr-dist/client.cjs')
+    // const distPath = path.resolve(__dirname, 'node_modules/client/dist/');
+    // const srcPath = path.resolve(__dirname, 'node_modules/client');
+    // const ssrClientPath = path.resolve(__dirname, 'node_modules/client/ssr-dist/client.cjs');
 
-    const distPath = path.resolve(__dirname, '../client/dist/index.html');
-    const srcPath = path.resolve(__dirname, '../client');
-    const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
+    console.log('__dirname:', __dirname);
+    // const distPath = path.resolve(__dirname, '../client/dist/');
+    // console.log('distPath:', distPath);
+    // const srcPath = path.resolve(__dirname, '../client');
+    // console.log('srcPath:', srcPath);
+    // const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
+    // console.log('ssrClientPath:', ssrClientPath);
+
+    let distPath: string;
+    let srcPath: string;
+    let ssrClientPath: string;
+    if (isDev()) {
+        distPath = path.resolve(__dirname, '../client/dist/');
+        srcPath = path.resolve(__dirname, '../client');
+        ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
+    } else {
+        distPath = path.resolve(__dirname, './client/dist/');
+        srcPath = path.resolve(__dirname, './client');
+        ssrClientPath = path.resolve(__dirname, './client/ssr-dist/client.cjs');
+    }
+    console.log('distPath:', distPath);
+    console.log('srcPath:', srcPath);
+    console.log('ssrClientPath:', ssrClientPath);
 
     if (isDev()) {
         vite = await createViteServer({
