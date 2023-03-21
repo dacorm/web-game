@@ -68,7 +68,9 @@ class Board implements IBoard {
     * generateMoveSequence() {
         if (this.players.length) {
             while (true) {
-                for (let i = 0; i < this.players.length; i++) {
+                let playerLength = this.players.length;
+                for (let i = 0; i < this.players.length; playerLength === this.players.length ? i++ : null) {
+                    playerLength = this.players.length;
                     yield this.players[i].userId;
                 }
             }

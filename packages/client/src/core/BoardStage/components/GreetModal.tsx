@@ -6,7 +6,7 @@ import Modal from '../../../shared/ui/Modal';
 
 type Props = {
   isShow: boolean
-  onClose: () => void
+
 }
 
 export const GreetModal = memo((props: Props) => (

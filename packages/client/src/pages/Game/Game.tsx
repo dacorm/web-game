@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BoardStage } from '../../core/BoardStage/BoardStage';
 import { BoardProvider } from '../../core/BoardStage/BoardProvider';
 import style from './Game.module.css';
@@ -10,10 +10,11 @@ import { getId, getUserAvatar, getUserName } from '../../redux/reducers/userRedu
 
 import defaultAvatar from '../../assets/img/defaultUserAvatar.png';
 import { UsersData } from '../../components/Game/UserData/UsersData';
+import { setAllActivePlayers } from '../../redux/actionCreators/game';
 
 export default function Game() {
     const location = useLocation();
-    const [players, setPlayers] = useState<TPlayer[] | null>(null);
+    const dispatch = useDispatch();
 
     const userName = useSelector(getUserName);
     const userAvatar = useSelector(getUserAvatar);
@@ -21,7 +22,6 @@ export default function Game() {
 
     // устанавливаем игроков
     useEffect(() => {
-        if (players && players.length) return;
         const { countPlayers } = location.state;
         const playersArray = [] as TPlayer[];
 
@@ -41,7 +41,7 @@ export default function Game() {
             }
         }
 
-        setPlayers(playersArray);
+        dispatch(setAllActivePlayers(playersArray));
     }, []);
 
     return (
@@ -52,7 +52,7 @@ export default function Game() {
                         <UsersData />
                     </Col>
                     <Col xs={9} className={style.col}>
-                        <BoardStage players={players} />
+                        <BoardStage />
                     </Col>
                 </Row>
             </Grid>

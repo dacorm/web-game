@@ -8,6 +8,8 @@ export const getCellIsMoving = (state: AppStateType): boolean => state.game.cell
 export const getCurrentPlayer = (state: AppStateType): Player => state.game.currentPlayer;
 /** получить всех игроков */
 export const getAllPlayers = (state: AppStateType): Player[] => state.game.players;
+/** получить всех активных игроков */
+export const getAllActivePlayers = (state: AppStateType): TPlayer[] => state.game.activePlayers;
 /** получить значения кубиков */
 export const getRollTheDice = (state: AppStateType): number[] => state.game.rollTheDice;
 /** может ли игрок кинуть кубики */

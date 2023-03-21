@@ -14,7 +14,19 @@
     font-family: fallout;
     box-shadow: 10px 5px 5px gray;
     padding: 10px;
+    height: 100px;
+    position: relative;
+    transition: all 0.2s;
 
+}
+.userData:hover{
+    align-items: start;
+    height: 130px;
+    
+   
+}
+.userData:hover .menu {
+    visibility: visible;
 }
 .userData:not(:last-child) {
     margin-bottom: 40px;
@@ -59,4 +71,24 @@
 .data {
     min-width: 40%;
     font-size: 22px;
+}
+
+
+.menu{
+    position: absolute;
+    bottom: 5px;
+    visibility: hidden;
+    display: flex;
+    left: 20px;
+    cursor: pointer;
+     
+}
+
+
+.defaulterWrapper {
+    margin-bottom: 10px;
+    text-align: center
+}
+.btnModal {
+  margin-top: 20px;
 }

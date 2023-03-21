@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -7,15 +7,19 @@ import { Player } from '../../models/Player/Player';
 import { board } from '../../models/Board/Board';
 import { ActiveCanvasProps, TAnimateFunc } from './types/activeCanvas.types';
 import { addNewGameChatMessage } from '../../redux/actionCreators/game';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { getAllActivePlayers } from '../../redux/reducers/gameReducer/gameSelector';
 
 // Активный канвас. На нем будет рисоваться вся графика при взаимодействии с пользователем
 export const activeCanvas = ({
-    width, height, squares, players,
+    width, height, squares,
 }: ActiveCanvasProps) => {
+    const players = useTypedSelector(getAllActivePlayers);
     // todo: добавить объект в стор
     const ref = useRef<Canvas>(new Canvas({ width, height }));
     const frame = useRef<number>(0);
     const dispatch = useDispatch<Dispatch>();
+    const [isMounted, setIsMounted] = useState<boolean>(false);
 
     const context = ref.current.getContext();
     const stop = () => cancelAnimationFrame(frame.current);
@@ -37,11 +41,13 @@ export const activeCanvas = ({
             );
         }
         if (board.players.length && players?.length !== board.players.length) {
-            board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
+            board.players = board.players.filter((player) => players?.some(({ userId }) => player.userId === userId));
         }
-
-        board.createGeneratorMoveSequnce();
-        board.initAllPlayers();
+        if (!isMounted) {
+            board.createGeneratorMoveSequnce();
+        }
+        setIsMounted(true);
+        // board.initAllPlayers();
     }, [players]);
 
     // при ресайзе доски переинициализируем фишки и саму доску

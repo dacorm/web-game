@@ -25,6 +25,12 @@ class StationCard extends Card implements IStationCard {
         this.cell = null;
     }
 
+    resetCard() {
+        this.stateCard = StateCard.FREE;
+        this.owner = null;
+        this?.cell?.createColorOwner('white');
+    }
+
     changeOwner(player: Player) {
         this.owner = player;
         if (this.cell) {

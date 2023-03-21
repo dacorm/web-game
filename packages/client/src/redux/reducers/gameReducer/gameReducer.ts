@@ -1,3 +1,4 @@
+import { TPlayer } from '../../../pages/Game/Game.types';
 import { Util } from '../../../core/Util';
 import { board } from '../../../models/Board/Board';
 import { ActionType } from '../../store';
@@ -10,6 +11,7 @@ const initialState: userGame = {
     actionStarting: false,
     turnCompleted: false,
     players: [],
+    activePlayers: [],
     messages: [],
     cellForModal: null,
     cardModalIsShow: false,
@@ -33,12 +35,14 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
     case GameActionTypes.SET_CURRENT_PLAYER: {
         board.setNextTurn();
         const currentTurn = board.getCurrentTurn();
+        console.log('currentTurn - ', currentTurn);
         const player = board.getPlayerById(currentTurn);
         return {
             ...state,
             currentPlayer: player,
         };
     }
+
     case GameActionTypes.UPDATE_CURRENT_PLAYER: {
         const currentTurn = board.getCurrentTurn();
         const player = board.getPlayerById(currentTurn);
@@ -55,6 +59,25 @@ export const gameReducer = (state:userGame = initialState, action:ActionType = i
         return {
             ...state,
             players: [...players],
+        };
+    }
+    case GameActionTypes.SET_ACTIVE_PLAYERS: {
+        const players = action.payload;
+        console.log('playe!!!rs - ', players);
+
+        return {
+            ...state,
+            activePlayers: players,
+        };
+    }
+    case GameActionTypes.DELETE_ACTIVE_PLAYER: {
+        const idPlayer = action.payload;
+
+        return {
+            ...state,
+            activePlayers: state.activePlayers.filter(
+                (player: TPlayer) => player.userId !== idPlayer,
+            ),
         };
     }
     case GameActionTypes.ROLL_THE_DICE: {

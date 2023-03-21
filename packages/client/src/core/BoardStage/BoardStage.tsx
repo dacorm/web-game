@@ -14,9 +14,8 @@ import {
     rollTheDiceFalse,
     rollTheDiceTrue, setAllPlayers, setCurrentPlayer, turnStart,
 } from '../../redux/actionCreators/game';
-import { BoardStageProps } from './BoardStage.types';
 import {
-    getActionStarting, getCurrentPlayer, getRollTheDice, getTurnCompleted,
+    getActionStarting, getAllActivePlayers, getCurrentPlayer, getRollTheDice, getTurnCompleted,
 } from '../../redux/reducers/gameReducer/gameSelector';
 import ChatBoard from '../../components/Game/Chat/ChatBoard';
 import ControllerBoard from '../../components/Game/ControllerBoard';
@@ -25,11 +24,13 @@ import { PunishModal } from './components/PunishModal';
 import { board } from '../../models/Board/Board';
 import { ModalCard } from '../../components/Game/ModalCard/ModalCard';
 import store from '../../redux/store';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardStageProps) => {
+export const BoardStage: FC<{}> = React.memo(() => {
     const ref = useRef<HTMLDivElement>(null);
     const rect = useResizeObserver(ref);
     const random = useSelector(getRollTheDice);
+    const players = useTypedSelector(getAllActivePlayers);
 
     const [isGameStarting, setIsGameStarting] = useState<boolean>(false);
     // todo: это состояние нужно перетащить в модалки
@@ -45,6 +46,9 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
 
     const closeModal = useCallback((keyType: keyof typeof modals) => () => {
         setModals((prev) => ({ ...prev, [keyType]: false }));
+    }, []);
+    const openModal = useCallback((keyType: keyof typeof modals) => {
+        setModals((prev) => ({ ...prev, [keyType]: true }));
     }, []);
 
     /**  Завершение хода */
@@ -89,7 +93,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
     const activeLayer = activeCanvas({
         ...containerSizes,
         squares: random,
-        players,
+
     });
 
     const handlerActiveCanvasClicker = useCallback((e: MouseEvent) => {
@@ -117,6 +121,10 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
             setIsGameStarting(true);
             initStartGame();
         }
+
+        if (players.length === 1) {
+            openModal('showWinModal');
+        }
     }, [players]);
 
     return (
@@ -129,7 +137,7 @@ export const BoardStage: FC<BoardStageProps> = React.memo(({ players }: BoardSta
                     <ChatBoard />
                 </div>
             </div>
-            <GreetModal isShow={modals.showWinModal} onClose={closeModal('showWinModal')} />
+            <GreetModal isShow={modals.showWinModal} />
             <PunishModal isShow={modals.showLoseModal} onClose={closeModal('showLoseModal')} />
             <ModalCard />
 
