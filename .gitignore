@@ -7,3 +7,7 @@ tmp
 /yarn-error.log
 /yarn.lock
 .git/
+/packages/client/dist
+/packages/client/ssr-dist
+/packages/server/client
+/packages/server/dist
