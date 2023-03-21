@@ -37,18 +37,18 @@ export default defineConfig({
     define: {
         __SERVER_PORT__: process.env.SERVER_PORT,
     },
-    build: {
-        lib: {
-            entry: path.resolve(__dirname, 'src/main.tsx'),
-            name: 'main',
-            formats: ['cjs'],
-        },
-        rollupOptions: {
-            output: {
-                dir: 'dist',
-            },
-        },
-    },
+    // build: {
+    //     lib: {
+    //         entry: path.resolve(__dirname, 'src/main.tsx'),
+    //         name: 'main',
+    //         formats: ['cjs'],
+    //     },
+    //     rollupOptions: {
+    //         output: {
+    //             dir: 'dist',
+    //         },
+    //     },
+    // },
     plugins: [
         react(),
     ],

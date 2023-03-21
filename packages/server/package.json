@@ -5,6 +5,8 @@
   "scripts": {
     "build": "tsc --p ./tsconfig.prod.json",
     "buildProd": "cross-env NODE_ENV=production tsc --p ./tsconfig.prod.json",
+    "serve": "cross-env NODE_ENV=production nodemon index.ts",
+    "serve2": "cross-env NODE_ENV=production ts-node index.ts",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "prod": "cross-env NODE_ENV=production node ./dist/index.js",
