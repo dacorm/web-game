@@ -12,6 +12,7 @@ import store from '../../redux/store';
 import { Cell } from '../Cell/Cell';
 import { BoardCellAxis } from '../../core/types';
 import Property from '../Cards/PropertyCard/PropertyCard';
+import StationCard from '../Cards/StationCard';
 
 export interface Player {
   x: number
@@ -28,7 +29,7 @@ export interface Player {
   displayName: string
   property: Property[]
   canBuyHouse: boolean;
-  stations: any // пока нету класса жд дорог так что any
+  stations: StationCard[] // пока нету класса жд дорог так что any
   balance: number
   prisoner: boolean
   countMoves: number

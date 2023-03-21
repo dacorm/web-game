@@ -10,7 +10,7 @@ export const TitleController = () => {
         <div className={styles.title}>
             Ход игрока:
             {' '}
-            <span className={styles.playerName}>{currentPlayer.displayName}</span>
+            <span className={styles.playerName}>{currentPlayer?.displayName}</span>
         </div>
     );
 };

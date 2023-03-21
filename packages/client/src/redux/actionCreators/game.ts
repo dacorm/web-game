@@ -1,3 +1,4 @@
+import { TPlayer } from '../../pages/Game/Game.types';
 import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
 import { Cell } from '../../models/Cell/Cell';
 import { GameActionTypes } from '../types/gameReducer.types';
@@ -13,6 +14,7 @@ export const stopCellMoving = () => ({
 export const setCurrentPlayer = () => ({
     type: GameActionTypes.SET_CURRENT_PLAYER,
 });
+
 /** обновляем данные игрока из доски в стор */
 export const updateCurrentPlayer = () => ({
     type: GameActionTypes.UPDATE_CURRENT_PLAYER,
@@ -20,6 +22,16 @@ export const updateCurrentPlayer = () => ({
 /** инициализируем всех игроков */
 export const setAllPlayers = () => ({
     type: GameActionTypes.SET_ALL_PLAYERS,
+});
+/** инициализируем всех активных игроков */
+export const setAllActivePlayers = (players: TPlayer[]) => ({
+    type: GameActionTypes.SET_ACTIVE_PLAYERS,
+    payload: players,
+});
+/** удаление игрока из активных игроков */
+export const deleteActivePlayer = (id: number) => ({
+    type: GameActionTypes.DELETE_ACTIVE_PLAYER,
+    payload: id,
 });
 /** кидаем кубик */
 export const rollTheDice = () => ({

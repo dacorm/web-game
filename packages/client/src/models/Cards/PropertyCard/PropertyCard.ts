@@ -35,6 +35,16 @@ class PropertyCard extends Card implements IPropertyCard {
         this.canBuyHouse = true;
     }
 
+    resetCard() {
+        this.stateCard = StateCard.FREE;
+        this.owner = null;
+        if (this.houses > 0) {
+            this.cell?.createHouse(0);
+            this.houses = 0;
+        }
+        this?.cell?.createColorOwner('white');
+    }
+
     /** Купить недвижимость */
     buy(player: Player) {
         const payment = player.payMoneyToTheBank(this.prices.buyCard);

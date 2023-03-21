@@ -1,3 +1,4 @@
+import { TPlayer } from '../../pages/Game/Game.types';
 import { Cell } from '../../models/Cell/Cell';
 import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
 import { Player } from '../../models/Player/Player';
@@ -12,6 +13,7 @@ export interface userGame {
   actionStarting: boolean
   turnCompleted: boolean
   players: Player[]
+  activePlayers: TPlayer[]
   messages: TGameChatMessage[]
   cellForModal: null | Cell
   cardModalIsShow: boolean
@@ -32,6 +34,8 @@ export enum GameActionTypes {
   TURN_STOP = 'TURN_STOP',
   ADD_NEW_GAME_CHAT_MESSAGE = ' ADD_NEW_GAME_CHAT_MESSAGE',
   SET_ALL_PLAYERS = 'SET_ALL_PLAYERS',
+  SET_ACTIVE_PLAYERS = 'SET_ACTIVE_PLAYERS',
+  DELETE_ACTIVE_PLAYER = 'DELETE_ACTIVE_PLAYER',
   OPEN_CARD_MODAL = 'OPEN_CARD_MODAL',
   SET_CELL_IN_CARD_MODAL = 'SET_CELL_IN_CARD_MODAL',
   CLOSE_CARD_MODAL = 'CLOSE_CARD_MODAL',
