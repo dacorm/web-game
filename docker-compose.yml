@@ -14,8 +14,17 @@ services:
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
+      CLIENT_PORT: ${CLIENT_PORT}
       SERVER_PORT: ${SERVER_PORT}
-      depends_on: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_OUT_PORT: ${POSTGRES_OUT_PORT}
+      HOST_NAME: ${HOST_NAME}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      - postgres
   postgres:
     container_name: postgres
     image: postgres:14
