@@ -13,13 +13,15 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 RUN yarn bootstrap
-RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+RUN rm -rf /app/packages/server/dist/ && yarn build
 
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
 
 COPY --from=builder /app/packages/server/dist/ /app/
+COPY --from=builder /app/packages/client/dist/ /app/client/dist/
+COPY --from=builder /app/packages/client/ssr-dist/ /app/client/ssr-dist/
 COPY --from=builder /app/packages/server/package.json /app/package.json
 
 RUN yarn install --production=true

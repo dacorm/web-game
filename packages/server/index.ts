@@ -136,11 +136,27 @@ async function startServer() {
     // const ssrClientPath = path.resolve(__dirname, 'node_modules/client/ssr-dist/client.cjs');
 
     console.log('__dirname:', __dirname);
-    const distPath = path.resolve(__dirname, '../client/dist/');
+    // const distPath = path.resolve(__dirname, '../client/dist/');
+    // console.log('distPath:', distPath);
+    // const srcPath = path.resolve(__dirname, '../client');
+    // console.log('srcPath:', srcPath);
+    // const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
+    // console.log('ssrClientPath:', ssrClientPath);
+
+    let distPath: string;
+    let srcPath: string;
+    let ssrClientPath: string;
+    if (isDev()) {
+        distPath = path.resolve(__dirname, '../client/dist/');
+        srcPath = path.resolve(__dirname, '../client');
+        ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
+    } else {
+        distPath = path.resolve(__dirname, './client/dist/');
+        srcPath = path.resolve(__dirname, './client');
+        ssrClientPath = path.resolve(__dirname, './client/ssr-dist/client.cjs');
+    }
     console.log('distPath:', distPath);
-    const srcPath = path.resolve(__dirname, '../client');
     console.log('srcPath:', srcPath);
-    const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/client.cjs');
     console.log('ssrClientPath:', ssrClientPath);
 
     if (isDev()) {
