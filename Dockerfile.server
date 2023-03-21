@@ -21,6 +21,7 @@ WORKDIR /app
 
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
+
 RUN yarn install --production=true
 
 EXPOSE $SERVER_PORT
