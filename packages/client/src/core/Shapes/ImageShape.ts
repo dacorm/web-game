@@ -54,6 +54,8 @@ export class ImageShape extends Shape implements IImageShape {
             const {
                 offsetX, offsetY, width, height,
             } = contain(this.width, this.height, this.image.width, this.image.height);
+            this.pathShape = new Path2D();
+            this.pathShape.rect(this.x, this.y, this.width, this.height);
 
             context.save();
 

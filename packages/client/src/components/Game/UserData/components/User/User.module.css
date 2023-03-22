@@ -1,0 +1,94 @@
+@font-face {
+    font-family: fallout;
+    src: url(../../../../assets/fonts/overseerrusbydaymarius.ttf);
+}
+
+.userData {
+    max-width: 90%;
+    background: var(--color-black-opacity);
+    border-radius: 5px;
+    color: #4BB04B;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-family: fallout;
+    box-shadow: 10px 5px 5px gray;
+    padding: 10px;
+    height: 100px;
+    position: relative;
+    transition: all 0.2s;
+
+}
+.userData:hover{
+    align-items: start;
+    height: 130px;
+    
+   
+}
+.userData:hover .menu {
+    visibility: visible;
+}
+.userData:not(:last-child) {
+    margin-bottom: 40px;
+}
+
+.userImg {
+    width: 70px;
+    border-radius: 3px;
+    margin: 5px;
+    margin-right: 20px;
+
+}
+
+.balance {
+    font-size: 24px;
+}
+
+.color {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.color img {
+    width: 100%;
+
+}
+
+
+
+.hr {
+    background-color: #4BB04B;
+    color: #4BB04B;
+    height: 2px;
+    margin-top: 2px;
+}
+
+.data {
+    min-width: 40%;
+    font-size: 22px;
+}
+
+
+.menu{
+    position: absolute;
+    bottom: 5px;
+    visibility: hidden;
+    display: flex;
+    left: 20px;
+    cursor: pointer;
+     
+}
+
+
+.defaulterWrapper {
+    margin-bottom: 10px;
+    text-align: center
+}
+.btnModal {
+  margin-top: 20px;
+}

@@ -5,6 +5,7 @@ export type ShapeProps = {
 }
 
 export interface Shape {
+  pathShape: Path2D
   fill: string
   stroke: string
   strokeWidth: number

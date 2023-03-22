@@ -27,9 +27,11 @@ export const Modal: FC<ModalProps> = ({
                         {title}
                         {' '}
                     </h3>
-                    <div className={styles.titleClose} onClick={onClose}>
-                        &#10006;
-                    </div>
+                    { onClose && (
+                        <div className={styles.titleClose} onClick={onClose}>
+                            &#10006;
+                        </div>
+                    )}
                 </div>
                 <div className={styles.formWrapper}>{children}</div>
             </div>

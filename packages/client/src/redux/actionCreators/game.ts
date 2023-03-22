@@ -1,6 +1,7 @@
-import { GameActionTypes, GamePlayer } from '../types/gameReducer.types';
+import { TPlayer } from '../../pages/Game/Game.types';
 import { TGameChatMessage } from '../../components/Game/Chat/ChatBoard/ChatBoard.types';
-
+import { Cell } from '../../models/Cell/Cell';
+import { GameActionTypes } from '../types/gameReducer.types';
 /** сообщаем о начале передвижения фишки */
 export const startCellMoving = () => ({
     type: GameActionTypes.CELL_START_MOVING,
@@ -12,6 +13,29 @@ export const stopCellMoving = () => ({
 /** устанавливаем игрока, к которому перешел ход */
 export const setCurrentPlayer = () => ({
     type: GameActionTypes.SET_CURRENT_PLAYER,
+});
+
+/** обновляем данные игрока из доски в стор */
+export const updateCurrentPlayer = () => ({
+    type: GameActionTypes.UPDATE_CURRENT_PLAYER,
+});
+/** инициализируем всех игроков */
+export const setAllPlayers = () => ({
+    type: GameActionTypes.SET_ALL_PLAYERS,
+});
+/** инициализируем всех активных игроков */
+export const setAllActivePlayers = (players: TPlayer[]) => ({
+    type: GameActionTypes.SET_ACTIVE_PLAYERS,
+    payload: players,
+});
+/** удаление игрока из активных игроков */
+export const deleteActivePlayer = (id: number) => ({
+    type: GameActionTypes.DELETE_ACTIVE_PLAYER,
+    payload: id,
+});
+/** кидаем кубик */
+export const rollTheDice = () => ({
+    type: GameActionTypes.ROLL_THE_DICE,
 });
 /** разрешаем кидать кубик */
 export const rollTheDiceTrue = () => ({
@@ -37,45 +61,25 @@ export const turnStart = () => ({
 export const turnStop = () => ({
     type: GameActionTypes.TURN_STOP,
 });
+/** закрываем модалку с картой */
+export const closeModalCard = () => ({
+    type: GameActionTypes.CLOSE_CARD_MODAL,
+});
+/** открываем модалку с картой */
+export const openModalCard = () => ({
+    type: GameActionTypes.OPEN_CARD_MODAL,
+});
+/** открываем модалку с картой */
+export const setCellInCardModal = (cell: Cell) => ({
+    type: GameActionTypes.SET_CELL_IN_CARD_MODAL,
+    payload: cell,
+});
+/** завершить игру(очищение стора) */
+export const endGame = () => ({
+    type: GameActionTypes.END_GAME,
+});
 /** добавить событие в чат */
 export const addNewGameChatMessage = (message: TGameChatMessage) => ({
     type: GameActionTypes.ADD_NEW_GAME_CHAT_MESSAGE,
     payload: message,
-});
-/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЯ ВЫПАВШИЕ НА КУБИКАХ */
-export const setRandoms = (random:number[]) => ({
-    type: GameActionTypes.SET_RANDOM,
-    payload: random,
-});
-/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЕ GameID */
-export const setGameId = (id: number) => ({
-    type: GameActionTypes.SET_GAME_ID,
-    payload: id,
-});
-
-/** УСТАНАВЛИВАЕМ ЗНАЧЕНИЕ GameType */
-export const setGameType = (type:string) => ({
-    type: GameActionTypes.SET_GAME_TYPE,
-    payload: type,
-});
-
-/** УСТАНАВЛИВАЕМ ИГРОКОВ */
-export const setPlayers = (players:GamePlayer[]) => ({
-    type: GameActionTypes.SET_PLAYERS,
-    payload: players,
-});
-
-/** СООБЩАЕМ О СТАРТЕ ИГРЫ */
-export const startGame = () => ({
-    type: GameActionTypes.START_GAME,
-});
-
-/** ОЧИЩАЕМ ДАННЫЕ ИГРЫ - НУЖНО ЕСЛИ НАЧИНАЕМ НОВУЮ ИГРУ, А КЕШЕ СОДЕРЖАТЬСЯ ДАННЫЕ ОТ ПРЕДЫДУЩЕЙ */
-export const cleanGameData = () => ({
-    type: GameActionTypes.CLEAN_GAME_DATA,
-});
-
-export const addPlayerCurrentPosition = (data:{userId:number, currentPos:number}) => ({
-    type: GameActionTypes.ADD_PLAYER_CURRENT_POSITION,
-    payload: data,
 });

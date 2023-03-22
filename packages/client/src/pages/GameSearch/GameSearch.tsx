@@ -1,12 +1,14 @@
 import React, {
     FC, useCallback, useState,
 } from 'react';
-import CreateGameForm from '../../components/GameSearch/CreateGameForm';
+
 import GameSearchBlock from '../../components/GameSearch/GameSearchBlock';
 import MenuHeader from '../../components/MenuHeader';
 import Modal from '../../shared/ui/Modal';
 import './GameSearch.css';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import CreateGameForm from '../../components/GameSearch/CreateGameForm';
+import { ProtectedRoute } from '../../hof/protectedRoute';
 
 // import {
 //     sendMessage,
@@ -53,26 +55,29 @@ const GameSearch: FC = () => {
 
     return (
         <div className="search-game">
-
             <MenuHeader
-                text={(wsStatus === 'ready') ? 'Ожидают игру' : 'Подключение к серверу...'}
+                text={
+                    wsStatus === 'ready' ? 'Ожидают игру' : 'Подключение к серверу...'
+                }
                 buttonText="Создать игру"
                 onClick={openCreateGameModal}
             />
 
             {/* eslint-disable-next-line react/button-has-type */}
-            <button onClick={GetAllGamesHandler}>   Получить все игры с сервера</button>
+            <button onClick={GetAllGamesHandler}>
+                {' '}
+                Получить все игры с сервера
+            </button>
             <GameSearchBlock />
             <Modal
                 title="Создание игры"
                 isShow={createGameModal}
                 onClose={closeCreateGameModal}
-
             >
-                <CreateGameForm network={(wsStatus === 'ready')} />
+                <CreateGameForm />
             </Modal>
         </div>
     );
 };
 
-export default GameSearch;
+export default ProtectedRoute(GameSearch, {});

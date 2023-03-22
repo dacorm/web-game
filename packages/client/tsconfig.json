@@ -18,4 +18,5 @@
   },
   "include": ["src", ".d.ts", "@types/*.d.ts", "./config/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
+  "exclude": ["node_modules", "dist", "ssr-dist"]
 }

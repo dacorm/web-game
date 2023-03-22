@@ -1,27 +1,30 @@
 .card {
     border: 1px solid var(--color-black);
-    width: 80%;
-    height: 100%;
+    width: 400px;
+    margin: 0px auto;
+    height: auto;
     background-color: var(--color-white);
+   
+    
 }
 .title {
-  height: 20%;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2vh;
+  font-size: 20px;
   font-weight: bold;
 }
 .wrapper {
     padding: 15px;
-    font-size: 1.8vh;
+    font-size: 17px;
 }
 .info {
    width: 100%;
    height: 100%;
 }
 .renta {
-   margin-bottom: 3%
+   margin-bottom: 20px
 }
 .dollar {
     text-align: right;
@@ -40,7 +43,7 @@
     border-bottom: 1px solid var(--color-black);
     text-align: center;
     margin-bottom: 15px;
-    font-size: 1.8vh;
+    font-size: 16px;
 }
 .pledge {
     margin-top: 15px;

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "composite": true,
     "target": "es2019",
     "module": "commonjs",
@@ -27,5 +28,6 @@
       "*": ["types/*"]
     },
     "outDir": "dist"
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }

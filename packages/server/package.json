@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "--p ./tsconfig.prod.json",
+    "build": "tsc --p ./tsconfig.prod.json",
+    "buildProd": "cross-env NODE_ENV=production tsc --p ./tsconfig.prod.json",
+    "serve": "cross-env NODE_ENV=production nodemon index.ts",
+    "serve2": "cross-env NODE_ENV=production ts-node index.ts",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
+    "prod": "cross-env NODE_ENV=production node ./dist/index.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest .",
@@ -22,7 +26,8 @@
     "prettier": "^2.7.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.28.1",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "^2.1.5",
+    "vite": "3.0.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

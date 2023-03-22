@@ -8,7 +8,6 @@ import store, { configureStore } from './src/redux/store';
 export { configureStore };
 
 export function render(url) {
-    console.log('SSR.tsx!!!!!!!!!!!!!!!!!!!!!');
     return renderToString(
         <Provider store={store}>
             <StaticRouter location={url}>

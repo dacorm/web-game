@@ -1,6 +1,8 @@
 import { Player } from '../Player/Player';
 import { IBoard } from './Board.types';
 import { boardStageData } from '../../core/BoardStage/helpers/boardStageData';
+import { BoardCellGroup } from '../../core/types';
+import PropertyCard from '../Cards/PropertyCard';
 
 class Board implements IBoard {
     stage: ReturnType<typeof boardStageData> | undefined;
@@ -22,6 +24,21 @@ class Board implements IBoard {
         return undefined;
     }
 
+    getCellByGroup(group: BoardCellGroup) {
+        const cells = this.cells?.filter(
+            (cell) => (cell?.card as PropertyCard)?.group === group,
+        );
+        console.log('cells - ', cells);
+        return cells;
+    }
+
+    endGame() {
+        this.stage = undefined;
+        this.currentTurn = null;
+        this.players = [];
+        this.generatorMoveSequence = undefined;
+    }
+
     getPlayerById(id: number | null) {
         for (let i = 0; i < this.players.length; i++) {
             if (this.players[i].userId === id) {
@@ -29,6 +46,10 @@ class Board implements IBoard {
             }
         }
         return null;
+    }
+
+    getPlayers() {
+        return this.players;
     }
 
     /** инициализация фишек */
@@ -47,7 +68,9 @@ class Board implements IBoard {
     * generateMoveSequence() {
         if (this.players.length) {
             while (true) {
-                for (let i = 0; i < this.players.length; i++) {
+                let playerLength = this.players.length;
+                for (let i = 0; i < this.players.length; playerLength === this.players.length ? i++ : null) {
+                    playerLength = this.players.length;
                     yield this.players[i].userId;
                 }
             }

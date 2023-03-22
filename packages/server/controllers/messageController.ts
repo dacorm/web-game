@@ -5,7 +5,7 @@ class MessageController {
     // eslint-disable-next-line class-methods-use-this
     async getAll(req: Request, res: Response) {
         try {
-            console.log('Пришел запрос');
+            // console.log('Пришел запрос');
             const { themeId } = req.query;
             const data = await messageServise.findAll(Number(themeId));
             res.send(data);
@@ -18,7 +18,7 @@ class MessageController {
     async getMesWithUserInfo(req: Request, res: Response) {
         try {
             const { themeId } = req.query;
-            console.log('Пришел запрос', req.query);
+            // console.log('Пришел запрос', req.query);
             const data = await messageServise.getMesWithUserInfo(Number(themeId));
             res.send(data);
         } catch (e) {

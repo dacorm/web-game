@@ -21,6 +21,7 @@ const RegisterPage = routerSuspense(
 );
 const LoginPage = routerSuspense(lazy(() => import('../../pages/AuthPage')));
 const LandingPage = routerSuspense(lazy(() => import('../../pages/Landing')));
+const NotFoundPage = routerSuspense(lazy(() => import('../../pages/NotFoundPage')));
 
 const RouterLayout = () => (
     <Routes>
@@ -41,6 +42,7 @@ const RouterLayout = () => (
         </Route>
         <Route path={ROUTES.REGISTER} element={RegisterPage} />
         <Route path={ROUTES.AUTH} element={LoginPage} />
+        <Route path="*" element={NotFoundPage} />
     </Routes>
 );
 

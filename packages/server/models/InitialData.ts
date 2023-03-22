@@ -108,7 +108,7 @@ export async function InitialUsersData() {
         for (let i = 0; i < initialUsers.length; i++) {
             // eslint-disable-next-line no-await-in-loop
             const userData = await userService.findByLogin((initialUsers[i].login));
-            console.log('userData', userData);
+            // console.log('userData', userData);
             if (userData === null) {
                 console.log('CREATE USER');
                 userService.createUser(
@@ -131,7 +131,7 @@ export async function InitialForumsData() {
         for (let i = 0; i < initialForums.length; i++) {
             // eslint-disable-next-line no-await-in-loop
             const forumData = await forumServise.findBythemeName(initialForums[i].themeName);
-            console.log('forumData ', forumData);
+            // console.log('forumData ', forumData);
             if (forumData === null) {
                 forumServise.createForum(
                     initialForums[i].createdById,
@@ -148,7 +148,7 @@ export async function InitialMessagesData() {
         for (let i = 0; i < initialMessages.length; i++) {
             // eslint-disable-next-line no-await-in-loop
             const mesData = await messageServise.findOne(initialMessages[i].text, initialMessages[i].authorId);
-            console.log('mesData', mesData);
+            // console.log('mesData', mesData);
             if (mesData === null) {
                 messageServise.create(
                     initialMessages[i].themeId,

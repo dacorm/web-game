@@ -2,7 +2,7 @@ import { redirectURI, UserURL } from '../redux/types/userReducer.types';
 
 class UserApi {
     // eslint-disable-next-line class-methods-use-this
-    async login(userName: string, password:string) {
+    async login(userName: string, password: string) {
         const res = await fetch(UserURL.LOGIN, {
             method: 'POST',
             headers: {
@@ -83,6 +83,35 @@ class UserApi {
         return await fetch(UserURL.AVATAR, {
             method: 'PUT',
             body: fd,
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async createCssTheme(themeName: string, login: string) {
+        return await fetch('/api/createcsstheme', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                themeName,
+                login,
+            }),
+            credentials: 'include',
+        });
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async getCssTheme(login: string) {
+        return await fetch('/api/getcsstheme', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                login,
+            }),
             credentials: 'include',
         });
     }
