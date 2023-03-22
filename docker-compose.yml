@@ -3,8 +3,8 @@ version: "3.9"
 services:
 
   server:
-    container_name: practicum-server
-    image: practicum-server
+    container_name: server
+    image: server
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -45,4 +45,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: 12345
     ports:
       - "5050:80"
-
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
