@@ -12,4 +12,5 @@ export const defaultProtocol = 'http';
 // @ts-ignore
 export const protocol = import.meta.env.VITE_PROTOCOL || defaultProtocol;
 
+// note: use relative path instead of absolute
 export const fullServerHostNamePrefixNoSlash = `${protocol}://${hostName}:${serverPort}`;
