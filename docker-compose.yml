@@ -10,7 +10,12 @@ services:
       dockerfile: Dockerfile.server
       args:
         SERVER_PORT: ${SERVER_PORT}
-    restart: always
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 90s
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
@@ -30,6 +35,12 @@ services:
     image: postgres:14
     ports:
       - "${POSTGRES_OUT_PORT}:${POSTGRES_PORT}"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 90s
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -40,6 +51,12 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 90s
     environment:
       PGADMIN_DEFAULT_EMAIL: noemail@noemail.com
       PGADMIN_DEFAULT_PASSWORD: 12345
@@ -47,6 +64,12 @@ services:
       - "5050:80"
   nginx:
     image: nginx:stable-alpine
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 90s
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
